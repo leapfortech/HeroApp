@@ -1,0 +1,33 @@
+pluginManagement {
+    repositories {
+        **ARTIFACTORYREPOSITORY**
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
+include ':launcher', ':unityLibrary'
+**INCLUDES**
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        **ARTIFACTORYREPOSITORY**
+        google()
+        mavenCentral()
+// Android Resolver Repos Start
+        def unityProjectPath = $/file:///**DIR_UNITYPROJECT**/$.replace("\\", "/")
+        maven {
+            url (unityProjectPath + "/Assets/LeapDataWeb/Runtime/Firebase/m2repository") // Packages/com.lefortech.data.web/Runtime/Firebase/Editor/AppDependencies.xml:23, Packages/com.lefortech.data.web/Runtime/Firebase/Editor/AuthDependencies.xml:21, Packages/com.lefortech.data.web/Runtime/Firebase/Editor/MessagingDependencies.xml:25
+        }
+        maven {
+            url (unityProjectPath + "/Assets/Repository/Runtime/Firebase/m2repository") // Packages/com.lefortech.data.web/Runtime/Firebase/Editor/AppDependencies.xml:23, Packages/com.lefortech.data.web/Runtime/Firebase/Editor/AuthDependencies.xml:21, Packages/com.lefortech.data.web/Runtime/Firebase/Editor/MessagingDependencies.xml:25
+        }
+        mavenLocal()
+// Android Resolver Repos End
+        flatDir {
+            dirs "${project(':unityLibrary').projectDir}/libs"
+        }
+    }
+}

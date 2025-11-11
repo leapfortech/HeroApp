@@ -1,0 +1,287 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1726182683, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
+  m_Name: AOTGenerationConfig
+  m_EditorClassIdentifier: 
+  automateBeforeBuilds: 1
+  deleteDllAfterBuilds: 1
+  AutomateForAllAOTPlatforms: 1
+  automateForPlatforms: 090000000d000000
+  supportSerializedTypes:
+  - TypeName: System.Boolean, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.Color, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataBuiltInMap, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataClass, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataClassMap, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldElement, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldListScroller, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldSource, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldValue, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldValueList, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataFieldWheelScroller, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataMapping, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataMapType, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Mapper.DataSourceType, Leap.Data.Mapper
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.Int32, mscorlib],[Leap.Data.Collections.ValueRecord,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
+      mscorlib]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyColor,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyFloat,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyFont,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertySprite,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.ThemePropertyColor,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.ThemePropertyFloat,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.ThemePropertyFont,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.ThemePropertySprite,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.Data.Collections.ValueRecord,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ElementType, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ElementValue, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Single, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.GenericEqualityComparer`1[[System.Int32,
+      mscorlib]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+      mscorlib]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.IEqualityComparer`1[[System.Int32, mscorlib]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.IEqualityComparer`1[[System.String, mscorlib]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Int32, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.Data.Mapper.DataFieldValue,
+      Leap.Data.Mapper]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[System.Collections.Generic.Dictionary`2[[System.String,
+      mscorlib],[Leap.Data.Collections.ValueRecord, Leap.Data.Collections]], mscorlib]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[System.String, mscorlib]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyColor,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyFloat,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyFont,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertySprite,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.ThemeElement, Leap.UI.Elements]],
+      mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.ThemePropertyColor,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.ThemePropertyFloat,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.ThemePropertyFont,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.UI.Elements.ThemePropertySprite,
+      Leap.UI.Elements]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.Data.Collections.ValueCell,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.Data.Collections.ValueColumn,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.Data.Collections.ValueRecord,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.Collections.Generic.List`1[[Leap.Data.Collections.ValueRecordFilter,
+      Leap.Data.Collections]], mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ListItem, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ListScroller, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.RecordOperator, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: UnityEngine.Sprite, UnityEngine.CoreModule
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.State, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.State[], Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: System.String, mscorlib
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.Style, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.StylePropertyColor, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.StylePropertyFont, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.StylePropertySprite, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.Theme, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ThemeElement, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ThemePropertyColor, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ThemePropertyFloat, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ThemePropertyFont, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.ThemePropertySprite, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: TMPro.TMP_FontAsset, Unity.TextMeshPro
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueCell, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueCellSprite, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueCellString, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueColumn, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueColumnFilter[], Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueColumnType, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueList, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueRecord, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.Data.Collections.ValueRecordFilter, Leap.Data.Collections
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.WheelItem, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1
+  - TypeName: Leap.UI.Elements.WheelScroller, Leap.UI.Elements
+    IsCustom: 0
+    Emit: 1

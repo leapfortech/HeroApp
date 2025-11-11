@@ -1,0 +1,528 @@
+{
+  "dependencies": {
+    "com.lefortech.core.debug": {
+      "version": "https://github.com/leapfortech/LeapCoreDebug.git#1.0.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git#0.1.7"
+      },
+      "hash": "4437bc2752cfafcd730a6d500e009afbbc97b5c6"
+    },
+    "com.lefortech.core.security": {
+      "version": "https://github.com/leapfortech/LeapCoreSecurity.git#1.0.6",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git"
+      },
+      "hash": "654c4ee189ccdfe9a7782fedde5ff283d6296676"
+    },
+    "com.lefortech.core.tools": {
+      "version": "https://github.com/leapfortech/LeapCoreTools.git#1.1.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5f98619180de29fb14b6e7ea22eab03eee6c6d31"
+    },
+    "com.lefortech.data.collections": {
+      "version": "https://github.com/leapfortech/LeapDataCollections.git#1.0.10",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.graphics.tools": "https://github.com/leapfortech/LeapGraphicsTools.git"
+      },
+      "hash": "c29d20963ee7a0af827d08fdbd3dda58e657a7ee"
+    },
+    "com.lefortech.data.mapper": {
+      "version": "https://github.com/leapfortech/LeapDataMapper.git#1.0.9",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.graphics.tools": "https://github.com/leapfortech/LeapGraphicsTools.git",
+        "com.lefortech.data.collections": "https://github.com/leapfortech/LeapDataCollections.git",
+        "com.lefortech.ui.elements": "https://github.com/leapfortech/LeapUIElements.git",
+        "com.lefortech.ui.page": "https://github.com/leapfortech/LeapUIPage.git"
+      },
+      "hash": "26cb5983e39a12ff76e6fea9643c8e8a3a7a862c"
+    },
+    "com.lefortech.data.remote": {
+      "version": "https://github.com/leapfortech/LeapDataRemote.git#1.0.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.security": "https://github.com/leapfortech/LeapCoreSecurity.git",
+        "com.lefortech.data.collections": "https://github.com/leapfortech/LeapDataCollections.git",
+        "com.lefortech.data.web": "https://github.com/leapfortech/LeapDataWeb.git"
+      },
+      "hash": "0829969a00cf9e0c82f4149c79e8dfa62e7b93ea"
+    },
+    "com.lefortech.data.web": {
+      "version": "https://github.com/leapfortech/LeapDataWeb.git#1.5.6",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.security": "https://github.com/leapfortech/LeapCoreSecurity.git"
+      },
+      "hash": "e879e74f8f056973b8fef3e1dec8e15347cb47c5"
+    },
+    "com.lefortech.finance.payment": {
+      "version": "https://github.com/leapfortech/LeapFinancePayment.git#1.1.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "36ca3b2f943194068f2b649cdb990b681aa69b14"
+    },
+    "com.lefortech.graphics.collections": {
+      "version": "https://github.com/leapfortech/LeapGraphicsCollections.git#1.0.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.graphics.tools": "https://github.com/leapfortech/LeapGraphicsTools.git",
+        "com.lefortech.data.collections": "https://github.com/leapfortech/LeapDataCollections.git"
+      },
+      "hash": "6a57dda57048b18986ab456f3e5113dc6d5efc63"
+    },
+    "com.lefortech.graphics.tools": {
+      "version": "https://github.com/leapfortech/LeapGraphicsTools.git#1.2.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git"
+      },
+      "hash": "330ab02fd908b2873fbe0573bbcffeedebc1d204"
+    },
+    "com.lefortech.identity.entitylists": {
+      "version": "https://github.com/leapfortech/LeapIdentityEntityLists.git#0.1.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.security": "https://github.com/leapfortech/LeapDataWeb.git"
+      },
+      "hash": "8755083beee87e11b7aedd7162c39a29ffe9847f"
+    },
+    "com.lefortech.identity.registry": {
+      "version": "https://github.com/leapfortech/LeapIdentityRegistry.git#0.1.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "ec2891a67d3950e397ae219721730a105a486aed"
+    },
+    "com.lefortech.identity.tools": {
+      "version": "https://github.com/leapfortech/LeapIdentityTools.git#0.1.4",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git"
+      },
+      "hash": "a52dc6c00e8c290c26be120bfb42d645fba3a543"
+    },
+    "com.lefortech.identity.vision": {
+      "version": "https://github.com/leapfortech/LeapIdentityVision.git#0.2.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.debug": "https://github.com/leapfortech/LeapCoreDebug.git",
+        "com.lefortech.data.web": "https://github.com/leapfortech/LeapDataWeb.git",
+        "com.lefortech.vision.facetec": "https://github.com/leapfortech/LeapVisionFaceTec.git",
+        "com.lefortech.vision.tools": "https://github.com/leapfortech/LeapVisionTools.git"
+      },
+      "hash": "fea35d726d504e55bf3278054e7888de7d59f777"
+    },
+    "com.lefortech.ui.dialog": {
+      "version": "https://github.com/leapfortech/LeapUIDialog.git#1.2.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.ui.elements": "https://github.com/leapfortech/LeapUIElements.git",
+        "com.lefortech.ui.page": "https://github.com/leapfortech/LeapUIPage.git"
+      },
+      "hash": "e7e5d1e9fc132fee70e6969ffdd57c13ba892a1a"
+    },
+    "com.lefortech.ui.elements": {
+      "version": "https://github.com/leapfortech/LeapUIElements.git#1.4.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git"
+      },
+      "hash": "f1ff0aa2531a844dcd9e87ec957451f2bb7c2585"
+    },
+    "com.lefortech.ui.extensions": {
+      "version": "https://github.com/leapfortech/LeapUIExtensions.git#1.1.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.graphics.tools": "https://github.com/leapfortech/LeapGraphicsTools.git",
+        "com.lefortech.data.collections": "https://github.com/leapfortech/LeapDataCollections.git",
+        "com.lefortech.data.mapper": "https://github.com/leapfortech/LeapDataMapper.git",
+        "com.lefortech.ui.elements": "https://github.com/leapfortech/LeapUIElements.git",
+        "com.lefortech.ui.dialog": "https://github.com/leapfortech/LeapUIDialog.git",
+        "com.lefortech.ui.page": "https://github.com/leapfortech/LeapUIPage.git"
+      },
+      "hash": "e145efeb66e38da3dcf3c9cc9a4a4a0fd606c422"
+    },
+    "com.lefortech.ui.page": {
+      "version": "https://github.com/leapfortech/LeapUIPage.git#1.1.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git#0.2.9",
+        "com.lefortech.ui.elements": "https://github.com/leapfortech/LeapUIElements.git#0.5.0"
+      },
+      "hash": "80b692023248f399e831d13b819e101cf285d085"
+    },
+    "com.lefortech.vision.facetec": {
+      "version": "https://github.com/leapfortech/LeapVisionFaceTec.git#0.5.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.debug": "https://github.com/leapfortech/LeapCoreDebug.git",
+        "com.lefortech.core.security": "https://github.com/leapfortech/LeapCoreSecurity.git",
+        "com.lefortech.data.web": "https://github.com/leapfortech/LeapDataWeb.git"
+      },
+      "hash": "de734dae3961154721e045208794e46353a3befe"
+    },
+    "com.lefortech.vision.tools": {
+      "version": "https://github.com/leapfortech/LeapVisionTools.git#0.3.5",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git",
+        "com.lefortech.core.debug": "https://github.com/leapfortech/LeapCoreDebug.git"
+      },
+      "hash": "e482d673feeb86a9ccfccf534b1f6b1f54a3178f"
+    },
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.device-simulator.devices": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.ext.nunit": {
+      "version": "2.0.5",
+      "depth": 2,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.25",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.mobile.notifications": {
+      "version": "2.4.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.multiplayer.center": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      }
+    },
+    "com.unity.test-framework": {
+      "version": "1.6.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ext.nunit": "2.0.3",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.ugui": {
+      "version": "2.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0"
+      }
+    },
+    "com.unity.modules.accessibility": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.ai": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.androidjni": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.animation": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.assetbundle": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.audio": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.cloth": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      }
+    },
+    "com.unity.modules.director": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.animation": "1.0.0"
+      }
+    },
+    "com.unity.modules.hierarchycore": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.imageconversion": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.imgui": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.jsonserialize": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.particlesystem": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.physics": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.physics2d": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.screencapture": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.subsystems": {
+      "version": "1.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.modules.terrain": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.terrainphysics": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.terrain": "1.0.0"
+      }
+    },
+    "com.unity.modules.tilemap": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics2d": "1.0.0"
+      }
+    },
+    "com.unity.modules.ui": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.uielements": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.imgui": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.hierarchycore": "1.0.0",
+        "com.unity.modules.physics": "1.0.0"
+      }
+    },
+    "com.unity.modules.umbra": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.unityanalytics": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequest": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.unitywebrequestassetbundle": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequestaudio": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.audio": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequesttexture": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.unitywebrequestwww": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.unitywebrequest": "1.0.0",
+        "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+        "com.unity.modules.unitywebrequestaudio": "1.0.0",
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.assetbundle": "1.0.0",
+        "com.unity.modules.imageconversion": "1.0.0"
+      }
+    },
+    "com.unity.modules.vehicles": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0"
+      }
+    },
+    "com.unity.modules.video": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
+        "com.unity.modules.ui": "1.0.0",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      }
+    },
+    "com.unity.modules.vr": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.xr": "1.0.0"
+      }
+    },
+    "com.unity.modules.wind": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.modules.xr": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0",
+        "com.unity.modules.subsystems": "1.0.0"
+      }
+    }
+  }
+}
