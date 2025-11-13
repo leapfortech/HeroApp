@@ -53,7 +53,7 @@ public class SignatureAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        identityService.GetSignature(signatureId);
+        //identityService.GetSignature(signatureId);
     }
 
     public void DisplaySignature(String strokes)

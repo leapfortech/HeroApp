@@ -89,22 +89,12 @@ public class IdentityUpdateAction : MonoBehaviour
     String identityUpdatedMessage = "La información fue guardada exitosamente.";
 
     IdentityService identityService = null;
-    OnboardingService onboardingService = null;
     
     Identity identity = null;
-    List<PepIdentityRequest> pepIdentityRequests = new List<PepIdentityRequest>();
 
     private void Awake()
     {
         identityService = GetComponent<IdentityService>();
-        onboardingService = GetComponent<OnboardingService>();
-    }
-
-    public void SetPepIdentityRequest(List<PepIdentityRequest> pepIdentityRequests)
-    {
-        this.pepIdentityRequests.Clear();
-
-        this.pepIdentityRequests.AddRange(pepIdentityRequests);
     }
 
     public void PopulateIdentity()
@@ -187,8 +177,7 @@ public class IdentityUpdateAction : MonoBehaviour
         String dpiBack = imgDpiBack.Sprite != null ? imgDpiBack.Sprite.ToStrBase64(ImageType.JPG) : "";
         String dpiPortrait = imgDpiPortrait.Sprite != null ? imgDpiPortrait.Sprite.ToStrBase64(ImageType.JPG) : "";
 
-        identityService?.UpdateIdentityInfo(new IdentityInfo(identity, new DpiPhoto(dpiFront, dpiBack, dpiPortrait)));
-        onboardingService?.UpdateIdentityInfo(new IdentityInfo(identity, new DpiPhoto(dpiFront, dpiBack, dpiPortrait)));
+        identityService?.Register(new IdentityRegister(identity, dpiPortrait));
 
         return false;
     }
@@ -204,7 +193,7 @@ public class IdentityUpdateAction : MonoBehaviour
             //StateManager.Instance.DpiBack = imgDpiBack.Sprite;
 
             identity = null;
-            imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
+            //imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
 
             ChoiceDialog.Instance.Info(identityUpdatedTitle, identityUpdatedMessage, () => PageManager.Instance.ChangePage(pagNext));
         }
@@ -212,7 +201,7 @@ public class IdentityUpdateAction : MonoBehaviour
         {
             StateManager.Instance.OnboardingStage = 0;
             identity = null;
-            imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
+            //imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
             PageManager.Instance.ChangePage(pagNext);
         }
     }
@@ -220,7 +209,7 @@ public class IdentityUpdateAction : MonoBehaviour
     public void ErrorIdentityInfo(String message)
     {
         identity = null;
-        imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
+        //imgDpiFront.Sprite = imgDpiBack.Sprite = imgDpiPortrait.Sprite = null;
         ChoiceDialog.Instance.Error(message);
     }
 

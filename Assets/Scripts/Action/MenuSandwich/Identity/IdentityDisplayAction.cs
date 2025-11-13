@@ -102,14 +102,14 @@ public class IdentityDisplayAction : MonoBehaviour
     //    identityService.GetDpiPhotoByAppUser(StateManager.Instance.AppUser.Id);
     //}
 
-    public void ApplyDpiPhoto(DpiPhoto dpiPhoto)
-    {
-        //StateManager.Instance.DpiFront = dpiPhoto.DpiFront != null ? dpiPhoto.DpiFront.CreateSprite("DpiFrontDisplay") : null;
-        //StateManager.Instance.DpiBack = dpiPhoto.DpiBack != null ? dpiPhoto.DpiBack.CreateSprite("DpiBackDisplay") : null;
+    //public void ApplyDpiPhoto(DpiPhoto dpiPhoto)
+    //{
+    //    //StateManager.Instance.DpiFront = dpiPhoto.DpiFront != null ? dpiPhoto.DpiFront.CreateSprite("DpiFrontDisplay") : null;
+    //    //StateManager.Instance.DpiBack = dpiPhoto.DpiBack != null ? dpiPhoto.DpiBack.CreateSprite("DpiBackDisplay") : null;
 
-        PageManager.Instance.ChangePage(identityPage);
-        SandwichMenu.Instance.Close();
-    }
+    //    PageManager.Instance.ChangePage(identityPage);
+    //    SandwichMenu.Instance.Close();
+    //}
 
     private void Display()
     {

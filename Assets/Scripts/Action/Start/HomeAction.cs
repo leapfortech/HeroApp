@@ -19,9 +19,6 @@ public class HomeAction : MonoBehaviour
     Text txtReferredCount = null;
 
     [SerializeField]
-    Text txtInvestmentCount = null;
-
-    [SerializeField]
     String link = null;
 
     [Title("List")]
@@ -95,7 +92,6 @@ public class HomeAction : MonoBehaviour
     public void Refresh()
     {
         RefreshAppUser();
-        DisplayInvestmentCount();
     }
 
     public void DoLink()
@@ -117,19 +113,6 @@ public class HomeAction : MonoBehaviour
         }
     }
 
-    public void DisplayInvestmentCount()
-    {
-        int approvedCount = 0;
-
-        foreach (InvestmentFull investmentFull in StateManager.Instance.InvestmentFulls)
-        {
-            if (investmentFull.InvestmentStatusId == (int)InvestmentStatus.Approved)
-                approvedCount++;
-        }
-
-        txtInvestmentCount.TextValue = approvedCount == 0 ? "No tienes inversiones." : approvedCount == 1 ? "Tienes 1 inversión." : $"Tienes {approvedCount} inversiones.";
-    }
-
     public void RefreshAppUser()
     {
         int appUserStatusId = StateManager.Instance.AppUser.AppUserStatusId;
@@ -140,8 +123,6 @@ public class HomeAction : MonoBehaviour
         else
             txtAppUserName.TextValue = StateManager.Instance.Identity.FirstName1;
 
-        DisplayMeetingFulls();
-
         imgObdNew.gameObject.SetActive(appUserStatusId == 0 || appUserStatusId == 2);
         imgObdWait.gameObject.SetActive(appUserStatusId == 3 && onboardingStage == 0);
         imgObdUpdate.gameObject.SetActive(appUserStatusId == 3 && onboardingStage != 0);
@@ -150,35 +131,6 @@ public class HomeAction : MonoBehaviour
         String txtCount = StateManager.Instance.ReferredCount.Count == 0 ? "No tienes referidos" : "Tienes " + StateManager.Instance.ReferredCount.Count.ToString() + (StateManager.Instance.ReferredCount.Count == 1 ? " referido" : " referidos");
 
         txtReferredCount.TextValue = txtCount;
-    }
-
-    // Meeting
-
-    public void DisplayMeetingFulls()
-    {
-        if (StateManager.Instance.MeetingFulls == null)
-            return;
-
-        if (StateManager.Instance.MeetingFulls.Count == 0)
-        {
-            txtEmpty.gameObject.SetActive(true);
-            return;
-        }
-
-        txtEmpty.gameObject.SetActive(false);
-
-        lstMeeting.ClearValues();
-
-        for (int i = 0; i < StateManager.Instance.MeetingFulls.Count; i++)
-        {
-            ListScrollerValue scrollerValue = new ListScrollerValue(2, true);
-            scrollerValue.SetText(0, StateManager.Instance.MeetingFulls[i].Subject);
-            scrollerValue.SetText(1, StateManager.Instance.MeetingFulls[i].StartDateTime.ToString("dd/MM/yyyy HH:mm"));
-
-            lstMeeting.AddValue(scrollerValue);
-        }
-
-        lstMeeting.ApplyValues();
     }
 
     // Onboarding

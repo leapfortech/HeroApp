@@ -28,20 +28,6 @@ public class IdentityRegisterAction : MonoBehaviour
     ValueList vllEnrollNationality = null;
     [SerializeField]
     DataMapper dtmIdentity = null;
-    [SerializeField]
-    DataMapper dtmPep = null;
-    [SerializeField]
-    DataMapper dtmCpe = null;
-
-    [Title("Dpi")]
-    [SerializeField]
-    Image imgDpiFront = null;
-
-    [SerializeField]
-    Image imgDpiBack = null;
-
-    [SerializeField]
-    Image imgDpiPortrait = null;
 
     [Space]
     [SerializeField]
@@ -73,18 +59,10 @@ public class IdentityRegisterAction : MonoBehaviour
     String dpiDatesErrorMessage = "La fecha de emisión o vencimiento son incorrectas. Revisa e intenta de nuevo.";
 
     IdentityService identityService = null;
-    List<PepIdentityRequest> pepIdentityRequests = new List<PepIdentityRequest>();
 
     private void Awake()
     {
         identityService = GetComponent<IdentityService>();
-    }
-
-    public void SetPepIdentityRequest(List<PepIdentityRequest> pepIdentityRequests)
-    {
-        this.pepIdentityRequests.Clear();
-
-        this.pepIdentityRequests.AddRange(pepIdentityRequests);
     }
 
     public bool Register()
@@ -145,16 +123,9 @@ public class IdentityRegisterAction : MonoBehaviour
         identity.Phone = WebManager.Instance.WebSysUser.Phone;
         identity.Email = WebManager.Instance.WebSysUser.Email;
 
-        String dpiFront = imgDpiFront.Sprite != null ? imgDpiFront.Sprite.ToStrBase64(ImageType.JPG) : "";
-        String dpiBack = imgDpiBack.Sprite != null ? imgDpiBack.Sprite.ToStrBase64(ImageType.JPG) : "";
-        String dpiPortrait = imgDpiPortrait.Sprite != null ? imgDpiPortrait.Sprite.ToStrBase64(ImageType.JPG) : "";
         String portrait = imgPortrait.Sprite != null ? imgPortrait.Sprite.ToStrBase64(ImageType.JPG) : "";
 
-        identityService.Register(new IdentityRegister(new IdentityInfo(identity, new DpiPhoto(dpiFront, dpiBack, dpiPortrait)),
-                                                      tggPep.Value == "1" ? dtmPep.BuildClass<Pep>() : null,
-                                                      tggPepIdentity.Value == "1" ? pepIdentityRequests.ToArray() : null,
-                                                      tggCpe.Value == "1" ? dtmCpe.BuildClass<Cpe>() : null,
-                                                      portrait));
+        identityService.Register(new IdentityRegister(identity, portrait));
         return false;
     }
 

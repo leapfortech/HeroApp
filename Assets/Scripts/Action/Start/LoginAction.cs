@@ -435,27 +435,12 @@ public class LoginAction : MonoBehaviour
     public void ApplyLoginAppInfo(LoginAppInfo loginAppInfo)
     {
         StateManager.Instance.NewsInfos = loginAppInfo.NewsInfos;
-        StateManager.Instance.MeetingFulls = loginAppInfo.MeetingFulls;
-
-        for (int i = 0; i < StateManager.Instance.MeetingFulls.Count; i++)
-        {
-            StateManager.Instance.MeetingFulls[i].StartDateTime = StateManager.Instance.MeetingFulls[i].StartDateTime.ToLocalTime();
-            StateManager.Instance.MeetingFulls[i].EndDateTime = StateManager.Instance.MeetingFulls[i].EndDateTime.ToLocalTime();
-        }
 
         StateManager.Instance.ReferredCount = loginAppInfo.ReferredCount;
         
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
         StateManager.Instance.Card = loginAppInfo.Card;  // loginData.Card.Id == 0 ? null : loginData.Card;
-
-        StateManager.Instance.SetProjectProductFulls(loginAppInfo.ProjectProductFulls);
-
-        StateManager.Instance.SetInvestmentFractionatedFulls(loginAppInfo.InvestmentFractionatedFulls);
-        StateManager.Instance.SetInvestmentFinancedFulls(loginAppInfo.InvestmentFinancedFulls);
-        StateManager.Instance.SetInvestmentPrepaidFulls(loginAppInfo.InvestmentPrepaidFulls);
-
-        StateManager.Instance.ProjectLikeIds = loginAppInfo.ProjectLikeIds;
     }
 
     // Remote Login

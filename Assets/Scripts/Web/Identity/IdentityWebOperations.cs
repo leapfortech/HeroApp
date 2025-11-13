@@ -39,37 +39,6 @@ public class IdentityAppUserGetOperation : HttpOperation
 }
 
 [HttpGET]
-[HttpPathExt(WebServiceType.Main, "/identity/InfoByAppUserId")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class IdentityInfoAppUserGetOperation : HttpOperation
-{
-    [HttpQueryString]
-    public int appUserId;
-    [HttpQueryString]
-    public int status;
-
-    [HttpResponseJsonBody]
-    public IdentityInfo identityInfo;
-}
-
-[HttpGET]
-[HttpPathExt(WebServiceType.Main, "/identity/DpiPhotoByAppUserId")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class DpiPhotoAppUserGetOperation : HttpOperation
-{
-    [HttpQueryString]
-    public int appUserId;
-
-
-    [HttpResponseJsonBody]
-    public DpiPhoto dpiPhoto;
-}
-
-[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/identity/PortraitByAppUserId")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]
@@ -83,21 +52,6 @@ public class PortraitAppUserGetOperation : HttpOperation
     public String portrait;
 }
 
-[HttpGET]
-[HttpPathExt(WebServiceType.Main, "/identity/Signature")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class SignatureGetOperation : HttpOperation
-{
-    [HttpQueryString]
-    public int signatureId;
-
-    [HttpResponseTextBody]
-    public String strokes;
-}
-
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/identity/Register")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -108,49 +62,6 @@ public class IdentityRegisterPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public IdentityRegister identityRegister;
-
-    [HttpResponseTextBody]
-    public String id;
-}
-
-[HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity/DpiFront")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpFirebaseAuthorization]
-public class DpiFrontPutOperation : HttpOperation
-{
-    [HttpQueryString]
-    public int appUserId;
-
-    [HttpRequestTextBody]
-    public String dpiPhotos;
-}
-
-[HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity/DpiBack")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpFirebaseAuthorization]
-public class DpiBackPutOperation : HttpOperation
-{
-    [HttpQueryString]
-    public int appUserId;
-
-    [HttpRequestTextBody]
-    public String dpiBack;
-}
-
-[HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity/Info")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class IdentityInfoPutOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public IdentityInfo identityFull;
 
     [HttpResponseTextBody]
     public String id;

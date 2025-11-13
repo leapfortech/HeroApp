@@ -20,12 +20,10 @@ public class PortraitUpdateAction : MonoBehaviour
     Page nextPage = null;
 
     IdentityService identityService = null;
-    OnboardingService onboardingService = null;
 
     private void Awake()
     {
         identityService = GetComponent<IdentityService>();
-        onboardingService = GetComponent<OnboardingService>();
     }
 
     // Update
@@ -34,7 +32,6 @@ public class PortraitUpdateAction : MonoBehaviour
     {
         ScreenDialog.Instance.Display();
         identityService?.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
-        onboardingService?.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
 
         return false;
     }
