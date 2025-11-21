@@ -43,8 +43,6 @@ public class PortraitUpdateAction : MonoBehaviour
         StateManager.Instance.Portrait = imgPortrait.Sprite;
         imgPortrait.Sprite = null;
 
-        StateManager.Instance.OnboardingStage = 0;
-
         PageManager.Instance.ChangePage(nextPage);
     }
 

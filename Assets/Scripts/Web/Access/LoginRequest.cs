@@ -1,15 +1,15 @@
 ﻿using System;
 
-public class LoginAppRequest
+public class LoginRequest
 {
     public String Email { get; set; }
     public String Version { get; set; }
 
-    public LoginAppRequest()
+    public LoginRequest()
     {
     }
 
-    public LoginAppRequest(String email, String version)
+    public LoginRequest(String email, String version)
     {
         Email = email;
         Version = version;

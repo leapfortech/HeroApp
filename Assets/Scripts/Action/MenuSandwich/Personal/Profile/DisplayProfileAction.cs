@@ -27,8 +27,8 @@ public class DisplayProfileAction : MonoBehaviour
     Button[] btnSqrPortraits = null;
 
     [Title("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
+    //[SerializeField]
+    //ValueList vllCountry = null;
 
     [Title("Page")]
     [SerializeField]
@@ -73,7 +73,7 @@ public class DisplayProfileAction : MonoBehaviour
 
     public void DisplayProfile()
     {
-        fldPhone.TextValue = vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone;
+        //fldPhone.TextValue = vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone;
         fldEmail.TextValue = WebManager.Instance.WebSysUser.Email;
 
         if (StateManager.Instance.Portrait == null)

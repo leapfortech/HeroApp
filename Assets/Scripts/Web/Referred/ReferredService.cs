@@ -26,7 +26,7 @@ public class ReferredService : MonoBehaviour
     private UnityStringEvent onRegistered = null;
 
     [SerializeField]
-    private UnityIntEvent onUpdated = null;
+    private UnityBoolEvent onUpdated = null;
 
 
     [Title("Error")]
@@ -78,12 +78,12 @@ public class ReferredService : MonoBehaviour
         }
     }
 
-    public void Validate(String code)
+    public void Validate(long id)
     {
         ValidateGetOperation validateGetOp = new ValidateGetOperation();
         try
         {
-            validateGetOp.code = code;
+            validateGetOp.id = id;
 
             validateGetOp["on-complete"] = (Action<ValidateGetOperation, HttpResponse>)((op, response) =>
             {
@@ -132,7 +132,7 @@ public class ReferredService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<ReferredPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.referredlId);
+                    onUpdated.Invoke(op.response);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

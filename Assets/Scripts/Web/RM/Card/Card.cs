@@ -4,8 +4,8 @@ using Sirenix.OdinInspector;
 
 public class Card
 {
-    public int Id { get; set; }
-    public int AppUserId { get; set; }
+    public long Id { get; set; }
+    public long AppUserId { get; set; }
     [ShowInInspector]
     public int TypeId { get; set; }
     [ShowInInspector]
@@ -25,7 +25,7 @@ public class Card
     {
     }
 
-    public Card(int id, int appUserId, String csToken, int typeId, String number, int digits, DateTime expirationDate, String holder, int status)
+    public Card(long id, long appUserId, String csToken, int typeId, String number, int digits, DateTime expirationDate, String holder, int status)
     {
         Id = id;
         AppUserId = appUserId;

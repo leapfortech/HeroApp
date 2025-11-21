@@ -31,9 +31,6 @@ public class RegisterAction : MonoBehaviour
     [SerializeField]
     Toggle chkTerms = null;
 
-    [SerializeField]
-    Toggle chkNews = null;
-
     [Header("Action")]
     [SerializeField]
     Button btnRegister = null;
@@ -75,12 +72,11 @@ public class RegisterAction : MonoBehaviour
         if (elementValues != null)
             return;
 
-        elementValues = new ElementValue[5];
+        elementValues = new ElementValue[4];
         elementValues[0] = ifdEmail;
         elementValues[1] = ifdPassword;
         elementValues[2] = ifdConfirm;
         elementValues[3] = chkTerms;
-        elementValues[4] = chkNews;
 
         btnRegister?.AddAction(Register);
         btnResendLink?.AddAction(ResendMailLink);
@@ -122,7 +118,7 @@ public class RegisterAction : MonoBehaviour
 
     private void DoRegister(String _)
     {
-        accessService.RegisterApp(new RegisterRequest(ifdEmail.Text, ifdPassword.Text, cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text, chkNews.Checked ? 1 : 0, ifdReferredCode.Text));
+        accessService.RegisterApp(new RegisterAppRequest(ifdEmail.Text, ifdPassword.Text, cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text, Convert.ToInt64(ifdReferredCode.Text)));
     }
 
     // Send Mail Link

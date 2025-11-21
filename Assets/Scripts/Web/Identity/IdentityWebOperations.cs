@@ -16,7 +16,7 @@ using Leap.Data.Web;
 public class IdentityGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int id;
+    public long id;
 
     [HttpResponseJsonBody]
     public Identity identity;
@@ -30,7 +30,7 @@ public class IdentityGetOperation : HttpOperation
 public class IdentityAppUserGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
     [HttpQueryString]
     public int status;
 
@@ -46,7 +46,7 @@ public class IdentityAppUserGetOperation : HttpOperation
 public class PortraitAppUserGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpResponseTextBody]
     public String portrait;
@@ -75,7 +75,7 @@ public class IdentityRegisterPostOperation : HttpOperation
 public class PortraitPutOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpRequestTextBody]
     public String portrait;

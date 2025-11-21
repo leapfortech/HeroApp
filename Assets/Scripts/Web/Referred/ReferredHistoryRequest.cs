@@ -2,7 +2,7 @@
 
 public class ReferredHistoryRequest
 {
-    public int AppUserId { get; set; }
+    public long AppUserId { get; set; }
     public DateTime DateStart { get; set; }
     public DateTime DateEnd { get; set; }
 
@@ -10,7 +10,7 @@ public class ReferredHistoryRequest
     {
     }
 
-    public ReferredHistoryRequest(int appUserId, DateTime dateStart, DateTime dateEnd)
+    public ReferredHistoryRequest(long appUserId, DateTime dateStart, DateTime dateEnd)
     {
         AppUserId = appUserId;
         DateStart = dateStart;

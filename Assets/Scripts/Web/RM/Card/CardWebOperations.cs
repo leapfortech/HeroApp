@@ -15,7 +15,7 @@ using Leap.Finance.Payment;
 public class CardCustomerOperation : HttpOperation
 {
     [HttpQueryString("appUserId")]
-    public int appUserId;
+    public long appUserId;
 
     [HttpResponseJsonBody]
     public Card card;
@@ -29,7 +29,7 @@ public class CardCustomerOperation : HttpOperation
 public class BillToOperation : HttpOperation
 {
     [HttpQueryString("appUserId")]
-    public int appUserId;
+    public long appUserId;
 
     [HttpResponseJsonBody]
     public CSBillToCreate billToCreate;
@@ -58,7 +58,7 @@ public class CardRegisterOperation : HttpOperation
 public class CardSetStatusOperation : HttpOperation
 {
     [HttpQueryString("id")]
-    public int id;
+    public long id;
 
     [HttpQueryString("status")]
     public int status;

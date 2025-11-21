@@ -21,7 +21,7 @@ public class IdentityService : MonoBehaviour
     private UnityStringEvent onPortraitRetreived = null;
 
     [SerializeField]
-    private UnityIntEvent onRegistered = null;
+    private UnityLongEvent onRegistered = null;
 
     [SerializeField]
     private UnityEvent onPortraitUpdated = null;
@@ -31,7 +31,7 @@ public class IdentityService : MonoBehaviour
     private UnityStringEvent onResponseError = null;
 
     // GET
-    public void GetIdentity(int id)
+    public void GetIdentity(long id)
     {
         IdentityGetOperation identityGetOp = new IdentityGetOperation();
         try
@@ -52,7 +52,7 @@ public class IdentityService : MonoBehaviour
         }
     }
 
-    public void GetIdentityByAppUser(int appUserId, int status = 1)
+    public void GetIdentityByAppUser(long appUserId, int status = 1)
     {
         IdentityAppUserGetOperation identityAppUserGetOp = new IdentityAppUserGetOperation();
         try
@@ -74,7 +74,7 @@ public class IdentityService : MonoBehaviour
         }
     }
 
-    public void GetPortraitByAppUser(int appUserId)
+    public void GetPortraitByAppUser(long appUserId)
     {
         PortraitAppUserGetOperation portraitAppUserGetOp = new PortraitAppUserGetOperation();
         try
@@ -119,7 +119,7 @@ public class IdentityService : MonoBehaviour
 
     // UPDATE
 
-    public void UpdatePortrait(int appUserId, String portrait)
+    public void UpdatePortrait(long appUserId, String portrait)
     {
         PortraitPutOperation portraitPutOp = new PortraitPutOperation();
         try

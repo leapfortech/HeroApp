@@ -23,7 +23,7 @@ public class PhoneService : MonoBehaviour
     private UnityStringEvent onResponseError = null;
 
     // REGISTER
-    public void RegisterPhone(int phoneCountryId, String phoneNumber)
+    public void RegisterPhone(long phoneCountryId, String phoneNumber)
     {
         RegisterPhonePostOperation registerPhonePostOp = new RegisterPhonePostOperation();
         try

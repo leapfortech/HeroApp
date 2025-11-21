@@ -18,7 +18,7 @@ using Leap.Data.Web;
 public class ReferredGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpResponseJsonBody]
     public List<Referred> referreds;
@@ -32,7 +32,7 @@ public class ReferredGetOperation : HttpOperation
 public class ValidateGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public String code;
+    public long id;
 
     [HttpResponseTextBody]
     public String response;
@@ -81,5 +81,5 @@ public class ReferredPutOperation : HttpOperation
     public Referred referred;
 
     [HttpResponseJsonBody]
-    public int referredlId;
+    public bool response;
 }

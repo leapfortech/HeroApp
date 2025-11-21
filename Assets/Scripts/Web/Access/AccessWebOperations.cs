@@ -18,10 +18,10 @@ using Leap.Data.Web;
 public class LoginAppInfoGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpQueryString]
-    public int webSysUserId;
+    public long webSysUserId;
 
     [HttpResponseJsonBody]
     public LoginAppInfo loginAppInfo;
@@ -36,7 +36,7 @@ public class LoginAppInfoGetOperation : HttpOperation
 public class AccessLoginAppPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public LoginAppRequest loginRequest;
+    public LoginRequest loginRequest;
 
     [HttpResponseJsonBody]
     public LoginAppResponse loginResponse;
@@ -51,7 +51,7 @@ public class AccessLoginAppPostOperation : HttpOperation
 public class AccessRegisterAppPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterRequest registerRequest;
+    public RegisterAppRequest registerAppRequest;
 
     [HttpResponseTextBody]
     public String registerResponse;

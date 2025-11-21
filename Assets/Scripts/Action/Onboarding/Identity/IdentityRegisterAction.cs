@@ -15,17 +15,7 @@ using Sirenix.OdinInspector;
 
 public class IdentityRegisterAction : MonoBehaviour
 {
-    [Title("Elements")]
-    [SerializeField]
-    ToggleGroup tggPep = null;
-    [SerializeField]
-    ToggleGroup tggPepIdentity = null;
-    [SerializeField]
-    ToggleGroup tggCpe = null;
-
     [Title("Data")]
-    [SerializeField]
-    ValueList vllEnrollNationality = null;
     [SerializeField]
     DataMapper dtmIdentity = null;
 
@@ -38,8 +28,6 @@ public class IdentityRegisterAction : MonoBehaviour
     Page pagNext = null;
     [SerializeField]
     Page pagBirth = null;
-    [SerializeField]
-    Page pagDpi = null;
 
     [Title("Message")]
     [SerializeField]
@@ -51,12 +39,6 @@ public class IdentityRegisterAction : MonoBehaviour
     String dateErrorTitle = "Error de fecha";
     [SerializeField, TextArea(2, 4)]
     String birthDateErrorMessage = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
-    [SerializeField, TextArea(2, 4)]
-    String issueDateErrorMessage = "La fecha de emisión es incorrecta. Revisa e intenta de nuevo.";
-    [SerializeField, TextArea(2, 4)]
-    String dueDateErrorMessage = "La fecha de vencimiento es incorrecta. Revisa e intenta de nuevo.";
-    [SerializeField, TextArea(2, 4)]
-    String dpiDatesErrorMessage = "La fecha de emisión o vencimiento son incorrectas. Revisa e intenta de nuevo.";
 
     IdentityService identityService = null;
 
@@ -83,41 +65,7 @@ public class IdentityRegisterAction : MonoBehaviour
             return false;
         }
 
-        if (identity.DpiIssueDate == new DateTime(0001,1,1))
-        {
-            ChoiceDialog.Instance.Error(dateErrorTitle, issueDateErrorMessage, () => PageManager.Instance.ChangePage(pagDpi));
-            return false;
-        }
-
-        if (identity.DpiDueDate == new DateTime(0001, 1, 1))
-        {
-            ChoiceDialog.Instance.Error(dateErrorTitle, dueDateErrorMessage, () => PageManager.Instance.ChangePage(pagDpi));
-            return false;
-        }
-
-        int years = identity.DpiDueDate.Year - identity.DpiIssueDate.Year;
-        double days = (identity.DpiIssueDate - identity.DpiDueDate.AddYears(-10)).TotalDays;
-
-        if (years != 10 || days != 1)
-        {
-            ChoiceDialog.Instance.Error(dateErrorTitle, dpiDatesErrorMessage, () => PageManager.Instance.ChangePage(pagDpi));
-            return false;
-        }
-
-        if (identity.DpiDueDate.Date < DateTime.Now.Date)
-        {
-            ChoiceDialog.Instance.Error(dateErrorTitle, dueDateErrorMessage, () => PageManager.Instance.ChangePage(pagDpi));
-            return false;
-        }
-
-        String nationalityIds = vllEnrollNationality.RecordCount > 0 ? vllEnrollNationality[0].Id.ToString() : "";
-        for (int i = 1; i < vllEnrollNationality.RecordCount; i++)
-            nationalityIds += "|" + vllEnrollNationality[i].Id;
-
-        identity.NationalityIds = nationalityIds;
-        identity.AppUserId = StateManager.Instance.AppUser.Id;
-        identity.BirthStateId = identity.BirthStateId == 0 ? -1 : identity.BirthStateId;
-        identity.BirthCityId = identity.BirthCityId == 0 ? -1 : identity.BirthCityId;
+        identity.OriginStateId = identity.OriginStateId == 0 ? -1 : identity.OriginStateId;
 
         identity.PhoneCountryId = WebManager.Instance.WebSysUser.PhoneCountryId;
         identity.Phone = WebManager.Instance.WebSysUser.Phone;

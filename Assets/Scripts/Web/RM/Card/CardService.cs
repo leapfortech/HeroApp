@@ -46,7 +46,7 @@ public class CardService : MonoBehaviour
     private CSErrorsEvent onCybersourceError = null;
 
     // BillTo
-    public void GetBillTo(int appUserId)
+    public void GetBillTo(long appUserId)
     {
         BillToOperation billToOp = new BillToOperation();
         try
@@ -129,7 +129,7 @@ public class CardService : MonoBehaviour
     }
 
     // Status
-    public void SetStatus(int id, int status)
+    public void SetStatus(long id, int status)
     {
         CardSetStatusOperation cardStatusOp = new CardSetStatusOperation();
         try

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -39,7 +40,7 @@ public class ReferredValidationAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        referredService.Validate(ifdCode.Text);
+        referredService.Validate(Convert.ToInt64(ifdCode.Text));
     }
 
     public void ApplyValidation(int response)

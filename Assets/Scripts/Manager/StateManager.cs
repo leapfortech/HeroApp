@@ -15,11 +15,11 @@ public class StateManager : SingletonBehaviour<StateManager>
 
     public CultureInfo CultureInfo = new CultureInfo("es-ES");
 
-    public int OnboardingStage { get; set; } = -1;
-
-    public List<NewsInfo> NewsInfos { get; set; } = null;
-
     public ReferredCount ReferredCount { get; set; } = null;
+
+    [PropertySpace]
+    [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
+    public long appUserId { get; set; } = -1;
 
     [PropertySpace]
     [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
@@ -42,13 +42,10 @@ public class StateManager : SingletonBehaviour<StateManager>
     {
         get => portrait;
         set { portrait?.Destroy(); portrait = value; }
-    }
-
-    
+    } 
 
     public void ClearAll()
     {
-        NewsInfos = null;
         ReferredCount = null;
         AppUser = null;
         Address = null;

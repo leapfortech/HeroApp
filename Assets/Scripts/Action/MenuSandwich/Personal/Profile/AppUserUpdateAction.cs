@@ -21,8 +21,8 @@ public class AppUserUpdateAction : MonoBehaviour
     //FieldValue fldBirthDate = null;
     //[SerializeField]
     //FieldValue fldSSN = null;
-    [SerializeField]
-    FieldValue fldPhone = null;
+    //[SerializeField]
+    //FieldValue fldPhone = null;
     [SerializeField]
     FieldValue fldEmail = null;
 
@@ -30,8 +30,8 @@ public class AppUserUpdateAction : MonoBehaviour
     //Toggle chkPerson = null;
 
     [Title("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
+    //[SerializeField]
+    //ValueList vllCountry = null;
 
     //[SerializeField]
     //DataMapper dtmPerson = null;
@@ -77,7 +77,7 @@ public class AppUserUpdateAction : MonoBehaviour
         //fldBirthDate.TextValue = StateManager.Instance.AppUser.BirthDate == null ? "" : GetDateText(StateManager.Instance.AppUser.BirthDate);
         //fldSSN.TextValue = "***-**-" + StateManager.Instance.AppUser.SSN.Substring(StateManager.Instance.AppUser.SSN.Length - 4);
 
-        fldPhone.TextValue = vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone;
+        //fldPhone.TextValue = vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone;
         fldEmail.TextValue = WebManager.Instance.WebSysUser.Email;
 
         // Next Page

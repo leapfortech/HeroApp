@@ -18,7 +18,7 @@ using System;
 public class AddressGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpResponseJsonBody]
     public Address address;
@@ -34,10 +34,10 @@ public class AddressGetOperation : HttpOperation
 public class AddressAppUserRegisterOperation : HttpOperation
 {
     [HttpQueryString]
-    public int appUserId;
+    public long appUserId;
 
     [HttpRequestJsonBody]
-    public AddressInfo addressInfo;
+    public Address address;
 
     [HttpResponseTextBody]
     public String id;

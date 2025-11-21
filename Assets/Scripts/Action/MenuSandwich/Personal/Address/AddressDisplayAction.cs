@@ -17,20 +17,20 @@ public class AddressDisplayAction : MonoBehaviour
     FieldValue fldAddress1 = null;
     [SerializeField]
     FieldValue fldAddress2 = null;
-    [SerializeField]
-    FieldValue fldCountry = null;
-    [SerializeField]
-    FieldValue fldState = null;
-    [SerializeField]
-    FieldValue fldCity = null;
+    //[SerializeField]
+    //FieldValue fldCountry = null;
+    //[SerializeField]
+    //FieldValue fldState = null;
+    //[SerializeField]
+    //FieldValue fldCity = null;
 
     [Title("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
-    [SerializeField]
-    ValueList vllState = null;
-    [SerializeField]
-    ValueList vllCity = null;
+    //[SerializeField]
+    //ValueList vllCountry = null;
+    //[SerializeField]
+    //ValueList vllState = null;
+    //[SerializeField]
+    //ValueList vllCity = null;
 
     [Title("Page")]
     [SerializeField]
@@ -47,8 +47,8 @@ public class AddressDisplayAction : MonoBehaviour
     {
         fldAddress1.Clear();
         fldAddress2.Clear();
-        fldState.Clear();
-        fldCity.Clear();
+        //fldState.Clear();
+        //fldCity.Clear();
     }
 
     public void GetAddress()
@@ -69,8 +69,8 @@ public class AddressDisplayAction : MonoBehaviour
 
         fldAddress1.TextValue = address.Address1;
         fldAddress2.TextValue = String.IsNullOrEmpty(address.Address2) ? "-" : address.Address2;
-        fldCountry.TextValue = vllCountry.FindRecordCellString(address.CountryId, "Name");
-        fldState.TextValue = vllState.FindRecordCellString(address.StateId, "Name");
-        fldCity.TextValue = vllCity.FindRecordCellString(address.CityId, "Name");
+        //fldCountry.TextValue = vllCountry.FindRecordCellString(address.CountryId, "Name");
+        //fldState.TextValue = vllState.FindRecordCellString(address.StateId, "Name");
+        //fldCity.TextValue = vllCity.FindRecordCellString(address.CityId, "Name");
     }
 }

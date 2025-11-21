@@ -361,10 +361,7 @@ public class LoginAction : MonoBehaviour
         else if (loginResponse.Granted == 0)
             ChoiceDialog.Instance.Error("Login", accessDeniedError, loginResponse.Link != null ? GoToLink : (UnityAction)null);
         else
-        {
-            StateManager.Instance.OnboardingStage = loginResponse.OnboardingStage;
             ChangePageGranted();
-        }
     }
 
     private void GoToLink()
@@ -434,10 +431,7 @@ public class LoginAction : MonoBehaviour
 
     public void ApplyLoginAppInfo(LoginAppInfo loginAppInfo)
     {
-        StateManager.Instance.NewsInfos = loginAppInfo.NewsInfos;
-
         StateManager.Instance.ReferredCount = loginAppInfo.ReferredCount;
-        
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
         StateManager.Instance.Card = loginAppInfo.Card;  // loginData.Card.Id == 0 ? null : loginData.Card;

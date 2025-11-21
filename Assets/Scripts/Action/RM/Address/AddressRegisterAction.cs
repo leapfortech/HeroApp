@@ -154,11 +154,7 @@ public class AddressRegisterAction : MonoBehaviour
 
         address = dtmAddress.BuildClass<Address>();
 
-        String[] images = new String[householdBills.Count];
-        for (int i = 0; i < householdBills.Count; i++)
-            images[i] = householdBills[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
-
-        addressService.RegisterAppUser(new AddressInfo(address, images));
+        addressService.RegisterAppUser(address);
 
         return false;
     }

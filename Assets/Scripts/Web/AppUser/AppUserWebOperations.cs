@@ -16,7 +16,7 @@ using Leap.Data.Web;
 public class AppUserGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public int id;
+    public long id;
 
     [HttpResponseJsonBody]
     public AppUser appUser;
@@ -55,10 +55,10 @@ public class AppUserPhonePutOperation : HttpOperation
 public class AppUserOptionsPutOperation : HttpOperation
 {
     [HttpQueryString]
-    public int id;
+    public long id;
 
     [HttpQueryString]
-    public int options;
+    public long options;
 }
 
 [HttpPUT]
@@ -69,7 +69,7 @@ public class AppUserOptionsPutOperation : HttpOperation
 public class AppUserStatusPutOperation : HttpOperation
 {
     [HttpQueryString]
-    public int id;
+    public long id;
 
     [HttpQueryString]
     public int status;
@@ -83,10 +83,10 @@ public class AppUserStatusPutOperation : HttpOperation
 public class AppUserReferredPutOperation : HttpOperation
 {
     [HttpQueryString]
-    public int id;
+    public long id;
 
     [HttpQueryString]
-    public String referredCode;
+    public long referredId;
 
     [HttpResponseTextBody]
     public String referredAppUserId;

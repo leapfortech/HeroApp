@@ -27,23 +27,6 @@ public class HomeAction : MonoBehaviour
     [SerializeField]
     Text txtEmpty;
 
-    [Title("Onboarding")]
-    [SerializeField]
-    Image imgObdNew = null;
-    [SerializeField]
-    Image imgObdUpdate = null;
-    [SerializeField]
-    Image imgObdWait = null;
-    [SerializeField]
-    Image imgInvestments = null;
-
-    [SerializeField]
-    Text txtStage = null;
-
-    [PropertySpace(5f)]
-    [SerializeField]
-    String[] stages = null;
-
     [Title("Flow")]
     [SerializeField]
     PageFlow flowIdentity = null;
@@ -72,10 +55,6 @@ public class HomeAction : MonoBehaviour
     Page pagAddressIntro = null;
     [SerializeField]
     Page obdContinuePage = null;
-    [SerializeField]
-    Page obdWaitPage = null;
-    [SerializeField]
-    Page obdUpdatePage = null;
     [SerializeField]
     Page obdApprovedPage = null;
     [SerializeField]
@@ -116,17 +95,11 @@ public class HomeAction : MonoBehaviour
     public void RefreshAppUser()
     {
         int appUserStatusId = StateManager.Instance.AppUser.AppUserStatusId;
-        int onboardingStage = StateManager.Instance.OnboardingStage;
 
         if (appUserStatusId == 0)
             txtAppUserName.TextValue = WebManager.Instance.WebSysUser.Email.Split('@')[0];
         else
             txtAppUserName.TextValue = StateManager.Instance.Identity.FirstName1;
-
-        imgObdNew.gameObject.SetActive(appUserStatusId == 0 || appUserStatusId == 2);
-        imgObdWait.gameObject.SetActive(appUserStatusId == 3 && onboardingStage == 0);
-        imgObdUpdate.gameObject.SetActive(appUserStatusId == 3 && onboardingStage != 0);
-        imgInvestments.gameObject.SetActive(appUserStatusId == 1);
 
         String txtCount = StateManager.Instance.ReferredCount.Count == 0 ? "No tienes referidos" : "Tienes " + StateManager.Instance.ReferredCount.Count.ToString() + (StateManager.Instance.ReferredCount.Count == 1 ? " referido" : " referidos");
 
@@ -138,7 +111,6 @@ public class HomeAction : MonoBehaviour
     public void ChangeStartPage()
     {
         int appUserStatusId = StateManager.Instance.AppUser.AppUserStatusId;
-        int onboardingStage = StateManager.Instance.OnboardingStage;
 
         if (appUserStatusId == 0)
         {
@@ -151,21 +123,11 @@ public class HomeAction : MonoBehaviour
             flowAddress.Clear();
             onAddressStarted.Invoke();
 
-            txtStage.TextValue = Regex.Unescape(stages[appUserStatusId == 0 ? appUserStatusId : appUserStatusId - 1]);
             PageManager.Instance.ChangePage(obdContinuePage);
         }
         else if (appUserStatusId == 3)
         {
-            if (onboardingStage == 0)
-            {
-                PageManager.Instance.ChangePage(obdWaitPage);
-                return;
-            }
-            else
-            {
-                PageManager.Instance.ChangePage(obdUpdatePage);
-                return;
-            }
+
         }
         else if (appUserStatusId == 4)
         {

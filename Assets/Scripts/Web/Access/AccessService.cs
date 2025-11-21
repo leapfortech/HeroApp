@@ -38,7 +38,7 @@ public class AccessService : MonoBehaviour
         AccessLoginAppPostOperation loginAppPostOp = new AccessLoginAppPostOperation();
         try
         {
-            loginAppPostOp.loginRequest = new LoginAppRequest(email, version);
+            loginAppPostOp.loginRequest = new LoginRequest(email, version);
             loginAppPostOp["on-complete"] = (Action<AccessLoginAppPostOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -77,12 +77,12 @@ public class AccessService : MonoBehaviour
     }
 
     // Register
-    public void RegisterApp(RegisterRequest registerRequest)
+    public void RegisterApp(RegisterAppRequest registerAppRequest)
     {
         AccessRegisterAppPostOperation registerAppPostOp = new AccessRegisterAppPostOperation();
         try
         {
-            registerAppPostOp.registerRequest = registerRequest;
+            registerAppPostOp.registerAppRequest = registerAppRequest;
             registerAppPostOp["on-complete"] = (Action<AccessRegisterAppPostOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

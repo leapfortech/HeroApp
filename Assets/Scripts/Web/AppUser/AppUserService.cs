@@ -30,14 +30,14 @@ public class AppUserService : MonoBehaviour
     private UnityEvent onStatusUpdated = null;
 
     [SerializeField]
-    private UnityIntEvent onReferredUpdated = null;
+    private UnityLongEvent onReferredUpdated = null;
 
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
     // GET
-    public void GetAppUser(int appUserId)
+    public void GetAppUser(long appUserId)
     {
         AppUserGetOperation appUserGetOp = new AppUserGetOperation();
         try
@@ -101,7 +101,7 @@ public class AppUserService : MonoBehaviour
         }
     }
 
-    public void UpdateOptions(int options)
+    public void UpdateOptions(long options)
     {
         AppUserOptionsPutOperation optionsPutOp = new AppUserOptionsPutOperation();
         try
@@ -145,13 +145,13 @@ public class AppUserService : MonoBehaviour
         }
     }
 
-    public void UpdateReferred(String referredCode)
+    public void UpdateReferred(long referredId)
     {
         AppUserReferredPutOperation referredPutOp = new AppUserReferredPutOperation();
         try
         {
             referredPutOp.id = StateManager.Instance.AppUser.Id;
-            referredPutOp.referredCode = referredCode;
+            referredPutOp.referredId = referredId;
             referredPutOp["on-complete"] = (Action<AppUserReferredPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

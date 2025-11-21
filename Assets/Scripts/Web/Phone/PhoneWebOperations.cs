@@ -17,7 +17,7 @@ using Leap.Data.Web;
 public class RegisterPhonePostOperation : HttpOperation
 {
     [HttpQueryString]
-    public int phoneCountryId;
+    public long phoneCountryId;
 
     [HttpQueryString]
     public String phoneNumber;

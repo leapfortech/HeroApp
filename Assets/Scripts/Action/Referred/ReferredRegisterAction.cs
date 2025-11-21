@@ -34,8 +34,6 @@ public class ReferredRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    int productId = -1;
-
     Referred referred = null;
     ReferredService referredService = null;
 
@@ -60,11 +58,6 @@ public class ReferredRegisterAction : MonoBehaviour
         cmbPhoneCountry.Select(countryId);
     }
 
-    public void SetProductId(int productId)
-    {
-        this.productId = productId;
-    }
-
     private void Register()
     {
         if (!ElementHelper.Validate(elementValues))
@@ -74,7 +67,6 @@ public class ReferredRegisterAction : MonoBehaviour
 
         referred = dtmReferred.BuildClass<Referred>();
         referred.AppUserId = StateManager.Instance.AppUser.Id;
-        referred.ProductId = productId;
 
         referredService.Register(referred);
     }

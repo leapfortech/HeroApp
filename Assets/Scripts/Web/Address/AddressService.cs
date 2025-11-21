@@ -19,13 +19,13 @@ public class AddressService : MonoBehaviour
     private AddressEvent onRetreived = null;
 
     [SerializeField]
-    private UnityIntEvent onRegistered = null;
+    private UnityLongEvent onRegistered = null;
 
     [SerializeField]
-    private UnityIntEvent onAdded = null;
+    private UnityLongEvent onAdded = null;
 
     [SerializeField]
-    private UnityIntEvent onUpdated = null;
+    private UnityLongEvent onUpdated = null;
 
     [Title("Error")]
     [SerializeField]
@@ -55,13 +55,13 @@ public class AddressService : MonoBehaviour
     }
 
     // REGISTER
-    public void RegisterAppUser(AddressInfo addressInfo)
+    public void RegisterAppUser(Address address)
     {
         AddressAppUserRegisterOperation addressRegisterPostOp = new AddressAppUserRegisterOperation();
         try
         {
             addressRegisterPostOp.appUserId = StateManager.Instance.AppUser.Id;
-            addressRegisterPostOp.addressInfo = addressInfo;
+            addressRegisterPostOp.address = address;
             addressRegisterPostOp["on-complete"] = (Action<AddressAppUserRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -110,7 +110,7 @@ public class AddressService : MonoBehaviour
             addressPutOp["on-complete"] = (Action<AddressPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(Convert.ToInt32(op.id));
+                    onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
