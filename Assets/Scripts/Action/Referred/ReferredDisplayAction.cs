@@ -64,10 +64,10 @@ public class ReferredDisplayAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        int quarter = cmbPeriod.GetSelectedId(0);
-        int year = cmbPeriod.GetSelectedId(1);
+        long quarter = cmbPeriod.GetSelectedId(0);
+        long year = cmbPeriod.GetSelectedId(1);
 
-        DateTime dateStart = new DateTime(2023 + year, 1 + quarter * 3, 1);
+        DateTime dateStart = new DateTime(2023 + (int)year, 1 + (int)quarter * 3, 1);
         DateTime dateEnd = dateStart.AddMonths(3).AddDays(-1);
 
 

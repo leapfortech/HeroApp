@@ -130,12 +130,12 @@ public class CardRegisterAction : MonoBehaviour
     {
         number = ifdCardNumber.Text.Replace(" ", "");
 
-        CSSimplePaymentRequest paymentRequest = new CSSimplePaymentRequest();
-
-        paymentRequest.processingInformation = new CSProcessingInformation("TOKEN_CREATE", "instrumentIdentifier");
-        paymentRequest.paymentInformation = new CSPaymentInformation(new CSCard(number, (mwlExpirationDate.GetSelectedIndexes()[0] + 1).ToString(),
-                                                                                        (DateTime.Today.Year + mwlExpirationDate.GetSelectedIndexes()[1]).ToString(), ifdSecurityCode.Text));
-        paymentRequest.orderInformation = new CSOrderInformation(new CSAmountDetails(AuthorizationAmount, CurrencyCode), billTo);
+        CSSimplePaymentRequest paymentRequest = new CSSimplePaymentRequest
+        {
+            processingInformation = new CSProcessingInformation("TOKEN_CREATE", "instrumentIdentifier"),
+            paymentInformation = new CSPaymentInformation(new CSCard(number, (mwlExpirationDate.GetSelectedIndexes()[0] + 1).ToString(), (DateTime.Today.Year + mwlExpirationDate.GetSelectedIndexes()[1]).ToString(), ifdSecurityCode.Text)),
+            orderInformation = new CSOrderInformation(new CSAmountDetails(AuthorizationAmount, CurrencyCode), billTo)
+        };
 
         cybersourceService.SimplePayment(paymentRequest);
     }
@@ -152,7 +152,7 @@ public class CardRegisterAction : MonoBehaviour
 
         CSAuthorizationReversalRequest authorizationReversalRequest = new CSAuthorizationReversalRequest();
 
-        String reference = $"A{StateManager.Instance.AppUser.Id.ToString("D06")}{number.Length.ToString("D02")}{number.Substring(number.Length - 4, 4)}{DateTime.Now:yyyyMMddHHmmss}";
+        String reference = $"A{StateManager.Instance.AppUser.Id:D06}{number.Length:D02}{number.Substring(number.Length - 4, 4)}{DateTime.Now:yyyyMMddHHmmss}";
         authorizationReversalRequest.clientReferenceInformation = new CSClientReferenceInformation(reference);
 
         authorizationReversalRequest.reversalInformation = new CSReversalInformation(new CSAmountDetails(AuthorizationAmount, CurrencyCode), "");
@@ -168,16 +168,18 @@ public class CardRegisterAction : MonoBehaviour
         //    return;
         //}
 
-        CardRegister cardRegister = new CardRegister();
-        cardRegister.InstrumentIdentifierId = instrumentIdentifierId;
-        cardRegister.AppUserId = StateManager.Instance.AppUser.Id;
-        cardRegister.TypeId = vllCardBrand[CardIssuerIdx].Id;
-        cardRegister.Number = number.Substring(number.Length - 4, 4);
-        cardRegister.Digits = number.Length;
-        cardRegister.ExpirationMonth = mwlExpirationDate.GetSelectedIndexes()[0] + 1;
-        cardRegister.ExpirationYear = DateTime.Today.Year + mwlExpirationDate.GetSelectedIndexes()[1];
-        cardRegister.Holder = ifdCardHolder.Text;
-        cardRegister.UtcOffset = (float)(DateTime.Now - DateTime.UtcNow).TotalHours;
+        CardRegister cardRegister = new CardRegister
+        {
+            InstrumentIdentifierId = instrumentIdentifierId,
+            AppUserId = StateManager.Instance.AppUser.Id,
+            TypeId = vllCardBrand[CardIssuerIdx].Id,
+            Number = number.Substring(number.Length - 4, 4),
+            Digits = number.Length,
+            ExpirationMonth = mwlExpirationDate.GetSelectedIndexes()[0] + 1,
+            ExpirationYear = DateTime.Today.Year + mwlExpirationDate.GetSelectedIndexes()[1],
+            Holder = ifdCardHolder.Text,
+            UtcOffset = (float)(DateTime.Now - DateTime.UtcNow).TotalHours
+        };
 
         cardService.RegisterCard(cardRegister);
     }

@@ -39,8 +39,6 @@ public class ElmDependencyAction : MonoBehaviour
 
     bool[] required = null;
 
-    Type stringType = typeof(String);
-
     void Initialize()
     {
         if (required != null)
@@ -59,9 +57,9 @@ public class ElmDependencyAction : MonoBehaviour
             if (inputs[i] is Combo)
             {
                 ComboAdapter comboAdapter = inputs[i].GetComponent<ComboAdapter>();
-                int selectedId = comboAdapter.GetSelectedId();
+                long selectedId = comboAdapter.GetSelectedId();
 
-                if (selectedId != Convert.ToInt32(values[i]))
+                if (selectedId != Convert.ToInt64(values[i]))
                 {
                     Activate(false);
                     return;

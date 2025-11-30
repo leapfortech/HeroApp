@@ -40,6 +40,7 @@ public class AppManager : SingletonBehaviour<AppManager>
     {
         startService = GetComponent<StartService>();
     }
+
     void Start()
     {
         if (!EmulatorDetector.IsValid("Error", "No se pudo Iniciar la App.",         // IsEmulator
