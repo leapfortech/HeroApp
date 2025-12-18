@@ -22847,6 +22847,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 628344306}
   - {fileID: 1210376641}
   - {fileID: 1954035536}
   - {fileID: 322806768}
@@ -87101,6 +87102,38 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1152, y: 708}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &628344305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 628344306}
+  m_Layer: 0
+  m_Name: General
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &628344306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628344305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1654308365}
+  m_Father: {fileID: 158082492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &629209963
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -224777,6 +224810,18 @@ MonoBehaviour:
   onStart:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1654308363}
+        m_TargetAssemblyTypeName: DataMapperAction, Assembly-CSharp
+        m_MethodName: FillCountryFlagAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1570873010}
         m_TargetAssemblyTypeName: Leap.UI.Page.PageManager, Leap.UI.Page
         m_MethodName: ChangePage
@@ -236293,6 +236338,158 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d85c41c725f91c40b45c19720bcf171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1654308362
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1654308365}
+  - component: {fileID: 1654308364}
+  - component: {fileID: 1654308363}
+  m_Layer: 0
+  m_Name: DtmCountryFlagAllVLL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1654308363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654308362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901348d1544bc6c4dbab009158f764e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataMapperAction
+  dataMappers:
+  - {fileID: 1654308364}
+  parameters:
+  - {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
+  - {fileID: 11400000, guid: 8e2c0c75615b1f74f9ff27f9d5037fa6, type: 2}
+  - {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+--- !u!114 &1654308364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654308362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+    dataBuildInMap:
+      dataFieldValue:
+        FieldName: 
+        FieldTypeName: 
+        dataSourceType: 0
+        dataFieldSource:
+          rid: -2
+        ItemIdx: 0
+    dataClassMap:
+      dataClass: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+      dataFieldValues:
+      - FieldName: Name
+        FieldTypeName: System.String
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419140
+        ItemIdx: 1
+      - FieldName: Code
+        FieldTypeName: System.String
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419142
+        ItemIdx: 2
+      - FieldName: Flag
+        FieldTypeName: UnityEngine.Sprite
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419144
+        ItemIdx: 3
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2395602045112419140
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          rid: 2395602045112419141
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Name
+    - rid: 2395602045112419141
+      type: {class: DataFieldValue, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        FieldName: Name
+        FieldTypeName: System.String
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419140
+        ItemIdx: 1
+    - rid: 2395602045112419142
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          rid: 2395602045112419143
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Code
+    - rid: 2395602045112419143
+      type: {class: DataFieldValue, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        FieldName: Code
+        FieldTypeName: System.String
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419142
+        ItemIdx: 2
+    - rid: 2395602045112419144
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          rid: 2395602045112419145
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Flag
+    - rid: 2395602045112419145
+      type: {class: DataFieldValue, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        FieldName: Flag
+        FieldTypeName: UnityEngine.Sprite
+        dataSourceType: 5
+        dataFieldSource:
+          rid: 2395602045112419144
+        ItemIdx: 3
+--- !u!4 &1654308365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1654308362}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628344306}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1655130638
 PrefabInstance:
   m_ObjectHideFlags: 0
