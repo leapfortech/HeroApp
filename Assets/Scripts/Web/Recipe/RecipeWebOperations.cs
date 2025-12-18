@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+
+using hg.ApiWebKit.core.http;
+using hg.ApiWebKit.core.attributes;
+using hg.ApiWebKit.providers;
+using hg.ApiWebKit.mappers;
+using hg.ApiWebKit.authorizations;
+
+using Leap.Data.Web;
+
+// GET
+[HttpGET]
+[HttpPathExt(WebServiceType.Main, "/recipe/FullsByStatus")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RecipeGetFullsOperation : HttpOperation
+{
+    [HttpQueryString]
+    public int status;
+
+    [HttpResponseJsonBody]
+    public List<RecipeFull> recipeFulls;
+}
+
+// REGISTER
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/recipe/register")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RecipeRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public RegisterRecipeRequest registerRecipeRequest;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
+//UPDATE
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/recipe")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class RecipePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Recipe recipe;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}

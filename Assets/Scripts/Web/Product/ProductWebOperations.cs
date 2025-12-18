@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+
+using hg.ApiWebKit.core.http;
+using hg.ApiWebKit.core.attributes;
+using hg.ApiWebKit.providers;
+using hg.ApiWebKit.mappers;
+using hg.ApiWebKit.authorizations;
+
+using Leap.Data.Web;
+
+// GET
+[HttpGET]
+[HttpPathExt(WebServiceType.Main, "/product/FullsByStatus")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductGetFullsOperation : HttpOperation
+{
+    [HttpQueryString]
+    public int status;
+
+    [HttpResponseJsonBody]
+    public List<ProductFull> productFulls;
+}
+
+// REGISTER
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/product/register")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public RegisterProductRequest registerProductRequest;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
+//UPDATE
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/product")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ProductPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Product product;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}

@@ -1,0 +1,98 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
+
+using hg.ApiWebKit.core.http;
+
+using System.Collections.Generic;
+using Leap.Core.Tools;
+using Leap.Data.Web;
+
+using Sirenix.OdinInspector;
+
+public class ProductService : MonoBehaviour
+{
+    [Serializable]
+    public class ProductFullsEvent : UnityEvent<List<ProductFull>> { }
+
+    [SerializeField]
+    private ProductFullsEvent onRetreived = null;
+
+    [SerializeField]
+    private UnityLongEvent onRegistered = null;
+
+    [SerializeField]
+    private UnityBoolEvent onUpdated = null;
+
+
+    [Title("Error")]
+    [SerializeField]
+    private UnityStringEvent onResponseError = null;
+
+
+    // GET
+    public void GetFulls(int status)
+    {
+        ProductGetFullsOperation productFullsGetOp = new ProductGetFullsOperation();
+        try
+        {
+            productFullsGetOp.status = status;
+            productFullsGetOp["on-complete"] = (Action<ProductGetFullsOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRetreived.Invoke(op.productFulls);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            productFullsGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // REGISTER
+    public void Register(RegisterProductRequest registerProductRequest)
+    {
+        ProductRegisterOperation referredRegisterOp = new ProductRegisterOperation();
+        try
+        {
+            referredRegisterOp.registerProductRequest = registerProductRequest;
+            referredRegisterOp["on-complete"] = (Action<ProductRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.id));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            referredRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // UPDATE
+    public void UpdateProduct(Product product)
+    {
+        ProductPutOperation referredPutOp = new ProductPutOperation();
+        try
+        {
+            referredPutOp.product = product;
+            referredPutOp["on-complete"] = (Action<ProductPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            referredPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+}

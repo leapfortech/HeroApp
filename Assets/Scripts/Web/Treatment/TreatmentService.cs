@@ -1,0 +1,98 @@
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
+
+using hg.ApiWebKit.core.http;
+
+using System.Collections.Generic;
+using Leap.Core.Tools;
+using Leap.Data.Web;
+
+using Sirenix.OdinInspector;
+
+public class TreatmentService : MonoBehaviour
+{
+    [Serializable]
+    public class TreatmentFullsEvent : UnityEvent<List<TreatmentFull>> { }
+
+    [SerializeField]
+    private TreatmentFullsEvent onRetreived = null;
+
+    [SerializeField]
+    private UnityLongEvent onRegistered = null;
+
+    [SerializeField]
+    private UnityBoolEvent onUpdated = null;
+
+
+    [Title("Error")]
+    [SerializeField]
+    private UnityStringEvent onResponseError = null;
+
+
+    // GET
+    public void GetFulls(int status)
+    {
+        TreatmentGetFullsOperation treatmentFullsGetOp = new TreatmentGetFullsOperation();
+        try
+        {
+            treatmentFullsGetOp.status = status;
+            treatmentFullsGetOp["on-complete"] = (Action<TreatmentGetFullsOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRetreived.Invoke(op.treatmentFulls);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            treatmentFullsGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // REGISTER
+    public void Register(RegisterTreatmentRequest registerTreatmentRequest)
+    {
+        TreatmentRegisterOperation referredRegisterOp = new TreatmentRegisterOperation();
+        try
+        {
+            referredRegisterOp.registerTreatmentRequest = registerTreatmentRequest;
+            referredRegisterOp["on-complete"] = (Action<TreatmentRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.id));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            referredRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // UPDATE
+    public void UpdateTreatment(Treatment treatment)
+    {
+        TreatmentPutOperation referredPutOp = new TreatmentPutOperation();
+        try
+        {
+            referredPutOp.treatment = treatment;
+            referredPutOp["on-complete"] = (Action<TreatmentPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            referredPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+}
