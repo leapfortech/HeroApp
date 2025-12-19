@@ -74,6 +74,27 @@ public class RadioService : MonoBehaviour
         }
     }
 
+    public void RegisterRadioListen(RadioListen radioListen)
+    {
+        RadioListenRegisterOperation radioListenRegisterOp = new RadioListenRegisterOperation();
+        try
+        {
+            radioListenRegisterOp.radioListen = radioListen;
+            radioListenRegisterOp["on-complete"] = (Action<RadioListenRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.radioListenId));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            radioListenRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     // UPDATE
     public void UpdateRadio(Radio radio)
     {

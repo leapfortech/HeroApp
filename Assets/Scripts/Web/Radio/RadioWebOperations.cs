@@ -40,6 +40,21 @@ public class RadioRegisterOperation : HttpOperation
     public String id;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/radio/RegisterRadioListen")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioListenRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public RadioListen radioListen;
+
+    [HttpResponseTextBody]
+    public String radioListenId;
+}
+
 //UPDATE
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/radio")]
