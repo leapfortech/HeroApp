@@ -32,7 +32,7 @@ public class ReferredGetOperation : HttpOperation
 public class ValidateGetOperation : HttpOperation
 {
     [HttpQueryString]
-    public long id;
+    public String code;
 
     [HttpResponseTextBody]
     public String response;

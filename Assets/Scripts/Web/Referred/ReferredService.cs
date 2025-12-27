@@ -78,12 +78,12 @@ public class ReferredService : MonoBehaviour
         }
     }
 
-    public void Validate(long id)
+    public void Validate(String code)
     {
         ValidateGetOperation validateGetOp = new ValidateGetOperation();
         try
         {
-            validateGetOp.id = id;
+            validateGetOp.code = code;
 
             validateGetOp["on-complete"] = (Action<ValidateGetOperation, HttpResponse>)((op, response) =>
             {

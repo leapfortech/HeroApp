@@ -40,7 +40,7 @@ public class ReferredValidationAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        referredService.Validate(Convert.ToInt64(ifdCode.Text));
+        referredService.Validate(ifdCode.Text);
     }
 
     public void ApplyValidation(int response)

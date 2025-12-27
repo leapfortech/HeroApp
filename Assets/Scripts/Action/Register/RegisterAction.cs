@@ -11,6 +11,9 @@ public class RegisterAction : MonoBehaviour
 {
     [Header("Fields")]
     [SerializeField]
+    InputField ifdAlias = null;
+
+    [SerializeField]
     InputField ifdEmail = null;
 
     [SerializeField]
@@ -118,7 +121,13 @@ public class RegisterAction : MonoBehaviour
 
     private void DoRegister(String _)
     {
-        accessService.RegisterApp(new RegisterAppRequest(ifdEmail.Text, ifdPassword.Text, cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text, Convert.ToInt64(ifdReferredCode.Text)));
+        Identity identity = null;
+        Address address = null;
+        
+        accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
+                                                         cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
+                                                         Convert.ToInt64(ifdReferredCode.Text),
+                                                         identity, address));
     }
 
     // Send Mail Link
