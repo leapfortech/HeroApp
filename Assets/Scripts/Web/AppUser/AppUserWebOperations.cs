@@ -22,6 +22,21 @@ public class AppUserGetOperation : HttpOperation
     public AppUser appUser;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/appUser/ValidateAlias")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ValidateAliasPostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public AliasRequest aliasRequest;
+
+    [HttpRequestJsonBody]
+    public AliasResponse aliasResponse;
+}
+
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/appUser")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]

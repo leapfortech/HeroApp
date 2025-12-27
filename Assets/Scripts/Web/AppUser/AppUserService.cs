@@ -14,6 +14,9 @@ public class AppUserService : MonoBehaviour
     [Serializable]
     public class AppUserEvent : UnityEvent<AppUser> { }
 
+    [Serializable]
+    public class AliasResponseEvent : UnityEvent<AliasResponse> { }
+
     [SerializeField]
     private AppUserEvent onAppUserRetreived = null;
 
@@ -31,6 +34,9 @@ public class AppUserService : MonoBehaviour
 
     [SerializeField]
     private UnityLongEvent onReferredUpdated = null;
+
+    [SerializeField]
+    private AliasResponseEvent onAliasValidated = null;
 
     [Title("Error")]
     [SerializeField]
@@ -51,6 +57,27 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             appUserGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void ValidateAlias(AliasRequest aliasRequest)
+    {
+        ValidateAliasPostOperation validateAliasPostOp = new ValidateAliasPostOperation();
+        try
+        {
+            validateAliasPostOp.aliasRequest = aliasRequest;
+            validateAliasPostOp["on-complete"] = (Action<ValidateAliasPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onAliasValidated.Invoke(op.aliasResponse);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            validateAliasPostOp.Send();
         }
         catch (Exception ex)
         {

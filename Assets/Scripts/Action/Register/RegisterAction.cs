@@ -39,7 +39,6 @@ public class RegisterAction : MonoBehaviour
     [SerializeField]
     Toggle chkTerms = null;
 
-    [Space]
     [SerializeField]
     Image imgPortrait = null;
 
@@ -70,12 +69,10 @@ public class RegisterAction : MonoBehaviour
     String verifyError = "Unable to send the activation email. Please try again.";
     [SerializeField, TextArea(2, 5)]
     String passwordError = "The password fields do not match. Please enter them again.";
-
-    [Space]
-    [SerializeField]
-    String dateErrorTitle = "Error de fecha";
     [SerializeField, TextArea(2, 4)]
-    String birthDateErrorMessage = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
+    String birthDateError = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
+    [SerializeField, TextArea(2, 4)]
+    String minorError = "No se permite el registro de menores de edad.";
 
     AccessService accessService;
     WebSysUserService webSysUserService;
@@ -97,11 +94,12 @@ public class RegisterAction : MonoBehaviour
         if (elementValues != null)
             return;
 
-        elementValues = new ElementValue[4];
-        elementValues[0] = ifdEmail;
-        elementValues[1] = ifdPassword;
-        elementValues[2] = ifdConfirm;
-        elementValues[3] = chkTerms;
+        elementValues = new ElementValue[5];
+        elementValues[0] = ifdAlias;
+        elementValues[1] = ifdEmail;
+        elementValues[2] = ifdPassword;
+        elementValues[3] = ifdConfirm;
+        elementValues[4] = chkTerms;
 
         btnRegister?.AddAction(Register);
         btnResendLink?.AddAction(ResendMailLink);
@@ -150,13 +148,13 @@ public class RegisterAction : MonoBehaviour
 
         if (identity.BirthDate == new DateTime(0001, 1, 1))
         {
-            ChoiceDialog.Instance.Error(dateErrorTitle, birthDateErrorMessage, null);
+            ChoiceDialog.Instance.Error("Error de fecha", birthDateError, null);
             return;
         }
 
         if (CalculateAge(identity.BirthDate) < 18)
         {
-            ChoiceDialog.Instance.Error(dateErrorTitle, birthDateErrorMessage, null);
+            ChoiceDialog.Instance.Error("Error de fecha", minorError, null);
             return;
         }
 
