@@ -126,7 +126,7 @@ public class RegisterAction : MonoBehaviour
         
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
                                                          cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
-                                                         Convert.ToInt64(ifdReferredCode.Text),
+                                                         ifdReferredCode.Text,
                                                          identity, address));
     }
 
