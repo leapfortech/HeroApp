@@ -6,6 +6,11 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
 using Leap.Data.Web;
+using Leap.Data.Mapper;
+
+using Sirenix.OdinInspector;
+using Leap.Graphics.Tools;
+
 
 public class RegisterAction : MonoBehaviour
 {
@@ -17,13 +22,13 @@ public class RegisterAction : MonoBehaviour
     InputField ifdEmail = null;
 
     [SerializeField]
+    InputField ifdPassword = null;
+
+    [SerializeField]
     ComboAdapter cmbPhonePrefix = null;
 
     [SerializeField]
     InputField ifdPhone = null;
-
-    [SerializeField]
-    InputField ifdPassword = null;
 
     [SerializeField]
     InputField ifdConfirm = null;
@@ -33,6 +38,17 @@ public class RegisterAction : MonoBehaviour
 
     [SerializeField]
     Toggle chkTerms = null;
+
+    [Space]
+    [SerializeField]
+    Image imgPortrait = null;
+
+    [Title("Data")]
+    [SerializeField]
+    DataMapper dtmIdentity = null;
+
+    [SerializeField]
+    DataMapper dtmAddress = null;
 
     [Header("Action")]
     [SerializeField]
@@ -54,6 +70,12 @@ public class RegisterAction : MonoBehaviour
     String verifyError = "Unable to send the activation email. Please try again.";
     [SerializeField, TextArea(2, 5)]
     String passwordError = "The password fields do not match. Please enter them again.";
+
+    [Space]
+    [SerializeField]
+    String dateErrorTitle = "Error de fecha";
+    [SerializeField, TextArea(2, 4)]
+    String birthDateErrorMessage = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
 
     AccessService accessService;
     WebSysUserService webSysUserService;
@@ -97,6 +119,9 @@ public class RegisterAction : MonoBehaviour
         Initialize();
         for (int i = 0; i < elementValues.Length; i++)
             elementValues[i].Clear();
+
+        dtmIdentity.ClearElements();
+        dtmAddress.ClearElements();
     }
 
     // Register
@@ -121,13 +146,32 @@ public class RegisterAction : MonoBehaviour
 
     private void DoRegister(String _)
     {
-        Identity identity = null;
-        Address address = null;
-        
+        Identity identity = dtmIdentity.BuildClass<Identity>();
+
+        if (identity.BirthDate == new DateTime(0001, 1, 1))
+        {
+            ChoiceDialog.Instance.Error(dateErrorTitle, birthDateErrorMessage, null);
+            return;
+        }
+
+        if (CalculateAge(identity.BirthDate) < 18)
+        {
+            ChoiceDialog.Instance.Error(dateErrorTitle, birthDateErrorMessage, null);
+            return;
+        }
+
+        Address address = dtmAddress.BuildClass<Address>();
+
+        String portrait = null;
+       
+        if (imgPortrait != null) 
+            portrait = imgPortrait.Sprite != null ? imgPortrait.Sprite.ToStrBase64(ImageType.JPG) : "";
+
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
                                                          cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
                                                          ifdReferredCode.Text,
-                                                         identity, address));
+                                                         new IdentityRegister(identity, portrait),
+                                                         address));
     }
 
     // Send Mail Link
@@ -173,5 +217,16 @@ public class RegisterAction : MonoBehaviour
     public void VerifyErrorMessage()
     {
         ChoiceDialog.Instance.Info("Registro", verifyError);
+    }
+
+    public int CalculateAge(DateTime birthDate)
+    {
+        int age = DateTime.Today.Year - birthDate.Year;
+
+        if (DateTime.Today.Month < birthDate.Month)
+            --age;
+        else if (DateTime.Today.Month == birthDate.Month && DateTime.Today.Day < birthDate.Day)
+            --age;
+        return age;
     }
 }
