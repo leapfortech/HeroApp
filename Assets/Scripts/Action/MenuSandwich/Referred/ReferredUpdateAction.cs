@@ -67,7 +67,7 @@ public class ReferredUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        appUserService.UpdateReferred(Convert.ToInt64(ifdReferredCode.Text));
+        appUserService.UpdateReferred(ifdReferredCode.Text);
     }
 
     public void ApplyReferred(int referredAppUserId)

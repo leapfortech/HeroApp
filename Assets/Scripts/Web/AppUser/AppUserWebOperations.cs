@@ -86,7 +86,7 @@ public class AppUserReferredPutOperation : HttpOperation
     public long id;
 
     [HttpQueryString]
-    public long referredId;
+    public String referredCode;
 
     [HttpResponseTextBody]
     public String referredAppUserId;

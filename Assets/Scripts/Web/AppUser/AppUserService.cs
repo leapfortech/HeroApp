@@ -145,13 +145,13 @@ public class AppUserService : MonoBehaviour
         }
     }
 
-    public void UpdateReferred(long referredId)
+    public void UpdateReferred(String referredCode)
     {
         AppUserReferredPutOperation referredPutOp = new AppUserReferredPutOperation();
         try
         {
             referredPutOp.id = StateManager.Instance.AppUser.Id;
-            referredPutOp.referredId = referredId;
+            referredPutOp.referredCode = referredCode;
             referredPutOp["on-complete"] = (Action<AppUserReferredPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
