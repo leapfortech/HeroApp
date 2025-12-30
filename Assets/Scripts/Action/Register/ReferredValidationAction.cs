@@ -4,6 +4,7 @@ using UnityEngine;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
+using Leap.Data.Web;
 
 using Sirenix.OdinInspector;
 
@@ -39,7 +40,11 @@ public class ReferredValidationAction : MonoBehaviour
             return;
 
         ScreenDialog.Instance.Display();
+        FirebaseManager.Instance.LoginStartToken(DoValidate, null);
+    }
 
+    private void DoValidate(String _)
+    {
         referredService.Validate(ifdCode.Text);
     }
 

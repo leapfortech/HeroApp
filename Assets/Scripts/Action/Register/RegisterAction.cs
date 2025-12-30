@@ -66,6 +66,10 @@ public class RegisterAction : MonoBehaviour
 
     [Space]
     [SerializeField, TextArea(2, 5)]
+    String aliasInvalidMessage = "Alias inválido.";
+    [SerializeField, TextArea(2, 5)]
+    String aliasAlreadyExistsMessage = "El Alias ya existe.";
+    [SerializeField, TextArea(2, 5)]
     String verifyError = "Unable to send the activation email. Please try again.";
     [SerializeField, TextArea(2, 5)]
     String passwordError = "The password fields do not match. Please enter them again.";
@@ -74,12 +78,16 @@ public class RegisterAction : MonoBehaviour
     [SerializeField, TextArea(2, 4)]
     String minorError = "No se permite el registro de menores de edad.";
 
+    AppUserService appUserService;
     AccessService accessService;
     WebSysUserService webSysUserService;
     ElementValue[] elementValues = null;
 
+    bool isAliasAvailable = false;
+
     private void Awake()
     {
+        appUserService = GetComponent<AppUserService>();
         accessService = GetComponent<AccessService>();
         webSysUserService = GetComponent<WebSysUserService>();
     }
@@ -106,10 +114,13 @@ public class RegisterAction : MonoBehaviour
     }
 
     public void Init()
-    {
+    {       
         Clear();
         if (cmbPhonePrefix.Combo.IsEmpty())
             cmbPhonePrefix.Select(2);
+
+        isAliasAvailable = false;
+        RefreshRegisterButton();
     }
 
     public void Clear()
@@ -120,6 +131,43 @@ public class RegisterAction : MonoBehaviour
 
         dtmIdentity.ClearElements();
         dtmAddress.ClearElements();
+    }
+
+    // Alias
+
+    public void ValidateAlias()
+    {
+        if (ifdAlias.Text.Length == 0)
+        {
+            ChoiceDialog.Instance.Error("Alias", aliasInvalidMessage);
+            return;
+        }
+        
+        ScreenDialog.Instance.Display();
+        FirebaseManager.Instance.LoginStartToken(DoValidateAlias, null);
+    }
+
+    private void DoValidateAlias(String _)
+    {
+        appUserService.ValidateAlias(new AliasRequest(ifdAlias.Text));
+    }
+
+    public void ApplyAliasValidation(AliasResponse aliasResponse)
+    {
+        isAliasAvailable = aliasResponse == null;
+
+        if (!isActiveAndEnabled)
+            ChoiceDialog.Instance.Error("Alias", aliasAlreadyExistsMessage);
+        else
+            RefreshRegisterButton();
+   
+        isAliasAvailable = false;
+        ScreenDialog.Instance.Hide();
+    }
+
+    public void RefreshRegisterButton()
+    {
+        btnRegister.Interactable = isAliasAvailable;
     }
 
     // Register
