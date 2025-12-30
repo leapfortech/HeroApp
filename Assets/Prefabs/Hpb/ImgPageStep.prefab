@@ -321,6 +321,7 @@ MonoBehaviour:
   state: 0
   required: 0
   clearable: 0
+  defaultText: 
   text: de 5
   alignment: 514
   txtModel: {fileID: 8978868059194369549}
@@ -531,6 +532,7 @@ MonoBehaviour:
   state: 0
   required: 0
   clearable: 0
+  defaultText: 
   text: 1
   alignment: 514
   txtModel: {fileID: 3251192253153927773}
@@ -1389,6 +1391,7 @@ MonoBehaviour:
   state: 0
   required: 0
   clearable: 0
+  defaultText: 
   text: "N\xFAmero de tel\xE9fono"
   alignment: 513
   txtModel: {fileID: 1901246433948093733}
@@ -1446,6 +1449,7 @@ MonoBehaviour:
   state: 0
   required: 0
   clearable: 0
+  defaultText: 
   text: "Siguiente: Verificaci\xF3n"
   alignment: 513
   txtModel: {fileID: 1997336185591454143}
@@ -1478,7 +1482,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2591044507343574341}
+  - {fileID: 2061360848958757292}
   - {fileID: 8216788253278262998}
   - {fileID: 7725541859658096752}
   - {fileID: 8162438769203204552}
@@ -1513,7 +1517,7 @@ MonoBehaviour:
   keepAspect: 0
   holder: 0
   errorMessage: 
-  imgModel: {fileID: 1269811067152209529}
+  imgModel: {fileID: 3382511136972921488}
 --- !u!1 &8548042330983048059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,7 +1670,7 @@ MonoBehaviour:
     - {r: 0, g: 0, b: 0, a: 0}
     - {r: 0, g: 0, b: 0, a: 0}
     m_Rotation: 0
---- !u!1001 &2178859287346422681
+--- !u!1001 &2401137129699503984
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1791,10 +1795,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b12c0fa24b9dec1489974d27b8c44ee5, type: 3}
---- !u!114 &1269811067152209529 stripped
+--- !u!224 &2061360848958757292 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: b12c0fa24b9dec1489974d27b8c44ee5, type: 3}
+  m_PrefabInstance: {fileID: 2401137129699503984}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3382511136972921488 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1126914250756830688, guid: b12c0fa24b9dec1489974d27b8c44ee5, type: 3}
-  m_PrefabInstance: {fileID: 2178859287346422681}
+  m_PrefabInstance: {fileID: 2401137129699503984}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1802,8 +1811,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e114e077bbdef4fbf4486453651488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2591044507343574341 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: b12c0fa24b9dec1489974d27b8c44ee5, type: 3}
-  m_PrefabInstance: {fileID: 2178859287346422681}
-  m_PrefabAsset: {fileID: 0}
