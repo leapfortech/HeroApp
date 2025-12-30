@@ -67,8 +67,6 @@ public class PhotoVisionAction : MonoBehaviour
     private void Take()
     {
         ApplyPhoto(webCamera.TakePause());
-
-        PageManager.Instance.ChangePage(nextPage);
     }
 
     // Apply
@@ -80,6 +78,8 @@ public class PhotoVisionAction : MonoBehaviour
         this.photo.name = spriteName;
 
         CreateSprites();
+
+        PageManager.Instance.ChangePage(nextPage);
     }
 
     private void CreateSprites()
