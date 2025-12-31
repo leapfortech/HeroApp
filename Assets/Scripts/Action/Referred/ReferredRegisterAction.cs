@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -7,7 +8,6 @@ using Leap.Data.Mapper;
 using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
-using System;
 
 public class ReferredRegisterAction : MonoBehaviour
 {
