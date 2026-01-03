@@ -42,7 +42,49 @@ public class StateManager : SingletonBehaviour<StateManager>
     {
         get => portrait;
         set { portrait?.Destroy(); portrait = value; }
-    } 
+    }
+
+    // TALE
+    public List<TaleFull> TaleFulls { get; set; }
+    private Dictionary<long, TaleFull> DictTaleFulls { get; set; } = new Dictionary<long, TaleFull>();
+
+    public void SetTaleFulls(List<TaleFull> taleFulls)
+    {
+        Dictionary<long, TaleFull> newDict = new Dictionary<long, TaleFull>();
+
+        foreach (TaleFull taleFull in taleFulls)
+            newDict[taleFull.Id] = taleFull;
+
+        TaleFulls = taleFulls;
+        DictTaleFulls = newDict;
+    }
+
+    public TaleFull GetTaleFullById(long taleId)
+    {
+        if (!DictTaleFulls.TryGetValue(taleId, out TaleFull taleFull))
+            return null;
+        return taleFull;
+    }
+
+    // Tale Images
+
+    private Dictionary<long, List<Sprite>> taleImagesDic = new Dictionary<long, List<Sprite>>();
+    public void AddTaleImages(long taleId, String[] stgImages)
+    {
+        List<Sprite> taleImages = new List<Sprite>();
+        for (int i = 0; i < stgImages.Length; i++)
+            taleImages.Add(stgImages[i].CreateSprite($"TaleImages_{i}"));
+        taleImagesDic.Add(taleId, taleImages);
+    }
+
+    public List<Sprite> GetTaleImagesById(long taleId)
+    {
+        if (!taleImagesDic.TryGetValue(taleId, out List<Sprite> taleImages))
+            return null;
+        return taleImages;
+    }
+
+    // Clear
 
     public void ClearAll()
     {

@@ -63,12 +63,6 @@ public class LoginAction : MonoBehaviour
     [SerializeField]
     Page homePage = null;
 
-    [SerializeField]
-    Page obdApprovedPage = null;
-
-    [SerializeField]
-    Page obdRejectedPage = null;
-
 #pragma warning disable 0414
     [Title("Biometrics")]
     [SerializeField]
@@ -407,19 +401,6 @@ public class LoginAction : MonoBehaviour
     {
         Clear();
 
-        if (StateManager.Instance.AppUser.AppUserStatusId == 5)
-        {
-            StateManager.Instance.AppUser.AppUserStatusId = 1;
-            PageManager.Instance.ChangePage(obdApprovedPage);
-            return;
-        }
-        else if (StateManager.Instance.AppUser.AppUserStatusId == 4)
-        {
-            StateManager.Instance.AppUser.AppUserStatusId = 6;
-            PageManager.Instance.ChangePage(obdRejectedPage);
-            return;
-        }
-
         PageManager.Instance.ChangePage(homePage);
     }
 
@@ -435,6 +416,8 @@ public class LoginAction : MonoBehaviour
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
         StateManager.Instance.Card = loginAppInfo.Card;  // loginData.Card.Id == 0 ? null : loginData.Card;
+
+        StateManager.Instance.SetTaleFulls(loginAppInfo.TaleFulls);
     }
 
     // Remote Login

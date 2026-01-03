@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Leap.Data.Web;
 
 public class LoginAppInfo
@@ -10,12 +11,15 @@ public class LoginAppInfo
     public Card Card { get; set; }
     public Notification[] Notifications { get; set; }
 
+    public List<TaleFull> TaleFulls { get; set; }
+
+
     public LoginAppInfo()
     {
     }
 
-    public LoginAppInfo(ReferredCount referredCount, Identity identity, Address address, String portrait, Card card,
-                        Notification[] notifications)
+    public LoginAppInfo(ReferredCount referredCount, Identity identity, Address address, String portrait, Card card, Notification[] notifications,
+                        List<TaleFull> taleFulls)
     {
         ReferredCount = referredCount;
         Identity = identity;
@@ -23,5 +27,7 @@ public class LoginAppInfo
         Portrait = portrait;
         Card = card;
         Notifications = notifications;
+
+        TaleFulls = taleFulls;
     }
 }

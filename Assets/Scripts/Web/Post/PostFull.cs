@@ -1,5 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
+using UnityEngine;
+
+using Leap.Graphics.Tools;
 
 public class PostFull
 {
@@ -10,7 +14,12 @@ public class PostFull
     public long PostCountryId { get; set; }
     public long PostStateId { get; set; }
     public String Title { get; set; }
-    public String TitleImage { get; set; }
+    public String TitleImage 
+    {
+        get { return null; }
+        set { TitleSprite = value?.CreateSprite($"Cover{PostId:D02}"); }
+    }
+    public Sprite TitleSprite { get; set; } = null;
     public String Summary { get; set; }
     public String Description { get; set; }
     public int ImageCount { get; set; }
