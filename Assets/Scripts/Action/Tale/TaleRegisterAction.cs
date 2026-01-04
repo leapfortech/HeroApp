@@ -106,6 +106,9 @@ public class TaleRegisterAction : MonoBehaviour
 
         post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
+        post.PostSubtypeId = 1;
+        post.CountryId = StateManager.Instance.Identity.OriginCountryId;
+        post.StateId = StateManager.Instance.Identity.OriginStateId;
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
@@ -114,7 +117,7 @@ public class TaleRegisterAction : MonoBehaviour
         taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
     }
 
-    public void ApplyReferred(long taleId)
+    public void ApplyTale(long taleId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

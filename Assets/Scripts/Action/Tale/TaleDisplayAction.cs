@@ -4,10 +4,7 @@ using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
-using Leap.Graphics.Tools;
 using Leap.UI.Dialog;
-using Leap.Data.Collections;
-using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -17,14 +14,12 @@ public class TaleDisplayAction : MonoBehaviour
     [Space]
     [Title("List")]
     [SerializeField]
-    ListScroller lstTale = null;
+    ListScroller lstFeed = null;
     [SerializeField]
-    Text txtTaleEmpty;
+    Text txtEmpty;
    
     [Space]
     [Title("Details")]
-    [SerializeField]
-    Image imgTitle = null;
     [SerializeField]
     Text txtTitle = null;
 
@@ -32,11 +27,6 @@ public class TaleDisplayAction : MonoBehaviour
     [Title("Images")]
     [SerializeField]
     ListScroller lstImage = null;
-
-    [Space]
-    [Title("Events")]
-    [SerializeField]
-    private UnityLongEvent onSelected;
     
     //[Title("Values")]
     //[SerializeField]
@@ -47,7 +37,7 @@ public class TaleDisplayAction : MonoBehaviour
     Page pagDetail;
 
     PostService postService;
-    public long SelIdx { get; set; } = 0;
+    public int SelIdx { get; set; } = 0;
     
     Dictionary<long, long> indexes = new Dictionary<long, long>();
     long idx = 0;
@@ -62,7 +52,7 @@ public class TaleDisplayAction : MonoBehaviour
     {
         idx = 0;
         indexes.Clear();
-        lstTale.ClearValues();
+        lstFeed.ClearValues();
     }
 
     private long GetId()
@@ -87,11 +77,11 @@ public class TaleDisplayAction : MonoBehaviour
             scrollerValue.SetText(0, StateManager.Instance.TaleFulls[i].Description);
             scrollerValue.SetSprite(1, StateManager.Instance.TaleFulls[i].TitleSprite);
 
-            lstTale.AddValue(scrollerValue);
+            lstFeed.AddValue(scrollerValue);
         }
 
-        lstTale.ApplyClearValues();
-        //txtTaleEmpty.gameObject.SetActive(false);
+        lstFeed.ApplyClearValues();
+        txtEmpty.gameObject.SetActive(StateManager.Instance.TaleFulls.Count != 0);
     }
 
     public void DisplayDetail()
@@ -100,21 +90,20 @@ public class TaleDisplayAction : MonoBehaviour
 
         if (taleFull == null)
             return;
-
-        onSelected.Invoke(GetId());
-
-        imgTitle.Sprite = taleFull.TitleSprite;
-       
+      
+        // Fields
         txtTitle.TextValue = taleFull.Title;
 
-        List<Sprite> taleImages = StateManager.Instance.GetTaleImagesById(GetId());
+
+        // Images
+        List<Sprite> images = StateManager.Instance.GetTaleImagesById(GetId());
 
         lstImage.Clear();
 
-        for (int i = 0; i < taleImages.Count; i++)
+        for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
-            scrollerValue.SetSprite(0, taleImages[i]);
+            scrollerValue.SetSprite(0, images[i]);
             lstImage.ApplyAddValue(scrollerValue);
         }
         
@@ -137,5 +126,6 @@ public class TaleDisplayAction : MonoBehaviour
     public void ApplyImages(String[] stgImages)
     {
         StateManager.Instance.AddTaleImages(GetId(), stgImages);
+        DisplayDetail();
     }
 }
