@@ -118,9 +118,6 @@ public class RegisterAction : MonoBehaviour
         Clear();
         if (cmbPhonePrefix.Combo.IsEmpty())
             cmbPhonePrefix.Select(2);
-
-        isAliasAvailable = false;
-        RefreshRegisterButton();
     }
 
     public void Clear()
@@ -128,9 +125,18 @@ public class RegisterAction : MonoBehaviour
         Initialize();
         for (int i = 0; i < elementValues.Length; i++)
             elementValues[i].Clear();
+    }
+
+    public void ClearAll()
+    {
+       for (int i = 0; i < elementValues.Length; i++)
+            elementValues[i].Clear();
 
         dtmIdentity.ClearElements();
         dtmAddress.ClearElements();
+
+        isAliasAvailable = false;
+        RefreshRegisterButton();
     }
 
     // Alias
@@ -235,6 +241,8 @@ public class RegisterAction : MonoBehaviour
 
     public void ApplyRegistered(String registerResponse)  // registerResponse : $"{appUserId}|{isMailVerified}"
     {
+        ClearAll();
+
         if (registerResponse[^1] == '0')
             SendMailLink();  // First time
         else
