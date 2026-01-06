@@ -241,8 +241,6 @@ public class RegisterAction : MonoBehaviour
 
     public void ApplyRegistered(String registerResponse)  // registerResponse : $"{appUserId}|{isMailVerified}"
     {
-        ClearAll();
-
         if (registerResponse[^1] == '0')
             SendMailLink();  // First time
         else
@@ -264,6 +262,8 @@ public class RegisterAction : MonoBehaviour
         txtEmail.TextValue = ifdEmail.Text;
 
         PageManager.Instance.ChangePage(pagMailLink);
+
+        ClearAll();
     }
 
     // Messages
