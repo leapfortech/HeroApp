@@ -118,6 +118,9 @@ public class RegisterAction : MonoBehaviour
         Clear();
         if (cmbPhonePrefix.Combo.IsEmpty())
             cmbPhonePrefix.Select(2);
+
+        isAliasAvailable = false;
+        RefreshRegisterButton();
     }
 
     public void Clear()
@@ -134,9 +137,9 @@ public class RegisterAction : MonoBehaviour
 
         dtmIdentity.ClearElements();
         dtmAddress.ClearElements();
-
-        isAliasAvailable = false;
-        RefreshRegisterButton();
+        imgPortrait.ClearValue();
+        ifdPhone.ClearValue();
+        cmbPhonePrefix.Select(2);
     }
 
     // Alias
@@ -222,8 +225,7 @@ public class RegisterAction : MonoBehaviour
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
                                                          cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
                                                          ifdReferredCode.Text,
-                                                         new IdentityRegister(identity, portrait),
-                                                         address));
+                                                         new IdentityRegister(identity, portrait), address));
     }
 
     // Send Mail Link
