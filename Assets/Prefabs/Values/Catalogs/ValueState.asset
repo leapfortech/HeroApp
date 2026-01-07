@@ -31,14 +31,22 @@ MonoBehaviour:
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 1
+  - Name: Code
+    oldName: Code
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 2
   columnNames:
   - CountryId
   - Name
+  - Code
   columnIndexes:
     keys:
     - CountryId
     - Name
-    values: 0000000001000000
+    - Code
+    values: 000000000100000002000000
   statusName: Status
   statusValue: 1
   columnFilters: []
@@ -48,6 +56,8 @@ MonoBehaviour:
     keys: 
     values: []
   cellIndexers:
+  - keys: []
+    values: []
   - keys: []
     values: []
   - keys: []
