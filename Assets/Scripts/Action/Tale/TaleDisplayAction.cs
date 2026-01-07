@@ -80,8 +80,8 @@ public class TaleDisplayAction : MonoBehaviour
             lstFeed.AddValue(scrollerValue);
         }
 
-        lstFeed.ApplyClearValues();
-        txtEmpty.gameObject.SetActive(StateManager.Instance.TaleFulls.Count != 0);
+        lstFeed.ApplyValues();
+        txtEmpty.gameObject.SetActive(StateManager.Instance.TaleFulls.Count == 0);
     }
 
     public void DisplayDetail()
@@ -93,7 +93,6 @@ public class TaleDisplayAction : MonoBehaviour
       
         // Fields
         txtTitle.TextValue = taleFull.Title;
-
 
         // Images
         List<Sprite> images = StateManager.Instance.GetTaleImagesById(GetId());
@@ -120,7 +119,7 @@ public class TaleDisplayAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        postService.GetImagesById(GetId());
+        postService.GetImagesById(StateManager.Instance.GetPostIdByTaleId(GetId()));
     }
 
     public void ApplyImages(String[] stgImages)

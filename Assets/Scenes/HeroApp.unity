@@ -48207,7 +48207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 648313197137069583, guid: a22e9ca49bc0aa74d813452fe0430506, type: 3}
       propertyPath: customMessageDialogs.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 648313197137069583, guid: a22e9ca49bc0aa74d813452fe0430506, type: 3}
       propertyPath: customMessageDialogs.Array.data[0].Prefab
@@ -48216,7 +48216,7 @@ PrefabInstance:
     - target: {fileID: 648313197137069583, guid: a22e9ca49bc0aa74d813452fe0430506, type: 3}
       propertyPath: customMessageDialogs.Array.data[1].Prefab
       value: 
-      objectReference: {fileID: 4940188365609797319, guid: b7799e2f3af7c2f49bdaa9d0828a0593, type: 3}
+      objectReference: {fileID: 2085196896188291774, guid: 089fc4d753d49994b9abf416a7e3bdfa, type: 3}
     - target: {fileID: 648313197137069583, guid: a22e9ca49bc0aa74d813452fe0430506, type: 3}
       propertyPath: customMessageDialogs.Array.data[2].Prefab
       value: 
@@ -89185,6 +89185,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe6fc9e97e54f04e95da517c7b0bbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &582953306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 582953307}
+  - component: {fileID: 582953308}
+  m_Layer: 0
+  m_Name: Validate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &582953307
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582953306}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1325541521}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &582953308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582953306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8758c49579e42f4c876d5e869554b09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ValidateElementAction
+  elementValues:
+  - {fileID: 1268648185}
+  - {fileID: 1855448509}
+  - {fileID: 502716572}
+  btnValidate: {fileID: 1603572987}
+  nextPage: {fileID: 992978300}
+  onValidated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &583597719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92999,6 +93056,10 @@ PrefabInstance:
       propertyPath: lstModel
       value: 
       objectReference: {fileID: 378631109}
+    - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
+      propertyPath: itemSpacing
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: modelPrefab
       value: 
@@ -211014,6 +211075,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1603572985}
+    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 582953307}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
 --- !u!224 &1325541521 stripped
@@ -237288,6 +237352,34 @@ PrefabInstance:
       propertyPath: headerTitle
       value: Historias
       objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1620034167}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: TaleDisplayAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -245510,6 +245602,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1184490554}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
+      propertyPath: itemSpacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: modelPrefab
       value: 
       objectReference: {fileID: 6588006440490177112, guid: eeca4b87b7c37504f96dcfb780ae7b48, type: 3}
@@ -248250,19 +248346,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 267009719}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1603572988}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0763d43de201734448774eecf14d872a, type: 3}
 --- !u!224 &1603572985 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
-  m_PrefabInstance: {fileID: 1603572984}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1603572986 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 1603572984}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1603572987 stripped
@@ -248270,33 +248358,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 1603572984}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603572986}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1603572988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1603572986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8758c49579e42f4c876d5e869554b09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ValidateElementAction
-  elementValues:
-  - {fileID: 1268648185}
-  - {fileID: 1855448509}
-  - {fileID: 502716572}
-  btnValidate: {fileID: 1603572987}
-  nextPage: {fileID: 992978300}
-  onValidated:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1604282494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252453,9 +252520,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
+      propertyPath: itemSpacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: modelPrefab
       value: 
       objectReference: {fileID: 6588006440490177112, guid: eeca4b87b7c37504f96dcfb780ae7b48, type: 3}
+    - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
+      propertyPath: errorMessage
+      value: "Es necesario que agregues al menos una fotograf\xEDa."
+      objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: listController
       value: 
@@ -285626,8 +285701,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: hasHeader
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: headerPage
+      value: 
+      objectReference: {fileID: 1534444867}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: JustCreated
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      propertyPath: headerTitle
+      value: Historia
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -312394,7 +312481,7 @@ MonoBehaviour:
   - {fileID: 1634912416}
   dtmPost: {fileID: 647275108}
   maxCount: 4
-  spriteName: TaleImages
+  spriteName: TaleImage
   lstImages: {fileID: 1634912416}
   txtEmpty: {fileID: 1256179160}
   btnAddImage: {fileID: 204770725}

@@ -66,6 +66,14 @@ public class StateManager : SingletonBehaviour<StateManager>
         return taleFull;
     }
 
+    public long GetPostIdByTaleId(long taleId)
+    {
+        if (!DictTaleFulls.TryGetValue(taleId, out TaleFull taleFull))
+            return -1;
+
+        return taleFull.PostId;
+    }
+
     // Tale Images
 
     private Dictionary<long, List<Sprite>> taleImagesDic = new Dictionary<long, List<Sprite>>();
