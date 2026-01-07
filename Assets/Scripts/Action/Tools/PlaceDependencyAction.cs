@@ -36,11 +36,11 @@ public class PlaceDependencyAction : MonoBehaviour
         if (String.IsNullOrWhiteSpace(value))
             return result;
 
-        String[] parts = value.Split('|');
+        String[] countryIds = value.Split('|');
 
-        foreach (String part in parts)
+        foreach (String countryId in countryIds)
         {
-            if (long.TryParse(part, out long id))
+            if (long.TryParse(countryId, out long id))
                 result.Add(id);
         }
 
