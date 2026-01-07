@@ -15,8 +15,6 @@ public class ReferredDisplayAction : MonoBehaviour
     ComboAdapter cmbPeriod;
     [SerializeField]
     FieldValue fldCount = null;
-    [SerializeField]
-    FieldValue fldInvestmentCount = null;
 
     [Title("List")]
     [SerializeField]
@@ -44,7 +42,6 @@ public class ReferredDisplayAction : MonoBehaviour
     public void FillCurrentPeriod()
     {
         fldCount.TextValue = StateManager.Instance.ReferredCount.Count.ToString("N0");
-        fldInvestmentCount.TextValue = StateManager.Instance.ReferredCount.InvestmentCount.ToString("N0");
 
         if (!firstDisplay)
             return;

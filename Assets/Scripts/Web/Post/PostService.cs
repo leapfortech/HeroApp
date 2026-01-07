@@ -109,6 +109,27 @@ public class PostService : MonoBehaviour
         }
     }
 
+    public void RegisterCommenPlaintt(CommentPlaint commentPlaint)
+    {
+        CommentPlaintRegisterOperation commentPlaintRegisterOp = new CommentPlaintRegisterOperation();
+        try
+        {
+            commentPlaintRegisterOp.commentPlaint = commentPlaint;
+            commentPlaintRegisterOp["on-complete"] = (Action<CommentPlaintRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.commentPlaintId));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            commentPlaintRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void RegisterPostPlaint(PostPlaint postPlaint)
     {
         PostPlaintRegisterOperation postPlaintRegisterOp = new PostPlaintRegisterOperation();

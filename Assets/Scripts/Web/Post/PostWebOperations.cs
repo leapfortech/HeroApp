@@ -60,7 +60,7 @@ public class FavoriteRegisterOperation : HttpOperation
 }
 
 [HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/CommentFavorite")]
+[HttpPathExt(WebServiceType.Main, "/post/RegisterComment")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
@@ -72,6 +72,21 @@ public class CommentRegisterOperation : HttpOperation
 
     [HttpResponseTextBody]
     public String commentId;
+}
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/RegisterCommentPlaint")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class CommentPlaintRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public CommentPlaint commentPlaint;
+
+    [HttpResponseTextBody]
+    public String commentPlaintId;
 }
 
 [HttpPOST]
