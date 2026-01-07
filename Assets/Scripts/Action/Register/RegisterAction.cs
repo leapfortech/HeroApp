@@ -163,14 +163,13 @@ public class RegisterAction : MonoBehaviour
 
     public void ApplyAliasValidation(AliasResponse aliasResponse)
     {
-        isAliasAvailable = aliasResponse == null;
+        isAliasAvailable = (aliasResponse == null || aliasResponse.Email == null);
 
-        if (!isActiveAndEnabled)
+        if (!isAliasAvailable)
             ChoiceDialog.Instance.Error("Alias", aliasAlreadyExistsMessage);
         else
             RefreshRegisterButton();
    
-        isAliasAvailable = false;
         ScreenDialog.Instance.Hide();
     }
 

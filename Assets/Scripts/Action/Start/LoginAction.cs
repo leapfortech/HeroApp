@@ -261,12 +261,56 @@ public class LoginAction : MonoBehaviour
     }
 
     // Login
+    
+    bool loginWithAlias = false;
+
     private void DoLogin()  // Manual Login
     {
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        Login(ifdEmail.Text, ifdPassword.Text);
+        if (IsEmail(ifdEmail.Text))
+        {
+            loginWithAlias = false;
+            Login(ifdEmail.Text, ifdPassword.Text);
+            return;
+        }
+
+        loginWithAlias = true;
+        ScreenDialog.Instance.Display();
+        FirebaseManager.Instance.LoginStartToken(DoValidateAlias, null);
+    }
+
+    private bool IsEmail(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return false;
+
+        try
+        {
+            System.Net.Mail.MailAddress mailAddress = new System.Net.Mail.MailAddress(value);
+            return mailAddress.Address == value;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private void DoValidateAlias(String _)
+    {
+        appUserService.ValidateAlias(new AliasRequest(ifdEmail.Text));
+    }
+
+    public void ApplyAliasValidation(AliasResponse aliasResponse)
+    {
+        if (aliasResponse == null || aliasResponse.Email == null)
+        {
+            ChoiceDialog.Instance.Error("Alias", "El alias es incorrecto.");
+            return;
+        }
+
+        Login(aliasResponse.Email, ifdPassword.Text);
     }
 
     public void Login(String[] credentials)  // Biometric Login
@@ -282,7 +326,9 @@ public class LoginAction : MonoBehaviour
 
     private void Login(String eMail, String password)
     {
-        ScreenDialog.Instance.Display();
+        if (!loginWithAlias)
+            ScreenDialog.Instance.Display();
+
         PageManager.Instance.ResetTimer();
 
         FirebaseManager.Instance.Login(eMail, password, OnLoginDone, null);

@@ -33,7 +33,7 @@ public class ValidateAliasPostOperation : HttpOperation
     [HttpRequestJsonBody]
     public AliasRequest aliasRequest;
 
-    [HttpRequestJsonBody]
+    [HttpResponseJsonBody]
     public AliasResponse aliasResponse;
 }
 
