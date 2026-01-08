@@ -74,7 +74,7 @@ public class StateManager : SingletonBehaviour<StateManager>
         return taleFull.PostId;
     }
 
-    // Tale Images
+    // TALE IMAGES
 
     private Dictionary<long, List<Sprite>> taleImagesDic = new Dictionary<long, List<Sprite>>();
     public void AddTaleImages(long taleId, String[] stgImages)
@@ -102,5 +102,10 @@ public class StateManager : SingletonBehaviour<StateManager>
         Identity = null;
         Card = null;
         Portrait = null;
+
+        // TALE
+        TaleFulls = null;
+        DictTaleFulls.Clear();
+        taleImagesDic.Clear();
     }
 }
