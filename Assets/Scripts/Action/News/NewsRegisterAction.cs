@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleRegisterAction : MonoBehaviour
+public class NewsRegisterAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,13 +19,17 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmLink = null;
+    [SerializeField]
+    DataMapper dtmNews = null;
 
     [Space]
     [Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "News";
     [SerializeField]
     ListScroller lstImages = null;
     [SerializeField]
@@ -42,13 +46,12 @@ public class TaleRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
-
+    NewsService newsService = null;
     List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        newsService = GetComponent<NewsService>();
     }
 
     private void Start()
@@ -59,6 +62,8 @@ public class TaleRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmLink.ClearElements();
+        dtmNews.ClearElements();
         images.Clear();
         lstImages.Clear();
     }
@@ -110,14 +115,21 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
+        Link link = dtmLink.BuildClass<Link>();
+        link.LinkTypeId = (long)LinkType.Url;
+
+        News news = dtmNews.BuildClass<News>();
+        // RM WIP Fill All Params
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        newsService.Register(new RegisterNewsRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
+                                                     news));
     }
 
-    public void ApplyTale(long taleId)
+    public void ApplyNews(long newsId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

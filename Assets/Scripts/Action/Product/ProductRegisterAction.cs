@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleRegisterAction : MonoBehaviour
+public class ProductRegisterAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,13 +19,23 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmProduct = null;
+    [SerializeField]
+    DataMapper dtmContact = null;
+    [SerializeField]
+    DataMapper dtmPhone = null;
+    [SerializeField]
+    DataMapper dtmWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmEmail = null;
 
     [Space]
     [Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "Product";
     [SerializeField]
     ListScroller lstImages = null;
     [SerializeField]
@@ -42,13 +52,12 @@ public class TaleRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
-
+    ProductService productService = null;
     List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        productService = GetComponent<ProductService>();
     }
 
     private void Start()
@@ -59,6 +68,11 @@ public class TaleRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmProduct.ClearElements();
+        dtmContact.ClearElements();
+        dtmPhone.ClearElements();
+        dtmWhatsApp.ClearElements();
+        dtmEmail.ClearElements();
         images.Clear();
         lstImages.Clear();
     }
@@ -110,14 +124,28 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
+        // RM WIP Fill All Params
+        Product product = dtmProduct.BuildClass<Product>();
+
+        Contact contact = dtmContact.BuildClass<Contact>();
+        Link phone = dtmPhone.BuildClass<Link>();
+        phone.LinkTypeId = (long)LinkType.Phone;
+        Link whatsApp = dtmWhatsApp.BuildClass<Link>();
+        whatsApp.LinkTypeId = (long)LinkType.WhatsApp;
+        Link email = dtmEmail.BuildClass<Link>();
+        email.LinkTypeId = (long)LinkType.Email;
+
+        List<Link> links = new List<Link>{phone, whatsApp, email};
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        productService.Register(new RegisterProductRequest(new RegisterPostRequest(post, contact, links, strImages),
+                                                           product));
     }
 
-    public void ApplyTale(long taleId)
+    public void ApplyProduct(long productId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

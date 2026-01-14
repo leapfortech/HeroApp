@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleRegisterAction : MonoBehaviour
+public class RadioRegisterAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,13 +19,15 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmLink = null;
 
     [Space]
     [Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "Radio";
     [SerializeField]
     ListScroller lstImages = null;
     [SerializeField]
@@ -42,13 +44,12 @@ public class TaleRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
-
+    RadioService radioService = null;
     List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        radioService = GetComponent<RadioService>();
     }
 
     private void Start()
@@ -59,6 +60,7 @@ public class TaleRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmLink.ClearElements();
         images.Clear();
         lstImages.Clear();
     }
@@ -110,14 +112,22 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
+        Link link = dtmLink.BuildClass<Link>();
+        link.LinkTypeId = (long)LinkType.Url;
+
+        // RM WIP Fill All Params
+        List<RadioType> radioTypes = new List<RadioType>();
+        List<RadioLanguage> radioLanguages = new List<RadioLanguage>();
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        radioService.Register(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages), 
+                                                       radioTypes, radioLanguages));
     }
 
-    public void ApplyTale(long taleId)
+    public void ApplyRadio(long radioId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

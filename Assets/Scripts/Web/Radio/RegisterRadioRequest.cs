@@ -10,12 +10,17 @@ public class RegisterRadioRequest : RegisterPostRequest
     {
     }
 
-    public RegisterRadioRequest(Radio radio,
+    public RegisterRadioRequest(RegisterPostRequest registerPostRequest,
                                 List<RadioType> radioTypes,
                                 List<RadioLanguage> radioLanguages)
     {
-        Radio = radio;
-        RadioTypes = radioTypes ?? new List<RadioType>();
-        RadioLanguages = radioLanguages ?? new List<RadioLanguage>();
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        Radio = null;
+        RadioTypes = radioTypes;
+        RadioLanguages = radioLanguages;
     }
 }

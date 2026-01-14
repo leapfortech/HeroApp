@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleRegisterAction : MonoBehaviour
+public class TreatmentRegisterAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,13 +19,15 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmTreatment = null;
 
     [Space]
     [Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "Treatment";
     [SerializeField]
     ListScroller lstImages = null;
     [SerializeField]
@@ -42,13 +44,12 @@ public class TaleRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
-
+    TreatmentService treatmentService = null;
     List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        treatmentService = GetComponent<TreatmentService>();
     }
 
     private void Start()
@@ -59,6 +60,7 @@ public class TaleRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmTreatment.ClearElements();
         images.Clear();
         lstImages.Clear();
     }
@@ -110,14 +112,19 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
+        Treatment treatment = dtmTreatment.BuildClass<Treatment>();
+
+        // RM WIP Fill All Params
+        List<Disease> diseases = new List<Disease>();
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
     }
 
-    public void ApplyTale(long taleId)
+    public void ApplyTreatment(long treatmentId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

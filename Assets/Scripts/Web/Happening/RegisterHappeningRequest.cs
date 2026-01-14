@@ -10,4 +10,14 @@
     {
         Happening = happening;
     }
+
+    public RegisterHappeningRequest(RegisterPostRequest registerPostRequest, Happening happening)
+    {
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        Happening = happening;
+    }
 }

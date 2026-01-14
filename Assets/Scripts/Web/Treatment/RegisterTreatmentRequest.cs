@@ -14,4 +14,15 @@ public class RegisterTreatmentRequest : RegisterPostRequest
         Treatment = treatment;
         Diseases = diseases;
     }
+
+    public RegisterTreatmentRequest(RegisterPostRequest registerPostRequest, Treatment treatment, List<Disease> diseases)
+    {
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        Treatment = treatment;
+        Diseases = diseases;
+    }
 }

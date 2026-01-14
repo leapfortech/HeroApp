@@ -10,4 +10,14 @@
     {
         News = news;
     }
+
+    public RegisterNewsRequest(RegisterPostRequest registerPostRequest, News news)
+    {
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        News = news;
+    }
 }

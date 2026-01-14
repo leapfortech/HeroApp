@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleRegisterAction : MonoBehaviour
+public class PuzzleRegisterAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,13 +19,15 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmPuzzle = null;
 
     [Space]
     [Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "Puzzle";
     [SerializeField]
     ListScroller lstImages = null;
     [SerializeField]
@@ -42,13 +44,12 @@ public class TaleRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
-
+    PuzzleService puzzleService = null;
     List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        puzzleService = GetComponent<PuzzleService>();
     }
 
     private void Start()
@@ -59,6 +60,7 @@ public class TaleRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmPuzzle.ClearElements();
         images.Clear();
         lstImages.Clear();
     }
@@ -110,14 +112,20 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
+        Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
+
+        // RM WIP Fill All Params
+        List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, strImages), 
+                                                         puzzle, puzzleAnswers));
     }
 
-    public void ApplyTale(long taleId)
+    public void ApplyPuzzle(long puzzleId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);

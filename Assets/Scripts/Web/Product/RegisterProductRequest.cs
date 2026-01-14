@@ -3,15 +3,23 @@
 public class RegisterProductRequest : RegisterPostRequest
 {
     public Product Product { get; set; }
-    public List<ProductReview> ProductReviews { get; set; }
 
     public RegisterProductRequest()
     {
     }
 
-    public RegisterProductRequest(Product product, List<ProductReview> productReviews)
+    public RegisterProductRequest(Product product)
     {
         Product = product;
-        ProductReviews = productReviews;
+    }
+
+    public RegisterProductRequest(RegisterPostRequest registerPostRequest, Product product)
+    {
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        Product = product;
     }
 }
