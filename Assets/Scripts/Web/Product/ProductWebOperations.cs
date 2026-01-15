@@ -40,6 +40,21 @@ public class ProductRegisterOperation : HttpOperation
     public String id;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/product/registerReview")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ReviewRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public ProductReview productReview;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
 //UPDATE
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/product")]

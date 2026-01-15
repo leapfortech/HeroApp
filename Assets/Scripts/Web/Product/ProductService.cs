@@ -55,18 +55,39 @@ public class ProductService : MonoBehaviour
     // REGISTER
     public void Register(RegisterProductRequest registerProductRequest)
     {
-        ProductRegisterOperation referredRegisterOp = new ProductRegisterOperation();
+        ProductRegisterOperation productRegisterOp = new ProductRegisterOperation();
         try
         {
-            referredRegisterOp.registerProductRequest = registerProductRequest;
-            referredRegisterOp["on-complete"] = (Action<ProductRegisterOperation, HttpResponse>)((op, response) =>
+            productRegisterOp.registerProductRequest = registerProductRequest;
+            productRegisterOp["on-complete"] = (Action<ProductRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            referredRegisterOp.Send();
+            productRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterReview(ProductReview productReview)
+    {
+        ReviewRegisterOperation reviewRegisterOp = new ReviewRegisterOperation();
+        try
+        {
+            reviewRegisterOp.productReview = productReview;
+            reviewRegisterOp["on-complete"] = (Action<ReviewRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.id));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            reviewRegisterOp.Send();
         }
         catch (Exception ex)
         {
