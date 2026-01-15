@@ -37,7 +37,7 @@ public class ProductRegisterAction : MonoBehaviour
     [SerializeField]
     String spriteName = "Product";
     [SerializeField]
-    ListScroller lstImages = null;
+    ListScroller lstImage = null;
     [SerializeField]
     Text txtEmpty;
 
@@ -74,18 +74,18 @@ public class ProductRegisterAction : MonoBehaviour
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
         images.Clear();
-        lstImages.Clear();
+        lstImage.Clear();
     }
 
     public void RefreshImages()
     {
-        lstImages.Clear();
+        lstImage.Clear();
 
         for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
             scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImages.ApplyAddValue(scrollerValue);
+            lstImage.ApplyAddValue(scrollerValue);
         }
 
         if (images.Count > 0)

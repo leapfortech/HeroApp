@@ -31,7 +31,7 @@ public class NewsRegisterAction : MonoBehaviour
     [SerializeField]
     String spriteName = "News";
     [SerializeField]
-    ListScroller lstImages = null;
+    ListScroller lstImage = null;
     [SerializeField]
     Text txtEmpty;
 
@@ -65,18 +65,18 @@ public class NewsRegisterAction : MonoBehaviour
         dtmLink.ClearElements();
         dtmNews.ClearElements();
         images.Clear();
-        lstImages.Clear();
+        lstImage.Clear();
     }
 
     public void RefreshImages()
     {
-        lstImages.Clear();
+        lstImage.Clear();
 
         for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
             scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImages.ApplyAddValue(scrollerValue);
+            lstImage.ApplyAddValue(scrollerValue);
         }
 
         if (images.Count > 0)

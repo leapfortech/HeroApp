@@ -7,6 +7,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -21,6 +22,8 @@ public class TreatmentRegisterAction : MonoBehaviour
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmTreatment = null;
+    [SerializeField]
+    DataMapper dtmDiseasesVLL = null;
 
     [Space]
     [Title("Images")]
@@ -29,7 +32,7 @@ public class TreatmentRegisterAction : MonoBehaviour
     [SerializeField]
     String spriteName = "Treatment";
     [SerializeField]
-    ListScroller lstImages = null;
+    ListScroller lstImage = null;
     [SerializeField]
     Text txtEmpty;
 
@@ -62,18 +65,18 @@ public class TreatmentRegisterAction : MonoBehaviour
         dtmPost.ClearElements();
         dtmTreatment.ClearElements();
         images.Clear();
-        lstImages.Clear();
+        lstImage.Clear();
     }
 
     public void RefreshImages()
     {
-        lstImages.Clear();
+        lstImage.Clear();
 
         for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
             scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImages.ApplyAddValue(scrollerValue);
+            lstImage.ApplyAddValue(scrollerValue);
         }
 
         if (images.Count > 0)
@@ -114,14 +117,13 @@ public class TreatmentRegisterAction : MonoBehaviour
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
 
-        // RM WIP Fill All Params
-        List<Disease> diseases = new List<Disease>();
+        List<Disease> diseases = dtmDiseasesVLL.BuildClassList<Disease>();
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
+        //treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
     }
 
     public void ApplyTreatment(long treatmentId)
