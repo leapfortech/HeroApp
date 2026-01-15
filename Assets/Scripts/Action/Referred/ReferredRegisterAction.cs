@@ -20,7 +20,7 @@ public class ReferredRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmReferred = null;
+    DataMapper dtmIdentity = null;
 
     [Title("Result")]
     [SerializeField]
@@ -34,7 +34,6 @@ public class ReferredRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    Referred referred = null;
     ReferredService referredService = null;
 
     private void Awake()
@@ -53,7 +52,7 @@ public class ReferredRegisterAction : MonoBehaviour
             elementValues[i].Clear();
     }
 
-    public void SelectIdCountry(int countryId)
+    public void SelectCountryId(int countryId)
     {
         cmbPhoneCountry.Select(countryId);
     }
@@ -65,10 +64,10 @@ public class ReferredRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        referred = dtmReferred.BuildClass<Referred>();
-        referred.AppUserId = StateManager.Instance.AppUser.Id;
+        Identity identity = dtmIdentity.BuildClass<Identity>();
+        long appUserId = StateManager.Instance.AppUser.Id;
 
-        referredService.Register(referred);
+        referredService.Register(new RegisterReferredRequest(appUserId, identity));
     }
 
     public void ApplyReferred(String referredIds)

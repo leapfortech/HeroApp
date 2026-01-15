@@ -63,7 +63,7 @@ public class ByPeriodGetOperation : HttpOperation
 public class ReferredRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Referred referred;
+    public RegisterReferredRequest registerReferredRequest;
 
     [HttpResponseTextBody]
     public String referredIds;

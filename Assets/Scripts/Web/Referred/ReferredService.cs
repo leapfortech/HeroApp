@@ -101,12 +101,12 @@ public class ReferredService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(Referred referred)
+    public void Register(RegisterReferredRequest registerReferredRequest)
     {
         ReferredRegisterOperation referredRegisterOp = new ReferredRegisterOperation();
         try
         {
-            referredRegisterOp.referred = referred;
+            referredRegisterOp.registerReferredRequest = registerReferredRequest;
             referredRegisterOp["on-complete"] = (Action<ReferredRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
