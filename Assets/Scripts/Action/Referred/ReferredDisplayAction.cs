@@ -24,7 +24,7 @@ public class ReferredDisplayAction : MonoBehaviour
 
     ReferredService referredService;
 
-    List<Referred> referreds;
+    List<ReferredFull> referredFulls;
     bool firstDisplay = true;
 
     private void Awake()
@@ -36,7 +36,7 @@ public class ReferredDisplayAction : MonoBehaviour
     {
         firstDisplay = true;
         lstReferred.ClearValues();
-        referreds.Clear();
+        referredFulls?.Clear();
     }
 
     public void FillCurrentPeriod()
@@ -75,11 +75,11 @@ public class ReferredDisplayAction : MonoBehaviour
     }
 
 
-    public void ApplyReferreds(List<Referred> referreds)
+    public void ApplyReferreds(List<ReferredFull> referredFulls)
     {
-        this.referreds = referreds;
-        for (int i = 0; i < referreds.Count; i++)
-            this.referreds[i].CreateDateTime = this.referreds[i].CreateDateTime.ToLocalTime();
+        this.referredFulls = referredFulls;
+        for (int i = 0; i < referredFulls.Count; i++)
+            this.referredFulls[i].CreateDateTime = this.referredFulls[i].CreateDateTime.ToLocalTime();
         DisplayFiltered();
     }
 
@@ -87,7 +87,7 @@ public class ReferredDisplayAction : MonoBehaviour
     {
         lstReferred.Clear();
 
-        if (referreds.Count == 0)
+        if (referredFulls == null || referredFulls.Count == 0)
         {
             txtEmpty.gameObject.SetActive(true);
             ScreenDialog.Instance.Hide();
@@ -96,12 +96,12 @@ public class ReferredDisplayAction : MonoBehaviour
 
         txtEmpty.gameObject.SetActive(false);
 
-        for (int i = 0; i < referreds.Count; i++)
+        for (int i = 0; i < referredFulls.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(3, true);
-            scrollerValue.SetText(0, referreds[i].Id.ToString());
-            //scrollerValue.SetText(1, $"{referreds[i].FirstName} {referreds[i].LastName}");
-            scrollerValue.SetText(2, referreds[i].CreateDateTime.ToString("dd/MM/yyyy HH:mm"));
+            scrollerValue.SetText(0, referredFulls[i].Code);
+            scrollerValue.SetText(1, $"{referredFulls[i].FirstName1} {referredFulls[i].LastName1}");
+            scrollerValue.SetText(2, referredFulls[i].CreateDateTime.ToString("dd/MM/yyyy HH:mm"));
 
             lstReferred.AddValue(scrollerValue);
         }

@@ -13,11 +13,11 @@ using Sirenix.OdinInspector;
 public class ReferredService : MonoBehaviour
 {
     [Serializable]
-    public class ReferredEvent : UnityEvent<List<Referred>> { }
+    public class ReferredFullEvent : UnityEvent<List<ReferredFull>> { }
 
 
     [SerializeField]
-    private ReferredEvent onRetreived = null;
+    private ReferredFullEvent onRetreived = null;
 
     [SerializeField]
     private UnityIntEvent onValidated = null;
@@ -35,27 +35,6 @@ public class ReferredService : MonoBehaviour
 
 
     // GET
-    public void GetReferrals()
-    {
-        ReferredGetOperation referredGetOp = new ReferredGetOperation();
-        try
-        {
-            referredGetOp.appUserId = StateManager.Instance.AppUser.Id;
-            referredGetOp["on-complete"] = (Action<ReferredGetOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.referreds);
-                else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
-            });
-            referredGetOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
     public void GetByPeriod(DateTime startDate, DateTime endDate)
     {
         ByPeriodGetOperation byPeriodGetOp = new ByPeriodGetOperation();
@@ -66,7 +45,7 @@ public class ReferredService : MonoBehaviour
             byPeriodGetOp["on-complete"] = (Action<ByPeriodGetOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.referreds);
+                    onRetreived.Invoke(op.referredFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

@@ -11,20 +11,6 @@ using Leap.Data.Web;
 
 // GET
 [HttpGET]
-[HttpPathExt(WebServiceType.Main, "/referred/ByAppUserId")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class ReferredGetOperation : HttpOperation
-{
-    [HttpQueryString]
-    public long appUserId;
-
-    [HttpResponseJsonBody]
-    public List<Referred> referreds;
-}
-
-[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/referred/Validate")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]
@@ -50,7 +36,7 @@ public class ByPeriodGetOperation : HttpOperation
     public ReferredHistoryRequest referredHistoryRequest;
 
     [HttpResponseJsonBody]
-    public List<Referred> referreds;
+    public List<ReferredFull> referredFulls;
 }
 
 // REGISTER
