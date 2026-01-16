@@ -25,7 +25,7 @@ public class TreatmentRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmTreatment = null;
     [SerializeField]
-    ValueList vllDiseasesType = null;
+    DataMapper dtmDiseasesVLL = null;
 
     [Space]
     [Title("Images")]
@@ -123,10 +123,7 @@ public class TreatmentRegisterAction : MonoBehaviour
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
-
-        List<Disease> diseases = new();
-        for(int i = 0;  i < vllDiseasesType.RecordCount; i++)
-            diseases.Add(new Disease(-1,-1,vllDiseasesType.GetRecordId(i), -1));
+        List<Disease> diseases = dtmDiseasesVLL.BuildClassList<Disease>();
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)

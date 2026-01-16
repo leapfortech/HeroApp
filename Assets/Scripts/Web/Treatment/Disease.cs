@@ -2,10 +2,10 @@ using System;
 
 public class Disease
 {
-    public long Id { get; set; }
-    public long TreatmentId { get; set; }
-    public long DiseaseTypeId { get; set; }
-    public int Status { get; set; }
+    public long Id { get; set; } = -1;
+    public long TreatmentId { get; set; } = -1;
+    public long DiseaseTypeId { get; set; } = -1;
+    public int Status { get; set; } = -1;
 
     public Disease() 
     {

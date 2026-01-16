@@ -217720,7 +217720,7 @@ MonoBehaviour:
   - {fileID: 829047901}
   dtmPost: {fileID: 636720293}
   dtmTreatment: {fileID: 243505672}
-  vllDiseasesType: {fileID: 11400000, guid: 1d77bdefb5dfaec4ba895c3561960f01, type: 2}
+  dtmDiseasesVLL: {fileID: 2103043787}
   maxCount: 4
   spriteName: Treatment
   lstImage: {fileID: 829047901}
@@ -337645,19 +337645,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
   dataMapping:
-    dataMapType: 3
+    dataMapType: 4
     dataBuiltInTarget: <None>
     dataClassTarget: {fileID: 11400000, guid: ce23fc567066af949aba52512dc1311a, type: 2}
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 7676932382813323429
+      rid: 6609433041017766877
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7676932382813323429
+    - rid: 6609433041017766877
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataClass: {fileID: 11400000, guid: ce23fc567066af949aba52512dc1311a, type: 2}
@@ -337673,20 +337673,20 @@ MonoBehaviour:
           dataSourceType: 0
           dataFieldSource:
             rid: -2
-          ItemIdx: 2
+          ItemIdx: -1
         - FieldName: DiseaseTypeId
           FieldTypeName: System.Int64
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932382813323431
-          ItemIdx: 2
+            rid: 6609433041017766878
+          ItemIdx: 0
         - FieldName: Status
           FieldTypeName: System.Int32
           dataSourceType: 0
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-    - rid: 7676932382813323431
+    - rid: 6609433041017766878
       type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -337694,7 +337694,7 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932382813323431
+            rid: 6609433041017766878
           ItemIdx: 0
         NeedsItem: 1
         valueList: {fileID: 11400000, guid: 1d77bdefb5dfaec4ba895c3561960f01, type: 2}
