@@ -71793,7 +71793,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbDisease
+      value: CmbDiseaseType
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Pivot.x
@@ -102936,7 +102936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4366689725311377401, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -75.2125
+      value: -192.26251
       objectReference: {fileID: 0}
     - target: {fileID: 5359977072881784954, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_Name
@@ -102952,7 +102952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -322.7875
+      value: -205.73749
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -102960,7 +102960,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 161.39375
+      value: 102.868744
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -153126,7 +153126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4366689725311377401, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -149.7042
+      value: -152.90419
       objectReference: {fileID: 0}
     - target: {fileID: 5359977072881784954, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_Name
@@ -153142,7 +153142,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -248.2958
+      value: -245.09581
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -153150,7 +153150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 124.1479
+      value: 122.547905
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -217720,13 +217720,28 @@ MonoBehaviour:
   - {fileID: 829047901}
   dtmPost: {fileID: 636720293}
   dtmTreatment: {fileID: 243505672}
-  dtmDiseasesVLL: {fileID: 2103043787}
+  vllDiseasesType: {fileID: 11400000, guid: 1d77bdefb5dfaec4ba895c3561960f01, type: 2}
   maxCount: 4
   spriteName: Treatment
   lstImage: {fileID: 829047901}
   txtEmpty: {fileID: 1530516057}
   btnAddImage: {fileID: 1240429137}
   btnRegister: {fileID: 2069649494}
+  onRegistered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1536644003}
+        m_TargetAssemblyTypeName: ListOptionAction, Assembly-CSharp
+        m_MethodName: Clear
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   pagNext: {fileID: 1796564143}
 --- !u!1001 &1322109676
 PrefabInstance:

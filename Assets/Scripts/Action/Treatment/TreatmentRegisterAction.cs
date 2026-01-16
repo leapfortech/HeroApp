@@ -10,9 +10,11 @@ using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 public class TreatmentRegisterAction : MonoBehaviour
 {
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -23,7 +25,7 @@ public class TreatmentRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmTreatment = null;
     [SerializeField]
-    DataMapper dtmDiseasesVLL = null;
+    ValueList vllDiseasesType = null;
 
     [Space]
     [Title("Images")]
@@ -42,6 +44,11 @@ public class TreatmentRegisterAction : MonoBehaviour
 
     [SerializeField]
     Button btnRegister = null;
+
+    [Space]
+    [Title("Action")]
+    [SerializeField]
+    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
@@ -117,18 +124,21 @@ public class TreatmentRegisterAction : MonoBehaviour
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
 
-        List<Disease> diseases = dtmDiseasesVLL.BuildClassList<Disease>();
+        List<Disease> diseases = new();
+        for(int i = 0;  i < vllDiseasesType.RecordCount; i++)
+            diseases.Add(new Disease(-1,-1,vllDiseasesType.GetRecordId(i), -1));
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        //treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
+        treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
     }
 
     public void ApplyTreatment(long treatmentId)
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+        onRegistered.Invoke();
     }
 }

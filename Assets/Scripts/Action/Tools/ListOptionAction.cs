@@ -24,6 +24,11 @@ public class ListOptionAction : MonoBehaviour
     [SerializeField]
     ValueList vllOption = null;
 
+    public void Clear()
+    {
+        lstOption.Clear();
+        vllOption.ClearRecords();
+    }
 
     public void AddRecord()
     {
