@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -19,6 +20,10 @@ public class RadioRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmRadioTypeVLL = null;
+    [SerializeField]
+    DataMapper dtmRadioLanguageVLL = null;
     [SerializeField]
     DataMapper dtmLink = null;
 
@@ -40,6 +45,11 @@ public class RadioRegisterAction : MonoBehaviour
     [SerializeField]
     Button btnRegister = null;
 
+    [Space]
+    [Title("Action")]
+    [SerializeField]
+    private UnityEvent onRegistered = null;
+
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
@@ -60,6 +70,8 @@ public class RadioRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmRadioTypeVLL.ClearElements();
+        dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
         images.Clear();
         lstImage.Clear();
@@ -115,9 +127,8 @@ public class RadioRegisterAction : MonoBehaviour
         Link link = dtmLink.BuildClass<Link>();
         link.LinkTypeId = (long)LinkType.Url;
 
-        // RM WIP Fill All Params
-        List<RadioType> radioTypes = new List<RadioType>();
-        List<RadioLanguage> radioLanguages = new List<RadioLanguage>();
+        List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
+        List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
@@ -131,5 +142,6 @@ public class RadioRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+        onRegistered.Invoke();
     }
 }

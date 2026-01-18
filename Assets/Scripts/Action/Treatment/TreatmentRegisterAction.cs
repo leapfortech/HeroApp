@@ -7,7 +7,6 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
-using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
