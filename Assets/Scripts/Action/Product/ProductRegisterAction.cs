@@ -124,25 +124,32 @@ public class ProductRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
-        // RM WIP Fill All Params
         Product product = dtmProduct.BuildClass<Product>();
 
         Contact contact = dtmContact.BuildClass<Contact>();
-        Link phone = dtmPhone.BuildClass<Link>();
-        phone.LinkTypeId = (long)LinkType.Phone;
-        Link whatsApp = dtmWhatsApp.BuildClass<Link>();
-        whatsApp.LinkTypeId = (long)LinkType.WhatsApp;
-        Link email = dtmEmail.BuildClass<Link>();
-        email.LinkTypeId = (long)LinkType.Email;
 
-        List<Link> links = new List<Link>{phone, whatsApp, email};
+        List<Link> links = new();
+
+        Phone phone = dtmPhone.BuildClass<Phone>();
+        if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+            links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+
+        Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
+        if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+            links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+
+        Link email = dtmEmail.BuildClass<Link>();
+        if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+        {
+            email.LinkTypeId = (long)LinkType.Email;
+            links.Add(email);
+        }
 
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
 
-        productService.Register(new RegisterProductRequest(new RegisterPostRequest(post, contact, links, strImages),
-                                                           product));
+        productService.Register(new RegisterProductRequest(new RegisterPostRequest(post, contact, links, strImages), product));
     }
 
     public void ApplyProduct(long productId)
