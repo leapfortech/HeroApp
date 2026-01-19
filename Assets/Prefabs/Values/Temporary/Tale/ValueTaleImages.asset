@@ -19,26 +19,38 @@ MonoBehaviour:
   sourceList: {fileID: 0}
   clientsList: []
   columns:
-  - Name: Sprite
-    oldName: Sprite
+  - Name: Image
+    oldName: Image
     ColumnType: 20
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 0
   columnNames:
-  - Sprite
+  - Image
   columnIndexes:
     keys:
-    - Sprite
+    - Image
     values: 00000000
   statusName: Status
   statusValue: 1
   columnFilters: []
   recordFilters: []
-  records: []
+  records:
+  - Id: 0
+    cells:
+    - rid: 7676932467606160269
+    valueList: {fileID: 11400000}
+    index: 0
+  - Id: 1
+    cells:
+    - rid: 7676932467606160271
+    valueList: {fileID: 11400000}
+    index: 1
   idIndexer:
-    keys: 
-    values: []
+    keys: 00000000000000000100000000000000
+    values:
+    - rid: 7676932467606160270
+    - rid: 7676932467606160272
   cellIndexers:
   - keys: []
     values: []
@@ -52,4 +64,34 @@ MonoBehaviour:
   RangeYear: 0
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7676932467606160269
+      type: {class: ValueCellSprite, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932467606160270
+        index: 0
+        _value: {fileID: 0}
+    - rid: 7676932467606160270
+      type: {class: ValueRecord, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        Id: 0
+        cells:
+        - rid: 7676932467606160269
+        valueList: {fileID: 11400000}
+        index: 0
+    - rid: 7676932467606160271
+      type: {class: ValueCellSprite, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932467606160272
+        index: 0
+        _value: {fileID: 0}
+    - rid: 7676932467606160272
+      type: {class: ValueRecord, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        Id: 1
+        cells:
+        - rid: 7676932467606160271
+        valueList: {fileID: 11400000}
+        index: 1

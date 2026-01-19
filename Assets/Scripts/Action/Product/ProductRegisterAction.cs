@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -29,31 +30,23 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmWhatsApp = null;
     [SerializeField]
     DataMapper dtmEmail = null;
-
-    [Space]
-    [Title("Images")]
     [SerializeField]
-    int maxCount = 4;
-    [SerializeField]
-    String spriteName = "Product";
-    [SerializeField]
-    ListScroller lstImage = null;
-    [SerializeField]
-    Text txtEmpty;
+    DataMapper dtmImagesVLL = null;
 
     [Title("Action")]
     [SerializeField]
-    Button btnAddImage = null;
-
-    [SerializeField]
     Button btnRegister = null;
+
+    [Space]
+    [Title("Event")]
+    [SerializeField]
+    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
 
     ProductService productService = null;
-    List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
@@ -73,42 +66,7 @@ public class ProductRegisterAction : MonoBehaviour
         dtmPhone.ClearElements();
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
-        images.Clear();
-        lstImage.Clear();
-    }
-
-    public void RefreshImages()
-    {
-        lstImage.Clear();
-
-        for (int i = 0; i < images.Count; i++)
-        {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
-            scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImage.ApplyAddValue(scrollerValue);
-        }
-
-        if (images.Count > 0)
-            txtEmpty.gameObject.SetActive(false);
-        else
-            txtEmpty.gameObject.SetActive(true);
-
-        if (images.Count < maxCount)
-            btnAddImage.gameObject.SetActive(true);
-        else
-            btnAddImage.gameObject.SetActive(false);
-    }
-
-    public void AddImage(Texture2D image)
-    {
-        images.Add(image);
-        RefreshImages();
-    }
-
-    public void RemoveImage(int idx)
-    {
-        images.RemoveAt(idx);
-        RefreshImages();
+        dtmImagesVLL.ClearElements();
     }
 
     private void Register()
@@ -145,9 +103,10 @@ public class ProductRegisterAction : MonoBehaviour
             links.Add(email);
         }
 
+        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
+            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
         productService.Register(new RegisterProductRequest(new RegisterPostRequest(post, contact, links, strImages), product));
     }
@@ -156,5 +115,6 @@ public class ProductRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+        onRegistered.Invoke();
     }
 }

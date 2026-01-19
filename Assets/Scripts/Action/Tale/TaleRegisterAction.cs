@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -25,6 +26,11 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
+
+    [Space]
+    [Title("Event")]
+    [SerializeField]
+    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
@@ -63,7 +69,6 @@ public class TaleRegisterAction : MonoBehaviour
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
@@ -75,5 +80,6 @@ public class TaleRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+        onRegistered.Invoke();
     }
 }
