@@ -21,22 +21,14 @@ public class HappeningRegisterAction : MonoBehaviour
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmHappening = null;
-
-    [Space]
-    [Title("Images")]
     [SerializeField]
-    int maxCount = 4;
+    DataMapper dtmStartTime = null;
     [SerializeField]
-    String spriteName = "Happening";
+    DataMapper dtmEndTime = null;
     [SerializeField]
-    ListScroller lstImage = null;
-    [SerializeField]
-    Text txtEmpty;
+    DataMapper dtmImagesVLL = null;
 
     [Title("Action")]
-    [SerializeField]
-    Button btnAddImage = null;
-
     [SerializeField]
     Button btnRegister = null;
 
@@ -45,7 +37,6 @@ public class HappeningRegisterAction : MonoBehaviour
     Page pagNext = null;
 
     HappeningService happeningService = null;
-    List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
@@ -61,42 +52,9 @@ public class HappeningRegisterAction : MonoBehaviour
     {
         dtmPost.ClearElements();
         dtmHappening.ClearElements();
-        images.Clear();
-        lstImage.Clear();
-    }
-
-    public void RefreshImages()
-    {
-        lstImage.Clear();
-
-        for (int i = 0; i < images.Count; i++)
-        {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
-            scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImage.ApplyAddValue(scrollerValue);
-        }
-
-        if (images.Count > 0)
-            txtEmpty.gameObject.SetActive(false);
-        else
-            txtEmpty.gameObject.SetActive(true);
-
-        if (images.Count < maxCount)
-            btnAddImage.gameObject.SetActive(true);
-        else
-            btnAddImage.gameObject.SetActive(false);
-    }
-
-    public void AddImage(Texture2D image)
-    {
-        images.Add(image);
-        RefreshImages();
-    }
-
-    public void RemoveImage(int idx)
-    {
-        images.RemoveAt(idx);
-        RefreshImages();
+        dtmStartTime.ClearElements();
+        dtmEndTime.ClearElements();
+        dtmImagesVLL.ClearElements();
     }
 
     private void Register()
@@ -112,12 +70,31 @@ public class HappeningRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
-        // RM WIP Fill All Params
         Happening happening = dtmHappening.BuildClass<Happening>();
 
+        if (happening.StartDateTime.HasValue && happening.EndDateTime.HasValue)
+        {
+            String startTimeStr = dtmStartTime.BuildBuiltIn<String>();
+            String[] startTime = startTimeStr.Split('|');
+            happening.StartDateTime = new DateTime(happening.StartDateTime.Value.Year, happening.StartDateTime.Value.Month, happening.StartDateTime.Value.Day,
+                                                   Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+
+            String endTimeStr = dtmEndTime.BuildBuiltIn<String>();
+            String[] endTime = endTimeStr.Split('|');
+            happening.EndDateTime = new DateTime(happening.StartDateTime.Value.Year, happening.StartDateTime.Value.Month, happening.StartDateTime.Value.Day,
+                                                   Convert.ToInt32(endTime[0]), Convert.ToInt32(endTime[1]), 0);
+
+            if (happening.EndDateTime.Value <= happening.StartDateTime.Value)
+            {
+                ChoiceDialog.Instance.Error("Fecha inválida","La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
+                return;
+            }
+        }
+
+        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
+            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
         happeningService.Register(new RegisterHappeningRequest(new RegisterPostRequest(post, null, null, strImages), happening));
     }

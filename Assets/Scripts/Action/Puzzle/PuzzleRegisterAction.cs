@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -22,21 +20,7 @@ public class PuzzleRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmPuzzle = null;
 
-    [Space]
-    [Title("Images")]
-    [SerializeField]
-    int maxCount = 4;
-    [SerializeField]
-    String spriteName = "Puzzle";
-    [SerializeField]
-    ListScroller lstImage = null;
-    [SerializeField]
-    Text txtEmpty;
-
     [Title("Action")]
-    [SerializeField]
-    Button btnAddImage = null;
-
     [SerializeField]
     Button btnRegister = null;
 
@@ -45,7 +29,6 @@ public class PuzzleRegisterAction : MonoBehaviour
     Page pagNext = null;
 
     PuzzleService puzzleService = null;
-    List<Texture2D> images = new List<Texture2D>();
 
     private void Awake()
     {
@@ -61,42 +44,6 @@ public class PuzzleRegisterAction : MonoBehaviour
     {
         dtmPost.ClearElements();
         dtmPuzzle.ClearElements();
-        images.Clear();
-        lstImage.Clear();
-    }
-
-    public void RefreshImages()
-    {
-        lstImage.Clear();
-
-        for (int i = 0; i < images.Count; i++)
-        {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
-            scrollerValue.SetSprite(0, images[i].CreateSprite($"{spriteName}_{i}"));
-            lstImage.ApplyAddValue(scrollerValue);
-        }
-
-        if (images.Count > 0)
-            txtEmpty.gameObject.SetActive(false);
-        else
-            txtEmpty.gameObject.SetActive(true);
-
-        if (images.Count < maxCount)
-            btnAddImage.gameObject.SetActive(true);
-        else
-            btnAddImage.gameObject.SetActive(false);
-    }
-
-    public void AddImage(Texture2D image)
-    {
-        images.Add(image);
-        RefreshImages();
-    }
-
-    public void RemoveImage(int idx)
-    {
-        images.RemoveAt(idx);
-        RefreshImages();
     }
 
     private void Register()
@@ -117,11 +64,7 @@ public class PuzzleRegisterAction : MonoBehaviour
         // RM WIP Fill All Params
         List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].CreateSprite($"{spriteName}_{i}").ToStrBase64(ImageType.JPG);
-
-        puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, strImages), 
+        puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
                                                          puzzle, puzzleAnswers));
     }
 

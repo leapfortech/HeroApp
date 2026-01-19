@@ -9,7 +9,6 @@ using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
-using UnityEngine.Events;
 
 public class TreatmentRegisterAction : MonoBehaviour
 {
@@ -31,11 +30,6 @@ public class TreatmentRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-
-    [Space]
-    [Title("Event")]
-    [SerializeField]
-    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
@@ -88,6 +82,5 @@ public class TreatmentRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
-        onRegistered.Invoke();
     }
 }

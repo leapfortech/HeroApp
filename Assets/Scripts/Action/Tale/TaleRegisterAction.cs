@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -26,11 +25,6 @@ public class TaleRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-
-    [Space]
-    [Title("Event")]
-    [SerializeField]
-    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
@@ -80,6 +74,5 @@ public class TaleRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
-        onRegistered.Invoke();
     }
 }

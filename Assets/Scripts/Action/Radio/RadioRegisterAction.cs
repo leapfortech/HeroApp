@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -32,11 +31,6 @@ public class RadioRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-
-    [Space]
-    [Title("Event")]
-    [SerializeField]
-    private UnityEvent onRegistered = null;
 
     [Title("Page")]
     [SerializeField]
@@ -95,6 +89,5 @@ public class RadioRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
-        onRegistered.Invoke();
     }
 }

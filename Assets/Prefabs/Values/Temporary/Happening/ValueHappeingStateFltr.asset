@@ -10,36 +10,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d52cfd3374160a04b888c8353641d5e7, type: 3}
-  m_Name: ValueProductImages
+  m_Name: ValueHappeingStateFltr
   m_EditorClassIdentifier: Leap.Data.Collections::Leap.Data.Collections.ValueList
-  valueType: 20
+  valueType: 30
   tableName: 
   valueSource: 20
-  recordType: 20
-  sourceList: {fileID: 0}
+  recordType: 10
+  sourceList: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   clientsList: []
   columns:
-  - Name: Image
-    oldName: Image
-    ColumnType: 20
+  - Name: CountryId
+    oldName: CountryId
+    ColumnType: 10
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 0
+  - Name: Name
+    oldName: Name
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 1
   columnNames:
-  - Image
+  - CountryId
+  - Name
   columnIndexes:
     keys:
-    - Image
-    values: 00000000
+    - CountryId
+    - Name
+    values: 0000000001000000
   statusName: Status
   statusValue: 1
   columnFilters: []
-  recordFilters: []
+  recordFilters:
+  - CellName: CountryId
+    cellNames:
+    - Id
+    - CountryId
+    - Name
+    Operator: 0
+    CellValue: 84
+    valueList: {fileID: 11400000}
   records: []
   idIndexer:
     keys: 
     values: []
   cellIndexers:
+  - keys: []
+    values: []
   - keys: []
     values: []
   MinValue: 0
