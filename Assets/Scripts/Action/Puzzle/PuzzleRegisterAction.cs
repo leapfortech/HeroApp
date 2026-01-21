@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -10,15 +11,13 @@ using Sirenix.OdinInspector;
 
 public class PuzzleRegisterAction : MonoBehaviour
 {
-    [Title("Elements")]
-    [SerializeField]
-    ElementValue[] elementValues = null;
-
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmPuzzle = null;
+    [SerializeField]
+    DataMapper dtmPuzzleAnswer = null;
 
     [Title("Action")]
     [SerializeField]
@@ -44,14 +43,28 @@ public class PuzzleRegisterAction : MonoBehaviour
     {
         dtmPost.ClearElements();
         dtmPuzzle.ClearElements();
+        dtmPuzzleAnswer.ClearElements();
     }
 
     private void Register()
     {
-        if (!ElementHelper.Validate(elementValues))
-            return;
-
         ScreenDialog.Instance.Display();
+
+        List<PuzzleAnswer> puzzleAnswers = dtmPuzzleAnswer.BuildClassList<PuzzleAnswer>();
+
+        if (puzzleAnswers == null || puzzleAnswers.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Error", "Debes ingresar al menos una respuesta.");
+            return;
+        }
+
+        bool hasCorrect = puzzleAnswers.Exists(a => a.IsCorrect == 1);
+
+        if (!hasCorrect)
+        {
+            ChoiceDialog.Instance.Error("Error", "Debes ingresar una respuesta correcta.");
+            return;
+        }
 
         Post post = dtmPost.BuildClass<Post>();
 
@@ -60,9 +73,7 @@ public class PuzzleRegisterAction : MonoBehaviour
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
         Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
-
-        // RM WIP Fill All Params
-        List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
+        puzzle.CountryId = StateManager.Instance.Identity.OriginCountryId;
 
         puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
                                                          puzzle, puzzleAnswers));

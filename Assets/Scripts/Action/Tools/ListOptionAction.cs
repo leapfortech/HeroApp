@@ -54,7 +54,6 @@ public class ListOptionAction : MonoBehaviour
         vllOption.AddRecord(Convert.ToInt32(selectedOptionId), cmbOption.Combo.Text);
 
         Display();
-
         cmbOption.Clear();
     }
 
@@ -71,10 +70,8 @@ public class ListOptionAction : MonoBehaviour
 
         for (int i = 0; i < vllOption.RecordCount; i++)
         {
-            String name = vllOption.GetRecordCellString(i, "Name");
-
-            ListScrollerValue scrollerValue = new ListScrollerValue(2, true);
-            scrollerValue.SetText(0, name);
+            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
+            scrollerValue.SetText(0, vllOption.GetRecordCellString(i, "Name"));
 
             lstOption.AddValue(scrollerValue);
         }

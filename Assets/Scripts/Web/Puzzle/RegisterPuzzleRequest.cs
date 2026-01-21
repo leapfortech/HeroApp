@@ -15,8 +15,7 @@ public class RegisterPuzzleRequest : RegisterPostRequest
         PuzzleAnswers = puzzleAnswers;
     }
 
-    public RegisterPuzzleRequest(RegisterPostRequest registerPostRequest,
-                                 Puzzle puzzle,
+    public RegisterPuzzleRequest(RegisterPostRequest registerPostRequest, Puzzle puzzle,
                                  List<PuzzleAnswer> puzzleAnswers)
     {
         Post = registerPostRequest.Post;
