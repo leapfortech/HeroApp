@@ -213459,7 +213459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369559, guid: 9a97673bc73f5fa4bbecfd0201acd793, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5.96
+      value: 5.9600067
       objectReference: {fileID: 0}
     - target: {fileID: 4452337897124988284, guid: 9a97673bc73f5fa4bbecfd0201acd793, type: 3}
       propertyPath: m_fontSize
@@ -308751,13 +308751,13 @@ MonoBehaviour:
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 7676932515428565890
+      rid: 7676932519734281024
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 7676932515428565890
+    - rid: 7676932519734281024
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataClass: {fileID: 11400000, guid: 67d3429044252f340abf6148f9308ca1, type: 2}
@@ -308778,15 +308778,21 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932515428565891
+            rid: 7676932519734281025
           ItemIdx: 1
         - FieldName: IsCorrect
           FieldTypeName: System.Int32
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932515428565892
+            rid: 7676932519734281026
           ItemIdx: 2
-    - rid: 7676932515428565891
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 7676932519734281025
       type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -308794,12 +308800,12 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932515428565891
+            rid: 7676932519734281025
           ItemIdx: 1
         NeedsItem: 1
         valueList: {fileID: 11400000, guid: 66db92e195a56de40bbe97cccf056b2e, type: 2}
-        columnValue: Name
-    - rid: 7676932515428565892
+        columnValue: Description
+    - rid: 7676932519734281026
       type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -308807,7 +308813,7 @@ MonoBehaviour:
           FieldTypeName: System.Int32
           dataSourceType: 5
           dataFieldSource:
-            rid: 7676932515428565892
+            rid: 7676932519734281026
           ItemIdx: 2
         NeedsItem: 1
         valueList: {fileID: 11400000, guid: 66db92e195a56de40bbe97cccf056b2e, type: 2}
