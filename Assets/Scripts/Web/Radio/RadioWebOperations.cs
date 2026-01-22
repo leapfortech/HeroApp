@@ -70,3 +70,33 @@ public class RadioPutOperation : HttpOperation
     [HttpResponseJsonBody]
     public bool response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/radio/Accept")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioAcceptPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/radio/Reject")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioRejectPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}

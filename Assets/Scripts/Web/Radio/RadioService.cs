@@ -116,4 +116,46 @@ public class RadioService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Accept(PostModerationRequest postModerationRequest)
+    {
+        RadioAcceptPutOperation acceptPutOp = new RadioAcceptPutOperation();
+        try
+        {
+            acceptPutOp.postModerationRequest = postModerationRequest;
+            acceptPutOp["on-complete"] = (Action<RadioAcceptPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            acceptPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Reject(PostModerationRequest postModerationRequest)
+    {
+        RadioRejectPutOperation rejectPutOp = new RadioRejectPutOperation();
+        try
+        {
+            rejectPutOp.postModerationRequest = postModerationRequest;
+            rejectPutOp["on-complete"] = (Action<RadioRejectPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            rejectPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

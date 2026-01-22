@@ -70,3 +70,34 @@ public class ProductPutOperation : HttpOperation
     [HttpResponseJsonBody]
     public bool response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/product/Accept")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductAcceptPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/product/Reject")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductRejectPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+

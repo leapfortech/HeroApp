@@ -55,3 +55,34 @@ public class TreatmentPutOperation : HttpOperation
     [HttpResponseJsonBody]
     public bool response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/treatment/Accept")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TreatmentAcceptPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/treatment/Reject")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TreatmentRejectPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+

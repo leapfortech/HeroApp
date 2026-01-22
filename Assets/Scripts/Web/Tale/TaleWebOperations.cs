@@ -45,12 +45,42 @@ public class TaleRegisterOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/tale")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("text/plain")]
+[HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
 public class TalePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public RegisterTaleRequest registerTaleRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/tale/Accept")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TaleAcceptPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/tale/Reject")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TaleRejectPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
 
     [HttpResponseJsonBody]
     public bool response;

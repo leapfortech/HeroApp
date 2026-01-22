@@ -95,4 +95,46 @@ public class RecipeService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Accept(PostModerationRequest postModerationRequest)
+    {
+        RecipeAcceptPutOperation acceptPutOp = new RecipeAcceptPutOperation();
+        try
+        {
+            acceptPutOp.postModerationRequest = postModerationRequest;
+            acceptPutOp["on-complete"] = (Action<RecipeAcceptPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            acceptPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Reject(PostModerationRequest postModerationRequest)
+    {
+        RecipeRejectPutOperation rejectPutOp = new RecipeRejectPutOperation();
+        try
+        {
+            rejectPutOp.postModerationRequest = postModerationRequest;
+            rejectPutOp["on-complete"] = (Action<RecipeRejectPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            rejectPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

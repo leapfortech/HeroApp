@@ -55,3 +55,33 @@ public class HappeningPutOperation : HttpOperation
     [HttpResponseJsonBody]
     public bool response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/happening/Accept")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class HappeningAcceptPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/happening/Reject")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class HappeningRejectPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseJsonBody]
+    public bool response;
+}

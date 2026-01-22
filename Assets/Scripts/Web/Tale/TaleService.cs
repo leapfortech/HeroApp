@@ -55,18 +55,18 @@ public class TaleService : MonoBehaviour
     // REGISTER
     public void Register(RegisterTaleRequest registerTaleRequest)
     {
-        TaleRegisterOperation referredRegisterOp = new TaleRegisterOperation();
+        TaleRegisterOperation taleRegisterOp = new TaleRegisterOperation();
         try
         {
-            referredRegisterOp.registerTaleRequest = registerTaleRequest;
-            referredRegisterOp["on-complete"] = (Action<TaleRegisterOperation, HttpResponse>)((op, response) =>
+            taleRegisterOp.registerTaleRequest = registerTaleRequest;
+            taleRegisterOp["on-complete"] = (Action<TaleRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            referredRegisterOp.Send();
+            taleRegisterOp.Send();
         }
         catch (Exception ex)
         {
@@ -77,18 +77,60 @@ public class TaleService : MonoBehaviour
     // UPDATE
     public void UpdateTale(RegisterTaleRequest registerTaleRequest)
     {
-        TalePutOperation referredPutOp = new TalePutOperation();
+        TalePutOperation talePutOp = new TalePutOperation();
         try
         {
-            referredPutOp.registerTaleRequest = registerTaleRequest;
-            referredPutOp["on-complete"] = (Action<TalePutOperation, HttpResponse>)((op, response) =>
+            talePutOp.registerTaleRequest = registerTaleRequest;
+            talePutOp["on-complete"] = (Action<TalePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            referredPutOp.Send();
+            talePutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Accept(PostModerationRequest postModerationRequest)
+    {
+        TaleAcceptPutOperation acceptPutOp = new TaleAcceptPutOperation();
+        try
+        {
+            acceptPutOp.postModerationRequest = postModerationRequest;
+            acceptPutOp["on-complete"] = (Action<TaleAcceptPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            acceptPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Reject(PostModerationRequest postModerationRequest)
+    {
+        TaleRejectPutOperation rejectPutOp = new TaleRejectPutOperation();
+        try
+        {
+            rejectPutOp.postModerationRequest = postModerationRequest;
+            rejectPutOp["on-complete"] = (Action<TaleRejectPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            rejectPutOp.Send();
         }
         catch (Exception ex)
         {

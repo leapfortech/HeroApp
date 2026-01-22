@@ -95,4 +95,46 @@ public class PuzzleService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Accept(PostModerationRequest postModerationRequest)
+    {
+        PuzzleAcceptPutOperation acceptPutOp = new PuzzleAcceptPutOperation();
+        try
+        {
+            acceptPutOp.postModerationRequest = postModerationRequest;
+            acceptPutOp["on-complete"] = (Action<PuzzleAcceptPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            acceptPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Reject(PostModerationRequest postModerationRequest)
+    {
+        PuzzleRejectPutOperation rejectPutOp = new PuzzleRejectPutOperation();
+        try
+        {
+            rejectPutOp.postModerationRequest = postModerationRequest;
+            rejectPutOp["on-complete"] = (Action<PuzzleRejectPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            rejectPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

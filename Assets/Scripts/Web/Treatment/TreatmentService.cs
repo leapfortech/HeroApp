@@ -95,4 +95,46 @@ public class TreatmentService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Accept(PostModerationRequest postModerationRequest)
+    {
+        TreatmentAcceptPutOperation acceptPutOp = new TreatmentAcceptPutOperation();
+        try
+        {
+            acceptPutOp.postModerationRequest = postModerationRequest;
+            acceptPutOp["on-complete"] = (Action<TreatmentAcceptPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            acceptPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Reject(PostModerationRequest postModerationRequest)
+    {
+        TreatmentRejectPutOperation rejectPutOp = new TreatmentRejectPutOperation();
+        try
+        {
+            rejectPutOp.postModerationRequest = postModerationRequest;
+            rejectPutOp["on-complete"] = (Action<TreatmentRejectPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(op.response);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            rejectPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }
