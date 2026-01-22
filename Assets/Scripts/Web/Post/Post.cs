@@ -39,4 +39,22 @@ public class Post
         ExpirationDateTime = expirationDateTime;
         Status = status;
     }
+
+    public Post(TaleFull taleFull)
+    {
+        Id = taleFull.PostId;
+        AppUserId = taleFull.AppUserId;
+        PostSubtypeId = taleFull.PostSubtypeId;
+        CountryId = taleFull.PostCountryId;
+        StateId = taleFull.PostStateId;
+        Title = taleFull.Title;
+        Summary = taleFull.Summary;
+        Description = taleFull.Description;
+        ImageCount = taleFull.ImageCount;
+        LikeCount = taleFull.LikeCount;
+        PublicationDateTime = taleFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = taleFull.PostStatus;
+    }
 }

@@ -52,7 +52,7 @@ public class HappeningPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterHappeningRequest registerHappeningRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -67,7 +67,7 @@ public class HappeningAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,6 +82,6 @@ public class HappeningRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }

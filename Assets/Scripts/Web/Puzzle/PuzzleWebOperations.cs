@@ -52,7 +52,7 @@ public class PuzzlePutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterPuzzleRequest registerPuzzleRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -67,7 +67,7 @@ public class PuzzleAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,7 +82,7 @@ public class PuzzleRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 

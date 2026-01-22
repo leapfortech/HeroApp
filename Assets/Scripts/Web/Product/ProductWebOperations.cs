@@ -67,7 +67,7 @@ public class ProductPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterProductRequest registerProductRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,7 +82,7 @@ public class ProductAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -97,7 +97,7 @@ public class ProductRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 

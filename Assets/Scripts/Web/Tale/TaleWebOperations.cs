@@ -52,7 +52,7 @@ public class TalePutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterTaleRequest registerTaleRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -67,7 +67,7 @@ public class TaleAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,6 +82,6 @@ public class TaleRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }

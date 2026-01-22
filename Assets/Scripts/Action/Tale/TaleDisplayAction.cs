@@ -7,10 +7,14 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 
 using Sirenix.OdinInspector;
+using UnityEngine.Events;
 
 
 public class TaleDisplayAction : MonoBehaviour
 {
+    [Serializable]
+    public class TaleFullEvent : UnityEvent<TaleFull> { }
+
     [Space]
     [Title("List")]
     [SerializeField]
@@ -27,10 +31,15 @@ public class TaleDisplayAction : MonoBehaviour
     [Title("Images")]
     [SerializeField]
     ListScroller lstImage = null;
-    
+
     //[Title("Values")]
     //[SerializeField]
     //ValueList vllProjectDescriptionType = null;
+
+    [Space]
+    [Title("Event")]
+    [SerializeField]
+    TaleFullEvent onSelected = null;
 
     [Title("Page")]
     [SerializeField]
@@ -107,6 +116,8 @@ public class TaleDisplayAction : MonoBehaviour
         }
         
         PageManager.Instance.ChangePage(pagDetail);
+
+        onSelected.Invoke(taleFull);
     }
 
     // Images

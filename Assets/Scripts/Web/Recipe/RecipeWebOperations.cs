@@ -52,7 +52,7 @@ public class RecipePutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterRecipeRequest registerRecipeRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -67,7 +67,7 @@ public class RecipeAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,6 +82,6 @@ public class RecipeRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }

@@ -52,7 +52,7 @@ public class TreatmentPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public RegisterTreatmentRequest registerTreatmentRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -67,7 +67,7 @@ public class TreatmentAcceptPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
@@ -82,7 +82,7 @@ public class TreatmentRejectPutOperation : HttpOperation
     [HttpRequestJsonBody]
     public PostModerationRequest postModerationRequest;
 
-    [HttpResponseJsonBody]
+    [HttpResponseTextBody]
     public bool response;
 }
 
