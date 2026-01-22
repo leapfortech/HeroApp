@@ -96,12 +96,12 @@ public class ProductService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateProduct(Product product)
+    public void UpdateProduct(RegisterProductRequest registerProductRequest)
     {
         ProductPutOperation referredPutOp = new ProductPutOperation();
         try
         {
-            referredPutOp.product = product;
+            referredPutOp.registerProductRequest = registerProductRequest;
             referredPutOp["on-complete"] = (Action<ProductPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

@@ -50,7 +50,7 @@ public class HappeningRegisterOperation : HttpOperation
 public class HappeningPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Happening happening;
+    public RegisterHappeningRequest registerHappeningRequest;
 
     [HttpResponseJsonBody]
     public bool response;

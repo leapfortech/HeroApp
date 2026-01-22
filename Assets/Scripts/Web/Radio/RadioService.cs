@@ -96,12 +96,12 @@ public class RadioService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateRadio(Radio radio)
+    public void UpdateRadio(RegisterRadioRequest registerRadioRequest)
     {
         RadioPutOperation referredPutOp = new RadioPutOperation();
         try
         {
-            referredPutOp.radio = radio;
+            referredPutOp.registerRadioRequest = registerRadioRequest;
             referredPutOp["on-complete"] = (Action<RadioPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

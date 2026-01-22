@@ -50,7 +50,7 @@ public class TreatmentRegisterOperation : HttpOperation
 public class TreatmentPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Treatment treatment;
+    public RegisterTreatmentRequest registerTreatmentRequest;
 
     [HttpResponseJsonBody]
     public bool response;

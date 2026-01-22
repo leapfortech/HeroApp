@@ -75,12 +75,12 @@ public class RecipeService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateRecipe(Recipe recipe)
+    public void UpdateRecipe(RegisterRecipeRequest registerRecipeRequest)
     {
         RecipePutOperation referredPutOp = new RecipePutOperation();
         try
         {
-            referredPutOp.recipe = recipe;
+            referredPutOp.registerRecipeRequest = registerRecipeRequest;
             referredPutOp["on-complete"] = (Action<RecipePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

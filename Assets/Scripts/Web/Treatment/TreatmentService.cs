@@ -75,12 +75,12 @@ public class TreatmentService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateTreatment(Treatment treatment)
+    public void UpdateTreatment(RegisterTreatmentRequest registerTreatmentRequest)
     {
         TreatmentPutOperation referredPutOp = new TreatmentPutOperation();
         try
         {
-            referredPutOp.treatment = treatment;
+            referredPutOp.registerTreatmentRequest = registerTreatmentRequest;
             referredPutOp["on-complete"] = (Action<TreatmentPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

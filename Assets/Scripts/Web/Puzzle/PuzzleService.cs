@@ -75,12 +75,12 @@ public class PuzzleService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdatePuzzle(Puzzle puzzle)
+    public void UpdatePuzzle(RegisterPuzzleRequest registerPuzzleRequest)
     {
         PuzzlePutOperation referredPutOp = new PuzzlePutOperation();
         try
         {
-            referredPutOp.puzzle = puzzle;
+            referredPutOp.registerPuzzleRequest = registerPuzzleRequest;
             referredPutOp["on-complete"] = (Action<PuzzlePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

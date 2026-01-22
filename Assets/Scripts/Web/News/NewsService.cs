@@ -75,12 +75,12 @@ public class NewsService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateNews(News news)
+    public void UpdateNews(RegisterNewsRequest registerNewsRequest)
     {
         NewsPutOperation referredPutOp = new NewsPutOperation();
         try
         {
-            referredPutOp.news = news;
+            referredPutOp.registerNewsRequest = registerNewsRequest;
             referredPutOp["on-complete"] = (Action<NewsPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

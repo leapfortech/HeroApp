@@ -75,12 +75,12 @@ public class TaleService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateTale(Tale tale)
+    public void UpdateTale(RegisterTaleRequest registerTaleRequest)
     {
         TalePutOperation referredPutOp = new TalePutOperation();
         try
         {
-            referredPutOp.tale = tale;
+            referredPutOp.registerTaleRequest = registerTaleRequest;
             referredPutOp["on-complete"] = (Action<TalePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

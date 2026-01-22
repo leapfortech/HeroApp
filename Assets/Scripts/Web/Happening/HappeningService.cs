@@ -75,12 +75,12 @@ public class HappeningService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateHappening(Happening happening)
+    public void UpdateHappening(RegisterHappeningRequest registerHappeningRequest)
     {
         HappeningPutOperation referredPutOp = new HappeningPutOperation();
         try
         {
-            referredPutOp.happening = happening;
+            referredPutOp.registerHappeningRequest = registerHappeningRequest;
             referredPutOp["on-complete"] = (Action<HappeningPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

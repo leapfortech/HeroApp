@@ -65,7 +65,7 @@ public class RadioListenRegisterOperation : HttpOperation
 public class RadioPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Radio radio;
+    public RegisterRadioRequest registerRadioRequest;
 
     [HttpResponseJsonBody]
     public bool response;

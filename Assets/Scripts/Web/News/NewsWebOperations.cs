@@ -50,7 +50,7 @@ public class NewsRegisterOperation : HttpOperation
 public class NewsPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public News news;
+    public RegisterNewsRequest registerNewsRequest;
 
     [HttpResponseJsonBody]
     public bool response;

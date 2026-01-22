@@ -50,7 +50,7 @@ public class RecipeRegisterOperation : HttpOperation
 public class RecipePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Recipe recipe;
+    public RegisterRecipeRequest registerRecipeRequest;
 
     [HttpResponseJsonBody]
     public bool response;

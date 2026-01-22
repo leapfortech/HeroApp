@@ -65,7 +65,7 @@ public class ReviewRegisterOperation : HttpOperation
 public class ProductPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Product product;
+    public RegisterProductRequest registerProductRequest;
 
     [HttpResponseJsonBody]
     public bool response;

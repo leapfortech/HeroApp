@@ -50,7 +50,7 @@ public class PuzzleRegisterOperation : HttpOperation
 public class PuzzlePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Puzzle puzzle;
+    public RegisterPuzzleRequest registerPuzzleRequest;
 
     [HttpResponseJsonBody]
     public bool response;

@@ -50,7 +50,7 @@ public class TaleRegisterOperation : HttpOperation
 public class TalePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public Tale tale;
+    public RegisterTaleRequest registerTaleRequest;
 
     [HttpResponseJsonBody]
     public bool response;
