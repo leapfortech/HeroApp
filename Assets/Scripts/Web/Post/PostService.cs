@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 using hg.ApiWebKit.core.http;
 
-using System.Collections.Generic;
 using Leap.Core.Tools;
 using Leap.Data.Web;
 
@@ -11,6 +11,12 @@ using Sirenix.OdinInspector;
 
 public class PostService : MonoBehaviour
 {
+    [Serializable]
+    public class PostFeedResponseEvent : UnityEvent<PostFeedResponse> { }
+
+    [SerializeField]
+    private PostFeedResponseEvent onFullsPagedRetreived = null;
+
     [SerializeField]
     private UnityStringsEvent onImagesRetreived = null;
 
@@ -38,6 +44,28 @@ public class PostService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             imagesGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // POST
+    public void GetPostFullsPaged(PostFeedRequest postFeedRequest)
+    {
+        PostFullsPagedOperation postFullsPagedOp = new PostFullsPagedOperation();
+        try
+        {
+            postFullsPagedOp.postFeedRequest = postFeedRequest;
+            postFullsPagedOp["on-complete"] = (Action<PostFullsPagedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullsPagedRetreived.Invoke(op.postFeedResponse);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            postFullsPagedOp.Send();
         }
         catch (Exception ex)
         {

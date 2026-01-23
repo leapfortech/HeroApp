@@ -10,6 +10,7 @@ using hg.ApiWebKit.authorizations;
 using Leap.Data.Web;
 
 // GET
+
 [HttpGET]
 [HttpPathExt(WebServiceType.Main, "/post/ImagesById")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -26,6 +27,22 @@ public class ImagesByIdGetOperation : HttpOperation
 
     [HttpResponseJsonBody]
     public String[] projectImages;
+}
+
+// POST
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/FullsPaged")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class PostFullsPagedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostFeedRequest postFeedRequest;
+
+    [HttpResponseJsonBody]
+    public PostFeedResponse postFeedResponse;
 }
 
 // REGISTER
