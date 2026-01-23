@@ -59,7 +59,6 @@ public class RecipeRegisterAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         Post post = dtmPost.BuildClass<Post>();
-
         post.AppUserId = StateManager.Instance.AppUser.Id;
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
