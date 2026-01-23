@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class ProductService : MonoBehaviour
 {
     [Serializable]
+    public class ProductFullEvent : UnityEvent<ProductFull> { }
+
+    [Serializable]
     public class ProductFullsEvent : UnityEvent<List<ProductFull>> { }
 
     [SerializeField]
-    private ProductFullsEvent onRetreived = null;
+    private ProductFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private ProductFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class ProductService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        ProductGetFullOperation productFullGetOp = new ProductGetFullOperation();
+        try
+        {
+            productFullGetOp.id = id;
+            productFullGetOp["on-complete"] = (Action<ProductGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.productFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            productFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         ProductGetFullsOperation productFullsGetOp = new ProductGetFullsOperation();
@@ -40,7 +67,7 @@ public class ProductService : MonoBehaviour
             productFullsGetOp["on-complete"] = (Action<ProductGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.productFulls);
+                    onFullsRetreived.Invoke(op.productFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

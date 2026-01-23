@@ -11,6 +11,20 @@ using Leap.Data.Web;
 
 // GET
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/news")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class NewsGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long id;
+
+    [HttpResponseJsonBody]
+    public NewsFull newsFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/news/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class RadioService : MonoBehaviour
 {
     [Serializable]
+    public class RadioFullEvent : UnityEvent<RadioFull> { }
+
+    [Serializable]
     public class RadioFullsEvent : UnityEvent<List<RadioFull>> { }
 
     [SerializeField]
-    private RadioFullsEvent onRetreived = null;
+    private RadioFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private RadioFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class RadioService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        RadioGetFullOperation radioFullGetOp = new RadioGetFullOperation();
+        try
+        {
+            radioFullGetOp.id = id;
+            radioFullGetOp["on-complete"] = (Action<RadioGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.radioFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            radioFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         RadioGetFullsOperation radioFullsGetOp = new RadioGetFullsOperation();
@@ -40,7 +67,7 @@ public class RadioService : MonoBehaviour
             radioFullsGetOp["on-complete"] = (Action<RadioGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.radioFulls);
+                    onFullsRetreived.Invoke(op.radioFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

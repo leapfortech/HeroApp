@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class NewsService : MonoBehaviour
 {
     [Serializable]
+    public class NewsFullEvent : UnityEvent<NewsFull> { }
+
+    [Serializable]
     public class NewsFullsEvent : UnityEvent<List<NewsFull>> { }
 
     [SerializeField]
-    private NewsFullsEvent onRetreived = null;
+    private NewsFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private NewsFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class NewsService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        NewsGetFullOperation newsFullGetOp = new NewsGetFullOperation();
+        try
+        {
+            newsFullGetOp.id = id;
+            newsFullGetOp["on-complete"] = (Action<NewsGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.newsFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            newsFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         NewsGetFullsOperation newsFullsGetOp = new NewsGetFullsOperation();
@@ -40,7 +67,7 @@ public class NewsService : MonoBehaviour
             newsFullsGetOp["on-complete"] = (Action<NewsGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.newsFulls);
+                    onFullsRetreived.Invoke(op.newsFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

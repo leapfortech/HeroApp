@@ -11,6 +11,21 @@ using Leap.Data.Web;
 
 // GET
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/radio")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long id;
+
+    [HttpResponseJsonBody]
+    public RadioFull radioFull;
+}
+
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/radio/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

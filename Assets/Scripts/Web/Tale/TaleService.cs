@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class TaleService : MonoBehaviour
 {
     [Serializable]
+    public class TaleFullEvent : UnityEvent<TaleFull> { }
+
+    [Serializable]
     public class TaleFullsEvent : UnityEvent<List<TaleFull>> { }
 
     [SerializeField]
-    private TaleFullsEvent onRetreived = null;
+    private TaleFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private TaleFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class TaleService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        TaleGetFullOperation taleFullGetOp = new TaleGetFullOperation();
+        try
+        {
+            taleFullGetOp.id = id;
+            taleFullGetOp["on-complete"] = (Action<TaleGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.taleFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            taleFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         TaleGetFullsOperation taleFullsGetOp = new TaleGetFullsOperation();
@@ -40,7 +67,7 @@ public class TaleService : MonoBehaviour
             taleFullsGetOp["on-complete"] = (Action<TaleGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.taleFulls);
+                    onFullsRetreived.Invoke(op.taleFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

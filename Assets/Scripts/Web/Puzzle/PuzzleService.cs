@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class PuzzleService : MonoBehaviour
 {
     [Serializable]
+    public class PuzzleFullEvent : UnityEvent<PuzzleFull> { }
+
+    [Serializable]
     public class PuzzleFullsEvent : UnityEvent<List<PuzzleFull>> { }
 
     [SerializeField]
-    private PuzzleFullsEvent onRetreived = null;
+    private PuzzleFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private PuzzleFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class PuzzleService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        PuzzleGetFullOperation puzzleFullGetOp = new PuzzleGetFullOperation();
+        try
+        {
+            puzzleFullGetOp.id = id;
+            puzzleFullGetOp["on-complete"] = (Action<PuzzleGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.puzzleFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            puzzleFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         PuzzleGetFullsOperation puzzleFullsGetOp = new PuzzleGetFullsOperation();
@@ -40,7 +67,7 @@ public class PuzzleService : MonoBehaviour
             puzzleFullsGetOp["on-complete"] = (Action<PuzzleGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.puzzleFulls);
+                    onFullsRetreived.Invoke(op.puzzleFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

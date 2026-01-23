@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class RecipeService : MonoBehaviour
 {
     [Serializable]
+    public class RecipeFullEvent : UnityEvent<RecipeFull> { }
+
+    [Serializable]
     public class RecipeFullsEvent : UnityEvent<List<RecipeFull>> { }
 
     [SerializeField]
-    private RecipeFullsEvent onRetreived = null;
+    private RecipeFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private RecipeFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class RecipeService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        RecipeGetFullOperation recipeFullGetOp = new RecipeGetFullOperation();
+        try
+        {
+            recipeFullGetOp.id = id;
+            recipeFullGetOp["on-complete"] = (Action<RecipeGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.recipeFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            recipeFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         RecipeGetFullsOperation recipeFullsGetOp = new RecipeGetFullsOperation();
@@ -40,7 +67,7 @@ public class RecipeService : MonoBehaviour
             recipeFullsGetOp["on-complete"] = (Action<RecipeGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.recipeFulls);
+                    onFullsRetreived.Invoke(op.recipeFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

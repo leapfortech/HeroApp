@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class TreatmentService : MonoBehaviour
 {
     [Serializable]
+    public class TreatmentFullEvent : UnityEvent<TreatmentFull> { }
+
+    [Serializable]
     public class TreatmentFullsEvent : UnityEvent<List<TreatmentFull>> { }
 
     [SerializeField]
-    private TreatmentFullsEvent onRetreived = null;
+    private TreatmentFullEvent onFullRetreived = null;
+
+    [SerializeField]
+    private TreatmentFullsEvent onFullsRetreived = null;
 
     [SerializeField]
     private UnityLongEvent onRegistered = null;
@@ -31,6 +37,27 @@ public class TreatmentService : MonoBehaviour
 
 
     // GET
+    public void GetFull(long id)
+    {
+        TreatmentGetFullOperation treatmentFullGetOp = new TreatmentGetFullOperation();
+        try
+        {
+            treatmentFullGetOp.id = id;
+            treatmentFullGetOp["on-complete"] = (Action<TreatmentGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.treatmentFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            treatmentFullGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         TreatmentGetFullsOperation treatmentFullsGetOp = new TreatmentGetFullsOperation();
@@ -40,7 +67,7 @@ public class TreatmentService : MonoBehaviour
             treatmentFullsGetOp["on-complete"] = (Action<TreatmentGetFullsOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRetreived.Invoke(op.treatmentFulls);
+                    onFullsRetreived.Invoke(op.treatmentFulls);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
