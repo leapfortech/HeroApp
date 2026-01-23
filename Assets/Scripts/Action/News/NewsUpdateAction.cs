@@ -38,7 +38,7 @@ public class NewsUpdateAction : MonoBehaviour
 
     NewsService newsService = null;
 
-    NewsFull newsFull = null;
+    long postId = -1, newsId = -1;
     Post post = null;
     News news = null;
 
@@ -60,13 +60,16 @@ public class NewsUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetNewsFull(NewsFull newsFull)
+    public void SetIds(long[] ids)
     {
-        this.newsFull = newsFull;
+        postId = ids[0];
+        newsId = ids[1];
     }
 
     public void Populate()
     {
+        NewsFull newsFull = null; // StateManager.Instance.GetNewsFullById(newsId);
+
         post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -76,7 +79,7 @@ public class NewsUpdateAction : MonoBehaviour
         dtmNews.PopulateClass<News>(news);
         dtmTime.PopulateBuiltIn<String>(news.DateTime != null ? news.DateTime.Value.ToString("HH|mm") : null);
 
-        //List<Sprite> images = StateManager.Instance.GetNewsImagesById(treatmentFull.Id);
+        //List<Sprite> images = StateManager.Instance.GetNewsImagesById(newsId);
         //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 

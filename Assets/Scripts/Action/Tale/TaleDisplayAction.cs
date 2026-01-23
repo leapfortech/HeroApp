@@ -8,13 +8,11 @@ using Leap.UI.Dialog;
 
 using Sirenix.OdinInspector;
 using UnityEngine.Events;
+using Leap.Core.Tools;
 
 
 public class TaleDisplayAction : MonoBehaviour
 {
-    [Serializable]
-    public class TaleFullEvent : UnityEvent<TaleFull> { }
-
     [Space]
     [Title("List")]
     [SerializeField]
@@ -39,7 +37,7 @@ public class TaleDisplayAction : MonoBehaviour
     [Space]
     [Title("Event")]
     [SerializeField]
-    TaleFullEvent onSelected = null;
+    UnityLongsEvent onSelected = null;
 
     [Title("Page")]
     [SerializeField]
@@ -117,7 +115,7 @@ public class TaleDisplayAction : MonoBehaviour
         
         PageManager.Instance.ChangePage(pagDetail);
 
-        onSelected.Invoke(taleFull);
+        onSelected.Invoke(new long[] { taleFull.PostId, taleFull.Id });
     }
 
     // Images

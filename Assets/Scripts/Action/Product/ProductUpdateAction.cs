@@ -42,7 +42,7 @@ public class ProductUpdateAction : MonoBehaviour
 
     ProductService productService = null;
 
-    ProductFull productFull = null;
+    long postId = -1, productId = -1;
     Post post = null;
     Contact contact = null;
     Product product = null;
@@ -68,13 +68,16 @@ public class ProductUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetProductFull(ProductFull productFull)
+    public void SetIds(long[] ids)
     {
-        this.productFull = productFull;
+        postId = ids[0];
+        productId = ids[1];
     }
 
     public void Populate()
     {
+        ProductFull productFull = null; // StateManager.Instance.GetProductFullById(productId);
+
         post = new Post(productFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -88,7 +91,7 @@ public class ProductUpdateAction : MonoBehaviour
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
 
-        //List<Sprite> images = StateManager.Instance.GetProductImagesById(treatmentFull.Id);
+        //List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
         //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 

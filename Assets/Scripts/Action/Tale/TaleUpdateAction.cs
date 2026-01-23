@@ -32,7 +32,7 @@ public class TaleUpdateAction : MonoBehaviour
 
     TaleService taleService = null;
 
-    TaleFull taleFull = null;
+    long postId = -1, taleId = -1;
     Post post = null;
 
     private void Awake()
@@ -51,17 +51,18 @@ public class TaleUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetTaleFull(TaleFull taleFull)
+    public void SetIds(long[] ids)
     {
-        this.taleFull = taleFull;
+        postId = ids[0];
+        taleId = ids[1];
     }
 
     public void Populate()
     {
-        post = new Post(taleFull);
+        post = new Post(StateManager.Instance.GetTaleFullById(taleId));
         dtmPost.PopulateClass<Post>(post);
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleFull.Id);
+        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 

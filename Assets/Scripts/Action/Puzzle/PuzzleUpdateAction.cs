@@ -29,7 +29,7 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     PuzzleService puzzleService = null;
 
-    PuzzleFull puzzleFull = null;
+    long postId = -1, puzzleId = -1;
     Post post = null;
     Puzzle puzzle = null;
 
@@ -50,13 +50,16 @@ public class PuzzleUpdateAction : MonoBehaviour
         dtmPuzzleAnswer.ClearElements();
     }
 
-    public void SetPuzzleFull(PuzzleFull puzzleFull)
+    public void SetIds(long[] ids)
     {
-        this.puzzleFull = puzzleFull;
+        postId = ids[0];
+        puzzleId = ids[1];
     }
 
     public void Populate()
     {
+        PuzzleFull puzzleFull = null; // StateManager.Instance.GetPuzzleFullById(puzzleId);
+
         post = new Post(puzzleFull);
         dtmPost.PopulateClass<Post>(post);
 

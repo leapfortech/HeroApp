@@ -37,7 +37,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     TreatmentService treatmentService = null;
 
-    TreatmentFull treatmentFull = null;
+    long postId = -1, treatmentId = -1;
     Post post = null;
     Treatment treatment = null;
 
@@ -58,13 +58,16 @@ public class TreatmentUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetTreatmentFull(TreatmentFull treatmentFull)
+    public void SetIds(long[] ids)
     {
-        this.treatmentFull = treatmentFull;
+        postId = ids[0];
+        treatmentId = ids[1];
     }
 
     public void Populate()
     {
+        TreatmentFull treatmentFull = null; // StateManager.Instance.GetTreatmentFullById(treatmentId);
+
         post = new Post(treatmentFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -76,7 +79,7 @@ public class TreatmentUpdateAction : MonoBehaviour
             diseases.Add(new Disease(treatmentFull.Id, treatmentFull.DiseaseFulls[i]));
         dtmDiseaseVLL.PopulateClassList<Disease>(diseases);
 
-        //List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentFull.Id);
+        //List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);
         //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 

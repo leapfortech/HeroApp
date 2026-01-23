@@ -34,7 +34,7 @@ public class RecipeUpdateAction : MonoBehaviour
 
     RecipeService recipeService = null;
 
-    RecipeFull recipeFull = null;
+    long postId = -1, recipeId = -1;
     Post post = null;
     Recipe recipe = null;
 
@@ -55,20 +55,23 @@ public class RecipeUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetRecipeFull(RecipeFull recipeFull)
+    public void SetIds(long[] ids)
     {
-        this.recipeFull = recipeFull;
+        postId = ids[0];
+        recipeId = ids[1];
     }
 
     public void Populate()
     {
+        RecipeFull recipeFull = null; // StateManager.Instance.GetRecipeFullById(recipeId);
+
         post = new Post(recipeFull);
         dtmPost.PopulateClass<Post>(post);
 
         recipe = new Recipe(recipeFull);
         dtmRecipe.PopulateClass<Recipe>(recipe);
 
-        //List<Sprite> images = StateManager.Instance.GetRecipeImagesById(recipeFull.Id);
+        //List<Sprite> images = StateManager.Instance.GetRecipeImagesById(recipeId);
         //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
