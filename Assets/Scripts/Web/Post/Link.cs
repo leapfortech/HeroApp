@@ -20,4 +20,13 @@ public class Link
         Url = url;
         Status = status;
     }
+
+    public Link(LinkFull linkFull)
+    {
+        Id = linkFull.Id;
+        LinkTypeId = linkFull.LinkTypeId;
+        PostId = linkFull.PostId;
+        Url = linkFull.Url;
+        Status = linkFull.Status;
+    }
 }

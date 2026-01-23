@@ -23,4 +23,15 @@ public class Treatment
         Annotation = annotation;
         Status = status;
     }
+
+    public Treatment(TreatmentFull treatmentFull)
+    {
+        Id = treatmentFull.Id;
+        PostId = treatmentFull.PostId;
+        Ingredients = treatmentFull.Ingredients;
+        Preparation = treatmentFull.Preparation;
+        Usage = treatmentFull.Usage;
+        Annotation = treatmentFull.Annotation;
+        Status = treatmentFull.Status;
+    }
 }

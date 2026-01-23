@@ -23,4 +23,19 @@ public class RegisterRadioRequest : RegisterPostRequest
         RadioTypes = radioTypes;
         RadioLanguages = radioLanguages;
     }
+
+    public RegisterRadioRequest(RegisterPostRequest registerPostRequest,
+                                Radio radio,
+                                List<RadioType> radioTypes,
+                                List<RadioLanguage> radioLanguages)
+    {
+        Post = registerPostRequest.Post;
+        Contact = registerPostRequest.Contact;
+        Links = registerPostRequest.Links;
+        Images = registerPostRequest.Images;
+
+        Radio = radio;
+        RadioTypes = radioTypes;
+        RadioLanguages = radioLanguages;
+    }
 }

@@ -18,4 +18,12 @@ public class RadioType
         RadioTypeId = radioTypeId;
         Status = status;
     }
+
+    public RadioType(long radioId, RadioTypeFull radioTypeFull)
+    {
+        Id = radioTypeFull.Id;
+        RadioId = radioId;
+        RadioTypeId = radioTypeFull.RadioTypeId;
+        Status = radioTypeFull.Status;
+    }
 }

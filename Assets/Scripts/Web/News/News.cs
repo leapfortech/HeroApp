@@ -23,4 +23,15 @@ public class News
         DateTime = dateTime;
         Status = status;
     }
+
+    public News(NewsFull newsFull)
+    {
+        Id = newsFull.Id;
+        PostId = newsFull.PostId;
+        NewsTypeId = newsFull.NewsTypeId;
+        Place = newsFull.Place;
+        Source = newsFull.Source;
+        DateTime = newsFull.DateTime;
+        Status = newsFull.Status;
+    }
 }

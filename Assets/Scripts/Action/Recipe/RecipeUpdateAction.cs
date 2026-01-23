@@ -10,7 +10,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleUpdateAction : MonoBehaviour
+public class RecipeUpdateAction : MonoBehaviour
 {
     [Title("Elements")]
     [SerializeField]
@@ -19,6 +19,8 @@ public class TaleUpdateAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmRecipe = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -30,14 +32,15 @@ public class TaleUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
+    RecipeService recipeService = null;
 
-    TaleFull taleFull = null;
+    RecipeFull recipeFull = null;
     Post post = null;
+    Recipe recipe = null;
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        recipeService = GetComponent<RecipeService>();
     }
 
     private void Start()
@@ -48,21 +51,25 @@ public class TaleUpdateAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmRecipe.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetTaleFull(TaleFull taleFull)
+    public void SetRecipeFull(RecipeFull recipeFull)
     {
-        this.taleFull = taleFull;
+        this.recipeFull = recipeFull;
     }
 
     public void Populate()
     {
-        post = new Post(taleFull);
+        post = new Post(recipeFull);
         dtmPost.PopulateClass<Post>(post);
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleFull.Id);
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        recipe = new Recipe(recipeFull);
+        dtmRecipe.PopulateClass<Recipe>(recipe);
+
+        //List<Sprite> images = StateManager.Instance.GetRecipeImagesById(recipeFull.Id);
+        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()
@@ -76,13 +83,21 @@ public class TaleUpdateAction : MonoBehaviour
         post.Title = postNew.Title;
         post.Summary = postNew.Summary;
         post.Description = postNew.Description;
-        
+
+        Recipe recipeNew = dtmRecipe.BuildClass<Recipe>();
+
+        recipe.RecipeTypeId = recipeNew.RecipeTypeId;
+        recipe.Ingredients = recipeNew.Ingredients;
+        recipe.Preparation = recipeNew.Preparation;
+        recipe.Portions = recipeNew.Portions;
+        recipe.CookingTime = recipeNew.CookingTime;
+
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        taleService.UpdateTale(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        recipeService.UpdateRecipe(new RegisterRecipeRequest(new RegisterPostRequest(post, null, null, strImages), recipe));
     }
 
     public void ApplyUpdate(bool updated)

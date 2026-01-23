@@ -29,4 +29,18 @@ public class Puzzle
         PlayCount = playCount;
         Status = status;
     }
+
+    public Puzzle(PuzzleFull puzzleFull)
+    {
+        Id = puzzleFull.Id;
+        PostId = puzzleFull.PostId;
+        PuzzleSubtypeId = puzzleFull.PuzzleSubtypeId;
+        CountryId = puzzleFull.CountryId;
+        Question = puzzleFull.Question;
+        Hint = puzzleFull.Hint;
+        Difficulty = puzzleFull.Difficulty;
+        Points = puzzleFull.Points;
+        PlayCount = puzzleFull.PlayCount;
+        Status = puzzleFull.Status;
+    }
 }

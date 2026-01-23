@@ -76,8 +76,6 @@ public class ProductRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.Identity.OriginCountryId;
         post.StateId = StateManager.Instance.Identity.OriginStateId;
 
-        Product product = dtmProduct.BuildClass<Product>();
-
         Contact contact = dtmContact.BuildClass<Contact>();
 
         List<Link> links = new();
@@ -96,6 +94,8 @@ public class ProductRegisterAction : MonoBehaviour
             email.LinkTypeId = (long)LinkType.Email;
             links.Add(email);
         }
+
+        Product product = dtmProduct.BuildClass<Product>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];

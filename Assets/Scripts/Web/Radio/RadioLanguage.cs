@@ -18,4 +18,12 @@ public class RadioLanguage
         LanguageId = languageId;
         Status = status;
     }
+
+    public RadioLanguage(long radioId, RadioLanguageFull radioLanguageFull)
+    {
+        Id = radioLanguageFull.Id;
+        RadioId = radioId;
+        LanguageId = radioLanguageFull.LanguageId;
+        Status = radioLanguageFull.Status;
+    }
 }

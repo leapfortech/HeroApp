@@ -14,4 +14,11 @@ public class Radio
         PostId = postId;
         Status = status;
     }
+
+    public Radio(RadioFull radioFull)
+    {
+        Id = radioFull.Id;
+        PostId = radioFull.PostId;
+        Status = radioFull.Status;
+    }
 }

@@ -7,7 +7,9 @@ public class Contact
     public String Name { get; set; }
     public int Status { get; set; }
 
-    public Contact() { }
+    public Contact() 
+    { 
+    }
 
     public Contact(long id, long postId, String name, int status)
     {
@@ -15,5 +17,13 @@ public class Contact
         PostId = postId;
         Name = name;
         Status = status;
+    }
+
+    public Contact(ContactFull contactFull)
+    {
+        Id = contactFull.Id;
+        PostId = contactFull.PostId;
+        Name = contactFull.Name;
+        Status = contactFull.Status;
     }
 }

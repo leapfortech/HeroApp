@@ -25,4 +25,16 @@ public class Recipe
         CookingTime = cookingTime;
         Status = status;
     }
+
+    public Recipe(RecipeFull recipeFull)
+    {
+        Id = recipeFull.Id;
+        PostId = recipeFull.PostId;
+        RecipeTypeId = recipeFull.RecipeTypeId;
+        Ingredients = recipeFull.Ingredients;
+        Preparation = recipeFull.Preparation;
+        Portions = recipeFull.Portions;
+        CookingTime = recipeFull.CookingTime;
+        Status = recipeFull.Status;
+    }
 }

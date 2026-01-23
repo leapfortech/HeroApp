@@ -10,8 +10,9 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class TaleUpdateAction : MonoBehaviour
+public class TreatmentUpdateAction : MonoBehaviour
 {
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -19,6 +20,10 @@ public class TaleUpdateAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
+    [SerializeField]
+    DataMapper dtmTreatment = null;
+    [SerializeField]
+    DataMapper dtmDiseaseVLL = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -30,14 +35,15 @@ public class TaleUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
-    TaleService taleService = null;
+    TreatmentService treatmentService = null;
 
-    TaleFull taleFull = null;
+    TreatmentFull treatmentFull = null;
     Post post = null;
+    Treatment treatment = null;
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        treatmentService = GetComponent<TreatmentService>();
     }
 
     private void Start()
@@ -48,21 +54,30 @@ public class TaleUpdateAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+        dtmTreatment.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetTaleFull(TaleFull taleFull)
+    public void SetTreatmentFull(TreatmentFull treatmentFull)
     {
-        this.taleFull = taleFull;
+        this.treatmentFull = treatmentFull;
     }
 
     public void Populate()
     {
-        post = new Post(taleFull);
+        post = new Post(treatmentFull);
         dtmPost.PopulateClass<Post>(post);
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleFull.Id);
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        treatment = new Treatment(treatmentFull);
+        dtmTreatment.PopulateClass<Treatment>(treatment);
+
+        List<Disease> diseases = new List<Disease>();
+        for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
+            diseases.Add(new Disease(treatmentFull.Id, treatmentFull.DiseaseFulls[i]));
+        dtmDiseaseVLL.PopulateClassList<Disease>(diseases);
+
+        //List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentFull.Id);
+        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()
@@ -76,13 +91,21 @@ public class TaleUpdateAction : MonoBehaviour
         post.Title = postNew.Title;
         post.Summary = postNew.Summary;
         post.Description = postNew.Description;
-        
+
+        Treatment treatmentNew = dtmTreatment.BuildClass<Treatment>();
+        treatment.Ingredients = treatmentNew.Ingredients;
+        treatment.Preparation = treatmentNew.Preparation;
+        treatment.Usage = treatmentNew.Usage;
+        treatment.Annotation = treatmentNew.Annotation;
+
+        List<Disease> diseasesNew = dtmDiseaseVLL.BuildClassList<Disease>();
+
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        taleService.UpdateTale(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseasesNew));
     }
 
     public void ApplyUpdate(bool updated)

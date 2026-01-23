@@ -57,4 +57,130 @@ public class Post
         ExpirationDateTime = null;
         Status = taleFull.PostStatus;
     }
+
+    public Post(RecipeFull recipeFull)
+    {
+        Id = recipeFull.PostId;
+        AppUserId = recipeFull.AppUserId;
+        PostSubtypeId = recipeFull.PostSubtypeId;
+        CountryId = recipeFull.PostCountryId;
+        StateId = recipeFull.PostStateId;
+        Title = recipeFull.Title;
+        Summary = recipeFull.Summary;
+        Description = recipeFull.Description;
+        ImageCount = recipeFull.ImageCount;
+        LikeCount = recipeFull.LikeCount;
+        PublicationDateTime = recipeFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = recipeFull.PostStatus;
+    }
+
+    public Post(TreatmentFull treatmentFull)
+    {
+        Id = treatmentFull.PostId;
+        AppUserId = treatmentFull.AppUserId;
+        PostSubtypeId = treatmentFull.PostSubtypeId;
+        CountryId = treatmentFull.PostCountryId;
+        StateId = treatmentFull.PostStateId;
+        Title = treatmentFull.Title;
+        Summary = treatmentFull.Summary;
+        Description = treatmentFull.Description;
+        ImageCount = treatmentFull.ImageCount;
+        LikeCount = treatmentFull.LikeCount;
+        PublicationDateTime = treatmentFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = treatmentFull.PostStatus;
+    }
+
+    public Post(RadioFull radioFull)
+    {
+        Id = radioFull.PostId;
+        AppUserId = radioFull.AppUserId;
+        PostSubtypeId = radioFull.PostSubtypeId;
+        CountryId = radioFull.PostCountryId;
+        StateId = radioFull.PostStateId;
+        Title = radioFull.Title;
+        Summary = radioFull.Summary;
+        Description = radioFull.Description;
+        ImageCount = radioFull.ImageCount;
+        LikeCount = radioFull.LikeCount;
+        PublicationDateTime = radioFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = radioFull.PostStatus;
+    }
+
+    public Post(ProductFull productFull)
+    {
+        Id = productFull.PostId;
+        AppUserId = productFull.AppUserId;
+        PostSubtypeId = productFull.PostSubtypeId;
+        CountryId = productFull.PostCountryId;
+        StateId = productFull.PostStateId;
+        Title = productFull.Title;
+        Summary = productFull.Summary;
+        Description = productFull.Description;
+        ImageCount = productFull.ImageCount;
+        LikeCount = productFull.LikeCount;
+        PublicationDateTime = productFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = productFull.PostStatus;
+    }
+
+    public Post(HappeningFull happeningFull)
+    {
+        Id = happeningFull.PostId;
+        AppUserId = happeningFull.AppUserId;
+        PostSubtypeId = happeningFull.PostSubtypeId;
+        CountryId = happeningFull.PostCountryId;
+        StateId = happeningFull.PostStateId;
+        Title = happeningFull.Title;
+        Summary = happeningFull.Summary;
+        Description = happeningFull.Description;
+        ImageCount = happeningFull.ImageCount;
+        LikeCount = happeningFull.LikeCount;
+        PublicationDateTime = happeningFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = happeningFull.PostStatus;
+    }
+
+    public Post(NewsFull newsFull)
+    {
+        Id = newsFull.PostId;
+        AppUserId = newsFull.AppUserId;
+        PostSubtypeId = newsFull.PostSubtypeId;
+        CountryId = newsFull.PostCountryId;
+        StateId = newsFull.PostStateId;
+        Title = newsFull.Title;
+        Summary = newsFull.Summary;
+        Description = newsFull.Description;
+        ImageCount = newsFull.ImageCount;
+        LikeCount = newsFull.LikeCount;
+        PublicationDateTime = newsFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = newsFull.PostStatus;
+    }
+
+    public Post(PuzzleFull puzzleFull)
+    {
+        Id = puzzleFull.PostId;
+        AppUserId = puzzleFull.AppUserId;
+        PostSubtypeId = puzzleFull.PostSubtypeId;
+        CountryId = puzzleFull.PostCountryId;
+        StateId = puzzleFull.PostStateId;
+        Title = puzzleFull.Title;
+        Summary = puzzleFull.Summary;
+        Description = puzzleFull.Description;
+        ImageCount = puzzleFull.ImageCount;
+        LikeCount = puzzleFull.LikeCount;
+        PublicationDateTime = puzzleFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = puzzleFull.PostStatus;
+    }
 }

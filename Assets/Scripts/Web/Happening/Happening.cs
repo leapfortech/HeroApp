@@ -41,4 +41,23 @@ public class Happening
         Longitude = longitude;
         Status = status;
     }
+
+    public Happening(HappeningFull happeningFull)
+    {
+        Id = happeningFull.Id;
+        PostId = happeningFull.PostId;
+        EventTypeId = happeningFull.EventTypeId;
+        CountryId = happeningFull.CountryId;
+        StateId = happeningFull.StateId;
+        IsPublic = happeningFull.IsPublic;
+        HasSignup = happeningFull.HasSignup;
+        HasPayment = happeningFull.HasPayment;
+        PaymentDetails = happeningFull.PaymentDetails;
+        StartDateTime = happeningFull.StartDateTime;
+        EndDateTime = happeningFull.EndDateTime;
+        Location = happeningFull.Location;
+        Latitude = happeningFull.Latitude;
+        Longitude = happeningFull.Longitude;
+        Status = happeningFull.Status;
+    }
 }

@@ -18,4 +18,12 @@ public class Disease
         DiseaseTypeId = diseaseTypeId;
         Status = status;
     }
+
+    public Disease(long treatmentId, DiseaseFull diseaseFull)
+    {
+        Id = diseaseFull.Id;
+        TreatmentId = treatmentId;
+        DiseaseTypeId = diseaseFull.DiseaseTypeId;
+        Status = diseaseFull.Status;
+    }
 }
