@@ -39,7 +39,7 @@ public class FeedAction : MonoBehaviour
         if (state != null)
             return;
 
-        state = new FeedState(1, 10, false, true, 1);
+        state = new FeedState(1, 3, false, true, 1);
 
         StateManager.Instance.FeedTale = state;
     }
@@ -66,7 +66,6 @@ public class FeedAction : MonoBehaviour
 
         idx = 0;
         indexes.Clear();
-
         lstFeed.Clear();
 
         LoadPage();
