@@ -44,6 +44,11 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
+    // FEEDS
+    public PostFeedState FeedTale { get; set; }
+
+
+
     // TALE
     public List<TaleFull> TaleFulls { get; set; }
     private Dictionary<long, TaleFull> DictTaleFulls { get; set; } = new Dictionary<long, TaleFull>();

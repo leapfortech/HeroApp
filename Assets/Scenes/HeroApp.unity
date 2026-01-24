@@ -36565,6 +36565,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BtnTestXXX
       objectReference: {fileID: 0}
+    - target: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -54175,7 +54179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d221a57a2f690ea4dbc535c13a9e9729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HappeningService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -85950,7 +85957,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2001bb213f40aaa4d8227146cf267b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -117295,7 +117305,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: babb7eab95084e44790972aa0e9ba819, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewsService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -163662,7 +163675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6499aa73b5c06974ba8ad87dc01455b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RadioService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -172486,7 +172502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35151d2053ff4ac4485e7dba344263d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaleService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -204044,7 +204063,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35151d2053ff4ac4485e7dba344263d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaleService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -268295,7 +268317,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f275ffc1b1c85554a9a3a6bb3493d149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TreatmentService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -308418,7 +308443,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5bbac70aab4675459290d28909ede45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProductService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:
@@ -321477,6 +321505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19944b8bc587db947b970fe32e7529ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PostService
+  onFullsPagedRetreived:
+    m_PersistentCalls:
+      m_Calls: []
   onImagesRetreived:
     m_PersistentCalls:
       m_Calls:
@@ -404121,7 +404152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35151d2053ff4ac4485e7dba344263d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaleService
-  onRetreived:
+  onFullRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onFullsRetreived:
     m_PersistentCalls:
       m_Calls: []
   onRegistered:

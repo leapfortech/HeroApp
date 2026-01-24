@@ -14,7 +14,9 @@ public class Product
     public String Annotation { get; set; }
     public int Status { get; set; }
 
-    public Product() { }
+    public Product() 
+    {
+    }
 
     public Product(long id, long postId, long productSubtypeId, long saleCountryId, long saleStateId, long currencyId,
                     double price, double discountPrice, long deliveryTypeId, String annotation, int status)
