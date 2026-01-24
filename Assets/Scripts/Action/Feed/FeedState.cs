@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-public class PostFeedState
+public class FeedState
 {
     public List<PostFull> PostFulls { get; set; }
     public int Page { get; set; }
@@ -11,12 +11,13 @@ public class PostFeedState
     public bool HasMore { get; set; }
     public long PostSubtypeId { get; set; }
 
-    public PostFeedState()
+    public FeedState(int page, int pageSize, bool isLoading, bool hasMore, long postSubtipeId)
     {
         PostFulls = new List<PostFull>();
-        Page = 1;
-        PageSize = 10;
-        HasMore = true;
-        IsLoading = false;
+        Page = page;
+        PageSize = pageSize;
+        IsLoading = isLoading;
+        HasMore = hasMore;
+        PostSubtypeId = postSubtipeId;
     }
 }

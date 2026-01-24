@@ -45,7 +45,7 @@ public class StateManager : SingletonBehaviour<StateManager>
     }
 
     // FEEDS
-    public PostFeedState FeedTale { get; set; }
+    public FeedState FeedTale { get; set; }
 
 
 

@@ -7,6 +7,10 @@ public class PostFeedResponse
     public int PageSize { get; set; }
     public int Total { get; set; }
 
+    public PostFeedResponse()
+    {
+    }
+
     public PostFeedResponse(int page, int pageSize)
     {
         Page = page;
