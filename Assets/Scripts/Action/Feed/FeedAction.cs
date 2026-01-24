@@ -34,15 +34,6 @@ public class FeedAction : MonoBehaviour
         postService = GetComponent<PostService>();
     }
 
-    private void Init()
-    {
-        if (state != null)
-            return;
-
-        state = new FeedState(1, 3, false, true, 1);
-
-        StateManager.Instance.FeedTale = state;
-    }
 
     private void Start()
     {
@@ -55,6 +46,17 @@ public class FeedAction : MonoBehaviour
             return postId;
 
         return -1;
+    }
+
+    // ONLY TEST
+    private void Init()
+    {
+        if (state != null)
+            return;
+
+        state = new FeedState(1, 3, false, true, 1);
+
+        StateManager.Instance.FeedTale = state;
     }
 
     public void LoadFirstPage()
@@ -70,6 +72,8 @@ public class FeedAction : MonoBehaviour
 
         LoadPage();
     }
+
+    // NEXT PAGE
 
     public void LoadNextPage()
     {
