@@ -15,7 +15,7 @@ public class PostService : MonoBehaviour
     public class PostFeedResponseEvent : UnityEvent<PostFeedResponse> { }
 
     [SerializeField]
-    private PostFeedResponseEvent onFullsPagedRetreived = null;
+    private PostFeedResponseEvent onFeedRetreived = null;
 
     [SerializeField]
     private UnityStringsEvent onImagesRetreived = null;
@@ -52,20 +52,20 @@ public class PostService : MonoBehaviour
     }
 
     // POST
-    public void GetPostFullsPaged(PostFeedRequest postFeedRequest)
+    public void GetPostFeed(PostFeedRequest postFeedRequest)
     {
-        PostFullsPagedOperation postFullsPagedOp = new PostFullsPagedOperation();
+        PostFeedOperation postFeedOp = new PostFeedOperation();
         try
         {
-            postFullsPagedOp.postFeedRequest = postFeedRequest;
-            postFullsPagedOp["on-complete"] = (Action<PostFullsPagedOperation, HttpResponse>)((op, response) =>
+            postFeedOp.postFeedRequest = postFeedRequest;
+            postFeedOp["on-complete"] = (Action<PostFeedOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onFullsPagedRetreived.Invoke(op.postFeedResponse);
+                    onFeedRetreived.Invoke(op.postFeedResponse);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            postFullsPagedOp.Send();
+            postFeedOp.Send();
         }
         catch (Exception ex)
         {

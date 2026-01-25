@@ -1,23 +1,42 @@
 
+using System;
 using System.Collections.Generic;
 
 public class FeedState
 {
-    public List<PostFull> PostFulls { get; set; }
-    public int Page { get; set; }
-    public int PageSize { get; set; }
-    public int Total { get; set; }
-    public bool IsLoading { get; set; }
-    public bool HasMore { get; set; }
-    public long PostSubtypeId { get; set; }
+    // CURSORS
+    public DateTime? FirstPublicationDateTime;
+    public long FirstPostId = -1;
 
-    public FeedState(int page, int pageSize, bool isLoading, bool hasMore, long postSubtipeId)
+    public DateTime? LastPublicationDateTime;
+    public long LastPostId = -1;
+
+    // STATE
+    public bool IsLoading;
+    public bool HasMore = true;
+
+    // PARAMS
+    public int PageSize;
+    public long PostSubtypeId;
+    public int Status;
+
+    // DATA
+    public List<PostFull> PostFulls;
+
+    public FeedState(long postSubtypeId, int pageSize, bool isLoading, bool hasMore,int status)
     {
-        PostFulls = new List<PostFull>();
-        Page = page;
+        PostSubtypeId = postSubtypeId;
         PageSize = pageSize;
         IsLoading = isLoading;
         HasMore = hasMore;
-        PostSubtypeId = postSubtipeId;
+        Status = status;
+
+        FirstPublicationDateTime = null;
+        FirstPostId = -1;
+
+        LastPublicationDateTime = null;
+        LastPostId = -1;
+
+        PostFulls = new List<PostFull>();
     }
 }

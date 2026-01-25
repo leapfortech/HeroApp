@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class PostFeedResponse
 {
-    public List<PostFull> PostFulls { get; set; }
-    public int Page { get; set; }
-    public int PageSize { get; set; }
+    public List<PostFull> PostFulls { get; set; } = new();
+
     public int Total { get; set; }
+
+    // CURSORS
+    public DateTime? FirstPublicationDateTime { get; set; }
+    public long FirstPostId { get; set; }
+
+    public DateTime? LastPublicationDateTime { get; set; }
+    public long LastPostId { get; set; }
 
     public PostFeedResponse()
     {
-    }
-
-    public PostFeedResponse(int page, int pageSize)
-    {
-        Page = page;
-        PageSize = pageSize;
-        PostFulls = new List<PostFull>();
     }
 }

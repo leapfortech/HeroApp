@@ -1,19 +1,45 @@
-﻿
+﻿using System;
+
 public class PostFeedRequest
 {
-    public int Page { get; set; }
-    public int PageSize { get; set; }
-    public long PostSubtypeId { get; set; }
-    public int Status { get; set; }
+    // PARAMS
+    public int PageSize { get; set; } = 10;
+
+    // FILTERS
+    public long AppUserId { get; set; } = -1;
+    public long PostSubtypeId { get; set; } = -1;
+    public long CountryId { get; set; } = -1;
+    public long StateId { get; set; } = -1;
+    public int Status { get; set; } = -1;
+
+    // CURSORS
+    public DateTime? FirstPublicationDateTime { get; set; }
+    public long FirstPostId { get; set; } = -1;
+
+    public DateTime? LastPublicationDateTime { get; set; } = null;
+    public long LastPostId { get; set; } = -1;
+
+    public int Direction { get; set; } = 0;
+
+
     public PostFeedRequest()
     {
     }
 
-    public PostFeedRequest(int page, int pageSize, long postSubtypeId, int status)
+    public PostFeedRequest(int pageSize, long appUserId, long postSubtypeId, long countryId, long stateId,
+                           int status, DateTime? firstPublicationDatetime, long firstPostId, 
+                           DateTime? lastPublicationDateTime, long lastPostId, int direction)
     {
-        Page = page;
         PageSize = pageSize;
+        AppUserId = appUserId;
         PostSubtypeId = postSubtypeId;
+        CountryId = countryId;
+        StateId = stateId;
         Status = status;
+        FirstPublicationDateTime = firstPublicationDatetime;
+        FirstPostId = firstPostId;
+        LastPublicationDateTime = lastPublicationDateTime;
+        LastPostId = lastPostId;
+        Direction = direction;
     }
 }

@@ -31,12 +31,12 @@ public class ImagesByIdGetOperation : HttpOperation
 
 // POST
 [HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/FullsPaged")]
+[HttpPathExt(WebServiceType.Main, "/post/PostFeed")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
-public class PostFullsPagedOperation : HttpOperation
+public class PostFeedOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public PostFeedRequest postFeedRequest;

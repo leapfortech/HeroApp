@@ -6,8 +6,6 @@ using Leap.UI.Dialog;
 
 using Sirenix.OdinInspector;
 
-
-
 public class FeedAction : MonoBehaviour
 {
     [Space]
@@ -19,15 +17,20 @@ public class FeedAction : MonoBehaviour
 
     [Title("Action")]
     [SerializeField]
-    Button btnNextPage = null;
+    Button btnOlder = null;
+    [SerializeField]
+    Button btnRefresh = null;
 
     PostService postService;
     FeedState state;
 
     public int SelIdx { get; set; } = 0;
 
-    Dictionary<long, long> indexes = new Dictionary<long, long>();
-    long idx = 0;
+    Dictionary<int, long> indexes = new();
+    int idx = 0;
+    
+    private int lastDirection = 0;
+    private HashSet<long> postIds = new HashSet<long>();
 
     private void Awake()
     {
@@ -37,7 +40,8 @@ public class FeedAction : MonoBehaviour
 
     private void Start()
     {
-        btnNextPage?.AddAction(LoadNextPage);
+        btnOlder?.AddAction(LoadOlder);
+        btnRefresh?.AddAction(Refresh);
     }
 
     public long GetSelectedPostId()
@@ -48,34 +52,32 @@ public class FeedAction : MonoBehaviour
         return -1;
     }
 
-    // ONLY TEST
-    private void Init()
+    public void FirstLoad()
     {
         if (state != null)
             return;
 
-        state = new FeedState(1, 3, false, true, 1);
-
+        state = new FeedState(postSubtypeId: 1, pageSize: 3, isLoading: false, hasMore: true, status: 1);
         StateManager.Instance.FeedTale = state;
+
+        ScreenDialog.Instance.Display();
+        state.IsLoading = true;
+
+        lastDirection = 0;
+
+        PostFeedRequest request = new PostFeedRequest
+        {
+            Direction = 0,
+            PageSize = state.PageSize,
+            PostSubtypeId = state.PostSubtypeId,
+            Status = state.Status
+        };
+
+        postService.GetPostFeed(request);
     }
 
-    public void LoadFirstPage()
-    {
-        Init();
-
-        if (state.IsLoading)
-            return;
-
-        idx = 0;
-        indexes.Clear();
-        lstFeed.Clear();
-
-        LoadPage();
-    }
-
-    // NEXT PAGE
-
-    public void LoadNextPage()
+    // OLDER
+    public void LoadOlder()
     {
         if (state.IsLoading)
             return;
@@ -83,33 +85,120 @@ public class FeedAction : MonoBehaviour
         if (!state.HasMore)
             return;
 
-        state.Page++;
-        LoadPage();
-    }
-
-    private void LoadPage()
-    {
         ScreenDialog.Instance.Display();
         state.IsLoading = true;
 
-        PostFeedRequest request = new PostFeedRequest(state.Page, state.PageSize, state.PostSubtypeId, 1);
-        postService.GetPostFullsPaged(request);  
+        lastDirection = 2;
+
+        PostFeedRequest request = new PostFeedRequest
+        {
+            Direction = 2,
+            PageSize = state.PageSize,
+            PostSubtypeId = state.PostSubtypeId,
+            Status = state.Status,
+            LastPublicationDateTime = state.LastPublicationDateTime,
+            LastPostId = state.LastPostId
+        };
+
+        postService.GetPostFeed(request);
     }
 
-    public void ApplyPage(PostFeedResponse response)
+    // REFRESH
+    public void Refresh()
     {
-        int startIndex = state.PostFulls.Count;
+        if (state.IsLoading)
+            return;
 
-        state.Total = response.Total;
+        if (!state.FirstPublicationDateTime.HasValue)
+            return;
 
-        for (int i = 0; i < response.PostFulls.Count; i++)
-            state.PostFulls.Add(response.PostFulls[i]);
+        ScreenDialog.Instance.Display();
+        state.IsLoading = true;
 
-        state.HasMore = state.PostFulls.Count < state.Total;
+        lastDirection = 1;
+
+        PostFeedRequest request = new PostFeedRequest
+        {
+            Direction = 1,
+            PageSize = state.PageSize,
+            PostSubtypeId = state.PostSubtypeId,
+            Status = state.Status,
+            FirstPublicationDateTime = state.FirstPublicationDateTime,
+            FirstPostId = state.FirstPostId
+        };
+
+        postService.GetPostFeed(request);
+    }
+
+    public void ApplyFeed(PostFeedResponse response)
+    {
         state.IsLoading = false;
 
-        DisplayFrom(startIndex);
+        if (response.PostFulls.Count == 0)
+        {
+            ScreenDialog.Instance.Hide();
+            return;
+        }
 
+        if (lastDirection == 1) // REFRESH
+        {
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                PostFull post = response.PostFulls[i];
+
+                if (postIds.Add(post.PostId))
+                    state.PostFulls.Insert(0, post);
+            }
+
+            idx = 0;
+            indexes.Clear();
+            lstFeed.Clear();
+            DisplayFrom(0);
+        }
+        else if (lastDirection == 2) // OLDER
+        {
+            int startIndex = state.PostFulls.Count;
+
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                PostFull post = response.PostFulls[i];
+
+                if (postIds.Add(post.PostId))
+                    state.PostFulls.Add(post);
+            }
+
+            DisplayFrom(startIndex);
+        }
+        else // INITIAL
+        {
+            postIds.Clear();
+            state.PostFulls.Clear();
+            indexes.Clear();
+            idx = 0;
+            lstFeed.Clear();
+
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                PostFull post = response.PostFulls[i];
+
+                if (postIds.Add(post.PostId))
+                    state.PostFulls.Add(post);
+            }
+
+            DisplayFrom(0);
+        }
+
+        // SET CURSORS
+        state.FirstPublicationDateTime = response.FirstPublicationDateTime;
+        state.FirstPostId = response.FirstPostId;
+
+        state.LastPublicationDateTime = response.LastPublicationDateTime;
+        state.LastPostId = response.LastPostId;
+
+        if (lastDirection == 0 || lastDirection == 2)
+            state.HasMore = response.PostFulls.Count == state.PageSize;
+
+        txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
         ScreenDialog.Instance.Hide();
     }
 
