@@ -87,7 +87,9 @@ public class FeedAction : MonoBehaviour
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             CountryId = countryId,
-            StateId = stateId
+            StateId = stateId,
+
+            Cursor = null
         };
 
         postService.GetPostFeed(request);
@@ -118,8 +120,7 @@ public class FeedAction : MonoBehaviour
             CountryId = countryId,
             StateId = stateId,
 
-            LastPublicationDateTime = state.LastPublicationDateTime,
-            LastPostId = state.LastPostId
+            Cursor = state.NextCursor
         };
 
         postService.GetPostFeed(request);
@@ -131,7 +132,7 @@ public class FeedAction : MonoBehaviour
         if (state.IsLoading)
             return;
 
-        if (!state.FirstPublicationDateTime.HasValue)
+        if (string.IsNullOrEmpty(state.PrevCursor))
             return;
 
         ScreenDialog.Instance.Display();
@@ -150,8 +151,7 @@ public class FeedAction : MonoBehaviour
             CountryId = countryId,
             StateId = stateId,
 
-            FirstPublicationDateTime = state.FirstPublicationDateTime,
-            FirstPostId = state.FirstPostId
+            Cursor = state.PrevCursor
         };
 
         postService.GetPostFeed(request);
@@ -217,11 +217,8 @@ public class FeedAction : MonoBehaviour
         }
 
         // SET CURSORS
-        state.FirstPublicationDateTime = response.FirstPublicationDateTime;
-        state.FirstPostId = response.FirstPostId;
-
-        state.LastPublicationDateTime = response.LastPublicationDateTime;
-        state.LastPostId = response.LastPostId;
+        state.PrevCursor = response.PrevCursor;
+        state.NextCursor = response.NextCursor;
 
         if (lastDirection == 0 || lastDirection == 2)
             state.HasMore = response.PostFulls.Count == state.PageSize;

@@ -12,12 +12,8 @@ public class PostFeedRequest
     public long StateId { get; set; } = -1;
     public int Status { get; set; } = -1;
 
-    // CURSORS
-    public DateTime? FirstPublicationDateTime { get; set; }
-    public long FirstPostId { get; set; } = -1;
-
-    public DateTime? LastPublicationDateTime { get; set; } = null;
-    public long LastPostId { get; set; } = -1;
+    // CURSOR
+    public string Cursor { get; set; } = null;
 
     public int Direction { get; set; } = 0;
 
@@ -27,8 +23,7 @@ public class PostFeedRequest
     }
 
     public PostFeedRequest(int pageSize, long appUserId, long postSubtypeId, long countryId, long stateId,
-                           int status, DateTime? firstPublicationDatetime, long firstPostId, 
-                           DateTime? lastPublicationDateTime, long lastPostId, int direction)
+                           int status, String cursor, int direction)
     {
         PageSize = pageSize;
         AppUserId = appUserId;
@@ -36,10 +31,7 @@ public class PostFeedRequest
         CountryId = countryId;
         StateId = stateId;
         Status = status;
-        FirstPublicationDateTime = firstPublicationDatetime;
-        FirstPostId = firstPostId;
-        LastPublicationDateTime = lastPublicationDateTime;
-        LastPostId = lastPostId;
+        Cursor = cursor;
         Direction = direction;
     }
 }

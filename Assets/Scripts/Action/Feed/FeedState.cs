@@ -20,14 +20,10 @@ public class FeedState : ScriptableObject
     public bool HasMore = true;
 
     [NonSerialized]
-    public DateTime? FirstPublicationDateTime;
-    [NonSerialized]
-    public long FirstPostId = -1;
+    public String PrevCursor;
 
     [NonSerialized]
-    public DateTime? LastPublicationDateTime;
-    [NonSerialized]
-    public long LastPostId = -1;
+    public String NextCursor;
 
     [NonSerialized]
     public List<PostFull> PostFulls;
@@ -39,10 +35,8 @@ public class FeedState : ScriptableObject
         IsLoading = false;
         HasMore = true;
 
-        FirstPublicationDateTime = null;
-        FirstPostId = -1;
-        LastPublicationDateTime = null;
-        LastPostId = -1;
+        PrevCursor = null;
+        NextCursor = null;
 
         PostFulls = new List<PostFull>();
         PostIds = new HashSet<long>();
