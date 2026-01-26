@@ -32,7 +32,6 @@ public class ModerationAction : MonoBehaviour
 
     PostModerationRequest postModerationRequest = null;
 
-
     private void Start()
     {
         btnAccept?.AddAction(Accept);

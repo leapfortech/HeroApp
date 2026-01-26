@@ -49,7 +49,6 @@ public class StateManager : SingletonBehaviour<StateManager>
     [Header("Feeds")]
     [SerializeField]
     private List<FeedState> feedStates = new();
-
     private Dictionary<String, FeedState> feedMap;
 
     private void FeedInitilize()

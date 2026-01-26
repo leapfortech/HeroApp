@@ -34,8 +34,8 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     UnityLongEvent onSelected = null;
 
-    private FeedState state;
-    private PostService postService;
+    PostService postService;
+    FeedState state;
 
     Dictionary<int, long> indexes = new();
     int idx = 0;
@@ -48,7 +48,6 @@ public class FeedAction : MonoBehaviour
         postService = GetComponent<PostService>();
         state = StateManager.Instance.GetFeed(feedKey);
     }
-
 
     private void Start()
     {
