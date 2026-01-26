@@ -10,7 +10,7 @@ using Leap.Core.Tools;
 using Sirenix.OdinInspector;
 
 
-public class TaleDisplayDetailsAction : MonoBehaviour
+public class TaleDisplayAction : MonoBehaviour
 {
     [Space]
     [Title("Details")]
@@ -49,7 +49,7 @@ public class TaleDisplayDetailsAction : MonoBehaviour
 
     // Display
 
-    public void GetFull(long postId)
+    public void Display(long postId)
     {
         this.postId = postId;
 
@@ -57,7 +57,7 @@ public class TaleDisplayDetailsAction : MonoBehaviour
         if (taleFull != null)
         {
             taleId = taleFull.Id;
-            DisplayDetail(taleFull);
+            Display(taleFull);
             return;
         }
 
@@ -70,18 +70,16 @@ public class TaleDisplayDetailsAction : MonoBehaviour
         taleId = taleFull.Id;
         StateManager.Instance.AddTaleFull(taleFull);
         StateManager.Instance.AddTaleImages(taleFull.Id, taleFull.Images);
-        DisplayDetail(taleFull);
+        Display(taleFull);
     }
 
-    public void DisplayDetail(TaleFull taleFull)
+    private void Display(TaleFull taleFull)
     {       
         if (taleFull == null)
             return;
 
-        // Fields
         txtTitle.TextValue = taleFull.Title;
 
-        // Images
         List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
 
         lstImage.Clear();

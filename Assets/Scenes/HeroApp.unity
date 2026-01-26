@@ -195601,6 +195601,9 @@ PrefabInstance:
       addedObject: {fileID: 110552264}
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1509832917}
+    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2022459529}
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
@@ -238403,7 +238406,7 @@ GameObject:
   - component: {fileID: 1174975491}
   - component: {fileID: 1174975492}
   m_Layer: 0
-  m_Name: Details
+  m_Name: Detail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -299655,12 +299658,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509832915}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1534444866}
+  m_Father: {fileID: 992978299}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -304344,9 +304347,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1174975493}
-    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1509832917}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
 --- !u!224 &1534444865 stripped
@@ -322302,8 +322302,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1174975491}
-        m_TargetAssemblyTypeName: TaleDisplayDetailsAction, Assembly-CSharp
-        m_MethodName: GetFull
+        m_TargetAssemblyTypeName: TaleDisplayAction, Assembly-CSharp
+        m_MethodName: Display
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
