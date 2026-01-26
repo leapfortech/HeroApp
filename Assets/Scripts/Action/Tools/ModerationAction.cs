@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 using UnityEngine.Events;

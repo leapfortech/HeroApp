@@ -34,7 +34,6 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     UnityLongEvent onSelected = null;
 
-
     private FeedState state;
     private PostService postService;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
+using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -24,6 +25,9 @@ public class TaleDisplayDetailsAction : MonoBehaviour
     //[Title("Values")]
     //[SerializeField]
     //ValueList vllProjectDescriptionType = null;
+    [Title("Event")]
+    [SerializeField]
+    UnityLongsEvent onDisplayed = null;
 
     [Title("Page")]
     [SerializeField]
@@ -90,5 +94,7 @@ public class TaleDisplayDetailsAction : MonoBehaviour
         }
 
         PageManager.Instance.ChangePage(pagDetail);
+
+        onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
     }
 }
