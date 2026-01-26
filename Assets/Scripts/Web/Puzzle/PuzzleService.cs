@@ -58,6 +58,27 @@ public class PuzzleService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        PuzzleFullByPostIdGetFullOperation puzzleFullByPostIdGetOp = new PuzzleFullByPostIdGetFullOperation();
+        try
+        {
+            puzzleFullByPostIdGetOp.postId = postId;
+            puzzleFullByPostIdGetOp["on-complete"] = (Action<PuzzleFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.puzzleFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            puzzleFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         PuzzleGetFullsOperation puzzleFullsGetOp = new PuzzleGetFullsOperation();

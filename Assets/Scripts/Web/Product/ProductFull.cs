@@ -15,6 +15,7 @@ public class ProductFull : PostFull
     public int Status { get; set; }
 
     public List<ProductReviewFull> ProductReviewFulls { get; set; }
+    public String[] Images { get; set; }
 
 
     public ProductFull(long id, long postId, long appUserId, String appUserAlias,
@@ -30,7 +31,8 @@ public class ProductFull : PostFull
                         long currencyId, double price, double discountPrice,
                         long deliveryTypeId, String annotation,
                         int status,
-                        List<ProductReviewFull> productReviewFulls)
+                        List<ProductReviewFull> productReviewFulls,
+                        String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatus,
@@ -48,5 +50,6 @@ public class ProductFull : PostFull
         Status = status;
 
         ProductReviewFulls = productReviewFulls ?? new List<ProductReviewFull>();
+        Images = images;
     }
 }

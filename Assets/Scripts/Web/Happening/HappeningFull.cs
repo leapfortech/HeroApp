@@ -17,6 +17,7 @@ public class HappeningFull : PostFull
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public int Status { get; set; }
+    public String[] Images { get; set; }
 
     public HappeningFull()
     {
@@ -35,7 +36,8 @@ public class HappeningFull : PostFull
                             int isPublic, int hasSignup, int hasPayment, String paymentDetails,
                             DateTime? startDateTime, DateTime? endDateTime,
                             String location, double? latitude, double? longitude,
-                            int status)
+                            int status,
+                            String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 countryId, stateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatus,
@@ -55,6 +57,7 @@ public class HappeningFull : PostFull
         Latitude = latitude;
         Longitude = longitude;
         Status = status;
+        Images = images;
     }
 }
 

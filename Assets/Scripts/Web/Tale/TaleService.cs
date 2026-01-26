@@ -58,6 +58,27 @@ public class TaleService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        TaleFullByPostIdGetFullOperation taleFullByPostIdGetOp = new TaleFullByPostIdGetFullOperation();
+        try
+        {
+            taleFullByPostIdGetOp.postId = postId;
+            taleFullByPostIdGetOp["on-complete"] = (Action<TaleFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.taleFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            taleFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         TaleGetFullsOperation taleFullsGetOp = new TaleGetFullsOperation();

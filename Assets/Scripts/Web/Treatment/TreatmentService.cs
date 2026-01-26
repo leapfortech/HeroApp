@@ -58,6 +58,27 @@ public class TreatmentService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        TreatmentFullByPostIdGetFullOperation treatmentFullByPostIdGetOp = new TreatmentFullByPostIdGetFullOperation();
+        try
+        {
+            treatmentFullByPostIdGetOp.postId = postId;
+            treatmentFullByPostIdGetOp["on-complete"] = (Action<TreatmentFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.treatmentFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            treatmentFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         TreatmentGetFullsOperation treatmentFullsGetOp = new TreatmentGetFullsOperation();

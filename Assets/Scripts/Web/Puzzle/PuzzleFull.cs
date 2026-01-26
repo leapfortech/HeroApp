@@ -12,6 +12,7 @@ public class PuzzleFull : PostFull
     public int Points { get; set; }
     public int PlayCount { get; set; }
     public int Status { get; set; }
+    public String[] Images { get; set; }
 
     public List<PuzzleAnswerFull> PuzzleAnswerFulls { get; set; }
 
@@ -29,7 +30,8 @@ public class PuzzleFull : PostFull
                         String question, String hint,
                         int difficulty, int points, int playCount,
                         int status,
-                        List<PuzzleAnswerFull> puzzleAnswerFulls)
+                        List<PuzzleAnswerFull> puzzleAnswerFulls,
+                        String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatus,
@@ -46,5 +48,6 @@ public class PuzzleFull : PostFull
         Status = status;
 
         PuzzleAnswerFulls = puzzleAnswerFulls ?? new List<PuzzleAnswerFull>();
+        Images = images;
     }
 }

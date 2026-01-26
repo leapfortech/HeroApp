@@ -25,6 +25,20 @@ public class RecipeGetFullOperation : HttpOperation
 }
 
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/recipe/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RecipeFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public RecipeFull recipeFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/recipe/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

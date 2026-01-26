@@ -58,6 +58,27 @@ public class RadioService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        RadioFullByPostIdGetFullOperation radioFullByPostIdGetOp = new RadioFullByPostIdGetFullOperation();
+        try
+        {
+            radioFullByPostIdGetOp.postId = postId;
+            radioFullByPostIdGetOp["on-complete"] = (Action<RadioFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.radioFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            radioFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         RadioGetFullsOperation radioFullsGetOp = new RadioGetFullsOperation();

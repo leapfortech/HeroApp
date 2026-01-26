@@ -25,6 +25,20 @@ public class ProductGetFullOperation : HttpOperation
 }
 
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/product/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public ProductFull productFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/product/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

@@ -25,6 +25,20 @@ public class NewsGetFullOperation : HttpOperation
 }
 
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/news/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class NewsFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public NewsFull newsFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/news/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

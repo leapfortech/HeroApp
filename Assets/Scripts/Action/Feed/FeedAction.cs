@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
+using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -29,10 +30,14 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     Button btnRefresh = null;
 
+    [Title("Event")]
+    [SerializeField]
+    UnityLongEvent onSelected = null;
+
+
     private FeedState state;
     private PostService postService;
 
-    public int SelIdx { get; set; } = 0;
     Dictionary<int, long> indexes = new();
     int idx = 0;
     
@@ -52,12 +57,10 @@ public class FeedAction : MonoBehaviour
         btnRefresh?.AddAction(Refresh);
     }
 
-    public long GetSelectedPostId()
+    public void SelectPost(int idx)
     {
-        if (indexes.TryGetValue(SelIdx, out long postId))
-            return postId;
-
-        return -1;
+        if (indexes.TryGetValue(idx, out long postId))
+            onSelected.Invoke(postId);
     }
 
     public void SetFilters(long countryId = -1, long stateId = -1)

@@ -10,6 +10,7 @@ public class RecipeFull : PostFull
     public int Portions { get; set; }
     public int CookingTime { get; set; }
     public int Status { get; set; }
+    public String[] Images { get; set; }
 
     public RecipeFull()
     {
@@ -24,7 +25,8 @@ public class RecipeFull : PostFull
                         List<LinkFull> linkFulls,
                         List<CommentFull> commentFulls,
                         long recipeTypeId, String ingredients, String preparation,
-                        int portions, int cookingTime, int status)
+                        int portions, int cookingTime, int status,
+                        String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatusId,
@@ -37,5 +39,6 @@ public class RecipeFull : PostFull
         Portions = portions;
         CookingTime = cookingTime;
         Status = status;
+        Images = images;
     }
 }

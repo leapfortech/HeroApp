@@ -25,6 +25,20 @@ public class PuzzleGetFullOperation : HttpOperation
 }
 
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/puzzle/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class PuzzleFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public PuzzleFull puzzleFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/puzzle/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

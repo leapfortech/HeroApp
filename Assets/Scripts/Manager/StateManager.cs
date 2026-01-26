@@ -91,18 +91,16 @@ public class StateManager : SingletonBehaviour<StateManager>
     // TALE
     public List<TaleFull> TaleFulls { get; set; }
     private Dictionary<long, TaleFull> DictTaleFulls { get; set; } = new Dictionary<long, TaleFull>();
+    private Dictionary<long, TaleFull> DictTaleFullsByPostId = new Dictionary<long, TaleFull>();
 
-    public void SetTaleFulls(List<TaleFull> taleFulls)
+    public void ClearTale()
     {
-        Dictionary<long, TaleFull> newDict = new Dictionary<long, TaleFull>();
-
-        foreach (TaleFull taleFull in taleFulls)
-            newDict[taleFull.Id] = taleFull;
-
-        TaleFulls = taleFulls;
-        DictTaleFulls = newDict;
+        TaleFulls = null;
+        DictTaleFulls.Clear();
+        DictTaleFullsByPostId.Clear();
+        taleImagesDic.Clear();
     }
-
+    
     public TaleFull GetTaleFullById(long taleId)
     {
         if (!DictTaleFulls.TryGetValue(taleId, out TaleFull taleFull))
@@ -110,15 +108,45 @@ public class StateManager : SingletonBehaviour<StateManager>
         return taleFull;
     }
 
-    public long GetPostIdByTaleId(long taleId)
+    public TaleFull GetTaleFullByPostId(long postId)
     {
-        if (!DictTaleFulls.TryGetValue(taleId, out TaleFull taleFull))
-            return -1;
+        if (!DictTaleFullsByPostId.TryGetValue(postId, out TaleFull taleFull))
+            return null;
 
-        return taleFull.PostId;
+        return taleFull;
+    }
+
+    public void AddTaleFull(TaleFull taleFull)
+    {
+        if (taleFull == null)
+            return;
+
+        if (TaleFulls == null)
+            TaleFulls = new List<TaleFull>();
+
+        DictTaleFulls[taleFull.Id] = taleFull;
+        DictTaleFullsByPostId[taleFull.PostId] = taleFull;
+
+        for (int i = 0; i < TaleFulls.Count; i++)
+        {
+            if (TaleFulls[i].Id == taleFull.Id)
+            {
+                TaleFulls[i] = taleFull;
+                return;
+            }
+        }
+
+        TaleFulls.Add(taleFull);
     }
 
     // TALE IMAGES
+
+    public List<Sprite> GetTaleImagesById(long taleId)
+    {
+        if (!taleImagesDic.TryGetValue(taleId, out List<Sprite> taleImages))
+            return null;
+        return taleImages;
+    }
 
     private Dictionary<long, List<Sprite>> taleImagesDic = new Dictionary<long, List<Sprite>>();
     public void AddTaleImages(long taleId, String[] stgImages)
@@ -127,13 +155,6 @@ public class StateManager : SingletonBehaviour<StateManager>
         for (int i = 0; i < stgImages.Length; i++)
             taleImages.Add(stgImages[i].CreateSprite($"TaleImages_{i}"));
         taleImagesDic.Add(taleId, taleImages);
-    }
-
-    public List<Sprite> GetTaleImagesById(long taleId)
-    {
-        if (!taleImagesDic.TryGetValue(taleId, out List<Sprite> taleImages))
-            return null;
-        return taleImages;
     }
 
     // Clear
@@ -147,12 +168,10 @@ public class StateManager : SingletonBehaviour<StateManager>
         Card = null;
         Portrait = null;
 
-        // FEEDS
+        // Feeds
         ResetAllFeeds();
 
-        // TALE
-        TaleFulls = null;
-        DictTaleFulls.Clear();
-        taleImagesDic.Clear();
+        // Tale
+        ClearTale();
     }
 }

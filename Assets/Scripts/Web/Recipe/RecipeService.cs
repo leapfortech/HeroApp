@@ -58,6 +58,27 @@ public class RecipeService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        RecipeFullByPostIdGetFullOperation recipeFullByPostIdGetOp = new RecipeFullByPostIdGetFullOperation();
+        try
+        {
+            recipeFullByPostIdGetOp.postId = postId;
+            recipeFullByPostIdGetOp["on-complete"] = (Action<RecipeFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.recipeFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            recipeFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         RecipeGetFullsOperation recipeFullsGetOp = new RecipeGetFullsOperation();

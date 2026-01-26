@@ -58,6 +58,27 @@ public class NewsService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        NewsFullByPostIdGetFullOperation newsFullByPostIdGetOp = new NewsFullByPostIdGetFullOperation();
+        try
+        {
+            newsFullByPostIdGetOp.postId = postId;
+            newsFullByPostIdGetOp["on-complete"] = (Action<NewsFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.newsFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            newsFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         NewsGetFullsOperation newsFullsGetOp = new NewsGetFullsOperation();

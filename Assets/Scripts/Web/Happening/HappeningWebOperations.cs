@@ -25,6 +25,20 @@ public class HappeningGetFullOperation : HttpOperation
 }
 
 [HttpGET]
+[HttpPathExt(WebServiceType.Main, "/happening/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class HappeningFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public HappeningFull happeningFull;
+}
+
+[HttpGET]
 [HttpPathExt(WebServiceType.Main, "/happening/FullsByStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("application/json")]

@@ -462,8 +462,6 @@ public class LoginAction : MonoBehaviour
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
         StateManager.Instance.Card = loginAppInfo.Card;  // loginData.Card.Id == 0 ? null : loginData.Card;
-
-        StateManager.Instance.SetTaleFulls(loginAppInfo.TaleFulls);
     }
 
     // Remote Login

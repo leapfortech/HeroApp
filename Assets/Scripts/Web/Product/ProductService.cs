@@ -58,6 +58,27 @@ public class ProductService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        ProductFullByPostIdGetFullOperation productFullByPostIdGetOp = new ProductFullByPostIdGetFullOperation();
+        try
+        {
+            productFullByPostIdGetOp.postId = postId;
+            productFullByPostIdGetOp["on-complete"] = (Action<ProductFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.productFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            productFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         ProductGetFullsOperation productFullsGetOp = new ProductGetFullsOperation();

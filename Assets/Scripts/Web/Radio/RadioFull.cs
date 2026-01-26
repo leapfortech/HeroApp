@@ -9,6 +9,7 @@ public class RadioFull : PostFull
 
     public List<RadioTypeFull> RadioTypeFulls { get; set; }
     public List<RadioLanguageFull> RadioLanguageFulls { get; set; }
+    public String[] Images { get; set; }
 
     public RadioFull()
     {
@@ -24,7 +25,8 @@ public class RadioFull : PostFull
                         List<CommentFull> commentFulls,
                         int status,
                         List<RadioTypeFull> radioTypeFulls,
-                        List<RadioLanguageFull> radioLanguageFulls)
+                        List<RadioLanguageFull> radioLanguageFulls,
+                        String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatusId,
@@ -36,5 +38,6 @@ public class RadioFull : PostFull
 
         RadioTypeFulls = radioTypeFulls ?? new List<RadioTypeFull>();
         RadioLanguageFulls = radioLanguageFulls ?? new List<RadioLanguageFull>();
+        Images = images;
     }
 }

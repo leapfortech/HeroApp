@@ -58,6 +58,27 @@ public class HappeningService : MonoBehaviour
         }
     }
 
+    public void GetFullByPostId(long postId)
+    {
+        HappeningFullByPostIdGetFullOperation happeningFullByPostIdGetOp = new HappeningFullByPostIdGetFullOperation();
+        try
+        {
+            happeningFullByPostIdGetOp.postId = postId;
+            happeningFullByPostIdGetOp["on-complete"] = (Action<HappeningFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFullRetreived.Invoke(op.happeningFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            happeningFullByPostIdGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void GetFulls(int status)
     {
         HappeningGetFullsOperation happeningFullsGetOp = new HappeningGetFullsOperation();

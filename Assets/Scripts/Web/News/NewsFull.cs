@@ -9,6 +9,7 @@ public class NewsFull : PostFull
     public String Source { get; set; }
     public DateTime? DateTime { get; set; }
     public int Status { get; set; }
+    public String[] Images { get; set; }
 
     public NewsFull()
     {
@@ -25,7 +26,8 @@ public class NewsFull : PostFull
                     List<CommentFull> commentFulls,
                     long newsTypeId, String place,
                     String source, DateTime? dateTime,
-                    int status)
+                    int status,
+                    String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatus,
@@ -37,5 +39,6 @@ public class NewsFull : PostFull
         Source = source;
         DateTime = dateTime;
         Status = status;
+        Images = images;
     }
 }

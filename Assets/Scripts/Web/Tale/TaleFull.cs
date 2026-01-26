@@ -5,6 +5,7 @@ public class TaleFull : PostFull
 {
     public long Id { get; set; }
     public int Status { get; set; }
+    public String[] Images { get; set; }
 
     public TaleFull()
     {
@@ -18,7 +19,8 @@ public class TaleFull : PostFull
                     ContactFull contactFull,
                     List<LinkFull> linkFulls,
                     List<CommentFull> commentFulls,
-                    int status)
+                    int status,
+                    String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, likeCount, publicationDateTime, postStatusId,
@@ -26,5 +28,6 @@ public class TaleFull : PostFull
     {
         Id = id;
         Status = status;
+        Images = images;
     }
 }

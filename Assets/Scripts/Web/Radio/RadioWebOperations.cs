@@ -24,6 +24,19 @@ public class RadioGetFullOperation : HttpOperation
     public RadioFull radioFull;
 }
 
+[HttpGET]
+[HttpPathExt(WebServiceType.Main, "/radio/FullByPostId")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioFullByPostIdGetFullOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long postId;
+
+    [HttpResponseJsonBody]
+    public RadioFull radioFull;
+}
 
 [HttpGET]
 [HttpPathExt(WebServiceType.Main, "/radio/FullsByStatus")]
