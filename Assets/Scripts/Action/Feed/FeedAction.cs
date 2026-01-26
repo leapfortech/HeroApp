@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -8,6 +9,13 @@ using Sirenix.OdinInspector;
 
 public class FeedAction : MonoBehaviour
 {
+    [Space]
+    [Title("Feed")]
+    [SerializeField]
+    String feedKey = null;
+    [SerializeField]
+    bool filterAppUser = false;
+
     [Space]
     [Title("List")]
     [SerializeField]
@@ -21,20 +29,20 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     Button btnRefresh = null;
 
-    PostService postService;
-    FeedState state;
+    private FeedState state;
+    private PostService postService;
 
     public int SelIdx { get; set; } = 0;
-
     Dictionary<int, long> indexes = new();
     int idx = 0;
     
     private int lastDirection = 0;
-    private HashSet<long> postIds = new HashSet<long>();
+    long countryId = -1, stateId = -1;
 
     private void Awake()
     {
         postService = GetComponent<PostService>();
+        state = StateManager.Instance.GetFeed(feedKey);
     }
 
 
@@ -52,17 +60,22 @@ public class FeedAction : MonoBehaviour
         return -1;
     }
 
+    public void SetFilters(long countryId = -1, long stateId = -1)
+    {
+        this.countryId = countryId;
+        this.stateId = stateId;
+    }
+
     public void FirstLoad()
     {
-        if (state != null)
+        if (state.IsLoading)
             return;
 
-        state = new FeedState(postSubtypeId: 1, pageSize: 3, isLoading: false, hasMore: true, status: 1);
-        StateManager.Instance.FeedTale = state;
+        if (state.PostFulls.Count > 0)
+            return;
 
         ScreenDialog.Instance.Display();
         state.IsLoading = true;
-
         lastDirection = 0;
 
         PostFeedRequest request = new PostFeedRequest
@@ -70,7 +83,11 @@ public class FeedAction : MonoBehaviour
             Direction = 0,
             PageSize = state.PageSize,
             PostSubtypeId = state.PostSubtypeId,
-            Status = state.Status
+            Status = state.Status,
+
+            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
+            CountryId = countryId,
+            StateId = stateId
         };
 
         postService.GetPostFeed(request);
@@ -96,6 +113,11 @@ public class FeedAction : MonoBehaviour
             PageSize = state.PageSize,
             PostSubtypeId = state.PostSubtypeId,
             Status = state.Status,
+
+            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
+            CountryId = countryId,
+            StateId = stateId,
+
             LastPublicationDateTime = state.LastPublicationDateTime,
             LastPostId = state.LastPostId
         };
@@ -123,6 +145,11 @@ public class FeedAction : MonoBehaviour
             PageSize = state.PageSize,
             PostSubtypeId = state.PostSubtypeId,
             Status = state.Status,
+
+            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
+            CountryId = countryId,
+            StateId = stateId,
+
             FirstPublicationDateTime = state.FirstPublicationDateTime,
             FirstPostId = state.FirstPostId
         };
@@ -146,7 +173,7 @@ public class FeedAction : MonoBehaviour
             {
                 PostFull post = response.PostFulls[i];
 
-                if (postIds.Add(post.PostId))
+                if (state.PostIds.Add(post.PostId))
                     state.PostFulls.Insert(0, post);
             }
 
@@ -163,7 +190,7 @@ public class FeedAction : MonoBehaviour
             {
                 PostFull post = response.PostFulls[i];
 
-                if (postIds.Add(post.PostId))
+                if (state.PostIds.Add(post.PostId))
                     state.PostFulls.Add(post);
             }
 
@@ -171,8 +198,9 @@ public class FeedAction : MonoBehaviour
         }
         else // INITIAL
         {
-            postIds.Clear();
+            state.PostIds.Clear();
             state.PostFulls.Clear();
+
             indexes.Clear();
             idx = 0;
             lstFeed.Clear();
@@ -181,7 +209,7 @@ public class FeedAction : MonoBehaviour
             {
                 PostFull post = response.PostFulls[i];
 
-                if (postIds.Add(post.PostId))
+                if (state.PostIds.Add(post.PostId))
                     state.PostFulls.Add(post);
             }
 

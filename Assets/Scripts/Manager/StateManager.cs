@@ -45,8 +45,47 @@ public class StateManager : SingletonBehaviour<StateManager>
     }
 
     // FEEDS
-    public FeedState FeedTale { get; set; }
+    [Space]
+    [Header("Feeds")]
+    [SerializeField]
+    private List<FeedState> feedStates = new();
 
+    private Dictionary<String, FeedState> feedMap;
+
+    private void FeedInitilize()
+    {
+        if (feedMap != null)
+            return;
+
+        feedMap = new Dictionary<String, FeedState>();
+
+        for (int i = 0; i < feedStates.Count; i++)
+        {
+            FeedState feedState = Instantiate(feedStates[i]);
+            feedState.ResetRuntime();
+
+            feedMap[feedState.FeedKey] = feedState;
+        }
+    }
+
+    public FeedState GetFeed(string feedKey)
+    {
+        FeedInitilize();
+
+        if (feedMap.TryGetValue(feedKey, out FeedState state))
+            return state;
+
+        Debug.LogError("Feed not found: " + feedKey);
+        return null;
+    }
+
+    public void ResetAllFeeds()
+    {
+        FeedInitilize();
+
+        foreach (FeedState feed in feedMap.Values)
+            feed.ResetRuntime();
+    }
 
 
     // TALE
@@ -107,6 +146,9 @@ public class StateManager : SingletonBehaviour<StateManager>
         Identity = null;
         Card = null;
         Portrait = null;
+
+        // FEEDS
+        ResetAllFeeds();
 
         // TALE
         TaleFulls = null;
