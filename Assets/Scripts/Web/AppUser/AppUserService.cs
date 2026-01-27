@@ -182,7 +182,7 @@ public class AppUserService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<AppUserReferredPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onReferredUpdated.Invoke(Convert.ToInt32(op.referredAppUserId));
+                    onReferredUpdated.Invoke(Convert.ToInt64(op.referredAppUserId));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

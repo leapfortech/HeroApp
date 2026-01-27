@@ -70,7 +70,7 @@ public class ReferredUpdateAction : MonoBehaviour
         appUserService.UpdateReferred(ifdReferredCode.Text);
     }
 
-    public void ApplyReferred(int referredAppUserId)
+    public void ApplyReferred(long referredAppUserId)
     {
         if (referredAppUserId == -1)
         {
