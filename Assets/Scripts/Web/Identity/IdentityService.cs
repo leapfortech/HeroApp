@@ -24,6 +24,9 @@ public class IdentityService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
+    private UnityLongEvent onUpdated = null;
+
+    [SerializeField]
     private UnityEvent onPortraitUpdated = null;
 
     [Title("Error")]
@@ -118,6 +121,27 @@ public class IdentityService : MonoBehaviour
     }
 
     // UPDATE
+    public void UpdateIdentity(long appUserId, Identity identity)
+    {
+        IdentityPutOperation identityPutOp = new IdentityPutOperation();
+        try
+        {
+            identityPutOp.appUserId = appUserId;
+            identityPutOp.identity = identity;
+            identityPutOp["on-complete"] = (Action<IdentityPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(Convert.ToInt64(op.id));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            identityPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 
     public void UpdatePortrait(long appUserId, String portrait)
     {
