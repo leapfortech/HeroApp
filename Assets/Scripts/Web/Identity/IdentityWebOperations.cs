@@ -68,7 +68,7 @@ public class IdentityRegisterPostOperation : HttpOperation
 }
 
 [HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity")]
+[HttpPathExt(WebServiceType.Main, "/identity/ByAppUser")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("text/plain")]

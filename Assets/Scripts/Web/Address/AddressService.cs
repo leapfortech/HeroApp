@@ -101,11 +101,12 @@ public class AddressService : MonoBehaviour
 
     // UPDATE
 
-    public void UpdateAddress(Address address)
+    public void UpdateAddress(long appUserId, Address address)
     {
         AddressPutOperation addressPutOp = new AddressPutOperation();
         try
         {
+            addressPutOp.appUserId = appUserId;
             addressPutOp.address = address;
             addressPutOp["on-complete"] = (Action<AddressPutOperation, HttpResponse>)((op, response) =>
             {

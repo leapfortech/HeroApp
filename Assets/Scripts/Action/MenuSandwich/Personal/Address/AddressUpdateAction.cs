@@ -79,7 +79,7 @@ public class AddressUpdateAction : MonoBehaviour
         address = dtmUpdateAddress.BuildClass<Address>();
         address.Id = StateManager.Instance.Address.Id;
 
-        addressService.UpdateAddress(address);
+        addressService.UpdateAddress(StateManager.Instance.AppUser.Id, address);
     }
 
     public void ApplyAddress(int id)

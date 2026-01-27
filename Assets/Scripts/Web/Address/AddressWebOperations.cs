@@ -61,13 +61,15 @@ public class AddressPostOperation : HttpOperation
 
 // UPDATE
 [HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/address")]
+[HttpPathExt(WebServiceType.Main, "/address/ByAppUser")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class AddressPutOperation : HttpOperation
 {
+    [HttpQueryString]
+    public long appUserId;
     [HttpRequestJsonBody]
     public Address address;
 
