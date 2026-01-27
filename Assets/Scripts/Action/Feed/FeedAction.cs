@@ -13,7 +13,7 @@ public class FeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
-    String feedKey = null;
+    FeedState feedConfig = null;
     [SerializeField]
     bool filterAppUser = false;
 
@@ -46,7 +46,7 @@ public class FeedAction : MonoBehaviour
     private void Awake()
     {
         postService = GetComponent<PostService>();
-        state = StateManager.Instance.GetFeed(feedKey);
+        state = StateManager.Instance.GetFeed(feedConfig.FeedKey);
     }
 
     private void Start()

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "App/Feed State")]
+[CreateAssetMenu(menuName = "Leap/App/Feed State")]
 public class FeedState : ScriptableObject
 {
     [Header("Key")]
