@@ -74,7 +74,19 @@ MonoBehaviour:
   statusName: Status
   statusValue: 1
   columnFilters: []
-  recordFilters: []
+  recordFilters:
+  - CellName: StateId
+    cellNames:
+    - Id
+    - StateId
+    - Name
+    - TimeZone
+    - Latitude
+    - Longitude
+    - Zips
+    Operator: 0
+    CellValue: 1
+    valueList: {fileID: 11400000}
   records: []
   idIndexer:
     keys: 

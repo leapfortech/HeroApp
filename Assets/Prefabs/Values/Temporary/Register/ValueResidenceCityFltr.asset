@@ -16,22 +16,94 @@ MonoBehaviour:
   tableName: 
   valueSource: 20
   recordType: 10
-  sourceList: {fileID: 0}
+  sourceList: {fileID: 11400000, guid: 402e9b542f0ca8840aea2c2564960012, type: 2}
   clientsList: []
-  columns: []
-  columnNames: []
+  columns:
+  - Name: StateId
+    oldName: StateId
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 0
+  - Name: Name
+    oldName: Name
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 1
+  - Name: TimeZone
+    oldName: TimeZone
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 2
+  - Name: Latitude
+    oldName: Latitude
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 3
+  - Name: Longitude
+    oldName: Longitude
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 4
+  - Name: Zips
+    oldName: Zips
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 5
+  columnNames:
+  - StateId
+  - Name
+  - TimeZone
+  - Latitude
+  - Longitude
+  - Zips
   columnIndexes:
-    keys: []
-    values: 
+    keys:
+    - StateId
+    - Name
+    - TimeZone
+    - Latitude
+    - Longitude
+    - Zips
+    values: 000000000100000002000000030000000400000005000000
   statusName: Status
   statusValue: 1
   columnFilters: []
-  recordFilters: []
+  recordFilters:
+  - CellName: StateId
+    cellNames:
+    - Id
+    - StateId
+    - Name
+    - TimeZone
+    - Latitude
+    - Longitude
+    - Zips
+    Operator: 0
+    CellValue: 41
+    valueList: {fileID: 11400000}
   records: []
   idIndexer:
     keys: 
     values: []
-  cellIndexers: []
+  cellIndexers:
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  - keys: []
+    values: []
   MinValue: 0
   MaxValue: 0
   StepValue: 1
