@@ -1,42 +1,41 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 using Leap.UI.Elements;
+using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 
 using Sirenix.OdinInspector;
-using Leap.Graphics.Tools;
-using Leap.UI.Page;
-using Leap.UI.Dialog.Gallery;
-using System.Net;
+using Leap.Data.Web;
 
 public class AddressUpdateAction : MonoBehaviour
 {
-    [Title("Fields")]
+    [Title("Elements")]
     [SerializeField]
-    ElementValue[] elementValuesAddress = null;
+    ElementValue[] elementValues = null;
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmUpdateAddress = null;
+    DataMapper dtmAddress = null;
 
     [Title("Action")]
     [SerializeField]
-    Button btnUpdateAddress = null;
+    Button btnUpdate = null;
 
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
 
     [Title("Message")]
-    [SerializeField]
-    String addressUpdatedTitle = "Información actualizada";
+    [Space]
     [SerializeField, TextArea(2, 4)]
-    String addressUpdatedMessage = "La información fue guardada exitosamente.";
+    String updatedMessage = "La información fue guardada exitosamente.";
 
     AddressService addressService = null;
+
+    Address address = null;
+    Address addressNew = null;
 
     private void Awake()
     {
@@ -45,48 +44,53 @@ public class AddressUpdateAction : MonoBehaviour
 
     private void Start()
     {
-        btnUpdateAddress?.AddAction(DoUpdateAddress);
-    }
-    
-    private void DoUpdateAddress()
-    {
-        ScreenDialog.Instance.Display();
-        Invoke(nameof(UpdateAddress), 0.2f);
-    }
-  
-    public void ClearAddress()
-    {
-        for (int i = 0; i < elementValuesAddress.Length; i++)
-            elementValuesAddress[i].Clear();
+        btnUpdate?.AddAction(DoUpdate);
     }
 
-    public void PopulateAddress()
+    public void Clear()
     {
-        Address address = StateManager.Instance.Address;
-
-        dtmUpdateAddress.PopulateClass<Address>(address);
+        dtmAddress.ClearElements();
+        address = null;
+        addressNew = null;
     }
 
-    Address address;
-
-    private void UpdateAddress()
+    public void Populate()
     {
-        if (!ElementHelper.Validate(elementValuesAddress))
+        address = StateManager.Instance.Address;
+
+        if (address == null)
+            return;
+
+        dtmAddress.PopulateClass<Address>(address);
+    }
+
+    private void DoUpdate()
+    {
+        if (!ElementHelper.Validate(elementValues))
             return;
 
         ScreenDialog.Instance.Display();
 
-        address = dtmUpdateAddress.BuildClass<Address>();
-        address.Id = StateManager.Instance.Address.Id;
+        addressNew = dtmAddress.BuildClass<Address>();
 
-        addressService.UpdateAddress(StateManager.Instance.AppUser.Id, address);
+        addressNew.Id = address.Id;
+
+        addressService.UpdateAddress(StateManager.Instance.AppUser.Id, addressNew);
     }
 
-    public void ApplyAddress(int id)
+    public void ApplyAddress(long id)
     {
-        address.Id = id;
-        StateManager.Instance.Address = address;
+        if (id == -1)
+        {
+            ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
+            return;
+        }
 
-        ChoiceDialog.Instance.Info(addressUpdatedTitle, addressUpdatedMessage, () => PageManager.Instance.ChangePage(pagNext));
+        addressNew.Id = id;
+        StateManager.Instance.Address = addressNew;
+
+        Clear();
+
+        ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 }

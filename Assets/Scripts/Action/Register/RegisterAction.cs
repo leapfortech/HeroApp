@@ -204,13 +204,13 @@ public class RegisterAction : MonoBehaviour
 
         if (identity.BirthDate == new DateTime(0001, 1, 1))
         {
-            ChoiceDialog.Instance.Error("Error de fecha", birthDateError, null);
+            ChoiceDialog.Instance.Error("Error de fecha", birthDateError);
             return;
         }
 
         if (CalculateAge(identity.BirthDate) < 18)
         {
-            ChoiceDialog.Instance.Error("Error de fecha", minorError, null);
+            ChoiceDialog.Instance.Error("Error de fecha", minorError);
             return;
         }
 
