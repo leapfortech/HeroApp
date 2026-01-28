@@ -72,9 +72,13 @@ public class IdentityUpdateAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        ScreenDialog.Instance.Display();
-
         identityNew = dtmIdentity.BuildClass<Identity>();
+
+        if (!IdentityChanged())
+        {
+            ChoiceDialog.Instance.Info("Sin cambios", "No se detectaron cambios en la información.");
+            return;
+        }
 
         if (identityNew.BirthDate == new DateTime(0001, 1, 1))
         {
@@ -87,6 +91,8 @@ public class IdentityUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error de fecha", birthDateErrorMessage);
             return;
         }
+
+        ScreenDialog.Instance.Display();
 
         identityNew.PhoneCountryId = WebManager.Instance.WebSysUser.PhoneCountryId;
         identityNew.Phone = WebManager.Instance.WebSysUser.Phone;
@@ -108,8 +114,6 @@ public class IdentityUpdateAction : MonoBehaviour
         identityNew.Id = id;
         StateManager.Instance.Identity = identityNew;
 
-        Clear();
-
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 
@@ -124,5 +128,37 @@ public class IdentityUpdateAction : MonoBehaviour
             return age - 1;
 
         return age;
+    }
+
+    private bool IdentityChanged()
+    {
+        if (identity == null || identityNew == null)
+            return false;
+
+        if (!string.Equals(identity.FirstName1, identityNew.FirstName1))
+            return true;
+
+        if (!string.Equals(identity.FirstName2, identityNew.FirstName2))
+            return true;
+
+        if (!string.Equals(identity.LastName1, identityNew.LastName1))
+            return true;
+
+        if (!string.Equals(identity.LastName2, identityNew.LastName2))
+            return true;
+
+        if (identity.GenderId != identityNew.GenderId)
+            return true;
+
+        if (identity.BirthDate.Date != identityNew.BirthDate.Date)
+            return true;
+
+        if (identity.OriginCountryId != identityNew.OriginCountryId)
+            return true;
+
+        if (identity.OriginStateId != identityNew.OriginStateId)
+            return true;
+
+        return false;
     }
 }

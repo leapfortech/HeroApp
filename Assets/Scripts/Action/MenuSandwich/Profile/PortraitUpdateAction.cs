@@ -61,8 +61,6 @@ public class PortraitUpdateAction : MonoBehaviour
         StateManager.Instance.Portrait = imgPortrait.Sprite;
 
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
-
-        Clear();
     }
 
     private bool PortraitChanged()

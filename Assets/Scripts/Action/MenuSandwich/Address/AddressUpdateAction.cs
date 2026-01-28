@@ -7,7 +7,6 @@ using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 
 using Sirenix.OdinInspector;
-using Leap.Data.Web;
 
 public class AddressUpdateAction : MonoBehaviour
 {
@@ -69,9 +68,15 @@ public class AddressUpdateAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        ScreenDialog.Instance.Display();
-
         addressNew = dtmAddress.BuildClass<Address>();
+
+        if (!IdentityChanged())
+        {
+            ChoiceDialog.Instance.Info("Sin cambios", "No se detectaron cambios en la información.");
+            return;
+        }
+
+        ScreenDialog.Instance.Display();
 
         addressNew.Id = address.Id;
 
@@ -89,8 +94,28 @@ public class AddressUpdateAction : MonoBehaviour
         addressNew.Id = id;
         StateManager.Instance.Address = addressNew;
 
-        Clear();
-
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
+    }
+
+    private bool IdentityChanged()
+    {
+        if (address == null || addressNew == null)
+            return false;
+
+        if (NormalizeId(address.CountryId) != NormalizeId(addressNew.CountryId))
+            return true;
+
+        if (NormalizeId(address.StateId) != NormalizeId(addressNew.StateId))
+            return true;
+
+        return false;
+    }
+
+    private long? NormalizeId(long? value)
+    {
+        if (!value.HasValue || value.Value <= 0)
+            return null;
+
+        return value.Value;
     }
 }
