@@ -28,29 +28,19 @@ public class PortraitUpdateAction : MonoBehaviour
 
     // Update
 
-    public bool UpdatePortrait()
+    public void UpdatePortrait()
     {
         ScreenDialog.Instance.Display();
-        identityService?.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
-
-        return false;
+        identityService.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
     }
 
     // Page
 
-    public void ChangePortraitPage()
+    public void ApplyPortrait()
     {
         StateManager.Instance.Portrait = imgPortrait.Sprite;
         imgPortrait.Sprite = null;
 
         PageManager.Instance.ChangePage(nextPage);
-    }
-
-    // Error
-
-    public void ErrorPortrait(String message)
-    {
-        imgPortrait.Sprite = null;
-        ChoiceDialog.Instance.Error(message);
     }
 }

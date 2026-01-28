@@ -1,7 +1,6 @@
 ﻿using System;
 
 using UnityEngine;
-using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -34,6 +33,8 @@ public class PhoneUpdateAction : MonoBehaviour
 
     public void UpdatePhone()
     {
+        ScreenDialog.Instance.Display();
+
         phoneRequest = new PhoneRequest(StateManager.Instance.AppUser.Id, cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text);
         appUserService.UpdatePhone(phoneRequest);    
     }

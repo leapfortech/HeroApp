@@ -117,8 +117,14 @@ public class PhoneAction : MonoBehaviour
             elementValues[i].Clear();
     }
 
-    public void SelectIdCountry(int countryId)
+    public void SelectCountryId(int countryId)
     {
+        cmbPhoneCountry.Select(countryId);
+    }
+
+    public void SelectCountryId()
+    {
+        long countryId = WebManager.Instance.WebSysUser.PhoneCountryId;
         cmbPhoneCountry.Select(countryId);
     }
 
