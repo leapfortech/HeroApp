@@ -71,6 +71,8 @@ public class PlaceDependencyAction : MonoBehaviour
 
     public void RefreshCountry()
     {
+        Initialize();
+        
         dtmState.ClearRecords();
         dtmCity.ClearRecords();
 
@@ -85,6 +87,8 @@ public class PlaceDependencyAction : MonoBehaviour
 
     public void RefreshState()
     {
+        Initialize();
+
         long countryId = cmbCountry.GetSelectedId();
 
         if (countriesWithCity.Contains(countryId) && cmbState.GetSelectedId() != -1)
