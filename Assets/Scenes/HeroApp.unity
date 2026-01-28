@@ -80649,7 +80649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fldPhone: {fileID: 455503066}
   fldEmail: {fileID: 734443912}
-  imgSqrPortraits: []
+  imgSqrPortraits:
+  - {fileID: 1043967266}
   imgRctPortraits: []
   btnSqrPortraits:
   - {fileID: 293708397}
@@ -140705,13 +140706,13 @@ MonoBehaviour:
   onPortraitUpdated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 642059583}
+      - m_Target: {fileID: 1086658381}
         m_TargetAssemblyTypeName: PortraitUpdateAction, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: ApplyPortrait
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -140745,7 +140746,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortraitUpdateAction
   imgPortrait: {fileID: 1043967266}
-  nextPage: {fileID: 650830031}
+  btnUpdate: {fileID: 1798099776}
+  pagNext: {fileID: 650830031}
+  updatedMessage: "La informaci\xF3n fue guardada exitosamente."
 --- !u!1001 &1088458353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -236095,6 +236098,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 1798099774}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1798099776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 1798099774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1798431848
 GameObject:
   m_ObjectHideFlags: 0
