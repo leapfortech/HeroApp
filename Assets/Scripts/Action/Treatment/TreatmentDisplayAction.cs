@@ -9,7 +9,7 @@ using Leap.Core.Tools;
 using Sirenix.OdinInspector;
 
 
-public class TaleDisplayAction : MonoBehaviour
+public class TreatmentDisplayAction : MonoBehaviour
 {
     [Space]
     [Title("Details")]
@@ -32,13 +32,13 @@ public class TaleDisplayAction : MonoBehaviour
     [SerializeField]
     Page pagDetail;
 
-    TaleService taleService;
+    TreatmentService treatmentService;
 
-    long postId = -1, taleId = -1;
+    long postId = -1, treatmentId = -1;
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        treatmentService = GetComponent<TreatmentService>();
     }
 
     public void Clear()
@@ -52,34 +52,34 @@ public class TaleDisplayAction : MonoBehaviour
     {
         this.postId = postId;
 
-        TaleFull taleFull = StateManager.Instance.GetTaleFullByPostId(postId);
-        if (taleFull != null)
+        TreatmentFull treatmentFull = StateManager.Instance.GetTreatmentFullByPostId(postId);
+        if (treatmentFull != null)
         {
-            taleId = taleFull.Id;
-            Display(taleFull);
+            treatmentId = treatmentFull.Id;
+            Display(treatmentFull);
             return;
         }
 
         ScreenDialog.Instance.Display();
-        taleService.GetFullByPostId(postId);
+        treatmentService.GetFullByPostId(postId);
     }
 
-    public void ApplyFull(TaleFull taleFull)
+    public void ApplyFull(TreatmentFull treatmentFull)
     {
-        taleId = taleFull.Id;
-        StateManager.Instance.AddTaleFull(taleFull);
-        StateManager.Instance.AddTaleImages(taleFull.Id, taleFull.Images);
-        Display(taleFull);
+        treatmentId = treatmentFull.Id;
+        StateManager.Instance.AddTreatmentFull(treatmentFull);
+        StateManager.Instance.AddTreatmentImages(treatmentFull.Id, treatmentFull.Images);
+        Display(treatmentFull);
     }
 
-    private void Display(TaleFull taleFull)
+    private void Display(TreatmentFull treatmentFull)
     {       
-        if (taleFull == null)
+        if (treatmentFull == null)
             return;
 
-        txtTitle.TextValue = taleFull.Title;
+        txtTitle.TextValue = treatmentFull.Title;
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
+        List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);
 
         lstImage.Clear();
 
@@ -92,6 +92,6 @@ public class TaleDisplayAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagDetail);
 
-        onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
+        onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
     }
 }

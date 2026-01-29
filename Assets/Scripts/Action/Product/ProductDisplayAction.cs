@@ -9,7 +9,7 @@ using Leap.Core.Tools;
 using Sirenix.OdinInspector;
 
 
-public class TaleDisplayAction : MonoBehaviour
+public class ProductDisplayAction : MonoBehaviour
 {
     [Space]
     [Title("Details")]
@@ -32,13 +32,13 @@ public class TaleDisplayAction : MonoBehaviour
     [SerializeField]
     Page pagDetail;
 
-    TaleService taleService;
+    ProductService productService;
 
-    long postId = -1, taleId = -1;
+    long postId = -1, productId = -1;
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        productService = GetComponent<ProductService>();
     }
 
     public void Clear()
@@ -52,34 +52,34 @@ public class TaleDisplayAction : MonoBehaviour
     {
         this.postId = postId;
 
-        TaleFull taleFull = StateManager.Instance.GetTaleFullByPostId(postId);
-        if (taleFull != null)
+        ProductFull productFull = StateManager.Instance.GetProductFullByPostId(postId);
+        if (productFull != null)
         {
-            taleId = taleFull.Id;
-            Display(taleFull);
+            productId = productFull.Id;
+            Display(productFull);
             return;
         }
 
         ScreenDialog.Instance.Display();
-        taleService.GetFullByPostId(postId);
+        productService.GetFullByPostId(postId);
     }
 
-    public void ApplyFull(TaleFull taleFull)
+    public void ApplyFull(ProductFull productFull)
     {
-        taleId = taleFull.Id;
-        StateManager.Instance.AddTaleFull(taleFull);
-        StateManager.Instance.AddTaleImages(taleFull.Id, taleFull.Images);
-        Display(taleFull);
+        productId = productFull.Id;
+        StateManager.Instance.AddProductFull(productFull);
+        StateManager.Instance.AddProductImages(productFull.Id, productFull.Images);
+        Display(productFull);
     }
 
-    private void Display(TaleFull taleFull)
+    private void Display(ProductFull productFull)
     {       
-        if (taleFull == null)
+        if (productFull == null)
             return;
 
-        txtTitle.TextValue = taleFull.Title;
+        txtTitle.TextValue = productFull.Title;
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
+        List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
 
         lstImage.Clear();
 
@@ -92,6 +92,6 @@ public class TaleDisplayAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagDetail);
 
-        onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
+        onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
     }
 }

@@ -9,7 +9,7 @@ using Leap.Core.Tools;
 using Sirenix.OdinInspector;
 
 
-public class TaleDisplayAction : MonoBehaviour
+public class HappeningDisplayAction : MonoBehaviour
 {
     [Space]
     [Title("Details")]
@@ -32,13 +32,13 @@ public class TaleDisplayAction : MonoBehaviour
     [SerializeField]
     Page pagDetail;
 
-    TaleService taleService;
+    HappeningService happeningService;
 
-    long postId = -1, taleId = -1;
+    long postId = -1, happeningId = -1;
 
     private void Awake()
     {
-        taleService = GetComponent<TaleService>();
+        happeningService = GetComponent<HappeningService>();
     }
 
     public void Clear()
@@ -52,34 +52,34 @@ public class TaleDisplayAction : MonoBehaviour
     {
         this.postId = postId;
 
-        TaleFull taleFull = StateManager.Instance.GetTaleFullByPostId(postId);
-        if (taleFull != null)
+        HappeningFull happeningFull = StateManager.Instance.GetHappeningFullByPostId(postId);
+        if (happeningFull != null)
         {
-            taleId = taleFull.Id;
-            Display(taleFull);
+            happeningId = happeningFull.Id;
+            Display(happeningFull);
             return;
         }
 
         ScreenDialog.Instance.Display();
-        taleService.GetFullByPostId(postId);
+        happeningService.GetFullByPostId(postId);
     }
 
-    public void ApplyFull(TaleFull taleFull)
+    public void ApplyFull(HappeningFull happeningFull)
     {
-        taleId = taleFull.Id;
-        StateManager.Instance.AddTaleFull(taleFull);
-        StateManager.Instance.AddTaleImages(taleFull.Id, taleFull.Images);
-        Display(taleFull);
+        happeningId = happeningFull.Id;
+        StateManager.Instance.AddHappeningFull(happeningFull);
+        StateManager.Instance.AddHappeningImages(happeningFull.Id, happeningFull.Images);
+        Display(happeningFull);
     }
 
-    private void Display(TaleFull taleFull)
+    private void Display(HappeningFull happeningFull)
     {       
-        if (taleFull == null)
+        if (happeningFull == null)
             return;
 
-        txtTitle.TextValue = taleFull.Title;
+        txtTitle.TextValue = happeningFull.Title;
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
+        List<Sprite> images = StateManager.Instance.GetHappeningImagesById(happeningId);
 
         lstImage.Clear();
 
@@ -92,6 +92,6 @@ public class TaleDisplayAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagDetail);
 
-        onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
+        onDisplayed.Invoke(new long[2] {happeningFull.PostId, happeningFull.Id});
     }
 }
