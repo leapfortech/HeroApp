@@ -49,7 +49,7 @@ public class ReferredDisplayAction : MonoBehaviour
         firstDisplay = false;
 
         if (cmbPeriod.Combo.IsEmpty())
-            cmbPeriod.SelectIndexes((DateTime.Today.Month - 1) / 3, DateTime.Today.Year - 2023);
+            cmbPeriod.SelectIndexes((DateTime.Today.Month - 1) / 3, DateTime.Today.Year - 2026);
 
         FillReferreds();
     }
@@ -64,7 +64,7 @@ public class ReferredDisplayAction : MonoBehaviour
         long quarter = cmbPeriod.GetSelectedId(0);
         long year = cmbPeriod.GetSelectedId(1);
 
-        DateTime dateStart = new DateTime(2023 + (int)year, 1 + (int)quarter * 3, 1);
+        DateTime dateStart = new DateTime(2026 + (int)year, 1 + (int)quarter * 3, 1);
         DateTime dateEnd = dateStart.AddMonths(3).AddDays(-1);
 
 

@@ -6,6 +6,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.UI.Extensions;
+using Leap.Data.Web;
 
 using Sirenix.OdinInspector;
 
@@ -54,6 +55,12 @@ public class ReferredRegisterAction : MonoBehaviour
 
     public void SelectCountryId(int countryId)
     {
+        cmbPhoneCountry.Select(countryId);
+    }
+
+    public void SelectCountryId()
+    {
+        long countryId = WebManager.Instance.WebSysUser.PhoneCountryId;
         cmbPhoneCountry.Select(countryId);
     }
 

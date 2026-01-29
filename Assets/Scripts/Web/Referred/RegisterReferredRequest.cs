@@ -11,6 +11,6 @@ public class RegisterReferredRequest
     public RegisterReferredRequest(long appUserId, Identity identity)
     {
         AppUserId = appUserId;
-        Identity = Identity;
+        Identity = identity;
     }
 }

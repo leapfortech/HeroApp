@@ -41340,6 +41340,8 @@ Transform:
   m_Children:
   - {fileID: 1758165799}
   - {fileID: 422125159}
+  - {fileID: 1913444647}
+  - {fileID: 910441312}
   m_Father: {fileID: 158082492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &322973607
@@ -77073,7 +77075,7 @@ MonoBehaviour:
   comboMaster: {fileID: 0}
   comboSlave: {fileID: 0}
   wheelDialogConfigs:
-  - dataSourceMapper: {fileID: 0}
+  - dataSourceMapper: {fileID: 1913444648}
     dataAssetMapping: {fileID: 11400000, guid: 4dcda3f7c4de522439690e06762f9829, type: 2}
     wheelScrollerConfig:
       wheelValueItemPrefab: {fileID: 4517301539701428129, guid: f7e57cf7fd9cc824b8d4124e725a219b, type: 3}
@@ -77088,7 +77090,7 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
-  - dataSourceMapper: {fileID: 0}
+  - dataSourceMapper: {fileID: 910441313}
     dataAssetMapping: {fileID: 11400000, guid: 4dcda3f7c4de522439690e06762f9829, type: 2}
     wheelScrollerConfig:
       wheelValueItemPrefab: {fileID: 4517301539701428129, guid: f7e57cf7fd9cc824b8d4124e725a219b, type: 3}
@@ -112755,6 +112757,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d85c41c725f91c40b45c19720bcf171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &910441311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910441312}
+  - component: {fileID: 910441313}
+  m_Layer: 0
+  m_Name: DtmAppYearTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &910441312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910441311}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 322806768}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &910441313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910441311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932681179333018
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932681179333018
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932681179333019
+          ItemIdx: 1
+    - rid: 7676932681179333019
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932681179333019
+          ItemIdx: 1
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 88ac4a9e4dafdba47bc10c8e3c436648, type: 2}
+        columnValue: Year
 --- !u!1001 &910683396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -171013,7 +171095,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -249279,6 +249361,86 @@ Transform:
   - {fileID: 1354031912}
   m_Father: {fileID: 1731131527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1913444646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1913444647}
+  - component: {fileID: 1913444648}
+  m_Layer: 0
+  m_Name: DtmQuarterTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1913444647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913444646}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 322806768}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1913444648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913444646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932681179333016
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932681179333016
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932681179333017
+          ItemIdx: 1
+    - rid: 7676932681179333017
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932681179333017
+          ItemIdx: 1
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: a3e9faffd4ce08e459f229eb1f1a9207, type: 2}
+        columnValue: Quarter
 --- !u!1001 &1914623041
 PrefabInstance:
   m_ObjectHideFlags: 0
