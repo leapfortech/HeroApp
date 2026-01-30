@@ -13,6 +13,10 @@ public class TreatmentFull : PostFull
     public String[] Images { get; set; }
 
 
+    public TreatmentFull()
+    {
+    }
+
     public TreatmentFull(long id, long postId, long appUserId, String appUserAlias,
                             long postSubtypeId, long postCountryId, long postStateId,
                             String title, String titleImage, String summary, String description,

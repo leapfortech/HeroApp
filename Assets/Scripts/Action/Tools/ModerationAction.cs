@@ -47,14 +47,14 @@ public class ModerationAction : MonoBehaviour
         postModerationRequest.SubtypeId = ids[1];   // SubTypeId
     }
 
-    public void Accept()
+    private void Accept()
     {
         ScreenDialog.Instance.Display();
 
         onAccepted.Invoke(postModerationRequest);
     }
 
-    public void Reject()
+    private void Reject()
     {
         ScreenDialog.Instance.Display();
 

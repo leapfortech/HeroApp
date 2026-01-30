@@ -17,6 +17,10 @@ public class PuzzleFull : PostFull
     public List<PuzzleAnswerFull> PuzzleAnswerFulls { get; set; }
 
 
+    public PuzzleFull()
+    {
+    }
+
     public PuzzleFull(long id, long postId, long appUserId, String appUserAlias,
                         long postSubtypeId,
                         long postCountryId, long postStateId,

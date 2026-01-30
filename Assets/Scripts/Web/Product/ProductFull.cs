@@ -18,6 +18,10 @@ public class ProductFull : PostFull
     public String[] Images { get; set; }
 
 
+    public ProductFull()
+    {
+    }
+
     public ProductFull(long id, long postId, long appUserId, String appUserAlias,
                         long postSubtypeId,
                         long postCountryId, long postStateId,
