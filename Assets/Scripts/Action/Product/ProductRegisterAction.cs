@@ -24,6 +24,12 @@ public class ProductRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmContact = null;
     [SerializeField]
+    DataMapper dtmHasPhone = null;
+    [SerializeField]
+    DataMapper dtmHasWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmHasEmail = null;
+    [SerializeField]
     DataMapper dtmPhone = null;
     [SerializeField]
     DataMapper dtmWhatsApp = null;
@@ -31,12 +37,6 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmEmail = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
-    [SerializeField]
-    DataMapper dtmHasPhone = null;
-    [SerializeField]
-    DataMapper dtmHasWhatsApp = null;
-    [SerializeField]
-    DataMapper dtmHasEmail = null;
 
     [Title("Action")]
     [SerializeField]
