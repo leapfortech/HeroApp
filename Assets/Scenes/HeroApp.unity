@@ -8319,6 +8319,9 @@ MonoBehaviour:
   dtmWhatsApp: {fileID: 1459188955}
   dtmEmail: {fileID: 1507860496}
   dtmImagesVLL: {fileID: 1775780704}
+  dtmHasPhone: {fileID: 363336990}
+  dtmHasWhatsApp: {fileID: 968383714}
+  dtmHasEmail: {fileID: 1972569768}
   btnUpdate: {fileID: 1451864515}
   pagNext: {fileID: 1860312765}
 --- !u!1001 &52812698
@@ -8762,7 +8765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 39.956
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_text
@@ -13018,7 +13021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 39.956
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_text
@@ -42698,7 +42701,7 @@ PrefabInstance:
       objectReference: {fileID: 1055946644}
     - target: {fileID: -3787498560853415619, guid: a44a4ead3aac53b4cb3ad4267da6499b, type: 3}
       propertyPath: state
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3787498560853415619, guid: a44a4ead3aac53b4cb3ad4267da6499b, type: 3}
       propertyPath: style
@@ -42726,7 +42729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3787498560853415619, guid: a44a4ead3aac53b4cb3ad4267da6499b, type: 3}
       propertyPath: isDefault
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3787498560853415619, guid: a44a4ead3aac53b4cb3ad4267da6499b, type: 3}
       propertyPath: modelPrefab
@@ -50409,6 +50412,85 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &363336989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363336991}
+  - component: {fileID: 363336990}
+  m_Layer: 0
+  m_Name: DtmHasPhone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &363336990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363336989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932719626682394
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932719626682394
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+    - rid: 7676932719626682395
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1055946644}
+--- !u!4 &363336991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363336989}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894932382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &365188154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109514,15 +109596,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.b
-      value: 0.6627451
+      value: 0.42352942
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.g
-      value: 0.45882353
+      value: 0.29411766
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.a
@@ -118117,6 +118203,9 @@ Transform:
   - {fileID: 1459188956}
   - {fileID: 1507860495}
   - {fileID: 1775780703}
+  - {fileID: 363336991}
+  - {fileID: 968383713}
+  - {fileID: 1972569767}
   m_Father: {fileID: 158082492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895829186
@@ -129186,6 +129275,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d392393e55a6dce4bb3ac699805cba72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &968383712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968383713}
+  - component: {fileID: 968383714}
+  m_Layer: 0
+  m_Name: DtmHasWhatsApp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968383713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968383712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894932382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &968383714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968383712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932719626682394
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932719626682394
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+    - rid: 7676932719626682395
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 879655480}
 --- !u!1 &969115069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
@@ -211472,6 +211640,9 @@ MonoBehaviour:
   dtmWhatsApp: {fileID: 1459188955}
   dtmEmail: {fileID: 1507860496}
   dtmImagesVLL: {fileID: 1775780704}
+  dtmHasPhone: {fileID: 363336990}
+  dtmHasWhatsApp: {fileID: 968383714}
+  dtmHasEmail: {fileID: 1972569768}
   btnRegister: {fileID: 1617854964}
   pagNext: {fileID: 1860312765}
 --- !u!224 &1562342137
@@ -272304,6 +272475,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1972569766
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1972569767}
+  - component: {fileID: 1972569768}
+  m_Layer: 0
+  m_Name: DtmHasEmail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1972569767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972569766}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894932382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1972569768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972569766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932719626682394
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932719626682394
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+    - rid: 7676932719626682395
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 7676932719626682395
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1589109904}
 --- !u!1001 &1973245232
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -31,6 +31,12 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmEmail = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    DataMapper dtmHasPhone = null;
+    [SerializeField]
+    DataMapper dtmHasWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmHasEmail = null;
 
     [Title("Action")]
     [SerializeField]
@@ -79,19 +85,32 @@ public class ProductRegisterAction : MonoBehaviour
 
         List<Link> links = new();
 
-        Phone phone = dtmPhone.BuildClass<Phone>();
-        if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-            links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
+        if (hasPhone == "1")
+        { 
+            Phone phone = dtmPhone.BuildClass<Phone>();
+            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+                links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+        }
 
-        Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-        if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-            links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
 
-        Link email = dtmEmail.BuildClass<Link>();
-        if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+        if (hasWhatsApp == "1")
         {
-            email.LinkTypeId = (long)LinkType.Email;
-            links.Add(email);
+            Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
+            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+                links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+        }
+
+        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
+        if (hasEmail == "1")
+        {
+            Link email = dtmEmail.BuildClass<Link>();
+            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            {
+                email.LinkTypeId = (long)LinkType.Email;
+                links.Add(email);
+            }
         }
 
         Product product = dtmProduct.BuildClass<Product>();

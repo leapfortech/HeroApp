@@ -31,6 +31,12 @@ public class ProductUpdateAction : MonoBehaviour
     DataMapper dtmEmail = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    DataMapper dtmHasPhone = null;
+    [SerializeField]
+    DataMapper dtmHasWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmHasEmail = null;
 
     [Title("Action")]
     [SerializeField]
@@ -84,9 +90,31 @@ public class ProductUpdateAction : MonoBehaviour
         contact = new Contact(productFull.ContactFull);
         dtmContact.PopulateClass<Contact>(contact);
 
-        dtmPhone.PopulateBuiltIn<String>(new Link(productFull.LinkFulls[0]).Url);
-        dtmWhatsApp.PopulateBuiltIn<String>(new Link(productFull.LinkFulls[1]).Url);
-        dtmEmail.PopulateBuiltIn<String>(new Link(productFull.LinkFulls[2]).Url);
+        if (productFull.LinkFulls?.Count > 0 && productFull.LinkFulls[0] != null)
+        {
+            dtmHasPhone.PopulateBuiltIn<String>("1");
+            String[] phoneStr = productFull.LinkFulls[0].Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
+        }
+        else
+            dtmHasPhone.PopulateBuiltIn<String>("0");
+
+        if (productFull.LinkFulls?.Count > 1 && productFull.LinkFulls[1] != null)
+        {
+            dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+            String[] whatsAppStr = productFull.LinkFulls[1].Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+            dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
+        }
+        else
+            dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+
+        if (productFull.LinkFulls?.Count > 2 && productFull.LinkFulls[2] != null)
+        {
+            dtmHasEmail.PopulateBuiltIn<String>("1");
+            dtmEmail.PopulateClass<Link>(new Link(productFull.LinkFulls[2]));
+        }
+        else
+            dtmHasEmail.PopulateBuiltIn<String>("0");
 
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
@@ -112,19 +140,31 @@ public class ProductUpdateAction : MonoBehaviour
 
         List<Link> linkNews = new();
 
-        Phone phone = dtmPhone.BuildClass<Phone>();
-        if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-            linkNews.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
-
-        Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-        if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-            linkNews.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
-
-        Link email = dtmEmail.BuildClass<Link>();
-        if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
+        if (hasPhone == "1")
         {
-            email.LinkTypeId = (long)LinkType.Email;
-            linkNews.Add(email);
+            Phone phone = dtmPhone.BuildClass<Phone>();
+            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+                linkNews.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+        }
+
+        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
+        if (hasWhatsApp == "1")
+        {
+            Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
+            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+                linkNews.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+        }
+
+        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
+        if (hasEmail == "1")
+        {
+            Link email = dtmEmail.BuildClass<Link>();
+            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            {
+                email.LinkTypeId = (long)LinkType.Email;
+                linkNews.Add(email);
+            }
         }
 
         Product productNew = dtmProduct.BuildClass<Product>();
