@@ -7,7 +7,6 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
-using Leap.Data.Collections;
 using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
@@ -81,10 +80,8 @@ public class TreatmentUpdateAction : MonoBehaviour
         dtmTreatment.PopulateClass<Treatment>(treatment);
 
         long[] diseaseIds = new long[treatmentFull.DiseaseFulls.Count];
-
         for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
             diseaseIds[i] = treatmentFull.DiseaseFulls[i].DiseaseTypeId;
-
         OnPopulated?.Invoke(diseaseIds);
 
         List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);

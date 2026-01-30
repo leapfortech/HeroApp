@@ -7,6 +7,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -31,6 +32,12 @@ public class RadioUpdateAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnUpdate = null;
+
+    [Title("Event")]
+    [SerializeField]
+    UnityLongsEvent OnRadioTypePopulated = null;
+    [SerializeField]
+    UnityLongsEvent OnRadioLanguagePopulated = null;
 
     [Title("Page")]
     [SerializeField]
@@ -74,19 +81,20 @@ public class RadioUpdateAction : MonoBehaviour
         post = new Post(radioFull);
         dtmPost.PopulateClass<Post>(post);
 
-        dtmLink.PopulateBuiltIn<String>(new Link(radioFull.LinkFulls[0]).Url);
+        dtmLink.PopulateClass<Link>(new Link(radioFull.LinkFulls[0]));
 
         radio = new Radio(radioFull);
 
-        List<RadioType> radioTypes = new List<RadioType>();
+        long[] radioTypesIds = new long[radioFull.RadioTypeFulls.Count];
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
-            radioTypes.Add(new RadioType(radioFull.Id, radioFull.RadioTypeFulls[i]));
-        dtmRadioTypeVLL.PopulateClassList<RadioType>(radioTypes);
+            radioTypesIds[i] = radioFull.RadioTypeFulls[i].RadioTypeId;
+        OnRadioTypePopulated?.Invoke(radioTypesIds);
 
-        List<RadioLanguage> radioLanguages = new List<RadioLanguage>();
+
+        long[] radioLanguageIds = new long[radioFull.RadioLanguageFulls.Count];
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
-            radioLanguages.Add(new RadioLanguage(radioFull.Id, radioFull.RadioLanguageFulls[i]));
-        dtmRadioLanguageVLL.PopulateClassList<RadioLanguage>(radioLanguages);
+            radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
+        OnRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
         List<Sprite> images = StateManager.Instance.GetRadioImagesById(radioId);
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
@@ -115,7 +123,7 @@ public class RadioUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.Register(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { linkNew }, strImages),
+        radioService.UpdateRadio(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { linkNew }, strImages),
                                                        radio, radioTypesNew, radioLanguagesNew));
     }
 
