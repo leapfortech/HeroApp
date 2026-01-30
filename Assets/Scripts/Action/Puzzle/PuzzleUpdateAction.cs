@@ -58,7 +58,7 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        PuzzleFull puzzleFull = null; // StateManager.Instance.GetPuzzleFullById(puzzleId);
+        PuzzleFull puzzleFull = StateManager.Instance.GetPuzzleFullById(puzzleId);
 
         post = new Post(puzzleFull);
         dtmPost.PopulateClass<Post>(post);

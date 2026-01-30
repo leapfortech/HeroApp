@@ -31,9 +31,6 @@ public class FlowControlAction : MonoBehaviour
     [SerializeField]
     Page pagUpdateBack = null;
 
-    bool registerInitialized = false;
-    bool updateInitialized = false;
-
     void ClearAll()
     {
         for (int i = 0; i < dtms.Length; i++)
@@ -42,33 +39,23 @@ public class FlowControlAction : MonoBehaviour
 
     public void ActivateRegister()
     {
-        if (!registerInitialized)
-        {
-            ClearAll();
-            onSelected?.Invoke();
-            registerInitialized = true;
-        }
+        ClearAll();
+        onSelected?.Invoke();
 
         btnRegister.gameObject.SetActive(true);
         btnUpdate.gameObject.SetActive(false);
 
         pagStart.HeaderPage = pagRegisterBack;
-        updateInitialized = false;
     }
 
     public void ActivateUpdate()
     {
-        if (!updateInitialized)
-        {
-            ClearAll();
-            onSelected?.Invoke();
-            updateInitialized = true;
-        }
+        ClearAll();
+        onSelected?.Invoke();
 
         btnRegister.gameObject.SetActive(false);
         btnUpdate.gameObject.SetActive(true);
 
         pagStart.HeaderPage = pagUpdateBack;
-        registerInitialized = false;
     }
 }

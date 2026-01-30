@@ -68,7 +68,7 @@ public class NewsUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        NewsFull newsFull = null; // StateManager.Instance.GetNewsFullById(newsId);
+        NewsFull newsFull = StateManager.Instance.GetNewsFullById(newsId);
 
         post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(post);
@@ -79,8 +79,8 @@ public class NewsUpdateAction : MonoBehaviour
         dtmNews.PopulateClass<News>(news);
         dtmTime.PopulateBuiltIn<String>(news.DateTime != null ? news.DateTime.Value.ToString("HH|mm") : null);
 
-        //List<Sprite> images = StateManager.Instance.GetNewsImagesById(newsId);
-        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        List<Sprite> images = StateManager.Instance.GetNewsImagesById(newsId);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()

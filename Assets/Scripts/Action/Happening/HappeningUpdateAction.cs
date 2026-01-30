@@ -69,7 +69,7 @@ public class HappeningUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        HappeningFull happeningFull = null; // StateManager.Instance.GetHappeningFullById(happeningId);
+        HappeningFull happeningFull = StateManager.Instance.GetHappeningFullById(happeningId);
 
         post = new Post(happeningFull);
         dtmPost.PopulateClass<Post>(post);
@@ -79,8 +79,8 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmStartTime.PopulateBuiltIn<String>(happening.StartDateTime != null ? happening.StartDateTime.Value.ToString("HH|mm") : null);
         dtmEndTime.PopulateBuiltIn<String>(happening.EndDateTime != null ? happening.EndDateTime.Value.ToString("HH|mm") : null);
 
-        //List<Sprite> images = StateManager.Instance.GetHappeningImagesById(happeningId);
-        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        List<Sprite> images = StateManager.Instance.GetHappeningImagesById(happeningId);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()

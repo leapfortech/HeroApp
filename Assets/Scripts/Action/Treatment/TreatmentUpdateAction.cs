@@ -7,6 +7,8 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
+using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -30,6 +32,10 @@ public class TreatmentUpdateAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnUpdate = null;
+
+    [Title("Event")]
+    [SerializeField]
+    UnityLongsEvent OnPopulated = null;
 
     [Title("Page")]
     [SerializeField]
@@ -66,7 +72,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        TreatmentFull treatmentFull = null; // StateManager.Instance.GetTreatmentFullById(treatmentId);
+        TreatmentFull treatmentFull = StateManager.Instance.GetTreatmentFullById(treatmentId);
 
         post = new Post(treatmentFull);
         dtmPost.PopulateClass<Post>(post);
@@ -74,13 +80,15 @@ public class TreatmentUpdateAction : MonoBehaviour
         treatment = new Treatment(treatmentFull);
         dtmTreatment.PopulateClass<Treatment>(treatment);
 
-        List<Disease> diseases = new List<Disease>();
-        for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
-            diseases.Add(new Disease(treatmentFull.Id, treatmentFull.DiseaseFulls[i]));
-        dtmDiseaseVLL.PopulateClassList<Disease>(diseases);
+        long[] diseaseIds = new long[treatmentFull.DiseaseFulls.Count];
 
-        //List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);
-        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
+            diseaseIds[i] = treatmentFull.DiseaseFulls[i].DiseaseTypeId;
+
+        OnPopulated?.Invoke(diseaseIds);
+
+        List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()

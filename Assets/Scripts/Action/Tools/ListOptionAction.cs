@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 using Leap.UI.Dialog;
@@ -21,6 +22,8 @@ public class ListOptionAction : MonoBehaviour
     [SerializeField]
     ListScroller lstOption = null;
 
+    [SerializeField]
+    ValueList vllOptionType = null;
     [SerializeField]
     ValueList vllOption = null;
 
@@ -64,7 +67,29 @@ public class ListOptionAction : MonoBehaviour
         Display();
     }
 
-    private void Display()
+    public void AddRecords(long[] optionIds)
+    {
+        if (vllOptionType == null)
+            return;
+
+        if (optionIds == null || optionIds.Length == 0)
+            return;
+
+        for (int i = 0; i < optionIds.Length; i++)
+        {
+            long optionId = optionIds[i];
+
+            String optionName = vllOptionType?.FindRecordCellString(optionId, "Name");
+            if (optionName == null)
+                continue;
+
+            vllOption.AddRecord((int)optionId, optionName);
+        }
+
+        Display();
+    }
+
+    public void Display()
     {
         lstOption.Clear();
 

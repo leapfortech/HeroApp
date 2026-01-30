@@ -76,7 +76,7 @@ public class ProductUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        ProductFull productFull = null; // StateManager.Instance.GetProductFullById(productId);
+        ProductFull productFull = StateManager.Instance.GetProductFullById(productId);
 
         post = new Post(productFull);
         dtmPost.PopulateClass<Post>(post);
@@ -91,8 +91,8 @@ public class ProductUpdateAction : MonoBehaviour
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
 
-        //List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
-        //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
     private void DoUpdate()
