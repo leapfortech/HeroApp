@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Dialog;
-using Leap.UI.Extensions;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 
@@ -66,6 +66,20 @@ public class PuzzleAnswerAction : MonoBehaviour
         tggIsCorrect.Clear();
     }
 
+    public void AddRecords(List<PuzzleAnswerFull> puzzleAnswerFulls)
+    {
+        if (puzzleAnswerFulls == null || puzzleAnswerFulls.Count == 0)
+            return;
+
+        if (vllAnswer == null)
+            return;
+
+        for (int i = 0; i < puzzleAnswerFulls.Count; i++)
+            vllAnswer.AddRecord(puzzleAnswerFulls[i].Description, puzzleAnswerFulls[i].IsCorrect == 1 ? "1" : "0");
+
+        Display();
+    }
+
     public void RemoveRecord(int recordIdx)
     {
         vllAnswer.RemoveRecord(recordIdx);
@@ -84,7 +98,7 @@ public class PuzzleAnswerAction : MonoBehaviour
     }
 
 
-    private void Display()
+    public void Display()
     {
         lstAnswer.Clear();
 

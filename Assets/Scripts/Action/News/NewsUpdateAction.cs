@@ -73,7 +73,7 @@ public class NewsUpdateAction : MonoBehaviour
         post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(post);
 
-        dtmLink.PopulateBuiltIn<String>(new Link(newsFull.LinkFulls[0]).Url);
+        dtmLink.PopulateClass<Link>(new Link(newsFull.LinkFulls[0]));
 
         news = new News(newsFull);
         dtmNews.PopulateClass<News>(news);

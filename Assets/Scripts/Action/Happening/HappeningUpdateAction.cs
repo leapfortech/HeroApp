@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -76,8 +77,11 @@ public class HappeningUpdateAction : MonoBehaviour
 
         happening = new Happening(happeningFull);
         dtmHappening.PopulateClass<Happening>(happening);
-        dtmStartTime.PopulateBuiltIn<String>(happening.StartDateTime != null ? happening.StartDateTime.Value.ToString("HH|mm") : null);
-        dtmEndTime.PopulateBuiltIn<String>(happening.EndDateTime != null ? happening.EndDateTime.Value.ToString("HH|mm") : null);
+        String startTimeStr = happening.StartDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
+        dtmStartTime.PopulateBuiltIn<String>(startTimeStr);
+
+        String endTimeStr = happening.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
+        dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
 
         List<Sprite> images = StateManager.Instance.GetHappeningImagesById(happeningId);
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
@@ -94,32 +98,20 @@ public class HappeningUpdateAction : MonoBehaviour
         post.Title = postNew.Title;
         post.Summary = postNew.Summary;
         post.Description = postNew.Description;
+        
+        happening.Update(dtmHappening.BuildClass<Happening>());
 
-        Happening happeningNew = dtmHappening.BuildClass<Happening>();
-        happening.EventTypeId = happeningNew.EventTypeId;
-        happening.CountryId = happeningNew.CountryId;
-        happening.StateId = happeningNew.StateId;
-        happening.IsPublic = happeningNew.IsPublic;
-        happening.HasSignup = happeningNew.HasSignup;
-        happening.HasPayment = happeningNew.HasPayment;
-        happening.PaymentDetails = happeningNew.PaymentDetails;
-        happening.Location = happeningNew.Location;
-        happening.Latitude = happeningNew.Latitude;
-        happening.Longitude = happeningNew.Longitude;
-
-        if (happeningNew.StartDateTime.HasValue && happeningNew.EndDateTime.HasValue)
+        if (happening.StartDateTime.HasValue && happening.EndDateTime.HasValue)
         {
-            String startTimeStr = dtmStartTime.BuildBuiltIn<String>();
-            String[] startTime = startTimeStr.Split('|');
-            happening.StartDateTime = new DateTime(happeningNew.StartDateTime.Value.Year, happeningNew.StartDateTime.Value.Month, happeningNew.StartDateTime.Value.Day,
+            String[] startTime = dtmStartTime.BuildBuiltIn<String>().Split('|');
+            happening.StartDateTime = new DateTime(happening.StartDateTime.Value.Year, happening.StartDateTime.Value.Month, happening.StartDateTime.Value.Day,
                                                    Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
 
-            String endTimeStr = dtmEndTime.BuildBuiltIn<String>();
-            String[] endTime = endTimeStr.Split('|');
-            happening.EndDateTime = new DateTime(happeningNew.StartDateTime.Value.Year, happeningNew.StartDateTime.Value.Month, happeningNew.StartDateTime.Value.Day,
+            String[] endTime = dtmEndTime.BuildBuiltIn<String>().Split('|');
+            happening.EndDateTime = new DateTime(happening.StartDateTime.Value.Year, happening.StartDateTime.Value.Month, happening.StartDateTime.Value.Day,
                                                  Convert.ToInt32(endTime[0]), Convert.ToInt32(endTime[1]), 0);
 
-            if (happeningNew.EndDateTime.Value <= happeningNew.StartDateTime.Value)
+            if (happening.EndDateTime.Value <= happening.StartDateTime.Value)
             {
                 ChoiceDialog.Instance.Error("Fecha inválida","La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
                 return;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -11,6 +12,10 @@ using Sirenix.OdinInspector;
 
 public class PuzzleUpdateAction : MonoBehaviour
 {
+    [Serializable]
+
+    public class UnityPuzzleAnswerFullsEvent : UnityEvent<List<PuzzleAnswerFull>> { }
+
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
@@ -22,6 +27,10 @@ public class PuzzleUpdateAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnUpdate = null;
+
+    [Title("Event")]
+    [SerializeField]
+    UnityPuzzleAnswerFullsEvent OnPopulated = null;
 
     [Title("Page")]
     [SerializeField]
@@ -66,13 +75,15 @@ public class PuzzleUpdateAction : MonoBehaviour
         puzzle = new Puzzle(puzzleFull);
         dtmPuzzle.PopulateClass<Puzzle>(puzzle);
 
-        List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
-        for (int i = 0; i < puzzleFull.PuzzleAnswerFulls.Count; i++)
-            puzzleAnswers.Add(new PuzzleAnswer(puzzleFull.PuzzleAnswerFulls[i].Id, puzzleFull.Id, 
-                                               puzzleFull.PuzzleAnswerFulls[i].Description,
-                                               puzzleFull.PuzzleAnswerFulls[i].IsCorrect,
-                                               puzzleFull.PuzzleAnswerFulls[i].Status));
-        dtmPuzzleAnswer.PopulateClassList<PuzzleAnswer>(puzzleAnswers);
+        OnPopulated.Invoke(puzzleFull.PuzzleAnswerFulls);
+
+        //List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
+        //for (int i = 0; i < puzzleFull.PuzzleAnswerFulls.Count; i++)
+        //    puzzleAnswers.Add(new PuzzleAnswer(puzzleFull.PuzzleAnswerFulls[i].Id, puzzleFull.Id, 
+        //                                       puzzleFull.PuzzleAnswerFulls[i].Description,
+        //                                       puzzleFull.PuzzleAnswerFulls[i].IsCorrect,
+        //                                       puzzleFull.PuzzleAnswerFulls[i].Status));
+        //dtmPuzzleAnswer.PopulateClassList<PuzzleAnswer>(puzzleAnswers);
     }
 
     private void DoUpdate()

@@ -60,4 +60,18 @@ public class Happening
         Longitude = happeningFull.Longitude;
         Status = happeningFull.Status;
     }
+
+    public void Update(Happening happening)
+    {
+        EventTypeId = happening.EventTypeId;
+        CountryId = happening.CountryId;
+        StateId = happening.StateId;
+        IsPublic = happening.IsPublic;
+        HasSignup = happening.HasSignup;
+        HasPayment = happening.HasPayment;
+        PaymentDetails = happening.PaymentDetails;
+        Location = happening.Location;
+        Latitude = happening.Latitude;
+        Longitude = happening.Longitude;
+    }
 }
