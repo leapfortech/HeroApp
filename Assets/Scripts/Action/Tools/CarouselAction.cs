@@ -2,6 +2,7 @@
 using MPUIKIT;
 
 using Leap.UI.Elements;
+using System.Collections;
 
 public class CarouselAction : MonoBehaviour
 {
@@ -13,14 +14,18 @@ public class CarouselAction : MonoBehaviour
     [Header("Indicator")]
     [SerializeField]
     public GameObject indicatorPrefab; 
-    
     [SerializeField]
     public Transform indicatorParent;
 
     [SerializeField]
-    public Color colorOn = Color.white;
+    Vector2 sizeOn = new Vector2(60, 16);
     [SerializeField]
-    public Color colorOff = Color.gray;
+    Vector2 sizeOff = new Vector2(36, 16);
+
+    [SerializeField]
+    Color colorOn = new Color32(0x6A, 0x6A, 0x6A, 0xFF);
+    [SerializeField]
+    Color colorOff = new Color32(0xD9, 0xD9, 0xD9, 0xFF);
 
 
     [Header("Action")]
@@ -74,11 +79,35 @@ public class CarouselAction : MonoBehaviour
     {
         for (int i = 0; i < indicators.Length; i++)
         {
-            MPImage indicatorImage = indicators[i].GetComponent<MPImage>();
-            
-            if (indicatorImage != null)
-                indicatorImage.color = (i == currentIndex) ? colorOn : colorOff;
+            bool active = (i == currentIndex);
+
+            MPImage img = indicators[i].GetComponent<MPImage>();
+            RectTransform rt = indicators[i].GetComponent<RectTransform>();
+
+            if (img != null)
+                img.color = active ? colorOn : colorOff;
+
+            if (rt != null)
+            {
+                Vector2 target = active ? sizeOn : sizeOff;
+                StartCoroutine(AnimateIndicator(rt, target));
+            }
         }
+    }
+
+    IEnumerator AnimateIndicator(RectTransform rt, Vector2 target)
+    {
+        Vector2 start = rt.sizeDelta;
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 10f;
+            rt.sizeDelta = Vector2.Lerp(start, target, t);
+            yield return null;
+        }
+
+        rt.sizeDelta = target;
     }
 
     void UpdateDisplay()
