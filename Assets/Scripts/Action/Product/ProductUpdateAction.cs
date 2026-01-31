@@ -130,13 +130,9 @@ public class ProductUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Contact contactNew = dtmContact.BuildClass<Contact>();
-        contact.Name = contactNew.Name;
+        contact.Update(dtmContact.BuildClass<Contact>());
 
         List<Link> linkNews = new();
 
@@ -167,15 +163,7 @@ public class ProductUpdateAction : MonoBehaviour
             }
         }
 
-        Product productNew = dtmProduct.BuildClass<Product>();
-        product.ProductSubtypeId = productNew.ProductSubtypeId;
-        product.SaleCountryId = productNew.SaleCountryId;
-        product.SaleStateId = productNew.SaleStateId;
-        product.CurrencyId = productNew.CurrencyId;
-        product.Price = productNew.Price;
-        product.DiscountPrice = productNew.DiscountPrice;
-        product.DeliveryTypeId = productNew.DeliveryTypeId;
-        product.Annotation = productNew.Annotation;
+        product.Update(dtmProduct.BuildClass<Product>());
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];

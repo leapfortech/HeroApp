@@ -82,18 +82,9 @@ public class RecipeUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Recipe recipeNew = dtmRecipe.BuildClass<Recipe>();
-
-        recipe.RecipeTypeId = recipeNew.RecipeTypeId;
-        recipe.Ingredients = recipeNew.Ingredients;
-        recipe.Preparation = recipeNew.Preparation;
-        recipe.Portions = recipeNew.Portions;
-        recipe.CookingTime = recipeNew.CookingTime;
+        recipe.Update(dtmRecipe.BuildClass<Recipe>());
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];

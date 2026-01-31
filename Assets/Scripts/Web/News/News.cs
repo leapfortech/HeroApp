@@ -34,4 +34,11 @@ public class News
         DateTime = newsFull.DateTime;
         Status = newsFull.Status;
     }
+
+    public void Update(News news)
+    {
+        NewsTypeId = news.NewsTypeId;
+        Place = news.Place;
+        Source = news.Source;
+    }
 }

@@ -107,24 +107,21 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Link linkNew = dtmLink.BuildClass<Link>();
-        linkNew.LinkTypeId = (long)LinkType.Url;
+        Link link = dtmLink.BuildClass<Link>();
+        link.LinkTypeId = (long)LinkType.Url;
 
-        List<RadioType> radioTypesNew = dtmRadioTypeVLL.BuildClassList<RadioType>();
-        List<RadioLanguage> radioLanguagesNew = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
+        List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
+        List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.UpdateRadio(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { linkNew }, strImages),
-                                                       radio, radioTypesNew, radioLanguagesNew));
+        radioService.UpdateRadio(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
+                                                       radio, radioTypes, radioLanguages));
     }
 
     public void ApplyUpdate(bool updated)

@@ -37,4 +37,13 @@ public class Recipe
         CookingTime = recipeFull.CookingTime;
         Status = recipeFull.Status;
     }
+
+    public void Update(Recipe recipe)
+    {
+        RecipeTypeId = recipe.RecipeTypeId;
+        Ingredients = recipe.Ingredients;
+        Preparation = recipe.Preparation;
+        Portions = recipe.Portions;
+        CookingTime = recipe.CookingTime;
+    }
 }

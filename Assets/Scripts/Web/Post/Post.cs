@@ -183,4 +183,11 @@ public class Post
         ExpirationDateTime = null;
         Status = puzzleFull.PostStatus;
     }
+
+    public void Update(Post post)
+    {
+        Title = post.Title;
+        Summary = post.Summary;
+        Description = post.Description;
+    }
 }

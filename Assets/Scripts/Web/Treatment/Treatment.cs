@@ -34,4 +34,12 @@ public class Treatment
         Annotation = treatmentFull.Annotation;
         Status = treatmentFull.Status;
     }
+
+    public void Update(Treatment treatment)
+    {
+        Ingredients = treatment.Ingredients;
+        Preparation = treatment.Preparation;
+        Usage = treatment.Usage;
+        Annotation = treatment.Annotation;
+    }
 }

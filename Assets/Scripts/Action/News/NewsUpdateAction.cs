@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -77,7 +78,9 @@ public class NewsUpdateAction : MonoBehaviour
 
         news = new News(newsFull);
         dtmNews.PopulateClass<News>(news);
-        dtmTime.PopulateBuiltIn<String>(news.DateTime != null ? news.DateTime.Value.ToString("HH|mm") : null);
+
+        String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
+        dtmTime.PopulateBuiltIn<String>(dateTimeStr);
 
         List<Sprite> images = StateManager.Instance.GetNewsImagesById(newsId);
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
@@ -90,24 +93,18 @@ public class NewsUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Link linkNew = dtmLink.BuildClass<Link>();
-        linkNew.LinkTypeId = (long)LinkType.Url;
+        Link link = dtmLink.BuildClass<Link>();
+        link.LinkTypeId = (long)LinkType.Url;
 
-        News newsNew = dtmNews.BuildClass<News>();
-        news.NewsTypeId = newsNew.NewsTypeId;
-        news.Place = newsNew.Place;
-        news.Source = newsNew.Source;
+        news.Update(dtmNews.BuildClass<News>());
 
-        if (newsNew.DateTime.HasValue && newsNew.DateTime.HasValue)
+        if (news.DateTime.HasValue && news.DateTime.HasValue)
         {
             String startTimeStr = dtmTime.BuildBuiltIn<String>();
             String[] startTime = startTimeStr.Split('|');
-            news.DateTime = new DateTime(newsNew.DateTime.Value.Year, newsNew.DateTime.Value.Month, newsNew.DateTime.Value.Day,
+            news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
                                          Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
         }
 
@@ -116,7 +113,7 @@ public class NewsUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.UpdateNews(new RegisterNewsRequest(new RegisterPostRequest(post, null, new List<Link> { linkNew }, strImages),
+        newsService.UpdateNews(new RegisterNewsRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
                                news));
     }
 

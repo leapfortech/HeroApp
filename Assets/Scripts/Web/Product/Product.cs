@@ -48,4 +48,16 @@ public class Product
         Annotation = productFull.Annotation;
         Status = productFull.Status;
     }
+
+    public void Update(Product product)
+    {
+        ProductSubtypeId = product.ProductSubtypeId;
+        SaleCountryId = product.SaleCountryId;
+        SaleStateId = product.SaleStateId;
+        CurrencyId = product.CurrencyId;
+        Price = product.Price;
+        DiscountPrice = product.DiscountPrice;
+        DeliveryTypeId = product.DeliveryTypeId;
+        Annotation = product.Annotation;
+    }
 }

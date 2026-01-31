@@ -95,25 +95,18 @@ public class TreatmentUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Treatment treatmentNew = dtmTreatment.BuildClass<Treatment>();
-        treatment.Ingredients = treatmentNew.Ingredients;
-        treatment.Preparation = treatmentNew.Preparation;
-        treatment.Usage = treatmentNew.Usage;
-        treatment.Annotation = treatmentNew.Annotation;
+        treatment.Update(dtmTreatment.BuildClass<Treatment>());
 
-        List<Disease> diseasesNew = dtmDiseaseVLL.BuildClassList<Disease>();
+        List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseasesNew));
+        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
     }
 
     public void ApplyUpdate(bool updated)

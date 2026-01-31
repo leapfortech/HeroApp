@@ -76,29 +76,21 @@ public class PuzzleUpdateAction : MonoBehaviour
         dtmPuzzle.PopulateClass<Puzzle>(puzzle);
 
         OnPopulated.Invoke(puzzleFull.PuzzleAnswerFulls);
-
-        //List<PuzzleAnswer> puzzleAnswers = new List<PuzzleAnswer>();
-        //for (int i = 0; i < puzzleFull.PuzzleAnswerFulls.Count; i++)
-        //    puzzleAnswers.Add(new PuzzleAnswer(puzzleFull.PuzzleAnswerFulls[i].Id, puzzleFull.Id, 
-        //                                       puzzleFull.PuzzleAnswerFulls[i].Description,
-        //                                       puzzleFull.PuzzleAnswerFulls[i].IsCorrect,
-        //                                       puzzleFull.PuzzleAnswerFulls[i].Status));
-        //dtmPuzzleAnswer.PopulateClassList<PuzzleAnswer>(puzzleAnswers);
     }
 
     private void DoUpdate()
     {
         ScreenDialog.Instance.Display();
 
-        List<PuzzleAnswer> puzzleAnswersNew = dtmPuzzleAnswer.BuildClassList<PuzzleAnswer>();
+        List<PuzzleAnswer> puzzleAnswers = dtmPuzzleAnswer.BuildClassList<PuzzleAnswer>();
 
-        if (puzzleAnswersNew == null || puzzleAnswersNew.Count == 0)
+        if (puzzleAnswers == null || puzzleAnswers.Count == 0)
         {
             ChoiceDialog.Instance.Error("Error", "Debes ingresar al menos una respuesta.");
             return;
         }
 
-        bool hasCorrect = puzzleAnswersNew.Exists(a => a.IsCorrect == 1);
+        bool hasCorrect = puzzleAnswers.Exists(a => a.IsCorrect == 1);
 
         if (!hasCorrect)
         {
@@ -106,24 +98,13 @@ public class PuzzleUpdateAction : MonoBehaviour
             return;
         }
 
-        Post postNew = dtmPost.BuildClass<Post>();
-        post.Title = postNew.Title;
-        post.Summary = postNew.Summary;
-        post.Description = postNew.Description;
+        post.Update(dtmPost.BuildClass<Post>());
 
-        Puzzle puzzleNew = dtmPuzzle.BuildClass<Puzzle>();
-        puzzleNew.CountryId = StateManager.Instance.Identity.OriginCountryId;
-
-        puzzle.PuzzleSubtypeId = puzzleNew.PuzzleSubtypeId;
-        puzzle.CountryId = puzzleNew.CountryId;
-        puzzle.Question = puzzleNew.Question;
-        puzzle.Hint = puzzleNew.Hint;
-        puzzle.Difficulty = puzzleNew.Difficulty;
-        puzzle.Points = puzzleNew.Points;
-        puzzle.PlayCount = puzzleNew.PlayCount;
+        puzzle.Update(dtmPuzzle.BuildClass<Puzzle>());
+        puzzle.CountryId = StateManager.Instance.Identity.OriginCountryId;
 
         puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
-                                                             puzzle, puzzleAnswersNew));
+                                                             puzzle, puzzleAnswers));
     }
 
     public void ApplyUpdate(bool updated)

@@ -43,4 +43,15 @@ public class Puzzle
         PlayCount = puzzleFull.PlayCount;
         Status = puzzleFull.Status;
     }
+
+    public void Update(Puzzle puzzle)
+    {
+        PuzzleSubtypeId = puzzle.PuzzleSubtypeId;
+        CountryId = puzzle.CountryId;
+        Question = puzzle.Question;
+        Hint = puzzle.Hint;
+        Difficulty = puzzle.Difficulty;
+        Points = puzzle.Points;
+        PlayCount = puzzle.PlayCount;
+    }
 }
