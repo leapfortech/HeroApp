@@ -68,7 +68,7 @@ public class DisplayScrollController : MonoBehaviour
 
     float GetPageWidth()
     {
-        var layout = content.GetComponent<HorizontalLayoutGroup>();
+        HorizontalLayoutGroup layout = content.GetComponent<HorizontalLayoutGroup>();
         float spacing = layout ? layout.spacing : 0f;
         return viewport.rect.width + spacing;
     }
