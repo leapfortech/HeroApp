@@ -16,4 +16,11 @@ public class PostRead
         PostId = postId;
         AppUserId = appUserId;
     }
+
+    public PostRead(long postId, long appUserId)
+    {
+        Id = -1;
+        PostId = postId;
+        AppUserId = appUserId;
+    }
 }

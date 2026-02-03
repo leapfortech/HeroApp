@@ -14,4 +14,11 @@ public class Share
         PostId = postId;
         AppUserId = appUserId;
     }
+
+    public Share(long postId, long appUserId)
+    {
+        Id = -1;
+        PostId = postId;
+        AppUserId = appUserId;
+    }
 }

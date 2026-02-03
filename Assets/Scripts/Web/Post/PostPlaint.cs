@@ -18,4 +18,13 @@ public class PostPlaint
         AppUserId = appUserId;
         Status = status;
     }
+
+    public PostPlaint(long plaintTypeId, long postId, long appUserId)
+    {
+        Id = -1;
+        PlaintTypeId = plaintTypeId;
+        PostId = postId;
+        AppUserId = appUserId;
+        Status = -1;
+    }
 }

@@ -18,4 +18,13 @@ public class Reaction
         AppUserId = appUserId;
         Status = status;
     }
+
+    public Reaction(long reactionTypeId, long postId, long appUserId)
+    {
+        Id = -1;
+        ReactionTypeId = reactionTypeId;
+        PostId = postId;
+        AppUserId = appUserId;
+        Status = -1;
+    }
 }

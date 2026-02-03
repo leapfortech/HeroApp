@@ -18,4 +18,13 @@ public class Comment
         Message = message;
         Status = status;
     }
+
+    public Comment(long postId, long appUserId, String message)
+    {
+        Id = -1;
+        PostId = postId;
+        AppUserId = appUserId;
+        Message = message;
+        Status = -1;
+    }
 }

@@ -18,4 +18,12 @@ public class Favorite
         AppUserId = appUserId;
         Status = status;
     }
+
+    public Favorite(long postId, long appUserId)
+    {
+        Id = -1;
+        PostId = postId;
+        AppUserId = appUserId;
+        Status = -1;
+    }
 }

@@ -137,7 +137,7 @@ public class PostService : MonoBehaviour
         }
     }
 
-    public void RegisterCommenPlaintt(CommentPlaint commentPlaint)
+    public void RegisterCommenPlaint(CommentPlaint commentPlaint)
     {
         CommentPlaintRegisterOperation commentPlaintRegisterOp = new CommentPlaintRegisterOperation();
         try

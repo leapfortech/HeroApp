@@ -18,4 +18,13 @@ public class CommentPlaint
         AppUserId = appUserId;
         Status = status;
     }
+
+    public CommentPlaint(long plaintTypeId, long commentId, long appUserId)
+    {
+        Id = -1;
+        PlaintTypeId = plaintTypeId;
+        CommentId = commentId;
+        AppUserId = appUserId;
+        Status = -1;
+    }
 }

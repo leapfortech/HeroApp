@@ -18,4 +18,13 @@ public class Like
         Rank = rank;
         Status = status;
     }
+
+    public Like(long postId, long appUserId, int rank)
+    {
+        Id = -1;
+        PostId = postId;
+        AppUserId = appUserId;
+        Rank = rank;
+        Status = -1;
+    }
 }
