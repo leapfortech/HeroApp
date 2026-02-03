@@ -61,6 +61,13 @@ public class FeedAction : MonoBehaviour
             onSelected.Invoke(postId);
     }
 
+    public long GetPostId(int idx)
+    {
+        if (indexes.TryGetValue(idx, out long postId))
+            return postId;
+        return -1;
+    }
+
     public void SetFilters(long countryId = -1, long stateId = -1)
     {
         this.countryId = countryId;

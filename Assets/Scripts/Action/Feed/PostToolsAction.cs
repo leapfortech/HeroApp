@@ -18,12 +18,6 @@ public class PostToolsAction : MonoBehaviour
     [SerializeField]
     ValueList vllCommentPlaintType = null;
 
-    [Title("Action")]
-    [SerializeField]
-    Button btnLike = null;
-    [SerializeField]
-    Button btnDislike = null;
-
     PostService postService;
 
     long postId = -1, appUserId = -1;
@@ -33,35 +27,38 @@ public class PostToolsAction : MonoBehaviour
         postService = GetComponent<PostService>();
     }
 
-    private void Start()
-    {
-        btnLike?.AddAction(() => RegisterLike(5));
-        btnDislike?.AddAction(() => RegisterLike(0));
-    }
-
     public void SetIds(long[] ids)
     {
         postId = ids[0];
         appUserId = StateManager.Instance.appUserId;
     }
 
-    // Share
-    public void RegisterShare()
+    // Reaction
+    public void RegisterReaction(int idx)
     {
         ScreenDialog.Instance.Display();
-        postService.RegisterShare(new Share(postId, appUserId));
+
+        long reactionTypeId = vllReactionType.GetRecordId(idx);
+        postService.RegisterReaction(new Reaction(reactionTypeId, postId, appUserId));
     }
 
-    public void ApplyShare(long shareId)
+    public void ApplyReaction(long reactionId)
     {
         ScreenDialog.Instance.Hide();
     }
 
-    // Favorite
-    public void RegisterFavorite()
+    // PostPlaint
+    public void RegisterPostPlaint(int idx)
     {
         ScreenDialog.Instance.Display();
-        postService.RegisterFavorite(new Favorite(postId, appUserId));
+
+        long plaintTypeId = vllPlaintType.GetRecordId(idx);
+        postService.RegisterPostPlaint(new PostPlaint(plaintTypeId, postId, appUserId));
+    }
+
+    public void ApplyPlaintType(long postPlaintId)
+    {
+        ScreenDialog.Instance.Hide();
     }
 
     // Comment
@@ -86,63 +83,6 @@ public class PostToolsAction : MonoBehaviour
     }
 
     public void ApplyCommentPlaint(long commentPlaintId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    public void ApplyFavorite(long favoriteId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    // PostPlaint
-    public void RegisterPostPlaint(int idx)
-    {
-        ScreenDialog.Instance.Display();
-
-        long plaintTypeId = vllPlaintType.GetRecordId(idx);
-        postService.RegisterPostPlaint(new PostPlaint(plaintTypeId, postId, appUserId));
-    }
-
-    public void ApplyPlaintType(long postPlaintId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    // PostRead
-    public void RegisterPostRead()
-    {
-        ScreenDialog.Instance.Display();
-        postService.RegisterPostRead(new PostRead(postId, appUserId));
-    }
-
-    public void ApplyPostRead(long postReadId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    // Reaction
-    public void RegisterReaction(int idx)
-    {
-        ScreenDialog.Instance.Display();
-
-        long reactionTypeId = vllReactionType.GetRecordId(idx);
-        postService.RegisterReaction(new Reaction(reactionTypeId, postId, appUserId));
-    }
-
-    public void ApplyReaction(long reactionId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    // Like
-    public void RegisterLike(int rank)
-    {
-        ScreenDialog.Instance.Display();
-        postService.RegisterLike(new Like(postId, appUserId, rank));
-    }
-
-    public void ApplyLike(long likeId)
     {
         ScreenDialog.Instance.Hide();
     }
