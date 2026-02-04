@@ -16,6 +16,8 @@ public class TaleDisplayAction : MonoBehaviour
     [Title("Details")]
     [SerializeField]
     Text txtTitle = null;
+    [SerializeField]
+    Text txtDescription = null;
 
     [Space]
     [Title("Images")]
@@ -89,6 +91,7 @@ public class TaleDisplayAction : MonoBehaviour
             return;
 
         txtTitle.TextValue = taleFull.Title;
+        txtDescription.TextValue = taleFull.Description;
 
         List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
 
