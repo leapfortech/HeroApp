@@ -242,9 +242,15 @@ public class FeedAction : MonoBehaviour
             indexes[idx] = state.PostFulls[i].PostId;
             idx++;
 
-            ListScrollerValue scrollerValue = new ListScrollerValue(2, true);
+            String summary = state.PostFulls[i].Summary;
+
+            if (!String.IsNullOrEmpty(summary) && summary.Length > 100)
+                summary = summary.Substring(0, 100) + "...";
+
+            ListScrollerValue scrollerValue = new ListScrollerValue(3, true);
             scrollerValue.SetText(0, state.PostFulls[i].Description);
             scrollerValue.SetSprite(1, state.PostFulls[i].TitleSprite);
+            scrollerValue.SetText(2, summary);
 
             lstFeed.AddValue(scrollerValue);
         }
