@@ -7,6 +7,7 @@ using Leap.UI.Dialog;
 using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
+using MPUIKIT;
 
 
 public class TaleDisplayAction : MonoBehaviour
@@ -21,9 +22,16 @@ public class TaleDisplayAction : MonoBehaviour
     [SerializeField]
     ListScroller lstImage = null;
 
-    //[Title("Values")]
-    //[SerializeField]
-    //ValueList vllProjectDescriptionType = null;
+    [Header("Indicator")]
+    [SerializeField]
+    private GameObject indicatorPrefab;
+    [SerializeField]
+    private Transform indicatorParent;
+    [SerializeField]
+    private Color colorOn = Color.white;
+    [SerializeField]
+    private Color colorOff = Color.gray;
+
     [Title("Event")]
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
@@ -34,6 +42,7 @@ public class TaleDisplayAction : MonoBehaviour
 
     TaleService taleService;
 
+    private GameObject[] indicators;
     long postId = -1, taleId = -1;
 
     private void Awake()
@@ -43,7 +52,9 @@ public class TaleDisplayAction : MonoBehaviour
 
     public void Clear()
     {
-        
+        lstImage.Clear();
+        foreach (Transform child in indicatorParent)
+            Destroy(child.gameObject);
     }
 
     // Display
@@ -83,6 +94,8 @@ public class TaleDisplayAction : MonoBehaviour
 
         lstImage.Clear();
 
+        CreateIndicators(images.Count);
+
         for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
@@ -92,6 +105,31 @@ public class TaleDisplayAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagDetail);
 
+        UpdateIndicator(0);
         onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
+    }
+
+    public void UpdateIndicator(int currentIndex)
+    {
+        for (int i = 0; i < indicators.Length; i++)
+        {
+            MPImage indicatorImage = indicators[i].GetComponent<MPImage>();
+
+            if (indicatorImage != null)
+                indicatorImage.color = (i == currentIndex) ? colorOn : colorOff;
+        }
+    }
+
+    private void CreateIndicators(int count)
+    {
+        foreach (Transform child in indicatorParent)
+            Destroy(child.gameObject);
+
+        indicators = new GameObject[count];
+        for (int i = 0; i < count; i++)
+        {
+            GameObject indicator = Instantiate(indicatorPrefab, indicatorParent);
+            indicators[i] = indicator;
+        }
     }
 }
