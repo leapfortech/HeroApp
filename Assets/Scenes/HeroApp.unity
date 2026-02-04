@@ -33694,7 +33694,7 @@ Transform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1534444866}
+  m_Father: {fileID: 1731131527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &260867498
 MonoBehaviour:
@@ -52001,6 +52001,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6588006440490177114, guid: eeca4b87b7c37504f96dcfb780ae7b48, type: 3}
       propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6588006440490177115, guid: eeca4b87b7c37504f96dcfb780ae7b48, type: 3}
+      propertyPath: scrollDirection
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -80588,7 +80592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: m_SizeDelta.x
@@ -80596,7 +80600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -998
+      value: 976
       objectReference: {fileID: 0}
     - target: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80649,11 +80653,11 @@ PrefabInstance:
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: style
       value: 
-      objectReference: {fileID: 11400000, guid: 32439a34641a5e1438d7a445eddeccda, type: 2}
+      objectReference: {fileID: 11400000, guid: ccc3f23d83b66ab44b079698d5cf1808, type: 2}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: listItem
       value: 
-      objectReference: {fileID: 18177397425701001, guid: 2752f2b76bad53546b69b93aad7f1613, type: 3}
+      objectReference: {fileID: 18177397425701001, guid: 84ce63c09e268d940802d4536ffb6a1a, type: 3}
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: lstModel
       value: 
@@ -80673,7 +80677,7 @@ PrefabInstance:
     - target: {fileID: 1773223659421574099, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: listItemPrefab
       value: 
-      objectReference: {fileID: 4517301539701428129, guid: 2752f2b76bad53546b69b93aad7f1613, type: 3}
+      objectReference: {fileID: 4517301539701428129, guid: 84ce63c09e268d940802d4536ffb6a1a, type: 3}
     - target: {fileID: 1773223659421574125, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       propertyPath: m_Name
       value: LstImage
@@ -207958,9 +207962,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1174975493}
-    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 260867497}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
 --- !u!224 &1534444865 stripped
@@ -236594,6 +236595,7 @@ Transform:
   - {fileID: 221327160}
   - {fileID: 1430597270}
   - {fileID: 1599937641}
+  - {fileID: 260867497}
   - {fileID: 1913357304}
   - {fileID: 2020454473}
   - {fileID: 1533122249}

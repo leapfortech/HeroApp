@@ -8,8 +8,7 @@ public class FeedToolsAction : MonoBehaviour
     FeedAction feedAction = null;
     PostService postService = null;
 
-    const int LIKE = 5;
-    const int DISLIKE = 0;
+    const int LIKE = 5, DISLIKE = 0;
 
     private void Awake()
     {
