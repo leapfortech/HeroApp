@@ -59,7 +59,10 @@ public class ProfileDisplayAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagBack);
 
         if (isSdw)
+        {
             SandwichMenu.Instance.Open();
+            return true;
+        }
 
         return false;
     }
