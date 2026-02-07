@@ -7,7 +7,7 @@ using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
-public class ImagesAction : MonoBehaviour
+public class ImageEditorAction : MonoBehaviour
 {
     [Title("Data")]
     [SerializeField]

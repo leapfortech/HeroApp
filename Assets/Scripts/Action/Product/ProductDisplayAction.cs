@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -11,20 +13,16 @@ using Sirenix.OdinInspector;
 
 public class ProductDisplayAction : MonoBehaviour
 {
+    [Serializable]
+    public class ImagesEvent : UnityEvent<List<Sprite>> { }
     [Space]
     [Title("Details")]
     [SerializeField]
     Text txtTitle = null;
 
-    [Space]
-    [Title("Images")]
-    [SerializeField]
-    ListScroller lstImage = null;
-
-    //[Title("Values")]
-    //[SerializeField]
-    //ValueList vllProjectDescriptionType = null;
     [Title("Event")]
+    [SerializeField]
+    ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
 
@@ -40,13 +38,6 @@ public class ProductDisplayAction : MonoBehaviour
     {
         productService = GetComponent<ProductService>();
     }
-
-    public void Clear()
-    {
-        
-    }
-
-    // Display
 
     public void Display(long postId)
     {
@@ -81,17 +72,9 @@ public class ProductDisplayAction : MonoBehaviour
 
         List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
 
-        lstImage.Clear();
-
-        for (int i = 0; i < images.Count; i++)
-        {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
-            scrollerValue.SetSprite(0, images[i]);
-            lstImage.ApplyAddValue(scrollerValue);
-        }
+        onImagesDisplay.Invoke(images);
+        onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
 
         PageManager.Instance.ChangePage(pagDetail);
-
-        onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
     }
 }
