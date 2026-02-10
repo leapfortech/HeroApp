@@ -90,31 +90,55 @@ public class ProductUpdateAction : MonoBehaviour
         contact = new Contact(productFull.ContactFull);
         dtmContact.PopulateClass<Contact>(contact);
 
-        if (productFull.LinkFulls?.Count > 0 && productFull.LinkFulls[0] != null)
-        {
-            dtmHasPhone.PopulateBuiltIn<String>("1");
-            String[] phoneStr = productFull.LinkFulls[0].Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-            dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
-        }
-        else
-            dtmHasPhone.PopulateBuiltIn<String>("0");
+        dtmHasPhone.PopulateBuiltIn<string>("0");
+        dtmHasWhatsApp.PopulateBuiltIn<string>("0");
+        dtmHasEmail.PopulateBuiltIn<string>("0");
 
-        if (productFull.LinkFulls?.Count > 1 && productFull.LinkFulls[1] != null)
-        {
-            dtmHasWhatsApp.PopulateBuiltIn<String>("1");
-            String[] whatsAppStr = productFull.LinkFulls[1].Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-            dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
-        }
-        else
-            dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+        if (productFull.LinkFulls == null)
+            return;
 
-        if (productFull.LinkFulls?.Count > 2 && productFull.LinkFulls[2] != null)
+        for (int i = 0; i < productFull.LinkFulls.Count; i++)
         {
-            dtmHasEmail.PopulateBuiltIn<String>("1");
-            dtmEmail.PopulateClass<Link>(new Link(productFull.LinkFulls[2]));
+            LinkFull linkFull = productFull.LinkFulls[i];
+            if (linkFull == null)
+                continue;
+
+            // Phone
+            if (linkFull.LinkTypeId == 2)
+            {
+                dtmHasPhone.PopulateBuiltIn<String>("1");
+
+                String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                if (phoneStr.Length >= 2)
+                    dtmPhone.PopulateClass<Phone>(
+                        new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1])
+                    );
+
+                continue;
+            }
+
+            // WhatsApp
+            if (linkFull.LinkTypeId == 3)
+            {
+                dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+
+                String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                if (whatsAppStr.Length >= 2)
+                    dtmWhatsApp.PopulateClass<Phone>(
+                        new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1])
+                    );
+
+                continue;
+            }
+
+            // Email
+            if (linkFull.LinkTypeId == 4)
+            {
+                dtmHasEmail.PopulateBuiltIn<String>("1");
+                dtmEmail.PopulateClass<Link>(new Link(linkFull));
+                continue;
+            }
         }
-        else
-            dtmHasEmail.PopulateBuiltIn<String>("0");
 
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
