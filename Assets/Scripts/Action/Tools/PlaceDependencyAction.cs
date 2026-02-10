@@ -64,9 +64,26 @@ public class PlaceDependencyAction : MonoBehaviour
 
     public void Clear()
     {
-        cmbCountry.Clear();
-        cmbState.Clear();
-        cmbCity.Clear();
+        if (cmbCountry != null)
+            cmbCountry.Clear();
+
+        if (cmbState != null)
+        {
+            cmbState.Clear();
+            cmbState.gameObject.SetActive(false);
+        }
+
+        if (cmbCity != null)
+        {
+            cmbCity.Clear();
+            cmbCity.gameObject.SetActive(false);
+        }
+
+        if (dtmState != null)
+            dtmState.ClearRecords();
+
+        if (dtmCity != null)
+            dtmCity.ClearRecords();
     }
 
     public void RefreshCountry()
