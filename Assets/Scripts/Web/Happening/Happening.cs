@@ -4,7 +4,7 @@ public class Happening
 {
     public long Id { get; set; }
     public long PostId { get; set; }
-    public long EventTypeId { get; set; }
+    public long HappeningTypeId { get; set; }
     public long CountryId { get; set; }
     public long StateId { get; set; }
     public int IsPublic { get; set; }
@@ -20,14 +20,14 @@ public class Happening
 
     public Happening() { }
 
-    public Happening(long id, long postId, long eventTypeId, long countryId, long stateId,
+    public Happening(long id, long postId, long happeningTypeId, long countryId, long stateId,
                         int isPublic, int hasSignup, int hasPayment, String paymentDetails,
                         DateTime? startDateTime, DateTime? endDateTime, String location, double? latitude,
                         double? longitude, int status)
     {
         Id = id;
         PostId = postId;
-        EventTypeId = eventTypeId;
+        HappeningTypeId = happeningTypeId;
         CountryId = countryId;
         StateId = stateId;
         IsPublic = isPublic;
@@ -46,7 +46,7 @@ public class Happening
     {
         Id = happeningFull.Id;
         PostId = happeningFull.PostId;
-        EventTypeId = happeningFull.EventTypeId;
+        HappeningTypeId = happeningFull.HappeningTypeId;
         CountryId = happeningFull.CountryId;
         StateId = happeningFull.StateId;
         IsPublic = happeningFull.IsPublic;
@@ -63,7 +63,7 @@ public class Happening
 
     public void Update(Happening happening)
     {
-        EventTypeId = happening.EventTypeId;
+        HappeningTypeId = happening.HappeningTypeId;
         CountryId = happening.CountryId;
         StateId = happening.StateId;
         IsPublic = happening.IsPublic;
