@@ -9,492 +9,162 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3de87f6fc1759f14aa8909fd36d95640, type: 3}
+  m_Script: {fileID: 11500000, guid: da39ce696ab95824ea9721acb2aff629, type: 3}
   m_Name: ImgHpbCrdList
-  m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 11400000}
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes:
-    - Name: states
-      Entry: 7
-      Data: 0|Leap.UI.Elements.State[], Leap.UI.Elements
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 1|Leap.UI.Elements.State, Leap.UI.Elements
-    - Name: stateName
-      Entry: 1
-      Data: Normal
-    - Name: index
-      Entry: 3
-      Data: 0
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: floats
-      Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyFloat,
-        Leap.UI.Elements]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 8
-    - Name: 
-      Entry: 7
-      Data: 3|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'O: Oversize'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'O: Oversize'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 4|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Width
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'W: Card'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 5|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Height
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'H: Card'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'B: Width'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'B: Card'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 7|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'C: TopLeft'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Hpb: C: Card: List'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 8|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'C: TopRight'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Hpb: C: Card: List'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'C: BottomLeft'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Hpb: C: Card: List'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 10|Leap.UI.Elements.StylePropertyFloat, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: 'C: BottomRight'
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Hpb: C: Card: List'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DictFloats
-      Entry: 7
-      Data: 11|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyFloat,
-        Leap.UI.Elements]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 12|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 8
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'O: Oversize'
-    - Name: $v
-      Entry: 9
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Width
-    - Name: $v
-      Entry: 9
-      Data: 4
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Height
-    - Name: $v
-      Entry: 9
-      Data: 5
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'B: Width'
-    - Name: $v
-      Entry: 9
-      Data: 6
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'C: TopLeft'
-    - Name: $v
-      Entry: 9
-      Data: 7
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'C: TopRight'
-    - Name: $v
-      Entry: 9
-      Data: 8
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'C: BottomLeft'
-    - Name: $v
-      Entry: 9
-      Data: 9
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: 'C: BottomRight'
-    - Name: $v
-      Entry: 9
-      Data: 10
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: colors
-      Entry: 7
-      Data: 13|System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyColor,
-        Leap.UI.Elements]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 14|Leap.UI.Elements.StylePropertyColor, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Color
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Card: Bkg'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 15|Leap.UI.Elements.StylePropertyColor, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Border
-    - Name: ThemeProperty
-      Entry: 1
-      Data: 'Card: Border'
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DictColors
-      Entry: 7
-      Data: 16|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyColor,
-        Leap.UI.Elements]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 12
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Color
-    - Name: $v
-      Entry: 9
-      Data: 14
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Border
-    - Name: $v
-      Entry: 9
-      Data: 15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: fonts
-      Entry: 7
-      Data: 17|System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertyFont,
-        Leap.UI.Elements]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DictFonts
-      Entry: 7
-      Data: 18|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertyFont,
-        Leap.UI.Elements]], mscorlib
-    - Name: comparer
-      Entry: 9
-      Data: 12
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: sprites
-      Entry: 7
-      Data: 19|System.Collections.Generic.List`1[[Leap.UI.Elements.StylePropertySprite,
-        Leap.UI.Elements]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 20|Leap.UI.Elements.StylePropertySprite, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Sprite
-    - Name: ThemeProperty
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 21|Leap.UI.Elements.StylePropertySprite, Leap.UI.Elements
-    - Name: style
-      Entry: 10
-      Data: 0
-    - Name: ModelProperty
-      Entry: 1
-      Data: Empty
-    - Name: ThemeProperty
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: DictSprites
-      Entry: 7
-      Data: 22|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[Leap.UI.Elements.StylePropertySprite,
-        Leap.UI.Elements]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 23|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Sprite
-    - Name: $v
-      Entry: 9
-      Data: 20
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Empty
-    - Name: $v
-      Entry: 9
-      Data: 21
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  m_EditorClassIdentifier: Leap.UI.Elements::Leap.UI.Elements.Style
   type: 7
+  states:
+  - stateName: Normal
+    index: 0
+    style: {fileID: 11400000}
+    floats:
+    - style: {fileID: 11400000}
+      ModelProperty: 'O: Oversize'
+      ThemeProperty: 'O: Oversize'
+    - style: {fileID: 11400000}
+      ModelProperty: Width
+      ThemeProperty: 'W: Card'
+    - style: {fileID: 11400000}
+      ModelProperty: Height
+      ThemeProperty: 'H: Card'
+    - style: {fileID: 11400000}
+      ModelProperty: 'B: Width'
+      ThemeProperty: 'B: Card'
+    - style: {fileID: 11400000}
+      ModelProperty: 'C: TopLeft'
+      ThemeProperty: 'Hpb: C: Card: List'
+    - style: {fileID: 11400000}
+      ModelProperty: 'C: TopRight'
+      ThemeProperty: 'Hpb: C: Card: List'
+    - style: {fileID: 11400000}
+      ModelProperty: 'C: BottomLeft'
+      ThemeProperty: 'Hpb: C: Card: List'
+    - style: {fileID: 11400000}
+      ModelProperty: 'C: BottomRight'
+      ThemeProperty: 'Hpb: C: Card: List'
+    DictFloats:
+      keys:
+      - 'O: Oversize'
+      - Width
+      - Height
+      - 'B: Width'
+      - 'C: TopLeft'
+      - 'C: TopRight'
+      - 'C: BottomLeft'
+      - 'C: BottomRight'
+      values:
+      - rid: 7896456233964535968
+      - rid: 7896456233964535969
+      - rid: 7896456233964535970
+      - rid: 7896456233964535971
+      - rid: 7896456233964535972
+      - rid: 7896456233964535973
+      - rid: 7896456233964535974
+      - rid: 7896456233964535975
+    colors:
+    - style: {fileID: 11400000}
+      ModelProperty: Color
+      ThemeProperty: 'Card: Bkg'
+    - style: {fileID: 11400000}
+      ModelProperty: Border
+      ThemeProperty: 'Card: Border'
+    DictColors:
+      keys:
+      - Color
+      - Border
+      values:
+      - rid: 7896456233964535976
+      - rid: 7896456233964535977
+    fonts: []
+    DictFonts:
+      keys: []
+      values: []
+    sprites:
+    - style: {fileID: 11400000}
+      ModelProperty: Sprite
+      ThemeProperty: 
+    - style: {fileID: 11400000}
+      ModelProperty: Empty
+      ThemeProperty: 
+    DictSprites:
+      keys:
+      - Sprite
+      - Empty
+      values:
+      - rid: 7896456233964535978
+      - rid: 7896456233964535979
+  references:
+    version: 2
+    RefIds:
+    - rid: 7896456233964535968
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Oversize'
+        ThemeProperty: 'O: Oversize'
+    - rid: 7896456233964535969
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 'W: Card'
+    - rid: 7896456233964535970
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 'H: Card'
+    - rid: 7896456233964535971
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'B: Width'
+        ThemeProperty: 'B: Card'
+    - rid: 7896456233964535972
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopLeft'
+        ThemeProperty: 'Hpb: C: Card: List'
+    - rid: 7896456233964535973
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopRight'
+        ThemeProperty: 'Hpb: C: Card: List'
+    - rid: 7896456233964535974
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomLeft'
+        ThemeProperty: 'Hpb: C: Card: List'
+    - rid: 7896456233964535975
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomRight'
+        ThemeProperty: 'Hpb: C: Card: List'
+    - rid: 7896456233964535976
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Color
+        ThemeProperty: 'Card: Bkg'
+    - rid: 7896456233964535977
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Border
+        ThemeProperty: 'Card: Border'
+    - rid: 7896456233964535978
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 7896456233964535979
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Empty
+        ThemeProperty: 

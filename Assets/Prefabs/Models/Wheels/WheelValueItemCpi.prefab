@@ -53,9 +53,9 @@ MonoBehaviour:
   scrollDirection: 1
   elements:
   - elementValue: {fileID: 1047024695674107663}
-    normal: {fileID: 11400000, guid: c0dd6e2f69c27fb4688a56e90fe4103b, type: 2}
-    selected: {fileID: 11400000, guid: 2f5bec57aa7c6ec4d8d45b6c729a419a, type: 2}
---- !u!1001 &2559280901682891975
+    normal: {fileID: 0}
+    selected: {fileID: 0}
+--- !u!1001 &2370167101664289184
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -152,15 +152,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61fd48dde3036e8448c169eae6958c0f, type: 3}
---- !u!224 &2183548529420073499 stripped
+--- !u!224 &2102450752519444348 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: 61fd48dde3036e8448c169eae6958c0f, type: 3}
-  m_PrefabInstance: {fileID: 2559280901682891975}
+  m_PrefabInstance: {fileID: 2370167101664289184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8639494426441343175 stripped
+--- !u!114 &8396192295367773600 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6080354292319972352, guid: 61fd48dde3036e8448c169eae6958c0f, type: 3}
-  m_PrefabInstance: {fileID: 2559280901682891975}
+  m_PrefabInstance: {fileID: 2370167101664289184}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -292,6 +292,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -8698068912704883475, guid: 0320fa1479017914d93c19e8378562df, type: 2}
+    - target: {fileID: 4452337896743369556, guid: 1b65ebf1a70277a448271046c11c5719, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4290031276
+      objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 1b65ebf1a70277a448271046c11c5719, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
@@ -472,7 +476,7 @@ PrefabInstance:
     - target: {fileID: -215422132411155714, guid: 563c367e1f093b44da9c18964dc4c412, type: 3}
       propertyPath: cntModel
       value: 
-      objectReference: {fileID: 8639494426441343175}
+      objectReference: {fileID: 8396192295367773600}
     - target: {fileID: -215422132411155714, guid: 563c367e1f093b44da9c18964dc4c412, type: 3}
       propertyPath: modelPrefab
       value: 
@@ -578,7 +582,7 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1094026821316255048, guid: 563c367e1f093b44da9c18964dc4c412, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2183548529420073499}
+      addedObject: {fileID: 2102450752519444348}
     - targetCorrespondingSourceObject: {fileID: 1094026821316255048, guid: 563c367e1f093b44da9c18964dc4c412, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2525193597643082828}
