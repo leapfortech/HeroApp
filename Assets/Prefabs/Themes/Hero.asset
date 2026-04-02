@@ -1115,6 +1115,33 @@ MonoBehaviour:
         Reference: 0
         Value: {fileID: -4226531857434363163, guid: a95637607b17de24bbcde39cce269c4e, type: 3}
         Property: 
+    - rid: 6444589557909815668
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: MenuSdw'
+        Reference: 0
+        Value: 34
+        Property: 
+    - rid: 6444589557909815669
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: MenuSdw'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'GreyScale: E'
+    - rid: 6444589557909815670
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: MenuSdw'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Regular'
     - rid: 7896456371487375714
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -6635,6 +6662,7 @@ MonoBehaviour:
         - rid: 6444589537777942738
         - rid: 6444589537777942739
         - rid: 6444589554080678841
+        - rid: 6444589557909815668
         DictFloats:
           keys:
           - Major
@@ -6715,6 +6743,7 @@ MonoBehaviour:
           - 'HM: Card: Profile: Preview'
           - 'HM: Card: Profile: Subtitle'
           - 'HM: App: Version'
+          - 'HM: MenuSdw'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -6794,6 +6823,7 @@ MonoBehaviour:
           - rid: 6444589537777942735
           - rid: 6444589537777942734
           - rid: 6444589554080678841
+          - rid: 6444589557909815668
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -7017,6 +7047,7 @@ MonoBehaviour:
         - rid: 6444589537777942747
         - rid: 6444589537777942748
         - rid: 6444589554080678842
+        - rid: 6444589557909815669
         DictColors:
           keys:
           - Major
@@ -7241,6 +7272,7 @@ MonoBehaviour:
           - 'HM: Card: Profile: Paragraph'
           - 'HM: Card: Profile: Subtitle'
           - 'HM: App: Version'
+          - 'HM: MenuSdw'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -7464,6 +7496,7 @@ MonoBehaviour:
           - rid: 6444589537777942743
           - rid: 6444589537777942742
           - rid: 6444589554080678842
+          - rid: 6444589557909815669
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -7543,6 +7576,7 @@ MonoBehaviour:
         - rid: 6444589537777942754
         - rid: 6444589537777942755
         - rid: 6444589554080678843
+        - rid: 6444589557909815670
         DictFonts:
           keys:
           - Major
@@ -7623,6 +7657,7 @@ MonoBehaviour:
           - 'HM: Card: Profile: Paragraph'
           - 'HM: Card: Profile: Subtitle'
           - 'HM: App: Version'
+          - 'HM: MenuSdw'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -7702,6 +7737,7 @@ MonoBehaviour:
           - rid: 6444589537777942750
           - rid: 6444589537777942749
           - rid: 6444589554080678843
+          - rid: 6444589557909815670
         sprites: []
         DictSprites:
           keys: []
@@ -15464,9 +15500,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'W: Page: Header: Back'
-        Reference: 0
-        Value: 88
-        Property: 'Area: Tiny'
+        Reference: 1
+        Value: 136
+        Property: 'Area: Mini'
     - rid: 7896456371487376008
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -15789,7 +15825,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'W: Menu: Sandwich: Area'
         Reference: 0
-        Value: 128
+        Value: 240
         Property: 'Area: Roomy'
     - rid: 7896456371487376044
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -15797,8 +15833,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'W: Menu: Sandwich'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 240
         Property: 'Area: Tiny'
     - rid: 7896456371487376045
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -16004,9 +16040,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'H: Page: Header: Back'
-        Reference: 0
-        Value: 88
-        Property: 'Area: Tiny'
+        Reference: 1
+        Value: 136
+        Property: 'Area: Mini'
     - rid: 7896456371487376068
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -16257,7 +16293,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'H: Menu: Sandwich: Area'
         Reference: 0
-        Value: 128
+        Value: 114
         Property: 'Area: Roomy'
     - rid: 7896456371487376096
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -16265,8 +16301,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'H: Menu: Sandwich'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 114
         Property: 'Area: Tiny'
     - rid: 7896456371487376097
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -16843,7 +16879,7 @@ MonoBehaviour:
         Name: 'C: Page: Header: Back: TopLeft'
         Reference: 1
         Value: -50
-        Property: 'Corner: Dull'
+        Property: Zero
     - rid: 7896456371487376161
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -16852,7 +16888,7 @@ MonoBehaviour:
         Name: 'C: Page: Header: Back: TopRight'
         Reference: 1
         Value: -50
-        Property: 'Corner: Dull'
+        Property: Zero
     - rid: 7896456371487376162
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -16861,7 +16897,7 @@ MonoBehaviour:
         Name: 'C: Page: Header: Back: BottomLeft'
         Reference: 1
         Value: -50
-        Property: 'Corner: Dull'
+        Property: Zero
     - rid: 7896456371487376163
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -16870,7 +16906,7 @@ MonoBehaviour:
         Name: 'C: Page: Header: Back: BottomRight'
         Reference: 1
         Value: -50
-        Property: 'Corner: Dull'
+        Property: Zero
     - rid: 7896456371487376164
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -18741,7 +18777,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'M: Page: Next: Title: Y'
         Reference: 0
-        Value: -100
+        Value: -84
         Property: 
     - rid: 7896456371487376372
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -19740,7 +19776,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'M: Dialog: Crop: Title: Y'
         Reference: 0
-        Value: 38
+        Value: 44
         Property: 
     - rid: 7896456371522240611
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -20227,7 +20263,7 @@ MonoBehaviour:
         Name: 'I: Menu: Sandwich: Size'
         Reference: 1
         Value: 120
-        Property: 'Area: Tiny'
+        Property: 'Area: Small'
     - rid: 7896456371522240665
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -20479,7 +20515,7 @@ MonoBehaviour:
         Name: 'F: Dialog: Crop'
         Reference: 1
         Value: 0
-        Property: 'Font: Distinct'
+        Property: 'Font: Scan'
     - rid: 7896456371522240693
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -25285,7 +25321,7 @@ MonoBehaviour:
         Name: 'Dialog: Crop: Bkg: Default'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'BlackScale: C'
+        Property: 'BlackScale: A'
     - rid: 7896456371522241287
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -25294,7 +25330,7 @@ MonoBehaviour:
         Name: 'Dialog: Crop: Border: Default'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'BlackScale: C'
+        Property: 'BlackScale: A'
     - rid: 7896456371522241288
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -25375,14 +25411,14 @@ MonoBehaviour:
         Name: 'Dialog: Crop: Icon: Disabled'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: Default'
+        Property: 'GreyScale: E'
     - rid: 7896456371522241297
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
         themeElement:
           rid: 7896456371487375715
         Name: 'Dialog: Crop: Title: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
         Property: 'WhiteScale: Default'
     - rid: 7896456371522241298
@@ -25951,7 +25987,7 @@ MonoBehaviour:
         Name: 'Menu: Sandwich: Icon: Default'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: E'
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522241361
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -26642,7 +26678,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'Dialog: Crop: Title'
-        Reference: 0
+        Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Medium'
     - rid: 7896456371522241521
@@ -26651,7 +26687,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'Dialog: Crop: Title: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Medium'
     - rid: 7896456371522241522
@@ -26724,7 +26760,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'Page: Sandwich'
         Reference: 0
-        Value: {fileID: 5265411331539666565, guid: a95637607b17de24bbcde39cce269c4e, type: 3}
+        Value: {fileID: -6039079115491458498, guid: a95637607b17de24bbcde39cce269c4e, type: 3}
         Property: 
     - rid: 7896456371522241530
       type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -33689,8 +33725,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'W: Menu: Area'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 240
         Property: 'Area: Roomy'
     - rid: 7896456371522242360
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -33869,8 +33905,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'H: Menu: Area'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 114
         Property: 'Area: Roomy'
     - rid: 7896456371522242380
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -42277,7 +42313,7 @@ MonoBehaviour:
         Name: 'C: Dialog: List: TopLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Soft'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243340
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42286,7 +42322,7 @@ MonoBehaviour:
         Name: 'C: Dialog: List: TopRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Soft'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243341
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42295,7 +42331,7 @@ MonoBehaviour:
         Name: 'C: Dialog: List: BottomLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Soft'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243342
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42304,7 +42340,7 @@ MonoBehaviour:
         Name: 'C: Dialog: List: BottomRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Soft'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243343
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42313,7 +42349,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Wheel: TopLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Dull'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243344
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42322,7 +42358,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Wheel: TopRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Dull'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243345
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42331,7 +42367,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Wheel: BottomLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Dull'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243346
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42340,7 +42376,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Wheel: BottomRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Dull'
+        Property: 'Corner: Angular'
     - rid: 7896456371522243347
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42583,7 +42619,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Crop: TopLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Bowed'
+        Property: 'Corner: Arched'
     - rid: 7896456371522243374
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42592,7 +42628,7 @@ MonoBehaviour:
         Name: 'C: Dialog: Crop: TopRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Bowed'
+        Property: 'Corner: Arched'
     - rid: 7896456371522243375
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -43681,7 +43717,7 @@ MonoBehaviour:
         Name: 'Dialog: Crop: Bkg'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'BlackScale: C'
+        Property: 'BlackScale: A'
     - rid: 7896456371522243527
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -43690,7 +43726,7 @@ MonoBehaviour:
         Name: 'Dialog: Crop: Border'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'BlackScale: C'
+        Property: 'BlackScale: A'
     - rid: 7896456371522243528
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
