@@ -1,89 +1,65 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.Events;
-using ULayoutElement = UnityEngine.UI.LayoutElement;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-using Leap.UI.Elements;
-using Leap.UI.Page;
-using Leap.UI.Dialog;
-using MPUIKIT;
 
 public class StepProgressAction : MonoBehaviour
 {
-    [Space]
+    [Header("UI References")]
     [SerializeField]
-    public int totalStage = 5;
-    [SerializeField]
-    public int countStep = 3;
+    RectTransform segmentsContainer;
 
-    [Header("Points")]
     [SerializeField]
-    public RectTransform points;
-    [Space]
+    GameObject segmentOnPrefab;
     [SerializeField]
-    public GameObject leftPointPrefab;
-    [SerializeField]
-    public GameObject centerPointPrefab;
-    [SerializeField]
-    public GameObject rightPointPrefab;
-    [Space]
-    [SerializeField]
-    public GameObject fullPointPrefab;
-    [SerializeField]
-    public GameObject currentPointPrefab;
-    [SerializeField]
-    public GameObject pendingPointPrefab;
+    GameObject segmentOffPrefab;
 
-    [Header("Steps")]
+    [Header("Layout")]
     [SerializeField]
-    MPImage imgStep = null;
-    [SerializeField]
-    Text txtCurrentStep = null;
-    [SerializeField]
-    Text txtCountStep = null;
+    int totalSteps = 5;
 
-    public void DisplayStage(int currentStage)
+    [SerializeField]
+    float segmentSpacing = 10f;
+
+    public void DisplayStep(int currentStep)
     {
-        imgStep.fillAmount = (float)currentStage/totalStage;
-        txtCurrentStep.TextValue = currentStage.ToString();
-        txtCountStep.TextValue = countStep.ToString();
+        totalSteps = Mathf.Max(1, totalSteps);
+        currentStep = Mathf.Clamp(currentStep, 1, totalSteps);
+
+        BuildSegments(currentStep);
     }
 
-
-    public void DisplaySteps(int currentStep)
+    private void BuildSegments(int currentStep)
     {
-        foreach (Transform child in points)
+        foreach (Transform child in segmentsContainer)
             Destroy(child.gameObject);
 
-        if (countStep < 2)
-            return;
+        HorizontalLayoutGroup layout = segmentsContainer.GetComponent<HorizontalLayoutGroup>();
 
-        ULayoutElement leftPoint = Instantiate(leftPointPrefab, points).GetComponent<ULayoutElement>();
-        leftPoint.preferredWidth = points.sizeDelta.x / ((countStep - 1) * 2);
-        InstantiatePoint(1, currentStep, leftPoint.transform.GetChild(0));
+        if (layout != null)
+            layout.spacing = segmentSpacing;
 
-        for (int i = 2; i <= countStep - 1; i++)
+        for (int i = 1; i <= totalSteps; i++)
         {
-            ULayoutElement centerPoint = Instantiate(centerPointPrefab, points).GetComponent<ULayoutElement>();
-            InstantiatePoint(i, currentStep, centerPoint.transform);
+            bool isCurrent = i == currentStep;
+
+            GameObject prefabToUse = isCurrent ? segmentOnPrefab : segmentOffPrefab;
+
+            GameObject segment = Instantiate(prefabToUse, segmentsContainer);
+
+            LayoutElement layoutElement = segment.GetComponent<LayoutElement>();
+
+            if (layoutElement == null)
+                layoutElement = segment.AddComponent<LayoutElement>();
+
+            layoutElement.flexibleWidth = 1;
+
+            if (isCurrent)
+            {
+                Leap.UI.Elements.Text txtStep = segment.GetComponentInChildren<Leap.UI.Elements.Text>();
+
+                if (txtStep != null)
+                    txtStep.TextValue = $"Paso {currentStep}";
+            }
         }
-
-        ULayoutElement rightPoint = Instantiate(rightPointPrefab, points).GetComponent<ULayoutElement>();
-        rightPoint.preferredWidth = leftPoint.preferredWidth;
-        InstantiatePoint(countStep, currentStep, rightPoint.transform.GetChild(0));
-    }
-
-    private GameObject InstantiatePoint(int idx, int step, Transform trf)
-    {
-        if (idx < step)
-            return Instantiate(fullPointPrefab, trf);
-
-        if (idx == step)
-            return Instantiate(currentPointPrefab, trf);
-
-        return Instantiate(pendingPointPrefab, trf);
-
-        
     }
 }
-
