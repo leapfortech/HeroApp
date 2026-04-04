@@ -6,10 +6,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
 using Leap.Data.Web;
-using Leap.Data.Mapper;
 
-using Sirenix.OdinInspector;
-using Leap.Graphics.Tools;
 
 
 public class RegisterAction : MonoBehaviour
@@ -39,16 +36,6 @@ public class RegisterAction : MonoBehaviour
     [SerializeField]
     Toggle chkTerms = null;
 
-    [SerializeField]
-    Image imgPortrait = null;
-
-    [Title("Data")]
-    [SerializeField]
-    DataMapper dtmIdentity = null;
-
-    [SerializeField]
-    DataMapper dtmAddress = null;
-
     [Header("Action")]
     [SerializeField]
     Button btnRegister = null;
@@ -66,28 +53,17 @@ public class RegisterAction : MonoBehaviour
 
     [Space]
     [SerializeField, TextArea(2, 5)]
-    String aliasInvalidMessage = "Alias inválido.";
-    [SerializeField, TextArea(2, 5)]
-    String aliasAlreadyExistsMessage = "El Alias ya existe.";
-    [SerializeField, TextArea(2, 5)]
     String verifyError = "Unable to send the activation email. Please try again.";
     [SerializeField, TextArea(2, 5)]
     String passwordError = "The password fields do not match. Please enter them again.";
-    [SerializeField, TextArea(2, 4)]
-    String birthDateError = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
-    [SerializeField, TextArea(2, 4)]
-    String minorError = "No se permite el registro de menores de edad.";
 
-    AppUserService appUserService;
     AccessService accessService;
     WebSysUserService webSysUserService;
     ElementValue[] elementValues = null;
 
-    bool isAliasAvailable = false;
 
     private void Awake()
     {
-        appUserService = GetComponent<AppUserService>();
         accessService = GetComponent<AccessService>();
         webSysUserService = GetComponent<WebSysUserService>();
     }
@@ -102,12 +78,11 @@ public class RegisterAction : MonoBehaviour
         if (elementValues != null)
             return;
 
-        elementValues = new ElementValue[5];
-        elementValues[0] = ifdAlias;
-        elementValues[1] = ifdEmail;
-        elementValues[2] = ifdPassword;
-        elementValues[3] = ifdConfirm;
-        elementValues[4] = chkTerms;
+        elementValues = new ElementValue[4];
+        elementValues[0] = ifdEmail;
+        elementValues[1] = ifdPassword;
+        elementValues[2] = ifdConfirm;
+        elementValues[3] = chkTerms;
 
         btnRegister?.AddAction(Register);
         btnResendLink?.AddAction(ResendMailLink);
@@ -118,9 +93,6 @@ public class RegisterAction : MonoBehaviour
         Clear();
         if (cmbPhonePrefix.Combo.IsEmpty())
             cmbPhonePrefix.Select(2);
-
-        isAliasAvailable = false;
-        RefreshRegisterButton();
     }
 
     public void Clear()
@@ -135,48 +107,10 @@ public class RegisterAction : MonoBehaviour
        for (int i = 0; i < elementValues.Length; i++)
             elementValues[i].Clear();
 
-        dtmIdentity.ClearElements();
-        dtmAddress.ClearElements();
-        imgPortrait.ClearValue();
         ifdPhone.ClearValue();
         cmbPhonePrefix.Select(2);
     }
 
-    // Alias
-
-    public void ValidateAlias()
-    {
-        if (ifdAlias.Text.Length == 0)
-        {
-            ChoiceDialog.Instance.Error("Alias", aliasInvalidMessage);
-            return;
-        }
-        
-        ScreenDialog.Instance.Display();
-        FirebaseManager.Instance.LoginStartToken(DoValidateAlias, null);
-    }
-
-    private void DoValidateAlias(String _)
-    {
-        appUserService.ValidateAlias(new AliasRequest(ifdAlias.Text));
-    }
-
-    public void ApplyAliasValidation(AliasResponse aliasResponse)
-    {
-        isAliasAvailable = (aliasResponse == null || aliasResponse.Email == null);
-
-        if (!isAliasAvailable)
-            ChoiceDialog.Instance.Error("Alias", aliasAlreadyExistsMessage);
-        else
-            RefreshRegisterButton();
-   
-        ScreenDialog.Instance.Hide();
-    }
-
-    public void RefreshRegisterButton()
-    {
-        btnRegister.Interactable = isAliasAvailable;
-    }
 
     // Register
 
@@ -200,31 +134,9 @@ public class RegisterAction : MonoBehaviour
 
     private void DoRegister(String _)
     {
-        Identity identity = dtmIdentity.BuildClass<Identity>();
-
-        if (identity.BirthDate == new DateTime(0001, 1, 1))
-        {
-            ChoiceDialog.Instance.Error("Error de fecha", birthDateError);
-            return;
-        }
-
-        if (CalculateAge(identity.BirthDate) < 18)
-        {
-            ChoiceDialog.Instance.Error("Error de fecha", minorError);
-            return;
-        }
-
-        Address address = dtmAddress.BuildClass<Address>();
-
-        String portrait = null;
-       
-        if (imgPortrait != null) 
-            portrait = imgPortrait.Sprite != null ? imgPortrait.Sprite.ToStrBase64(ImageType.JPG) : "";
-
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
                                                          cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
-                                                         ifdReferredCode.Text,
-                                                         new IdentityRegister(identity, portrait), address));
+                                                         ifdReferredCode.Text, null, null));
     }
 
     // Send Mail Link
@@ -272,16 +184,5 @@ public class RegisterAction : MonoBehaviour
     public void VerifyErrorMessage()
     {
         ChoiceDialog.Instance.Info("Registro", verifyError);
-    }
-
-    public int CalculateAge(DateTime birthDate)
-    {
-        int age = DateTime.Today.Year - birthDate.Year;
-
-        if (DateTime.Today.Month < birthDate.Month)
-            --age;
-        else if (DateTime.Today.Month == birthDate.Month && DateTime.Today.Day < birthDate.Day)
-            --age;
-        return age;
     }
 }
