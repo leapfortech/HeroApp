@@ -26,6 +26,9 @@ public class LoginAction : MonoBehaviour
     [SerializeField]
     Text txtLoginVersion = null;
 
+    [SerializeField]
+    Text txtSupportVersion = null;
+
     [Title("Fields")]
     [SerializeField]
     InputField ifdEmail = null;
@@ -145,7 +148,7 @@ public class LoginAction : MonoBehaviour
 
     public void DisplayVersion()
     {
-        txtStartVersion.TextValue = txtLoginVersion.TextValue = "v " + Application.version + envVersion[WebManager.Instance.EnvironmentId];
+        txtStartVersion.TextValue = txtSupportVersion.TextValue = txtLoginVersion.TextValue = "v " + Application.version + envVersion[WebManager.Instance.EnvironmentId];
     }
 
     private void Start()
