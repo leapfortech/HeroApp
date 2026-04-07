@@ -4,7 +4,7 @@ public class Post
 {
     public long Id { get; set; }
     public long AppUserId { get; set; }
-    public long PostSubtypeId { get; set; }
+    public long PostTypeId { get; set; }
     public long CountryId { get; set; }
     public long StateId { get; set; }
     public String Title { get; set; }
@@ -19,14 +19,14 @@ public class Post
 
     public Post() { }
 
-    public Post(long id, long appUserId, long postSubtypeId, long countryId,
+    public Post(long id, long appUserId, long postTypeId, long countryId,
                 long stateId, String title, String summary, String description, int imageCount,
                 int likeCount, DateTime publicationDateTime, DateTime? approvalDateTime,
                 DateTime? expirationDateTime, int status)
     {
         Id = id;
         AppUserId = appUserId;
-        PostSubtypeId = postSubtypeId;
+        PostTypeId = postTypeId;
         CountryId = countryId;
         StateId = stateId;
         Title = title;
@@ -44,7 +44,7 @@ public class Post
     {
         Id = taleFull.PostId;
         AppUserId = taleFull.AppUserId;
-        PostSubtypeId = taleFull.PostSubtypeId;
+        PostTypeId = taleFull.PostSubtypeId;
         CountryId = taleFull.PostCountryId;
         StateId = taleFull.PostStateId;
         Title = taleFull.Title;
@@ -62,7 +62,7 @@ public class Post
     {
         Id = recipeFull.PostId;
         AppUserId = recipeFull.AppUserId;
-        PostSubtypeId = recipeFull.PostSubtypeId;
+        PostTypeId = recipeFull.PostSubtypeId;
         CountryId = recipeFull.PostCountryId;
         StateId = recipeFull.PostStateId;
         Title = recipeFull.Title;
@@ -80,7 +80,7 @@ public class Post
     {
         Id = treatmentFull.PostId;
         AppUserId = treatmentFull.AppUserId;
-        PostSubtypeId = treatmentFull.PostSubtypeId;
+        PostTypeId = treatmentFull.PostSubtypeId;
         CountryId = treatmentFull.PostCountryId;
         StateId = treatmentFull.PostStateId;
         Title = treatmentFull.Title;
@@ -98,7 +98,7 @@ public class Post
     {
         Id = radioFull.PostId;
         AppUserId = radioFull.AppUserId;
-        PostSubtypeId = radioFull.PostSubtypeId;
+        PostTypeId = radioFull.PostSubtypeId;
         CountryId = radioFull.PostCountryId;
         StateId = radioFull.PostStateId;
         Title = radioFull.Title;
@@ -116,7 +116,7 @@ public class Post
     {
         Id = productFull.PostId;
         AppUserId = productFull.AppUserId;
-        PostSubtypeId = productFull.PostSubtypeId;
+        PostTypeId = productFull.PostSubtypeId;
         CountryId = productFull.PostCountryId;
         StateId = productFull.PostStateId;
         Title = productFull.Title;
@@ -134,7 +134,7 @@ public class Post
     {
         Id = happeningFull.PostId;
         AppUserId = happeningFull.AppUserId;
-        PostSubtypeId = happeningFull.PostSubtypeId;
+        PostTypeId = happeningFull.PostSubtypeId;
         CountryId = happeningFull.PostCountryId;
         StateId = happeningFull.PostStateId;
         Title = happeningFull.Title;
@@ -152,7 +152,7 @@ public class Post
     {
         Id = newsFull.PostId;
         AppUserId = newsFull.AppUserId;
-        PostSubtypeId = newsFull.PostSubtypeId;
+        PostTypeId = newsFull.PostSubtypeId;
         CountryId = newsFull.PostCountryId;
         StateId = newsFull.PostStateId;
         Title = newsFull.Title;
@@ -170,7 +170,7 @@ public class Post
     {
         Id = puzzleFull.PostId;
         AppUserId = puzzleFull.AppUserId;
-        PostSubtypeId = puzzleFull.PostSubtypeId;
+        PostTypeId = puzzleFull.PostSubtypeId;
         CountryId = puzzleFull.PostCountryId;
         StateId = puzzleFull.PostStateId;
         Title = puzzleFull.Title;
