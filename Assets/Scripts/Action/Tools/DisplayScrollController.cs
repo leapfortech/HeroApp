@@ -14,8 +14,16 @@ public class DisplayScrollController : MonoBehaviour
     public RectTransform content;
 
     [Header("Indicators")]
-    [SerializeField] RectTransform pillPrefab;
-    [SerializeField] Transform pillParent;
+    [SerializeField]
+    RectTransform pillPrefab;
+    [SerializeField]
+    Transform pillParent;
+
+    [Header("Config")]
+    [SerializeField]
+    Leap.UI.Elements.Button btnNext = null;
+    [SerializeField]
+    Leap.UI.Elements.Button btnPrev = null;  
 
     [Header("Config")]
     public float animTime = 0.25f;
@@ -48,6 +56,7 @@ public class DisplayScrollController : MonoBehaviour
         }
 
         SetPage(0, false);
+        UpdateButtons();
     }
 
     void Update()
@@ -96,13 +105,24 @@ public class DisplayScrollController : MonoBehaviour
 
         int oldIndex = currentPage;
         currentPage = index;
+        UpdateButtons();
 
-        UpdateIndicators(oldIndex, currentPage);
+        if (pillPrefab != null && pillParent != null)
+            UpdateIndicators(oldIndex, currentPage);
 
         if (animated)
             StartCoroutine(AnimateScroll(index));
         else
             SetScrollInstant(index);
+    }
+
+    void UpdateButtons()
+    {
+        if (btnPrev != null)
+            btnPrev.Interactable = currentPage > 0;
+
+        if (btnNext != null)
+            btnNext.Interactable = currentPage < pageCount - 1;
     }
 
     IEnumerator AnimateScroll(int page)
