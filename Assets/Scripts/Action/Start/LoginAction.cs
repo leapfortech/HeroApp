@@ -63,6 +63,9 @@ public class LoginAction : MonoBehaviour
     [SerializeField]
     Page homePage = null;
 
+    [SerializeField]
+    Page obdPage = null;
+
 #pragma warning disable 0414
     [Title("Biometrics")]
     [SerializeField]
@@ -441,6 +444,16 @@ public class LoginAction : MonoBehaviour
     {
         Clear();
         GetLoginAppInfo();
+    }
+
+    public void ChangeToStartPage()
+    {
+        long obdStatus = (StateManager.Instance.AppUser.Options / (long)Math.Pow(10, 0)) % 10;
+
+        if (obdStatus == 1)
+            PageManager.Instance.ChangePage(obdPage);
+        else
+            ChangeToHomePage();
     }
 
     public void ChangeToHomePage()

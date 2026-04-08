@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 public class Identity
 {
-    public long Id { get; set; }
+    public long Id { get; set; } = -1;
     [ShowInInspector]
     public String FirstName1 { get; set; }
     [ShowInInspector]
@@ -15,15 +15,15 @@ public class Identity
     [ShowInInspector]
     public String LastName2 { get; set; }
     [ShowInInspector]
-    public long GenderId { get; set; }
+    public long GenderId { get; set; } = -1;
     [ShowInInspector]
     public DateTime BirthDate { get; set; }
     [ShowInInspector]
-    public long OriginCountryId { get; set; }
+    public long OriginCountryId { get; set; } = -1;
     [ShowInInspector]
-    public long OriginStateId { get; set; }
+    public long OriginStateId { get; set; } = -1;
     [ShowInInspector]
-    public long PhoneCountryId { get; set; }
+    public long PhoneCountryId { get; set; } = -1;
     [ShowInInspector]
     public String Phone { get; set; }
     [ShowInInspector]
