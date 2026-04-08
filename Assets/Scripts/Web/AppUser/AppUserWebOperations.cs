@@ -164,3 +164,14 @@ public class LocalityPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String localityId;
 }
+
+[HttpDELETE]
+[HttpPathExt(WebServiceType.Main, "/appUser/Portrait")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpFirebaseAuthorization]
+public class PortraitDeleteOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long appUserId;
+}

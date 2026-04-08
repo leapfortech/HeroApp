@@ -53,6 +53,9 @@ public class AppUserService : MonoBehaviour
     [SerializeField]
     private UnityLongEvent onLocalityUpdated = null;
 
+    [SerializeField]
+    private UnityEvent onPortraitDeleted = null;
+
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
@@ -288,6 +291,28 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             localityPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // DELETE
+    public void DeletePortrait(long appUserId)
+    {
+        PortraitDeleteOperation portraitDeleteOp = new PortraitDeleteOperation();
+        try
+        {
+            portraitDeleteOp.appUserId = appUserId;
+            portraitDeleteOp["on-complete"] = (Action<PortraitDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPortraitDeleted.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            portraitDeleteOp.Send();
         }
         catch (Exception ex)
         {

@@ -1,33 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
-using Leap.UI.Page;
 using Leap.UI.Dialog;
+using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
 
 public class PortraitUpdateAction : MonoBehaviour
 {
-    [Title("Portrait")]
-    [SerializeField]
-    Image imgPortrait = null;
-
     [Title("Action")]
     [SerializeField]
-    Button btnUpdate = null;
-
-    [Space]
-    [Title("NextPage")]
-    [SerializeField]
-    Page pagNext = null;
-
-    [Title("Message")]
-    [SerializeField, TextArea(2, 4)]
-    String updatedMessage = "La información fue guardada exitosamente.";
+    Button btnDelete = null;
 
     AppUserService appUserService = null;
+    Sprite sptPortrait = null;
 
     private void Awake()
     {
@@ -36,44 +23,38 @@ public class PortraitUpdateAction : MonoBehaviour
 
     private void Start()
     {
-        btnUpdate?.AddAction(DoUpdate);
+        btnDelete?.AddAction(DoDelete);
     }
 
-    public void Clear()
+    public void DoDelete()
     {
-        imgPortrait.Clear();
+        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?", () => Delete(), null, "Sí", "No");
     }
 
-    public void DoUpdate()
+    public void Delete()
     {
-        if (!PortraitChanged())
-        {
-            ChoiceDialog.Instance.Info("Sin cambios", "No se detectaron cambios en la imagen.");
-            return;
-        }
-
         ScreenDialog.Instance.Display();
-        appUserService.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
+        appUserService.DeletePortrait(StateManager.Instance.AppUser.Id);
+    }
+
+    public void ApplyDelete()
+    {
+        StateManager.Instance.Portrait = null;
+        ScreenDialog.Instance.Hide();
+    }
+
+    public void DoUpdate(Texture2D portrait)
+    {
+        ScreenDialog.Instance.Display();
+
+        sptPortrait = portrait.CreateSprite("Portrait");
+
+        appUserService.UpdatePortrait(StateManager.Instance.AppUser.Id, portrait.ToStrBase64(ImageType.JPG));
     }
 
     public void ApplyPortrait()
     {
-        StateManager.Instance.Portrait = imgPortrait.Sprite;
-
-        ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
-    }
-
-    private bool PortraitChanged()
-    {
-        Sprite current = imgPortrait.Sprite;
-        Sprite stored = StateManager.Instance.Portrait;
-
-        if (current == null && stored == null)
-            return false;
-
-        if (current == null || stored == null)
-            return true;
-
-        return current.texture != stored.texture;
+        StateManager.Instance.Portrait = sptPortrait;
+        ScreenDialog.Instance.Hide();
     }
 }

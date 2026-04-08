@@ -474,7 +474,7 @@ public class LoginAction : MonoBehaviour
         StateManager.Instance.ReferredCount = loginAppInfo.ReferredCount;
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
-        StateManager.Instance.Portrait = loginAppInfo.Portrait.CreateSprite("Portrait");
+        StateManager.Instance.Portrait = loginAppInfo.Portrait != null ? loginAppInfo.Portrait.CreateSprite("Portrait") : null;
         StateManager.Instance.InterestLocality = loginAppInfo.InterestLocality;
         StateManager.Instance.CurrentLocality = loginAppInfo.CurrentLocality;
         StateManager.Instance.Card = loginAppInfo.Card;  // loginData.Card.Id == 0 ? null : loginData.Card;

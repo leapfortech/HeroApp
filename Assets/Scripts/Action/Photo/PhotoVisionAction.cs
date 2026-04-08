@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
@@ -11,6 +12,9 @@ using System;
 
 public class PhotoVisionAction : MonoBehaviour
 {
+    [Serializable]
+    public class PhotoEvent : UnityEvent<Texture2D> { }
+
     [Title("Param")]
     [SerializeField]
     String spriteName = null;
@@ -33,9 +37,14 @@ public class PhotoVisionAction : MonoBehaviour
 
     [Space]
     [SerializeField]
+    private PhotoEvent onPhotoTaken = null;
+
+    [Space]
+    [SerializeField]
     Page nextPage = null;
 
     Texture2D photo = null;
+    int captureType = 0; 
 
     private void Start()
     {
@@ -46,6 +55,7 @@ public class PhotoVisionAction : MonoBehaviour
 
     public void SearchPhoto()
     {
+        captureType = 2;
         GalleryDialog.Instance.Search(gallerySize, false, ApplyPhoto); // new Vector2(0.588f, 1.7f));  // new Vector2(0.625f, 1.6f));
     }
 
@@ -66,6 +76,7 @@ public class PhotoVisionAction : MonoBehaviour
 
     private void Take()
     {
+        captureType = 1;
         ApplyPhoto(webCamera.TakePause());
     }
 
@@ -79,7 +90,10 @@ public class PhotoVisionAction : MonoBehaviour
 
         CreateSprites();
 
-        PageManager.Instance.ChangePage(nextPage);
+        onPhotoTaken.Invoke(photo);
+
+        if (captureType == 1)
+            PageManager.Instance.ChangePage(nextPage);
     }
 
     private void CreateSprites()
