@@ -35,6 +35,14 @@ public class StateManager : SingletonBehaviour<StateManager>
 
     [PropertySpace]
     [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
+    public Locality InterestLocality { get; set; } = null;
+
+    [PropertySpace]
+    [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
+    public Locality CurrentLocality { get; set; } = null;
+
+    [PropertySpace]
+    [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
     public Card Card { get; set; } = null;
 
     private Sprite portrait = null;

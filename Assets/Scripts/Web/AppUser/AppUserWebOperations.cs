@@ -51,6 +51,21 @@ public class ValidateAliasPostOperation : HttpOperation
     public AliasResponse aliasResponse;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/appUser/RegisterLocality")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class LocalityPostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public LocalityRequest localityRequest;
+
+    [HttpResponseJsonBody]
+    public LocalityResponse localityResponse;
+}
+
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/appUser")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -133,4 +148,19 @@ public class PortraitPutOperation : HttpOperation
 
     [HttpRequestTextBody]
     public String portrait;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/appUser/UpdateLocality")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class LocalityPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Locality locality;
+
+    [HttpResponseTextBody]
+    public String localityId;
 }

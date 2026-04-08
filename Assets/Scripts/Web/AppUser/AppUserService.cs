@@ -17,11 +17,17 @@ public class AppUserService : MonoBehaviour
     [Serializable]
     public class AliasResponseEvent : UnityEvent<AliasResponse> { }
 
+    [Serializable]
+    public class LocalityResponseEvent : UnityEvent<LocalityResponse> { }
+
     [SerializeField]
     private AppUserEvent onAppUserRetreived = null;
 
     [SerializeField]
     private UnityStringEvent onPortraitRetreived = null;
+
+    [SerializeField]
+    private LocalityResponseEvent onLocalityRegistered = null;
 
     [SerializeField]
     private UnityEvent onUpdated = null;
@@ -43,6 +49,9 @@ public class AppUserService : MonoBehaviour
 
     [SerializeField]
     private UnityEvent onPortraitUpdated = null;
+
+    [SerializeField]
+    private UnityLongEvent onLocalityUpdated = null;
 
     [Title("Error")]
     [SerializeField]
@@ -70,6 +79,28 @@ public class AppUserService : MonoBehaviour
         }
     }
 
+    public void GetPortrait(long appUserId)
+    {
+        PortraitAppUserGetOperation portraitAppUserGetOp = new PortraitAppUserGetOperation();
+        try
+        {
+            portraitAppUserGetOp.appUserId = appUserId;
+            portraitAppUserGetOp["on-complete"] = (Action<PortraitAppUserGetOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPortraitRetreived.Invoke(op.portrait);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            portraitAppUserGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    
     public void ValidateAlias(AliasRequest aliasRequest)
     {
         ValidateAliasPostOperation validateAliasPostOp = new ValidateAliasPostOperation();
@@ -91,20 +122,20 @@ public class AppUserService : MonoBehaviour
         }
     }
 
-    public void GetPortrait(long appUserId)
+    public void RegisterLocality(LocalityRequest localityRequest)
     {
-        PortraitAppUserGetOperation portraitAppUserGetOp = new PortraitAppUserGetOperation();
+        LocalityPostOperation localityPostOp = new LocalityPostOperation();
         try
         {
-            portraitAppUserGetOp.appUserId = appUserId;
-            portraitAppUserGetOp["on-complete"] = (Action<PortraitAppUserGetOperation, HttpResponse>)((op, response) =>
+            localityPostOp.localityRequest = localityRequest;
+            localityPostOp["on-complete"] = (Action<LocalityPostOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onPortraitRetreived.Invoke(op.portrait);
+                    onLocalityRegistered.Invoke(op.localityResponse);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            portraitAppUserGetOp.Send();
+            localityPostOp.Send();
         }
         catch (Exception ex)
         {
@@ -236,6 +267,27 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             portraitPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void UpdateLocality(Locality locality)
+    {
+        LocalityPutOperation localityPutOp = new LocalityPutOperation();
+        try
+        {
+            localityPutOp.locality = locality;
+            localityPutOp["on-complete"] = (Action<LocalityPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onLocalityUpdated.Invoke(Convert.ToInt64(op.localityId));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            localityPutOp.Send();
         }
         catch (Exception ex)
         {
