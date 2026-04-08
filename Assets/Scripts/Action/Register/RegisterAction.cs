@@ -136,7 +136,7 @@ public class RegisterAction : MonoBehaviour
     {
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
                                                          cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
-                                                         ifdReferredCode.Text, null, null));
+                                                         ifdReferredCode.Text));
     }
 
     // Send Mail Link

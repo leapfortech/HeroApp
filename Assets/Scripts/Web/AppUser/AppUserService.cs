@@ -21,6 +21,9 @@ public class AppUserService : MonoBehaviour
     private AppUserEvent onAppUserRetreived = null;
 
     [SerializeField]
+    private UnityStringEvent onPortraitRetreived = null;
+
+    [SerializeField]
     private UnityEvent onUpdated = null;
 
     [SerializeField]
@@ -37,6 +40,9 @@ public class AppUserService : MonoBehaviour
 
     [SerializeField]
     private AliasResponseEvent onAliasValidated = null;
+
+    [SerializeField]
+    private UnityEvent onPortraitUpdated = null;
 
     [Title("Error")]
     [SerializeField]
@@ -78,6 +84,27 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             validateAliasPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void GetPortrait(long appUserId)
+    {
+        PortraitAppUserGetOperation portraitAppUserGetOp = new PortraitAppUserGetOperation();
+        try
+        {
+            portraitAppUserGetOp.appUserId = appUserId;
+            portraitAppUserGetOp["on-complete"] = (Action<PortraitAppUserGetOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPortraitRetreived.Invoke(op.portrait);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            portraitAppUserGetOp.Send();
         }
         catch (Exception ex)
         {
@@ -187,6 +214,28 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             referredPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void UpdatePortrait(long appUserId, String portrait)
+    {
+        PortraitPutOperation portraitPutOp = new PortraitPutOperation();
+        try
+        {
+            portraitPutOp.appUserId = appUserId;
+            portraitPutOp.portrait = "\"" + portrait + "\"";
+            portraitPutOp["on-complete"] = (Action<PortraitPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPortraitUpdated.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            portraitPutOp.Send();
         }
         catch (Exception ex)
         {

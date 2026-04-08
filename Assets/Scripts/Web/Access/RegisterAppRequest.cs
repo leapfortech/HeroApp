@@ -8,8 +8,7 @@ public class RegisterAppRequest
     public long PhoneCountryId { get; set; }
     public String Phone { get; set; }
     public String ReferredCode { get; set; }
-    public IdentityRegister IdentityRegister { get; set; }
-    public Address Address { get; set; }
+
 
 
     public RegisterAppRequest()
@@ -17,8 +16,7 @@ public class RegisterAppRequest
     }
 
     public RegisterAppRequest(String alias, String email, String password, long phoneCountryId,
-                              String phone, String referredCode, IdentityRegister identityRegister,
-                              Address address)
+                              String phone, String referredCode)
     {
         Alias = alias;
         Email = email;
@@ -26,7 +24,5 @@ public class RegisterAppRequest
         PhoneCountryId = phoneCountryId;
         Phone = phone;
         ReferredCode = referredCode;
-        IdentityRegister = identityRegister;
-        Address = address;
     }
 }

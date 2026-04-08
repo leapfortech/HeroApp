@@ -100,7 +100,26 @@ public class AddressService : MonoBehaviour
     }
 
     // UPDATE
-
+    public void UpdateCity(AddressCity addressCity)
+    {
+        CityPutOperation cityPutOp = new CityPutOperation();
+        try
+        {
+            cityPutOp.addressCity = addressCity;
+            cityPutOp["on-complete"] = (Action<CityPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(Convert.ToInt64(op.id));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            cityPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
     public void UpdateAddress(long appUserId, Address address)
     {
         AddressPutOperation addressPutOp = new AddressPutOperation();

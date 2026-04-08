@@ -38,20 +38,6 @@ public class IdentityAppUserGetOperation : HttpOperation
     public Identity identity;
 }
 
-[HttpGET]
-[HttpPathExt(WebServiceType.Main, "/identity/PortraitByAppUserId")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class PortraitAppUserGetOperation : HttpOperation
-{
-    [HttpQueryString]
-    public long appUserId;
-
-    [HttpResponseTextBody]
-    public String portrait;
-}
-
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/identity/Register")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -61,7 +47,37 @@ public class PortraitAppUserGetOperation : HttpOperation
 public class IdentityRegisterPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public IdentityRegister identityRegister;
+    public Identity identity;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/identity/Personal")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class PersonalPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public IdentityPersonal identityPersonal;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/identity/Origin")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class OriginPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public IdentityOrigin identityOrigin;
 
     [HttpResponseTextBody]
     public String id;
@@ -82,18 +98,4 @@ public class IdentityPutOperation : HttpOperation
 
     [HttpResponseTextBody]
     public String id;
-}
-
-[HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity/Portrait")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpFirebaseAuthorization]
-public class PortraitPutOperation : HttpOperation
-{
-    [HttpQueryString]
-    public long appUserId;
-
-    [HttpRequestTextBody]
-    public String portrait;
 }

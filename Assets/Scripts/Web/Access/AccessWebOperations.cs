@@ -56,3 +56,18 @@ public class AccessRegisterAppPostOperation : HttpOperation
     [HttpResponseTextBody]
     public String registerResponse;
 }
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/access/Onboarding")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class OnboardingPostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public OnboardingRequest onboardingRequest;
+
+    [HttpResponseJsonBody]
+    public OnboardingResponse onboardingResponse;
+}

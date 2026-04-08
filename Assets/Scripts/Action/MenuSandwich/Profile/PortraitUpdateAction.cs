@@ -27,11 +27,11 @@ public class PortraitUpdateAction : MonoBehaviour
     [SerializeField, TextArea(2, 4)]
     String updatedMessage = "La información fue guardada exitosamente.";
 
-    IdentityService identityService = null;
+    AppUserService appUserService = null;
 
     private void Awake()
     {
-        identityService = GetComponent<IdentityService>();
+        appUserService = GetComponent<AppUserService>();
     }
 
     private void Start()
@@ -53,7 +53,7 @@ public class PortraitUpdateAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        identityService.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
+        appUserService.UpdatePortrait(StateManager.Instance.AppUser.Id, imgPortrait.Sprite.ToStrBase64(ImageType.JPG));
     }
 
     public void ApplyPortrait()

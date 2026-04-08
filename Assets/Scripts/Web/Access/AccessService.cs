@@ -18,6 +18,9 @@ public class AccessService : MonoBehaviour
     [Serializable]
     public class UnityLoginAppDataEvent : UnityEvent<LoginAppInfo> { }
 
+    [Serializable]
+    public class OnboardingEvent : UnityEvent<OnboardingResponse> { }
+
     [Space]
     [SerializeField]
     private UnityLoginEvent onLogged = null;
@@ -27,6 +30,9 @@ public class AccessService : MonoBehaviour
 
     [SerializeField]
     private UnityStringEvent onRegisteredApp = null;
+
+    [SerializeField]
+    private OnboardingEvent onOnboardingRegistered = null;
 
     [Title("Error")]
     [SerializeField]
@@ -91,6 +97,27 @@ public class AccessService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             registerAppPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void Onboarding(OnboardingRequest onboardingRequest)
+    {
+        OnboardingPostOperation onboardingPostOp = new OnboardingPostOperation();
+        try
+        {
+            onboardingPostOp.onboardingRequest = onboardingRequest;
+            onboardingPostOp["on-complete"] = (Action<OnboardingPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onOnboardingRegistered.Invoke(op.onboardingResponse);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            onboardingPostOp.Send();
         }
         catch (Exception ex)
         {

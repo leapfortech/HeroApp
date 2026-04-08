@@ -61,6 +61,21 @@ public class AddressPostOperation : HttpOperation
 
 // UPDATE
 [HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/address/City")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class CityPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public AddressCity addressCity;
+
+    [HttpResponseTextBody]
+    public String id;
+}
+
+[HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/address/ByAppUser")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]

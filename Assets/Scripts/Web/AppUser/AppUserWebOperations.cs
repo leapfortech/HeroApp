@@ -22,6 +22,20 @@ public class AppUserGetOperation : HttpOperation
     public AppUser appUser;
 }
 
+[HttpGET]
+[HttpPathExt(WebServiceType.Main, "/appUser/Portrait")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class PortraitAppUserGetOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long appUserId;
+
+    [HttpResponseTextBody]
+    public String portrait;
+}
+
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/appUser/ValidateAlias")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -105,4 +119,18 @@ public class AppUserReferredPutOperation : HttpOperation
 
     [HttpResponseTextBody]
     public String referredAppUserId;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/appUser/Portrait")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpFirebaseAuthorization]
+public class PortraitPutOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long appUserId;
+
+    [HttpRequestTextBody]
+    public String portrait;
 }
