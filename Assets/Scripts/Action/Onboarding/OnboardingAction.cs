@@ -6,6 +6,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -13,6 +14,13 @@ public class OnboardingAction : MonoBehaviour
 {
     [SerializeField]
     Text[] txtAliass = null;
+
+    [Space, SerializeField]
+    Text txtName = null;
+    [SerializeField]
+    Text txtCountry = null;
+    [SerializeField]
+    Text txtDone = null;
 
     [Space, SerializeField]
     Image imgPortrait = null;
@@ -24,14 +32,9 @@ public class OnboardingAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmAddress = null;
 
-    [SerializeField, TextArea(2, 4)]
-    String exitMessage = "Si sales ahora no se guardara tu perfil, recuerda que puedes hacerlo luego si lo deseas desde el menú.";
-
-    [SerializeField, TextArea(2, 4)]
-    String emtpyMessage = "No has ingresado ninguna información.";
-
-    [SerializeField, TextArea(2, 4)]
-    String minorError = "No se permite el registro de menores de edad.";
+    [Title("Value")]
+    [SerializeField]
+    ValueList vllCountry = null;
 
     [Title("Action")]
     [SerializeField]
@@ -44,7 +47,20 @@ public class OnboardingAction : MonoBehaviour
     Page pagStart = null;
 
     [SerializeField]
-    Page pagNext = null;
+    Page pagDone = null;
+
+    [SerializeField]
+    Page pagExit = null;
+
+    [Title("Messages")]
+    [SerializeField, TextArea(2, 4)]
+    String exitMessage = "Si sales ahora no se guardara tu perfil, recuerda que puedes hacerlo luego si lo deseas desde el menú.";
+
+    [SerializeField, TextArea(2, 4)]
+    String emtpyMessage = "No has ingresado ninguna información.";
+
+    [SerializeField, TextArea(2, 4)]
+    String minorError = "No se permite el registro de menores de edad.";
 
     AccessService accessService = null;
     
@@ -72,7 +88,7 @@ public class OnboardingAction : MonoBehaviour
 
     public void Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Lo quieres hacer luego?", exitMessage, () => ChangeNextPage(), null, "Si, deseo salir", "Continuar con perfil");
+        ChoiceDialog.Instance.Warning("¿Lo quieres hacer luego?", exitMessage, () => ChangeExitPage(), null, "Si, deseo salir", "Continuar con perfil");
     }
 
     public void DisplayAlias()
@@ -83,6 +99,8 @@ public class OnboardingAction : MonoBehaviour
 
     private void Register()
     {
+        ScreenDialog.Instance.Display();
+        
         DateTime sqlMinDate = new DateTime(1753, 1, 1);
 
         identity = dtmIdentity.BuildClass<Identity>();
@@ -118,13 +136,13 @@ public class OnboardingAction : MonoBehaviour
 
         if (isPersonalEmpty && isAddressEmpty)
         {
-            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emtpyMessage, () => ChangeNextPage(), () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
+            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emtpyMessage, () => ChangeExitPage(), () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
             return;
         }
 
         long appUserId = StateManager.Instance.AppUser.Id;
 
-        //accessService.Onboarding(new OnboardingRequest(appUserId, identity, address, portrait));
+        accessService.Onboarding(new OnboardingRequest(appUserId, identity, address, portrait));
     }
 
     public void ApplyOnboarding(OnboardingResponse obdResponse)
@@ -137,13 +155,25 @@ public class OnboardingAction : MonoBehaviour
         StateManager.Instance.Address = address;
         StateManager.Instance.Portrait = portrait.CreateSprite("Portrait");
 
-        ChangeNextPage();
+        bool isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) &&
+                           String.IsNullOrEmpty(identity.LastName1);
+
+        txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
+
+        bool isBirthPlaceEmpty = identity.OriginCountryId == -1;
+
+        txtCountry.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
+
+        txtDone.TextValue = isNameEmpty ? "¡Listo!" : "¡Listo " + identity.FirstName1 + "!";
+
+        Clear();
+        PageManager.Instance.ChangePage(pagDone);
     }
 
-    public void ChangeNextPage()
+    public void ChangeExitPage()
     {
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagExit);
     }
 
     public int CalculateAge(DateTime birthDate)
