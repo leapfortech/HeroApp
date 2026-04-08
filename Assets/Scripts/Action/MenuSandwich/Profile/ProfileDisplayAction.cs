@@ -3,8 +3,6 @@ using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.Data.Collections;
-using Leap.Graphics.Tools;
-using Leap.Data.Web;
 using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
@@ -13,11 +11,6 @@ public class ProfileDisplayAction : MonoBehaviour
 {
     [Title("Profile")]
     [SerializeField]
-    FieldValue fldPhone = null;
-    [SerializeField]
-    FieldValue fldEmail = null;
-    [Space]
-    [SerializeField]
     Image[] imgSqrPortraits = null;
     [Space]
     [SerializeField]
@@ -25,81 +18,81 @@ public class ProfileDisplayAction : MonoBehaviour
     [Space]
     [SerializeField]
     Button[] btnSqrPortraits = null;
+    [Space]
+    [SerializeField]
+    Text txtAlias = null;
+    [SerializeField]
+    Text txtName = null;
+    [SerializeField]
+    Text txtBirthDate = null;
+    [SerializeField]
+    Text txtBirthPlace = null;
+    [SerializeField]
+    Text txtAddress = null;
 
     [Title("Data")]
     [SerializeField]
     ValueList vllCountry = null;
 
-    [Title("Page")]
-    [SerializeField]
-    Page pagBack;
-
-    bool isSdw = false;
-
     public void Clear()
     {
-        fldPhone.Clear();
-        fldEmail.Clear();
-       
         for (int i = 0; i < imgSqrPortraits.Length; i++)
             imgSqrPortraits[i].Clear();
         for (int i = 0; i < imgRctPortraits.Length; i++)
             imgRctPortraits[i].Clear();
         for (int i = 0; i < btnSqrPortraits.Length; i++)
             btnSqrPortraits[i].Clear();
-    }
 
-    public void SetBackPage(bool isSdw)
-    {
-        this.isSdw = isSdw;
-    }
-
-    public bool ChangeBackPage()
-    {
-        PageManager.Instance.ChangePage(pagBack);
-
-        if (isSdw)
-        {
-            SandwichMenu.Instance.Open();
-            return true;
-        }
-
-        return false;
-    }
-
-    public void ApplyPortrait(LoginAppInfo loginData)
-    {
-        if (loginData.Portrait != null)
-            StateManager.Instance.Portrait = loginData.Portrait.CreateSprite("Portrait");
-
-        DisplayProfile();
+        txtAlias.Clear();
+        txtName.Clear();
+        txtBirthDate.Clear();
+        txtBirthPlace.Clear();
+        txtAddress.Clear();
     }
 
     public void DisplayProfile()
     {
-        fldPhone.TextValue = vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone;
-        fldEmail.TextValue = WebManager.Instance.WebSysUser.Email;
+        txtAlias.TextValue = StateManager.Instance.AppUser.Alias;
+
+        Identity identity = StateManager.Instance.Identity;
+
+        DateTime sqlMinDate = new DateTime(1753, 1, 1);
+        bool isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) &&String.IsNullOrEmpty(identity.LastName1);
+        bool isBirthDateEmpty = identity.BirthDate == sqlMinDate;
+        bool isBirthPlaceEmpty = identity.OriginCountryId == -1;
+
+        txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
+        txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimineto" : identity.BirthDate.ToString("dd/MM/yyyy");
+        txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
+
+        Address address = StateManager.Instance.Address;
+
+        bool isAddressEmpty = address.CountryId == -1;
+
+        txtAddress.TextValue = isAddressEmpty ? "Sin dirección" : "En " + vllCountry.FindRecordCellString(address.CountryId, "Name");
 
         if (StateManager.Instance.Portrait == null)
             return;
 
+        Sprite sprite = StateManager.Instance.Portrait;
+
         if (imgSqrPortraits.Length > 0)
         {
-            Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 0, 600, 600));
+            //Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 0, 600, 600));
             for (int i = 0; i < imgSqrPortraits.Length; i++)
                 imgSqrPortraits[i].Sprite = sprite;
         }
 
         if (imgSqrPortraits.Length > 0)
         {
-            Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 40, 180, 240));
+            //Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 40, 180, 240));
             for (int i = 0; i < imgRctPortraits.Length; i++)
                 imgRctPortraits[i].Sprite = sprite;
         }
 
         if (btnSqrPortraits.Length > 0)
         {
-            Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 0, 600, 600));
+            //Sprite sprite = StateManager.Instance.Portrait.texture.CreateSprite(new Rect(0, 0, 600, 600));
             for (int i = 0; i < btnSqrPortraits.Length; i++)
                 btnSqrPortraits[i].Sprite = sprite;
         }

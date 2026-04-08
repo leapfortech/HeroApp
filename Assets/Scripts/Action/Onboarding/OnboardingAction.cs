@@ -32,7 +32,6 @@ public class OnboardingAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmAddress = null;
 
-    [Title("Value")]
     [SerializeField]
     ValueList vllCountry = null;
 
