@@ -72756,7 +72756,7 @@ GameObject:
   - component: {fileID: 454271016}
   - component: {fileID: 454271015}
   m_Layer: 0
-  m_Name: UpdateAddress
+  m_Name: UpdateAddressCity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72856,7 +72856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394899960c0f86e488b7f46b69a6de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AddressUpdateAction
-  dtmAddress: {fileID: 1282901071}
+  dtmAddressCity: {fileID: 1282901071}
   btnUpdate: {fileID: 1992177983}
   pagNext: {fileID: 650830031}
   updatedMessage: "La informaci\xF3n fue guardada exitosamente."
@@ -84470,7 +84470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 32041cd9499495a49b50ea442b528c54, type: 3}
       propertyPath: m_text
-      value: "Origen y ubicaci\xF3n"
+      value: "Nacimiento y ubicaci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 32041cd9499495a49b50ea442b528c54, type: 3}
       propertyPath: m_fontAsset
@@ -214668,7 +214668,7 @@ GameObject:
   - component: {fileID: 1282901070}
   - component: {fileID: 1282901071}
   m_Layer: 0
-  m_Name: DtmUpdateAddress
+  m_Name: DtmUpdateAddressCity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214704,34 +214704,28 @@ MonoBehaviour:
   dataMapping:
     dataMapType: 3
     dataBuiltInTarget: <None>
-    dataClassTarget: {fileID: 11400000, guid: 171b7f4f48925c64f93e51b64bd6170f, type: 2}
+    dataClassTarget: {fileID: 11400000, guid: f464c8b43067629428e1a9eaef79ea69, type: 2}
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 7676932669640279003
+      rid: 6444589720388764244
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589699550413509
-      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: CityId
-          FieldTypeName: System.Int64
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 6444589699550413509
-          ItemIdx: -1
-        NeedsItem: 0
-        elementValue: {fileID: 1546222261}
-    - rid: 7676932669640279003
+    - rid: 6444589720388764244
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
-        dataClass: {fileID: 11400000, guid: 171b7f4f48925c64f93e51b64bd6170f, type: 2}
+        dataClass: {fileID: 11400000, guid: f464c8b43067629428e1a9eaef79ea69, type: 2}
         dataFieldValues:
-        - FieldName: Id
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: AddressId
           FieldTypeName: System.Int64
           dataSourceType: 0
           dataFieldSource:
@@ -214741,65 +214735,21 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 7676932669640279004
+            rid: 6444589720388764245
           ItemIdx: -1
         - FieldName: StateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 7676932669640279005
+            rid: 6444589720388764246
           ItemIdx: -1
         - FieldName: CityId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589699550413509
+            rid: 6444589720388764247
           ItemIdx: -1
-        - FieldName: Address1
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Address2
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Zone
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: ZipCode
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Latitude
-          FieldTypeName: 'System.Nullable`1[[System.Single, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089]]'
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Longitude
-          FieldTypeName: 'System.Nullable`1[[System.Single, mscorlib, Version=4.0.0.0,
-            Culture=neutral, PublicKeyToken=b77a5c561934e089]]'
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Status
-          FieldTypeName: System.Int32
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-    - rid: 7676932669640279004
+    - rid: 6444589720388764245
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -214807,11 +214757,11 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 7676932669640279004
+            rid: 6444589720388764245
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 201664245}
-    - rid: 7676932669640279005
+    - rid: 6444589720388764246
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -214819,10 +214769,22 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 7676932669640279005
+            rid: 6444589720388764246
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 992555982}
+    - rid: 6444589720388764247
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589720388764247
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1546222261}
 --- !u!1 &1284086733
 GameObject:
   m_ObjectHideFlags: 0
@@ -285034,7 +284996,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: e12cc4e6f4024a74e8830090bc8a7d89, type: 2}
     - target: {fileID: -805272960508967775, guid: d5bb5bc0816271d45b0f9e58d2c41ec1, type: 3}
       propertyPath: title
-      value: "Origen y ubicaci\xF3n"
+      value: "Nacimiento y ubicaci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: -805272960508967775, guid: d5bb5bc0816271d45b0f9e58d2c41ec1, type: 3}
       propertyPath: sttModel

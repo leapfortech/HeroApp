@@ -8,7 +8,7 @@ using Leap.Data.Mapper;
 
 using Sirenix.OdinInspector;
 
-public class UpdateIdentityPlaceAction : MonoBehaviour
+public class IdentityPlaceUpdateAction : MonoBehaviour
 {
     [Title("Data")]
     [SerializeField]

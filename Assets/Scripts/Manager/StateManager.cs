@@ -89,6 +89,16 @@ public class StateManager : SingletonBehaviour<StateManager>
         Identity.BirthCityId = identityPlace.BirthCityId;
     }
 
+    public void UpdateAddressCity(long id, AddressCity addressCity)
+    {
+        if (Identity == null)
+            return;
+
+        Address.CountryId = addressCity.CountryId;
+        Address.StateId = addressCity.StateId;
+        Address.CityId = addressCity.CityId;
+    }
+
     // FEEDS
     [Space]
     [Header("Feeds")]

@@ -8,11 +8,11 @@ using Leap.Data.Mapper;
 
 using Sirenix.OdinInspector;
 
-public class AddressUpdateAction : MonoBehaviour
+public class AddressCityUpdateAction : MonoBehaviour
 {
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmAddress = null;
+    DataMapper dtmAddressCity = null;
 
     [Title("Action")]
     [SerializeField]
@@ -29,8 +29,8 @@ public class AddressUpdateAction : MonoBehaviour
 
     AddressService addressService = null;
 
-    Address address = null;
-    Address addressNew = null;
+    AddressCity addressCity = null;
+    AddressCity addressCityNew = null;
 
     private void Awake()
     {
@@ -44,24 +44,24 @@ public class AddressUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmAddress.ClearElements();
-        address = null;
-        addressNew = null;
+        dtmAddressCity.ClearElements();
+        addressCity = null;
+        addressCityNew = null;
     }
 
     public void Populate()
     {
-        address = StateManager.Instance.Address;
+        addressCity = new AddressCity(StateManager.Instance.AppUser.Id, StateManager.Instance.Address);
 
-        if (address == null)
+        if (addressCity == null)
             return;
 
-        dtmAddress.PopulateClass<Address>(address);
+        dtmAddressCity.PopulateClass<AddressCity>(addressCity);
     }
 
     private void DoUpdate()
     {
-        addressNew = dtmAddress.BuildClass<Address>();
+        addressCityNew = dtmAddressCity.BuildClass<AddressCity>();
 
         if (!IdentityChanged())
         {
@@ -71,9 +71,10 @@ public class AddressUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        addressNew.Id = address.Id;
+        addressCityNew.AppUserId = StateManager.Instance.AppUser.Id;
+        addressCityNew.AddressId = StateManager.Instance.Address.Id;
 
-        addressService.UpdateAddress(StateManager.Instance.AppUser.Id, addressNew);
+        addressService.UpdateCity(addressCityNew);
     }
 
     public void ApplyAddress(long id)
@@ -84,21 +85,23 @@ public class AddressUpdateAction : MonoBehaviour
             return;
         }
 
-        addressNew.Id = id;
-        StateManager.Instance.Address = addressNew;
+        StateManager.Instance.UpdateAddressCity(id, addressCityNew);
 
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 
     private bool IdentityChanged()
     {
-        if (address == null || addressNew == null)
+        if (addressCity == null || addressCityNew == null)
             return false;
 
-        if (NormalizeId(address.CountryId) != NormalizeId(addressNew.CountryId))
+        if (NormalizeId(addressCity.CountryId) != NormalizeId(addressCityNew.CountryId))
             return true;
 
-        if (NormalizeId(address.StateId) != NormalizeId(addressNew.StateId))
+        if (NormalizeId(addressCity.StateId) != NormalizeId(addressCityNew.StateId))
+            return true;
+
+        if (NormalizeId(addressCity.CityId) != NormalizeId(addressCityNew.CityId))
             return true;
 
         return false;
