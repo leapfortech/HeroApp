@@ -10747,6 +10747,218 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &63269934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 63269935}
+  - component: {fileID: 63269936}
+  m_Layer: 0
+  m_Name: DtmIdentity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &63269935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63269934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 679679997}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &63269936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63269934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 6444589697772552596
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6444589697772552596
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+        dataFieldValues:
+        - FieldName: Id
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: FirstName1
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552597
+          ItemIdx: -1
+        - FieldName: FirstName2
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552598
+          ItemIdx: -1
+        - FieldName: LastName1
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552599
+          ItemIdx: -1
+        - FieldName: LastName2
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552600
+          ItemIdx: -1
+        - FieldName: GenderId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552601
+          ItemIdx: -1
+        - FieldName: BirthDate
+          FieldTypeName: System.DateTime
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552602
+          ItemIdx: -1
+        - FieldName: OriginCountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: OriginStateId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: PhoneCountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: Phone
+          FieldTypeName: System.String
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: Email
+          FieldTypeName: System.String
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 6444589697772552597
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: FirstName1
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552597
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 2086850517}
+    - rid: 6444589697772552598
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: FirstName2
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552598
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1889925332}
+    - rid: 6444589697772552599
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: LastName1
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552599
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1642112211}
+    - rid: 6444589697772552600
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: LastName2
+          FieldTypeName: System.String
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552600
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1658704048}
+    - rid: 6444589697772552601
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: GenderId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552601
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 826386764}
+    - rid: 6444589697772552602
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: BirthDate
+          FieldTypeName: System.DateTime
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589697772552602
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 547354412}
 --- !u!1001 &66837776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50220,8 +50432,8 @@ MonoBehaviour:
   actions:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 547354411}
-        m_TargetAssemblyTypeName: Leap.UI.Extensions.ComboAdapter, Leap.UI.Extensions
+      - m_Target: {fileID: 547354412}
+        m_TargetAssemblyTypeName: Leap.UI.Elements.Combo, Leap.UI.Elements
         m_MethodName: Clear
         m_Mode: 1
         m_Arguments:
@@ -62955,6 +63167,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 499401405}
+    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 878324327}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
 --- !u!224 &386024230 stripped
@@ -80760,7 +80975,7 @@ PrefabInstance:
       objectReference: {fileID: 5359977072881784954, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
     - target: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_Name
-      value: BtnSave
+      value: BtnUpdate
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -89379,6 +89594,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &547354412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 547354408}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547354410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &547427961 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1094026821316255047, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
@@ -89667,6 +89893,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67484cbb44b60d24593e9f4f8ebf1739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &548082697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 499401404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &548683905
@@ -108214,6 +108451,7 @@ Transform:
   - {fileID: 410679989}
   - {fileID: 1404801987}
   - {fileID: 1144959827}
+  - {fileID: 63269935}
   m_Father: {fileID: 91547171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &679840888
@@ -138056,6 +138294,121 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
   m_PrefabInstance: {fileID: 872752056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &878324325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 878324327}
+  - component: {fileID: 878324326}
+  - component: {fileID: 878324328}
+  m_Layer: 0
+  m_Name: UpdateIdentity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &878324326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878324325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b7d38b34bbffb4da69fe44fddafb52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentityUpdateAction
+  isPersonal: 1
+  dtmIdentity: {fileID: 63269936}
+  btnUpdate: {fileID: 548082697}
+  pagNext: {fileID: 650830031}
+  minorError: No se permite el registro de menores de edad.
+  updatedMessage: "La informaci\xF3n fue guardada exitosamente."
+--- !u!224 &878324327
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878324325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 386024231}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &878324328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878324325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1042edbead7514192888eaacd819d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdentityService
+  onIdentityRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onRegistered:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 878324326}
+        m_TargetAssemblyTypeName: IdentityUpdateAction, Assembly-CSharp
+        m_MethodName: ApplyIdentity
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 642059586}
+        m_TargetAssemblyTypeName: ProfileDisplayAction, Assembly-CSharp
+        m_MethodName: DisplayProfile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onResponseError:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 328842198}
+        m_TargetAssemblyTypeName: Leap.UI.Dialog.ChoiceDialog, Leap.UI.Dialog
+        m_MethodName: Error
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &878698370 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
@@ -271125,6 +271478,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
   m_PrefabInstance: {fileID: 1642112209}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1642112211 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1094026821316255049, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
+  m_PrefabInstance: {fileID: 1642112209}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55a79ca40b25ca4fb5b7987ff30087a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1642543047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -273632,6 +273996,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
   m_PrefabInstance: {fileID: 1658704046}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1658704048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1094026821316255049, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
+  m_PrefabInstance: {fileID: 1658704046}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55a79ca40b25ca4fb5b7987ff30087a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1660159590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312158,6 +312533,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
   m_PrefabInstance: {fileID: 1889925330}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1889925332 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1094026821316255049, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
+  m_PrefabInstance: {fileID: 1889925330}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55a79ca40b25ca4fb5b7987ff30087a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1890244296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347358,6 +347744,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d392393e55a6dce4bb3ac699805cba72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2086850517 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1094026821316255049, guid: 6392076a38c4a2047821ae7f5beadce7, type: 3}
+  m_PrefabInstance: {fileID: 1669159687}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d55a79ca40b25ca4fb5b7987ff30087a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2087660262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356294,7 +356691,31 @@ MonoBehaviour:
   nextPage: {fileID: 1353567029}
   actions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 878324326}
+        m_TargetAssemblyTypeName: IdentityUpdateAction, Assembly-CSharp
+        m_MethodName: Populate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2132802222}
+        m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
+        m_MethodName: ChangePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &2132872685
 PrefabInstance:
   m_ObjectHideFlags: 0

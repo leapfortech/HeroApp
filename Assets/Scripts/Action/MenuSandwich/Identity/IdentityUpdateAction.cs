@@ -11,9 +11,9 @@ using Leap.Data.Web;
 
 public class IdentityUpdateAction : MonoBehaviour
 {
-    [Title("Elements")]
+    [Title("Page")]
     [SerializeField]
-    ElementValue[] elementValues = null;
+    bool isPersonal = true;
 
     [Title("Data")]
     [SerializeField]
@@ -29,7 +29,7 @@ public class IdentityUpdateAction : MonoBehaviour
 
     [Title("Message")]
     [SerializeField, TextArea(2, 4)]
-    String birthDateErrorMessage = "La fecha de nacimiento es incorrecta. Revisa e intenta de nuevo.";
+    String minorError = "No se permite el registro de menores de edad.";
 
     [Space]
     [SerializeField, TextArea(2, 4)]
@@ -69,34 +69,45 @@ public class IdentityUpdateAction : MonoBehaviour
 
     private void DoUpdate()
     {
-        if (!ElementHelper.Validate(elementValues))
-            return;
+        DateTime sqlMinDate = new DateTime(1753, 1, 1);
 
         identityNew = dtmIdentity.BuildClass<Identity>();
 
-        if (!IdentityChanged())
-        {
-            ChoiceDialog.Instance.Info("Sin cambios", "No se detectaron cambios en la información.");
-            return;
-        }
-
         if (identityNew.BirthDate == new DateTime(0001, 1, 1))
         {
-            ChoiceDialog.Instance.Error("Error de fecha", birthDateErrorMessage);
-            return;
+            identityNew.BirthDate = sqlMinDate;
+        }
+        else
+        {
+            if (CalculateAge(identityNew.BirthDate) < 18)
+            {
+                ChoiceDialog.Instance.Error("Error de fecha", minorError);
+                return;
+            }
         }
 
-        if (CalculateAge(identityNew.BirthDate) < 18)
+        if (isPersonal)
         {
-            ChoiceDialog.Instance.Error("Error de fecha", birthDateErrorMessage);
+            identityNew.OriginCountryId = identity.OriginCountryId;
+            identityNew.OriginStateId = identity.OriginStateId;
+        }
+        else
+        {
+            identityNew.FirstName1 = identity.FirstName1;
+            identityNew.FirstName2 = identity.FirstName2;
+            identityNew.LastName1 = identity.LastName1;
+            identityNew.LastName2 = identity.LastName2;
+            identityNew.BirthDate = identity.BirthDate;
+            identityNew.GenderId = identity.GenderId;
+        }
+
+        if (!IdentityChanged())
+        {
+            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
             return;
         }
 
         ScreenDialog.Instance.Display();
-
-        identityNew.PhoneCountryId = WebManager.Instance.WebSysUser.PhoneCountryId;
-        identityNew.Phone = WebManager.Instance.WebSysUser.Phone;
-        identityNew.Email = WebManager.Instance.WebSysUser.Email;
 
         identityNew.Id = identity.Id;
 
@@ -135,16 +146,16 @@ public class IdentityUpdateAction : MonoBehaviour
         if (identity == null || identityNew == null)
             return false;
 
-        if (!string.Equals(identity.FirstName1, identityNew.FirstName1))
+        if (!string.Equals(identity.FirstName1 ?? "", identityNew.FirstName1 ?? ""))
             return true;
 
-        if (!string.Equals(identity.FirstName2, identityNew.FirstName2))
+        if (!string.Equals(identity.FirstName2 ?? "", identityNew.FirstName2 ?? ""))
             return true;
 
-        if (!string.Equals(identity.LastName1, identityNew.LastName1))
+        if (!string.Equals(identity.LastName1 ?? "", identityNew.LastName1 ?? ""))
             return true;
 
-        if (!string.Equals(identity.LastName2, identityNew.LastName2))
+        if (!string.Equals(identity.LastName2 ?? "", identityNew.LastName2 ?? ""))
             return true;
 
         if (identity.GenderId != identityNew.GenderId)
