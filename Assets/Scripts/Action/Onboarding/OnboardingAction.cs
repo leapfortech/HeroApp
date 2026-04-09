@@ -132,8 +132,9 @@ public class OnboardingAction : MonoBehaviour
                                String.IsNullOrEmpty(identity.LastName2) &&
                                identity.GenderId == -1 &&
                                identity.BirthDate == sqlMinDate &&
-                               identity.OriginCountryId == -1 &&
-                               identity.OriginStateId == -1;
+                               identity.BirthCountryId == -1 &&
+                               identity.BirthStateId == -1 &&
+                               identity.BirthCityId == -1;
 
         bool isAddressEmpty = address.CountryId == -1 && address.StateId == -1 && address.CityId == -1;
 
@@ -167,9 +168,9 @@ public class OnboardingAction : MonoBehaviour
 
         txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
 
-        bool isBirthPlaceEmpty = identity.OriginCountryId == -1;
+        bool isBirthPlaceEmpty = identity.BirthCountryId == -1;
 
-        txtCountry.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
+        txtCountry.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.BirthCountryId, "Name");
 
         txtDone.TextValue = isNameEmpty ? "¡Listo!" : "¡Listo " + identity.FirstName1 + "!";
 

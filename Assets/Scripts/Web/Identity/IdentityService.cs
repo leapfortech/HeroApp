@@ -115,20 +115,20 @@ public class IdentityService : MonoBehaviour
         }
     }
 
-    public void UpdateOrigin(IdentityOrigin identityOrigin)
+    public void UpdatePlace(IdentityPlace identityPlace)
     {
-        OriginPutOperation originPutOp = new OriginPutOperation();
+        PlacePutOperation placePutOp = new PlacePutOperation();
         try
         {
-            originPutOp.identityOrigin = identityOrigin;
-            originPutOp["on-complete"] = (Action<OriginPutOperation, HttpResponse>)((op, response) =>
+            placePutOp.identityPlace = identityPlace;
+            placePutOp["on-complete"] = (Action<PlacePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            originPutOp.Send();
+            placePutOp.Send();
         }
         catch (Exception ex)
         {

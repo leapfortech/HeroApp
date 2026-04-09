@@ -88,8 +88,9 @@ public class IdentityUpdateAction : MonoBehaviour
                 }
             }
 
-            identityNew.OriginCountryId = identity.OriginCountryId;
-            identityNew.OriginStateId = identity.OriginStateId;
+            identityNew.BirthCountryId = identity.BirthCountryId;
+            identityNew.BirthStateId = identity.BirthStateId;
+            identityNew.BirthCityId = identity.BirthCityId;
         }
         else
         {
@@ -164,10 +165,13 @@ public class IdentityUpdateAction : MonoBehaviour
         if (identity.BirthDate.Date != identityNew.BirthDate.Date)
             return true;
 
-        if (identity.OriginCountryId != identityNew.OriginCountryId)
+        if (identity.BirthCountryId != identityNew.BirthCountryId)
             return true;
 
-        if (identity.OriginStateId != identityNew.OriginStateId)
+        if (identity.BirthStateId != identityNew.BirthStateId)
+            return true;
+
+        if (identity.BirthCityId != identityNew.BirthCityId)
             return true;
 
         return false;

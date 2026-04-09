@@ -69,15 +69,15 @@ public class PersonalPutOperation : HttpOperation
 }
 
 [HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/identity/Origin")]
+[HttpPathExt(WebServiceType.Main, "/identity/Place")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
-public class OriginPutOperation : HttpOperation
+public class PlacePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public IdentityOrigin identityOrigin;
+    public IdentityPlace identityPlace;
 
     [HttpResponseTextBody]
     public String id;

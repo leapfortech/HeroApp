@@ -10798,13 +10798,13 @@ MonoBehaviour:
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 6444589697772552596
+      rid: 6444589719046324846
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589697772552596
+    - rid: 6444589719046324846
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
@@ -10819,45 +10819,51 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552597
+            rid: 6444589719046324847
           ItemIdx: -1
         - FieldName: FirstName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552598
+            rid: 6444589719046324848
           ItemIdx: -1
         - FieldName: LastName1
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552599
+            rid: 6444589719046324849
           ItemIdx: -1
         - FieldName: LastName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552600
+            rid: 6444589719046324850
           ItemIdx: -1
         - FieldName: GenderId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552601
+            rid: 6444589719046324851
           ItemIdx: -1
         - FieldName: BirthDate
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552602
+            rid: 6444589719046324852
           ItemIdx: -1
-        - FieldName: OriginCountryId
+        - FieldName: BirthCountryId
           FieldTypeName: System.Int64
           dataSourceType: 0
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-        - FieldName: OriginStateId
+        - FieldName: BirthStateId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: BirthCityId
           FieldTypeName: System.Int64
           dataSourceType: 0
           dataFieldSource:
@@ -10887,7 +10893,7 @@ MonoBehaviour:
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-    - rid: 6444589697772552597
+    - rid: 6444589719046324847
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10895,11 +10901,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552597
+            rid: 6444589719046324847
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 2086850517}
-    - rid: 6444589697772552598
+    - rid: 6444589719046324848
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10907,11 +10913,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552598
+            rid: 6444589719046324848
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1889925332}
-    - rid: 6444589697772552599
+    - rid: 6444589719046324849
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10919,11 +10925,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552599
+            rid: 6444589719046324849
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1642112211}
-    - rid: 6444589697772552600
+    - rid: 6444589719046324850
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10931,11 +10937,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552600
+            rid: 6444589719046324850
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1658704048}
-    - rid: 6444589697772552601
+    - rid: 6444589719046324851
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10943,11 +10949,11 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552601
+            rid: 6444589719046324851
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 826386764}
-    - rid: 6444589697772552602
+    - rid: 6444589719046324852
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10955,7 +10961,7 @@ MonoBehaviour:
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589697772552602
+            rid: 6444589719046324852
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 547354412}
@@ -48608,7 +48614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -59553,13 +59559,13 @@ MonoBehaviour:
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 6444589698464350833
+      rid: 6444589719046324853
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589698464350833
+    - rid: 6444589719046324853
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
@@ -59606,17 +59612,23 @@ MonoBehaviour:
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-        - FieldName: OriginCountryId
+        - FieldName: BirthCountryId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589698464350834
+            rid: 6444589719046324854
           ItemIdx: -1
-        - FieldName: OriginStateId
+        - FieldName: BirthStateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589698464350835
+            rid: 6444589719046324855
+          ItemIdx: -1
+        - FieldName: BirthCityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589719046324856
           ItemIdx: -1
         - FieldName: PhoneCountryId
           FieldTypeName: System.Int64
@@ -59642,30 +59654,42 @@ MonoBehaviour:
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-    - rid: 6444589698464350834
+    - rid: 6444589719046324854
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
-          FieldName: OriginCountryId
+          FieldName: BirthCountryId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589698464350834
+            rid: 6444589719046324854
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 755331076}
-    - rid: 6444589698464350835
+    - rid: 6444589719046324855
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
-          FieldName: OriginStateId
+          FieldName: BirthStateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589698464350835
+            rid: 6444589719046324855
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1831111630}
+    - rid: 6444589719046324856
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: BirthCityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589719046324856
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1949035025}
 --- !u!1 &363336989
 GameObject:
   m_ObjectHideFlags: 0
@@ -63323,7 +63347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -94210,7 +94234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -94226,7 +94250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerTitle
-      value: "Origen y ubicaci\xF3n"
+      value: "Nacimiento y ubicaci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.size
@@ -108460,7 +108484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -174867,13 +174891,13 @@ MonoBehaviour:
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 6444589691087618609
+      rid: 6444589719046324836
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589691087618609
+    - rid: 6444589719046324836
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
@@ -174888,49 +174912,55 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430693
+            rid: 6444589719046324837
           ItemIdx: -1
         - FieldName: FirstName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430694
+            rid: 6444589719046324838
           ItemIdx: -1
         - FieldName: LastName1
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430695
+            rid: 6444589719046324839
           ItemIdx: -1
         - FieldName: LastName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430696
+            rid: 6444589719046324840
           ItemIdx: -1
         - FieldName: GenderId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430697
+            rid: 6444589719046324841
           ItemIdx: -1
         - FieldName: BirthDate
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430698
+            rid: 6444589719046324842
           ItemIdx: -1
-        - FieldName: OriginCountryId
+        - FieldName: BirthCountryId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589716620968281
+            rid: 6444589719046324843
           ItemIdx: -1
-        - FieldName: OriginStateId
+        - FieldName: BirthStateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589716620968282
+            rid: 6444589719046324844
+          ItemIdx: -1
+        - FieldName: BirthCityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589719046324845
           ItemIdx: -1
         - FieldName: PhoneCountryId
           FieldTypeName: System.Int64
@@ -174956,7 +174986,7 @@ MonoBehaviour:
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-    - rid: 6444589693177430693
+    - rid: 6444589719046324837
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -174964,11 +174994,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430693
+            rid: 6444589719046324837
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 971412197}
-    - rid: 6444589693177430694
+    - rid: 6444589719046324838
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -174976,11 +175006,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430694
+            rid: 6444589719046324838
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 396662648}
-    - rid: 6444589693177430695
+    - rid: 6444589719046324839
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -174988,11 +175018,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430695
+            rid: 6444589719046324839
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1118781779}
-    - rid: 6444589693177430696
+    - rid: 6444589719046324840
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -175000,11 +175030,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430696
+            rid: 6444589719046324840
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1720853640}
-    - rid: 6444589693177430697
+    - rid: 6444589719046324841
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -175012,11 +175042,11 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430697
+            rid: 6444589719046324841
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1909869858}
-    - rid: 6444589693177430698
+    - rid: 6444589719046324842
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -175024,34 +175054,46 @@ MonoBehaviour:
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589693177430698
+            rid: 6444589719046324842
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 897723127}
-    - rid: 6444589716620968281
+    - rid: 6444589719046324843
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
-          FieldName: OriginCountryId
+          FieldName: BirthCountryId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589716620968281
+            rid: 6444589719046324843
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1483757897}
-    - rid: 6444589716620968282
+    - rid: 6444589719046324844
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
-          FieldName: OriginStateId
+          FieldName: BirthStateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589716620968282
+            rid: 6444589719046324844
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1217150413}
+    - rid: 6444589719046324845
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: BirthCityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589719046324845
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1720736877}
 --- !u!1001 &1073170288
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -204452,7 +204494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: JustCreated
@@ -226723,7 +226765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -229753,7 +229795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 1b65ebf1a70277a448271046c11c5719, type: 3}
       propertyPath: m_text
-      value: Nacimiento u origen
+      value: Nacimiento
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 1b65ebf1a70277a448271046c11c5719, type: 3}
       propertyPath: m_fontSize
@@ -245481,7 +245523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: JustCreated
@@ -261228,7 +261270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -280819,7 +280861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: text
-      value: Nacimiento u origen
+      value: Nacimiento
       objectReference: {fileID: 0}
     - target: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: style
@@ -286058,6 +286100,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1720736880}
   m_SourcePrefab: {fileID: 100100000, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+--- !u!114 &1720736877 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1720736876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720736878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1720736878 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
@@ -307157,7 +307210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader
@@ -323523,6 +323576,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1949035025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1949035021}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949035022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1950160100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359309,7 +359373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: session
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: hasHeader

@@ -68,11 +68,13 @@ public class PuzzleRegisterAction : MonoBehaviour
 
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.Identity.OriginCountryId;
-        post.StateId = StateManager.Instance.Identity.OriginStateId;
+
+        //RM REVIEW
+        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
+        post.StateId = StateManager.Instance.Identity.BirthStateId;
 
         Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
-        puzzle.CountryId = StateManager.Instance.Identity.OriginCountryId;
+        puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
         puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
                                                          puzzle, puzzleAnswers));

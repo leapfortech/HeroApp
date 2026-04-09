@@ -63,8 +63,10 @@ public class TreatmentRegisterAction : MonoBehaviour
 
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.Identity.OriginCountryId;
-        post.StateId = StateManager.Instance.Identity.OriginStateId;
+
+        //RM REVIEW
+        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
+        post.StateId = StateManager.Instance.Identity.BirthStateId;
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
         List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();

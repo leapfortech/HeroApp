@@ -19,9 +19,11 @@ public class Identity
     [ShowInInspector]
     public DateTime BirthDate { get; set; }
     [ShowInInspector]
-    public long OriginCountryId { get; set; } = -1;
+    public long BirthCountryId { get; set; } = -1;
     [ShowInInspector]
-    public long OriginStateId { get; set; } = -1;
+    public long BirthStateId { get; set; } = -1;
+    [ShowInInspector]
+    public long BirthCityId { get; set; } = -1;
     [ShowInInspector]
     public long PhoneCountryId { get; set; } = -1;
     [ShowInInspector]
@@ -36,7 +38,7 @@ public class Identity
     }
 
     public Identity(long id, String firstName1, String firstName2, String lastName1, String lastName2,
-                    long genderId, DateTime birthDate, long originCountryId, long originStateId,
+                    long genderId, DateTime birthDate, long birthCountryId, long birthStateId, long birthCityId,
                     long phoneCountryId, String phone, String email, int status)
     {
         Id = id;
@@ -46,8 +48,9 @@ public class Identity
         LastName2 = lastName2;
         GenderId = genderId;
         BirthDate = birthDate;
-        OriginCountryId = originCountryId;
-        OriginStateId = originStateId;
+        BirthCountryId = birthCountryId;
+        BirthStateId = birthStateId;
+        BirthCityId = birthCityId;
         PhoneCountryId = phoneCountryId;
         Phone = phone;
         Email = email;

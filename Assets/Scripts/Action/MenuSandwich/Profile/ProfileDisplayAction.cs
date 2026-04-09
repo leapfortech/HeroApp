@@ -84,12 +84,12 @@ public class ProfileDisplayAction : MonoBehaviour
             DateTime sqlMinDate = new DateTime(1753, 1, 1);
             isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) && String.IsNullOrEmpty(identity.LastName1);
             isBirthDateEmpty = identity.BirthDate == sqlMinDate;
-            isBirthPlaceEmpty = identity.OriginCountryId == -1;
+            isBirthPlaceEmpty = identity.BirthCountryId == -1;
         }
 
         txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
         txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimineto" : identity.BirthDate.ToString("dd/MM/yyyy");
-        txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
+        txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.BirthCountryId, "Name");
 
         // Address
         bool isAddressEmpty = true;

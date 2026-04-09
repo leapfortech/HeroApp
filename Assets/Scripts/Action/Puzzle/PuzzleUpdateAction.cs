@@ -101,7 +101,7 @@ public class PuzzleUpdateAction : MonoBehaviour
         post.Update(dtmPost.BuildClass<Post>());
 
         puzzle.Update(dtmPuzzle.BuildClass<Puzzle>());
-        puzzle.CountryId = StateManager.Instance.Identity.OriginCountryId;
+        puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
         puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
                                                              puzzle, puzzleAnswers));

@@ -1,24 +1,24 @@
 using System;
 
-public class IdentityOrigin
+public class AddressCity
 {
     public long AppUserId { get; set; }
-    public long IdentityId { get; set; }
-    public long OriginCountryId { get; set; }
-    public long OriginStateId { get; set; }
-    public long OriginCityId { get; set; }
+    public long AddressId { get; set; }
+    public long CountryId { get; set; }
+    public long StateId { get; set; }
+    public long CityId { get; set; }
 
-    public IdentityOrigin()
+    public AddressCity()
     {
     }
 
-    public IdentityOrigin(long appUserId, long identityId,
-                            long originCountryId, long originStateId, long originCityId)
+    public AddressCity(long appUserId, long addressId,
+                        long countryId, long stateId, long cityId)
     {
         AppUserId = appUserId;
-        IdentityId = identityId;
-        OriginCountryId = originCountryId;
-        OriginStateId = originStateId;
-        OriginCityId = originCityId;
+        AddressId = addressId;
+        CountryId = countryId;
+        StateId = stateId;
+        CityId = cityId;
     }
 }
