@@ -10794,22 +10794,28 @@ MonoBehaviour:
   dataMapping:
     dataMapType: 3
     dataBuiltInTarget: <None>
-    dataClassTarget: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+    dataClassTarget: {fileID: 11400000, guid: 75a0656035224d14285587872e5e52fa, type: 2}
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 6444589719046324846
+      rid: 6444589719585817181
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589719046324846
+    - rid: 6444589719585817181
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
-        dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+        dataClass: {fileID: 11400000, guid: 75a0656035224d14285587872e5e52fa, type: 2}
         dataFieldValues:
-        - FieldName: Id
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: IdentityId
           FieldTypeName: System.Int64
           dataSourceType: 0
           dataFieldSource:
@@ -10819,81 +10825,39 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324847
+            rid: 6444589719585817182
           ItemIdx: -1
         - FieldName: FirstName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324848
+            rid: 6444589719585817183
           ItemIdx: -1
         - FieldName: LastName1
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324849
+            rid: 6444589719585817184
           ItemIdx: -1
         - FieldName: LastName2
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324850
-          ItemIdx: -1
-        - FieldName: GenderId
-          FieldTypeName: System.Int64
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 6444589719046324851
+            rid: 6444589719585817185
           ItemIdx: -1
         - FieldName: BirthDate
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324852
+            rid: 6444589719585817186
           ItemIdx: -1
-        - FieldName: BirthCountryId
+        - FieldName: GenderId
           FieldTypeName: System.Int64
-          dataSourceType: 0
+          dataSourceType: 1
           dataFieldSource:
-            rid: -2
+            rid: 6444589719585817187
           ItemIdx: -1
-        - FieldName: BirthStateId
-          FieldTypeName: System.Int64
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: BirthCityId
-          FieldTypeName: System.Int64
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: PhoneCountryId
-          FieldTypeName: System.Int64
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Phone
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Email
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Status
-          FieldTypeName: System.Int32
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-    - rid: 6444589719046324847
+    - rid: 6444589719585817182
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10901,11 +10865,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324847
+            rid: 6444589719585817182
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 2086850517}
-    - rid: 6444589719046324848
+    - rid: 6444589719585817183
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10913,11 +10877,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324848
+            rid: 6444589719585817183
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1889925332}
-    - rid: 6444589719046324849
+    - rid: 6444589719585817184
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10925,11 +10889,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324849
+            rid: 6444589719585817184
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1642112211}
-    - rid: 6444589719046324850
+    - rid: 6444589719585817185
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10937,23 +10901,11 @@ MonoBehaviour:
           FieldTypeName: System.String
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324850
+            rid: 6444589719585817185
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1658704048}
-    - rid: 6444589719046324851
-      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: GenderId
-          FieldTypeName: System.Int64
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 6444589719046324851
-          ItemIdx: -1
-        NeedsItem: 0
-        elementValue: {fileID: 826386764}
-    - rid: 6444589719046324852
+    - rid: 6444589719585817186
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -10961,10 +10913,22 @@ MonoBehaviour:
           FieldTypeName: System.DateTime
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324852
+            rid: 6444589719585817186
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 547354412}
+    - rid: 6444589719585817187
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: GenderId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589719585817187
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 826386764}
 --- !u!1001 &66837776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59519,7 +59483,7 @@ GameObject:
   - component: {fileID: 363051077}
   - component: {fileID: 363051078}
   m_Layer: 0
-  m_Name: DtmIdentityBirthPlace
+  m_Name: DtmIdentityIdentityPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59555,59 +59519,29 @@ MonoBehaviour:
   dataMapping:
     dataMapType: 3
     dataBuiltInTarget: <None>
-    dataClassTarget: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+    dataClassTarget: {fileID: 11400000, guid: 53578a57c74b57e45b08cf96593a9f8d, type: 2}
     dataBuildInMap:
       rid: -2
     dataClassMap:
-      rid: 6444589719046324853
+      rid: 6444589720018616792
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 6444589719046324853
+    - rid: 6444589720018616792
       type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
-        dataClass: {fileID: 11400000, guid: 47fbf2a83b13f0142b4282fe2db0558d, type: 2}
+        dataClass: {fileID: 11400000, guid: 53578a57c74b57e45b08cf96593a9f8d, type: 2}
         dataFieldValues:
-        - FieldName: Id
+        - FieldName: AppUserId
           FieldTypeName: System.Int64
           dataSourceType: 0
           dataFieldSource:
             rid: -2
           ItemIdx: -1
-        - FieldName: FirstName1
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: FirstName2
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: LastName1
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: LastName2
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: GenderId
+        - FieldName: IdentityId
           FieldTypeName: System.Int64
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: BirthDate
-          FieldTypeName: System.DateTime
           dataSourceType: 0
           dataFieldSource:
             rid: -2
@@ -59616,45 +59550,21 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324854
+            rid: 6444589720018616793
           ItemIdx: -1
         - FieldName: BirthStateId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324855
+            rid: 6444589720018616794
           ItemIdx: -1
         - FieldName: BirthCityId
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324856
+            rid: 6444589720018616795
           ItemIdx: -1
-        - FieldName: PhoneCountryId
-          FieldTypeName: System.Int64
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Phone
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Email
-          FieldTypeName: System.String
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-        - FieldName: Status
-          FieldTypeName: System.Int32
-          dataSourceType: 0
-          dataFieldSource:
-            rid: -2
-          ItemIdx: -1
-    - rid: 6444589719046324854
+    - rid: 6444589720018616793
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -59662,11 +59572,11 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324854
+            rid: 6444589720018616793
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 755331076}
-    - rid: 6444589719046324855
+    - rid: 6444589720018616794
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -59674,11 +59584,11 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324855
+            rid: 6444589720018616794
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1831111630}
-    - rid: 6444589719046324856
+    - rid: 6444589720018616795
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
         dataFieldValue:
@@ -59686,7 +59596,7 @@ MonoBehaviour:
           FieldTypeName: System.Int64
           dataSourceType: 1
           dataFieldSource:
-            rid: 6444589719046324856
+            rid: 6444589720018616795
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1949035025}
@@ -63335,7 +63245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_Name
-      value: PagIdentityUpdate
+      value: PagIdentityPersonalUpdate
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_IsActive
@@ -121873,7 +121783,7 @@ PrefabInstance:
       objectReference: {fileID: 5359977072881784954, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
     - target: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_Name
-      value: BtnEditAddress
+      value: BtnUpdateAddressCity
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -138696,8 +138606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b7d38b34bbffb4da69fe44fddafb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IdentityUpdateAction
-  isPersonal: 1
-  dtmIdentity: {fileID: 63269936}
+  dtmIdentityPersonal: {fileID: 63269936}
   btnUpdate: {fileID: 548082697}
   pagNext: {fileID: 650830031}
   minorError: No se permite el registro de menores de edad.
@@ -261258,7 +261167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_Name
-      value: PagBirthPlaceUpdate
+      value: PagIdentityPlaceUpdate
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_IsActive
@@ -327385,7 +327294,7 @@ GameObject:
   - component: {fileID: 1967009331}
   - component: {fileID: 1967009330}
   m_Layer: 0
-  m_Name: UpdateBirthPlace
+  m_Name: UpdateIdentityPlace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327432,7 +327341,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1967009331}
-        m_TargetAssemblyTypeName: IdentityUpdateAction, Assembly-CSharp
+        m_TargetAssemblyTypeName: UpdateIdentityPlaceAction, Assembly-CSharp
         m_MethodName: ApplyIdentity
         m_Mode: 0
         m_Arguments:
@@ -327479,14 +327388,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1967009328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2b7d38b34bbffb4da69fe44fddafb52, type: 3}
+  m_Script: {fileID: 11500000, guid: 65f4fca44045c7447869edb9031d753c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IdentityUpdateAction
-  isPersonal: 0
-  dtmIdentity: {fileID: 363051078}
+  m_EditorClassIdentifier: Assembly-CSharp::UpdateIdentityPlaceAction
+  dtmIdentityPlace: {fileID: 363051078}
   btnUpdate: {fileID: 1465134587}
   pagNext: {fileID: 650830031}
-  minorError: No se permite el registro de menores de edad.
   updatedMessage: "La informaci\xF3n fue guardada exitosamente."
 --- !u!1001 &1967986566
 PrefabInstance:
@@ -328887,7 +328794,7 @@ PrefabInstance:
       objectReference: {fileID: 5359977072881784954, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
     - target: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_Name
-      value: BtnEditBirthPlace
+      value: BtnUpdateIdentityPlace
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -328922,7 +328829,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1967009331}
-        m_TargetAssemblyTypeName: IdentityUpdateAction, Assembly-CSharp
+        m_TargetAssemblyTypeName: UpdateIdentityPlaceAction, Assembly-CSharp
         m_MethodName: Populate
         m_Mode: 1
         m_Arguments:
@@ -358006,7 +357913,7 @@ PrefabInstance:
       objectReference: {fileID: 5359977072881784954, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
     - target: {fileID: 8107087666988465745, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_Name
-      value: BtnEditPersonal
+      value: BtnIdentityPersonal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

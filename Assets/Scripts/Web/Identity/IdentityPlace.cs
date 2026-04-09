@@ -2,11 +2,11 @@ using System;
 
 public class IdentityPlace
 {
-    public long AppUserId { get; set; }
-    public long IdentityId { get; set; }
-    public long BirthCountryId { get; set; }
-    public long BirthStateId { get; set; }
-    public long BirthCityId { get; set; }
+    public long AppUserId { get; set; } = -1;
+    public long IdentityId { get; set; } = -1;
+    public long BirthCountryId { get; set; } = -1;
+    public long BirthStateId { get; set; } = -1;
+    public long BirthCityId { get; set; } = -1;
 
     public IdentityPlace()
     {
@@ -19,5 +19,14 @@ public class IdentityPlace
         BirthCountryId = birthCountryId;
         BirthStateId = birthStateId;
         BirthCityId = birthCityId;
+    }
+
+    public IdentityPlace(long appUserId, Identity identity)
+    {
+        AppUserId = appUserId;
+        IdentityId = identity.Id;
+        BirthCountryId = identity.BirthCountryId;
+        BirthStateId = identity.BirthStateId;
+        BirthCityId = identity.BirthCityId;
     }
 }

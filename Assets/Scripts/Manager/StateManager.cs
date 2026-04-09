@@ -66,6 +66,29 @@ public class StateManager : SingletonBehaviour<StateManager>
         return updatedOptions;
     }
 
+    public void UpdateIdentityPersonal (long id, IdentityPersonal identityPersonal)
+    {
+        if (Identity == null)
+            return;
+
+        Identity.FirstName1 = identityPersonal.FirstName1;
+        Identity.FirstName2 = identityPersonal.FirstName2;
+        Identity.LastName1 = identityPersonal.LastName1;
+        Identity.LastName2 = identityPersonal.LastName2;
+        Identity.BirthDate = identityPersonal.BirthDate;
+        Identity.GenderId = identityPersonal.GenderId;
+    }
+
+    public void UpdateIdentityPlace(long id, IdentityPlace identityPlace)
+    {
+        if (Identity == null)
+            return;
+
+        Identity.BirthCountryId = identityPlace.BirthCountryId;
+        Identity.BirthStateId = identityPlace.BirthStateId;
+        Identity.BirthCityId = identityPlace.BirthCityId;
+    }
+
     // FEEDS
     [Space]
     [Header("Feeds")]
