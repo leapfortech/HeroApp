@@ -52,8 +52,11 @@ public class ProfileDisplayAction : MonoBehaviour
 
     public void DisplayProfile()
     {
+        // Alias
+
         txtAlias.TextValue = StateManager.Instance.AppUser.Alias;
 
+        // Identity
         Identity identity = StateManager.Instance.Identity;
 
         DateTime sqlMinDate = new DateTime(1753, 1, 1);
@@ -65,15 +68,14 @@ public class ProfileDisplayAction : MonoBehaviour
         txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimineto" : identity.BirthDate.ToString("dd/MM/yyyy");
         txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
 
+        // Address
         Address address = StateManager.Instance.Address;
 
         bool isAddressEmpty = address.CountryId == -1;
 
         txtAddress.TextValue = isAddressEmpty ? "Sin dirección" : "En " + vllCountry.FindRecordCellString(address.CountryId, "Name");
 
-        if (StateManager.Instance.Portrait == null)
-            return;
-
+        //Portrait
         Sprite sprite = StateManager.Instance.Portrait;
 
         if (imgSqrPortraits.Length > 0)

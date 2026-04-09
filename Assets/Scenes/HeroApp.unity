@@ -13354,11 +13354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9a08fc776627e41b6cc77eb7064caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhotoVisionAction
-  spriteName: Portrait
   webCamera: {fileID: 1002434027}
   gallerySize: {x: 600, y: 600}
   btnVision: {fileID: 1987431613}
-  photos: []
   onPhotoTaken:
     m_PersistentCalls:
       m_Calls:
@@ -13374,7 +13372,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  nextPage: {fileID: 650830031}
 --- !u!224 &83247816
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20409,17 +20406,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f9a08fc776627e41b6cc77eb7064caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PhotoVisionAction
-  spriteName: Portrait
   webCamera: {fileID: 1332603670}
   gallerySize: {x: 600, y: 600}
   btnVision: {fileID: 1809735186}
-  photos:
-  - {fileID: 387890525}
-  - {fileID: 1456495183}
   onPhotoTaken:
     m_PersistentCalls:
       m_Calls: []
-  nextPage: {fileID: 2135825089}
 --- !u!224 &128218086
 RectTransform:
   m_ObjectHideFlags: 0
@@ -89156,7 +89148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onDisplay.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -124461,6 +124453,18 @@ MonoBehaviour:
       - m_Target: {fileID: 789381945}
         m_TargetAssemblyTypeName: LoginAction, Assembly-CSharp
         m_MethodName: ChangeToStartPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 642059586}
+        m_TargetAssemblyTypeName: ProfileDisplayAction, Assembly-CSharp
+        m_MethodName: DisplayProfile
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -167943,6 +167947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortraitUpdateAction
   btnDelete: {fileID: 1213025626}
+  PagNext: {fileID: 650830031}
 --- !u!1001 &1043891710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -239127,17 +239132,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1594617360122771297, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
   m_PrefabInstance: {fileID: 1456131111}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1456495183 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4699198323004612686, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
-  m_PrefabInstance: {fileID: 427236079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b3da975de4087145b7ca116e150cdb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1456733315
 PrefabInstance:
   m_ObjectHideFlags: 0

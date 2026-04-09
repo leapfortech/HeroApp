@@ -3,15 +3,19 @@
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
-using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
+using Leap.UI.Page;
 
 public class PortraitUpdateAction : MonoBehaviour
 {
     [Title("Action")]
     [SerializeField]
     Button btnDelete = null;
+
+    [Title("Action")]
+    [SerializeField]
+    Page PagNext = null;
 
     AppUserService appUserService = null;
     Sprite sptPortrait = null;
@@ -28,7 +32,8 @@ public class PortraitUpdateAction : MonoBehaviour
 
     public void DoDelete()
     {
-        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?", () => Delete(), null, "Sí", "No");
+        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?",
+                                      () => Delete(), null, "Sí", "No");
     }
 
     public void Delete()
@@ -45,8 +50,6 @@ public class PortraitUpdateAction : MonoBehaviour
 
     public void DoUpdate(Texture2D portrait)
     {
-        ScreenDialog.Instance.Display();
-
         sptPortrait = portrait.CreateSprite("Portrait");
 
         appUserService.UpdatePortrait(StateManager.Instance.AppUser.Id, portrait.ToStrBase64(ImageType.JPG));
@@ -55,6 +58,7 @@ public class PortraitUpdateAction : MonoBehaviour
     public void ApplyPortrait()
     {
         StateManager.Instance.Portrait = sptPortrait;
-        ScreenDialog.Instance.Hide();
+        PageManager.Instance.ChangePage(PagNext);
+        //RM REVIEW DestroySprite
     }
 }
