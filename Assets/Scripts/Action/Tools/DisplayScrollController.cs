@@ -76,6 +76,8 @@ public class DisplayScrollController : MonoBehaviour
             currentPage = page;
             if (pillPrefab != null && pillParent != null)
                 UpdateIndicators(oldPage, currentPage);
+
+            UpdateButtons();
         }
     }
 
