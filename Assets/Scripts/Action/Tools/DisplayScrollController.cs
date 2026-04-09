@@ -36,6 +36,8 @@ public class DisplayScrollController : MonoBehaviour
 
     void Start()
     {
+        scrollRect.onValueChanged.AddListener(OnScrollChanged);
+
         scrollRect.content = content;
         scrollRect.viewport = viewport;
 
@@ -59,15 +61,34 @@ public class DisplayScrollController : MonoBehaviour
         UpdateButtons();
     }
 
-    void Update()
+    //void Update()
+    //{
+    //    if (isAnimating)
+    //        return;
+
+    //    float spacing = ((HorizontalLayoutGroup)content.GetComponent<HorizontalLayoutGroup>())?.spacing ?? 0f;
+    //    float pageWidth = GetPageWidth();
+    //    int page = Mathf.RoundToInt(content.anchoredPosition.x * -1f / pageWidth);
+
+    //    page = Mathf.Clamp(page, 0, pageCount - 1);
+
+    //    if (page != currentPage)
+    //    {
+    //        int oldPage = currentPage;
+    //        currentPage = page;
+    //        if (pillPrefab != null && pillParent != null)
+    //            UpdateIndicators(oldPage, currentPage);
+
+    //        UpdateButtons();
+    //    }
+    //}
+
+    void OnScrollChanged(Vector2 pos)
     {
         if (isAnimating)
             return;
 
-        float spacing = ((HorizontalLayoutGroup)content.GetComponent<HorizontalLayoutGroup>())?.spacing ?? 0f;
-        float pageWidth = GetPageWidth();
-        int page = Mathf.RoundToInt(content.anchoredPosition.x * -1f / pageWidth);
-
+        int page = Mathf.RoundToInt(-content.anchoredPosition.x / GetPageWidth());
         page = Mathf.Clamp(page, 0, pageCount - 1);
 
         if (page != currentPage)
@@ -76,7 +97,7 @@ public class DisplayScrollController : MonoBehaviour
             currentPage = page;
             if (pillPrefab != null && pillParent != null)
                 UpdateIndicators(oldPage, currentPage);
-
+            
             UpdateButtons();
         }
     }
