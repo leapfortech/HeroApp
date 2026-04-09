@@ -73,21 +73,21 @@ public class IdentityUpdateAction : MonoBehaviour
 
         identityNew = dtmIdentity.BuildClass<Identity>();
 
-        if (identityNew.BirthDate == new DateTime(0001, 1, 1))
-        {
-            identityNew.BirthDate = sqlMinDate;
-        }
-        else
-        {
-            if (CalculateAge(identityNew.BirthDate) < 18)
-            {
-                ChoiceDialog.Instance.Error("Error de fecha", minorError);
-                return;
-            }
-        }
-
         if (isPersonal)
         {
+            if (identityNew.BirthDate == new DateTime(0001, 1, 1))
+            {
+                identityNew.BirthDate = sqlMinDate;
+            }
+            else
+            {
+                if (CalculateAge(identityNew.BirthDate) < 18)
+                {
+                    ChoiceDialog.Instance.Error("Error de fecha", minorError);
+                    return;
+                }
+            }
+
             identityNew.OriginCountryId = identity.OriginCountryId;
             identityNew.OriginStateId = identity.OriginStateId;
         }

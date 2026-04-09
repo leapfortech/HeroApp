@@ -10,10 +10,6 @@ using Sirenix.OdinInspector;
 
 public class AddressUpdateAction : MonoBehaviour
 {
-    [Title("Elements")]
-    [SerializeField]
-    ElementValue[] elementValues = null;
-
     [Title("Data")]
     [SerializeField]
     DataMapper dtmAddress = null;
@@ -65,14 +61,11 @@ public class AddressUpdateAction : MonoBehaviour
 
     private void DoUpdate()
     {
-        if (!ElementHelper.Validate(elementValues))
-            return;
-
         addressNew = dtmAddress.BuildClass<Address>();
 
         if (!IdentityChanged())
         {
-            ChoiceDialog.Instance.Info("Sin cambios", "No se detectaron cambios en la información.");
+            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
             return;
         }
 
