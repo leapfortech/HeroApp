@@ -20,7 +20,8 @@ public class ProfileDisplayAction : MonoBehaviour
     Button[] btnSqrPortraits = null;
     [Space]
     [SerializeField]
-    Text txtAlias = null;
+    Text[] txtAliass = null;
+    [Space]
     [SerializeField]
     Text txtName = null;
     [SerializeField]
@@ -34,6 +35,12 @@ public class ProfileDisplayAction : MonoBehaviour
     [SerializeField]
     ValueList vllCountry = null;
 
+    [Title("Pages")]
+    [SerializeField]
+    Page obdPage = null;
+    [SerializeField]
+    Page profilePage = null;
+
     public void Clear()
     {
         for (int i = 0; i < imgSqrPortraits.Length; i++)
@@ -42,36 +49,54 @@ public class ProfileDisplayAction : MonoBehaviour
             imgRctPortraits[i].Clear();
         for (int i = 0; i < btnSqrPortraits.Length; i++)
             btnSqrPortraits[i].Clear();
-
-        txtAlias.Clear();
+        for (int i = 0; i < txtAliass.Length; i++)
+            txtAliass[i].Clear();
         txtName.Clear();
         txtBirthDate.Clear();
         txtBirthPlace.Clear();
         txtAddress.Clear();
     }
 
+    public void ChangeToStartPage()
+    {
+        long obdStatus = (StateManager.Instance.AppUser.Options / (long)Math.Pow(10, 0)) % 10;
+
+        if (obdStatus == 1)
+            PageManager.Instance.ChangePage(obdPage);
+        else
+            PageManager.Instance.ChangePage(profilePage);
+
+        SandwichMenu.Instance.Close();
+    }
+
     public void DisplayProfile()
     {
         // Alias
-
-        txtAlias.TextValue = StateManager.Instance.AppUser.Alias;
+        for (int i = 0; i < txtAliass.Length; i++)
+            txtAliass[i].TextValue = StateManager.Instance.AppUser.Alias;
 
         // Identity
+        bool isNameEmpty = true, isBirthDateEmpty = true, isBirthPlaceEmpty = true;
         Identity identity = StateManager.Instance.Identity;
 
-        DateTime sqlMinDate = new DateTime(1753, 1, 1);
-        bool isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) &&String.IsNullOrEmpty(identity.LastName1);
-        bool isBirthDateEmpty = identity.BirthDate == sqlMinDate;
-        bool isBirthPlaceEmpty = identity.OriginCountryId == -1;
+        if (identity != null)
+        { 
+            DateTime sqlMinDate = new DateTime(1753, 1, 1);
+            isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) && String.IsNullOrEmpty(identity.LastName1);
+            isBirthDateEmpty = identity.BirthDate == sqlMinDate;
+            isBirthPlaceEmpty = identity.OriginCountryId == -1;
+        }
 
         txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
         txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimineto" : identity.BirthDate.ToString("dd/MM/yyyy");
         txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
 
         // Address
+        bool isAddressEmpty = true;
         Address address = StateManager.Instance.Address;
 
-        bool isAddressEmpty = address.CountryId == -1;
+        if (address != null)
+            isAddressEmpty = address.CountryId == -1;
 
         txtAddress.TextValue = isAddressEmpty ? "Sin dirección" : "En " + vllCountry.FindRecordCellString(address.CountryId, "Name");
 

@@ -24,6 +24,8 @@ public class OnboardingAction : MonoBehaviour
 
     [Space, SerializeField]
     Image imgPortrait = null;
+    [SerializeField]
+    Image imgPortraitDone = null;
 
     [Title("Data")]
     [SerializeField]
@@ -56,7 +58,7 @@ public class OnboardingAction : MonoBehaviour
     String exitMessage = "Si sales ahora no se guardara tu perfil, recuerda que puedes hacerlo luego si lo deseas desde el menú.";
 
     [SerializeField, TextArea(2, 4)]
-    String emtpyMessage = "No has ingresado ninguna información.";
+    String emptyMessage = "No has ingresado ninguna información.";
 
     [SerializeField, TextArea(2, 4)]
     String minorError = "No se permite el registro de menores de edad.";
@@ -129,13 +131,15 @@ public class OnboardingAction : MonoBehaviour
                                String.IsNullOrEmpty(identity.LastName1) &&
                                String.IsNullOrEmpty(identity.LastName2) &&
                                identity.GenderId == -1 &&
-                               identity.BirthDate == sqlMinDate;
+                               identity.BirthDate == sqlMinDate &&
+                               identity.OriginCountryId == -1 &&
+                               identity.OriginStateId == -1;
 
         bool isAddressEmpty = address.CountryId == -1 && address.StateId == -1 && address.CityId == -1;
 
         if (isPersonalEmpty && isAddressEmpty)
         {
-            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emtpyMessage, () => ChangeExitPage(), () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
+            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emptyMessage, () => ChangeExitPage(), () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
             return;
         }
 
@@ -146,13 +150,17 @@ public class OnboardingAction : MonoBehaviour
 
     public void ApplyOnboarding(OnboardingResponse obdResponse)
     {       
-       
         identity.Id = obdResponse.IdentityId;
         address.Id = obdResponse.AddressId;
 
+        StateManager.Instance.UpdateOption(0, 2);
         StateManager.Instance.Identity = identity;
         StateManager.Instance.Address = address;
-        StateManager.Instance.Portrait = portrait.CreateSprite("Portrait");
+
+        if (portrait != null)
+            StateManager.Instance.Portrait = portrait.CreateSprite("Portrait");
+        else
+            StateManager.Instance.Portrait = null;
 
         bool isNameEmpty = String.IsNullOrEmpty(identity.FirstName1) &&
                            String.IsNullOrEmpty(identity.LastName1);
@@ -161,9 +169,12 @@ public class OnboardingAction : MonoBehaviour
 
         bool isBirthPlaceEmpty = identity.OriginCountryId == -1;
 
-        txtCountry.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
+        txtCountry.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.OriginCountryId, "Name");
 
         txtDone.TextValue = isNameEmpty ? "¡Listo!" : "¡Listo " + identity.FirstName1 + "!";
+
+        if (portrait != null)
+            imgPortraitDone.Sprite = portrait.CreateSprite("Portrait");
 
         Clear();
         PageManager.Instance.ChangePage(pagDone);

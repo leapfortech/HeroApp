@@ -52,6 +52,20 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
+    public long UpdateOption(int index, int newStatus)
+    {
+        long options = AppUser.Options;
+
+        long power = (long)Math.Pow(10, index);
+        long currentStatus = (options / power) % 10;
+
+        long updatedOptions = options + (newStatus - currentStatus) * power;
+
+        AppUser.Options = updatedOptions;
+
+        return updatedOptions;
+    }
+
     // FEEDS
     [Space]
     [Header("Feeds")]
