@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d52cfd3374160a04b888c8353641d5e7, type: 3}
-  m_Name: ValueUpdateResidenceStateFltr
+  m_Name: ValueUpdateCurrentCityFltr
   m_EditorClassIdentifier: Leap.Data.Collections::Leap.Data.Collections.ValueList
   valueType: 30
   tableName: 
   valueSource: 20
   recordType: 10
-  sourceList: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
+  sourceList: {fileID: 11400000, guid: 402e9b542f0ca8840aea2c2564960012, type: 2}
   clientsList: []
   columns:
-  - Name: CountryId
-    oldName: CountryId
+  - Name: StateId
+    oldName: StateId
     ColumnType: 10
     Indexed: 0
     valueList: {fileID: 11400000}
@@ -31,34 +31,61 @@ MonoBehaviour:
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 1
-  - Name: Code
-    oldName: Code
+  - Name: TimeZone
+    oldName: TimeZone
     ColumnType: 10
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 2
+  - Name: Latitude
+    oldName: Latitude
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 3
+  - Name: Longitude
+    oldName: Longitude
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 4
+  - Name: Zips
+    oldName: Zips
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 5
   columnNames:
-  - CountryId
+  - StateId
   - Name
-  - Code
+  - TimeZone
+  - Latitude
+  - Longitude
+  - Zips
   columnIndexes:
     keys:
-    - CountryId
+    - StateId
     - Name
-    - Code
-    values: 000000000100000002000000
+    - TimeZone
+    - Latitude
+    - Longitude
+    - Zips
+    values: 000000000100000002000000030000000400000005000000
   statusName: Status
   statusValue: 1
   columnFilters: []
   recordFilters:
-  - CellName: CountryId
+  - CellName: StateId
     cellNames:
     - Id
-    - CountryId
+    - StateId
     - Name
-    - Code
+    - TimeZone
+    - Latitude
+    - Longitude
+    - Zips
     Operator: 0
-    CellValue: 84
+    CellValue: 41
     valueList: {fileID: 11400000}
   records: []
   idIndexer:
@@ -71,7 +98,12 @@ MonoBehaviour:
     values: []
   - keys: []
     values: []
-  Indexed: 0
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  - keys: []
+    values: []
   MinValue: 0
   MaxValue: 0
   StepValue: 1
