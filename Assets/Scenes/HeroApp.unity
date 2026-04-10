@@ -7284,7 +7284,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbResidenceCity
+      value: CmbCurrentCity
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_IsActive
@@ -7356,7 +7356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1313
+      value: -1488
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7376,7 +7376,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: Ciudad o municipio actual
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -7388,7 +7388,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7438,7 +7438,7 @@ MonoBehaviour:
   comboSlave: {fileID: 0}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 454499275}
+    dataSourceMapper: {fileID: 1011247141}
     dataAssetMapping: {fileID: 11400000, guid: 2a75da150cfcf4e429c89961ef41d095, type: 2}
     listItemPrefab: {fileID: 4517301539701428129, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
     listItem: {fileID: 18177397425701001, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
@@ -7449,6 +7449,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &41953985 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 41953981}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41953982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &42348407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7523,7 +7534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 260
+      value: 224
       objectReference: {fileID: 0}
     - target: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -12175,7 +12186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 260
+      value: 224
       objectReference: {fileID: 0}
     - target: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20964,7 +20975,7 @@ GameObject:
   - component: {fileID: 131596183}
   - component: {fileID: 131596184}
   m_Layer: 5
-  m_Name: OriginDependency
+  m_Name: InterestDependency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21004,8 +21015,8 @@ MonoBehaviour:
   cmbCountry: {fileID: 1235731647}
   cmbState: {fileID: 1908753052}
   cmbCity: {fileID: 930342196}
-  dtmState: {fileID: 1825181843}
-  dtmCity: {fileID: 284001784}
+  dtmState: {fileID: 895344085}
+  dtmCity: {fileID: 689180928}
 --- !u!224 &131730904 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
@@ -22401,6 +22412,41 @@ MonoBehaviour:
   obdContinuePage: {fileID: 0}
   obdApprovedPage: {fileID: 0}
   obdRejectedPage: {fileID: 0}
+--- !u!1 &136487710
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 136487711}
+  m_Layer: 0
+  m_Name: Interest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &136487711
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136487710}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 255223583}
+  - {fileID: 895344086}
+  - {fileID: 689180929}
+  - {fileID: 1569590729}
+  m_Father: {fileID: 1077667752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &137219886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25905,6 +25951,7 @@ Transform:
   m_Children:
   - {fileID: 1210376641}
   - {fileID: 253131473}
+  - {fileID: 1077667752}
   - {fileID: 322806768}
   - {fileID: 1760477025}
   - {fileID: 1583235}
@@ -30236,7 +30283,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_Name
-      value: PagUpdateCommunity1
+      value: PagInterestLocality
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_IsActive
@@ -34122,7 +34169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -723
+      value: -660
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -36311,7 +36358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -36483,7 +36530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: "Estado o departamento de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -38881,6 +38928,144 @@ Transform:
   - {fileID: 123598216}
   - {fileID: 607609729}
   m_Father: {fileID: 158082492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &255223580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 255223583}
+  - component: {fileID: 255223581}
+  - component: {fileID: 255223582}
+  m_Layer: 0
+  m_Name: DtmInterestCountryFlagAllVLL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &255223581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255223580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 7676932162611314757
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314757
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+        dataFieldValues:
+        - FieldName: Name
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314758
+          ItemIdx: 1
+        - FieldName: Code
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314759
+          ItemIdx: 2
+        - FieldName: Flag
+          FieldTypeName: UnityEngine.Sprite
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314760
+          ItemIdx: 3
+    - rid: 7676932162611314758
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Name
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314758
+          ItemIdx: 1
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Name
+    - rid: 7676932162611314759
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Code
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314759
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Code
+    - rid: 7676932162611314760
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Flag
+          FieldTypeName: UnityEngine.Sprite
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314760
+          ItemIdx: 3
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Flag
+--- !u!114 &255223582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255223580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901348d1544bc6c4dbab009158f764e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataMapperAction
+  dataMappers:
+  - {fileID: 255223581}
+  parameters:
+  - {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
+  - {fileID: 11400000, guid: 8e2c0c75615b1f74f9ff27f9d5037fa6, type: 2}
+  - {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+--- !u!4 &255223583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255223580}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 136487711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &255420164
 PrefabInstance:
@@ -47388,7 +47573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -47560,7 +47745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: Ciudad o municipio actual
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -49976,7 +50161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1246
+      value: -1382
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -49996,7 +50181,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: Ciudad o municipio actual
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -50008,7 +50193,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50069,6 +50254,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &316133898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 316133894}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316133895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &316401843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52139,7 +52335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -52311,7 +52507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Comunidad de inter\xE9s"
+      value: "Pa\xEDs de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -54802,7 +54998,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: Comunidad actual
+      value: "Pa\xEDs actual"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -54814,7 +55010,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -54903,6 +55099,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &340617610 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 340617606}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 340617607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &341706173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55698,6 +55905,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ImgHeader
       objectReference: {fileID: 0}
+    - target: {fileID: 1094026821316255047, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -55764,7 +55975,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: -182
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -60267,6 +60478,146 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3551771169115404605, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
   m_PrefabInstance: {fileID: 366900178}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &370474977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 370474978}
+  - component: {fileID: 370474979}
+  m_Layer: 0
+  m_Name: DtmUpdateInterestLocality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &370474978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370474977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2020384798}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &370474979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370474977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 6444589722045251909
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6444589722045251909
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+        dataFieldValues:
+        - FieldName: Id
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: LocalityType
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        - FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        - FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 6444589722045251910
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1372076395}
+    - rid: 6444589722045251911
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1403032307}
+    - rid: 6444589722045251912
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1021468193}
 --- !u!1001 &371678688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77863,7 +78214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 482574137}
   m_Layer: 0
-  m_Name: FlowCommunity
+  m_Name: FlowLocatity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109610,6 +109961,86 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: 2075330e910adf84fa82c9a48997d535, type: 3}
   m_PrefabInstance: {fileID: 688742725}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &689180927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 689180929}
+  - component: {fileID: 689180928}
+  m_Layer: 0
+  m_Name: DtmInterestCityTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &689180928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689180927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932162611314771
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314771
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314772
+          ItemIdx: 2
+    - rid: 7676932162611314772
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314772
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 5ba77fc1123a42f44a5aa6cae29282ca, type: 2}
+        columnValue: Name
+--- !u!4 &689180929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689180927}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 136487711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &693521206
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -116417,7 +116848,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 440
+      value: 371.5
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -131147,7 +131578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -889
+      value: -833
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -133465,7 +133896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -133637,7 +134068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: "Ciudad o municipio de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -143055,7 +143486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -889
+      value: -833
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -143409,6 +143840,166 @@ Transform:
   - {fileID: 968383713}
   - {fileID: 1972569767}
   m_Father: {fileID: 158082492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &895222971
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895222973}
+  - component: {fileID: 895222972}
+  m_Layer: 0
+  m_Name: DtmCurrentStateTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &895222972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895222971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932162611314769
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314769
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314770
+          ItemIdx: 2
+    - rid: 7676932162611314770
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314770
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: e0887433054cb804c92a8e7a88eb7c9c, type: 2}
+        columnValue: Name
+--- !u!4 &895222973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895222971}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1376147685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &895344084
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895344086}
+  - component: {fileID: 895344085}
+  m_Layer: 0
+  m_Name: DtmInterestStateTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &895344085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895344084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932162611314769
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314769
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314770
+          ItemIdx: 2
+    - rid: 7676932162611314770
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314770
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 64e48bf3cb56d3d4f87c554b414e6b2e, type: 2}
+        columnValue: Name
+--- !u!4 &895344086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895344084}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 136487711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895829186
 GameObject:
@@ -149452,7 +150043,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbOriginCity
+      value: CmbInterestCity
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_IsActive
@@ -149524,7 +150115,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1313
+      value: -1488
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -149544,7 +150135,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: "Ciudad o municipio de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -149556,7 +150147,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -149645,7 +150236,7 @@ MonoBehaviour:
   comboSlave: {fileID: 0}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 284001784}
+    dataSourceMapper: {fileID: 689180928}
     dataAssetMapping: {fileID: 11400000, guid: 2a75da150cfcf4e429c89961ef41d095, type: 2}
     listItemPrefab: {fileID: 4517301539701428129, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
     listItem: {fileID: 18177397425701001, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
@@ -152802,7 +153393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -152974,7 +153565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Comunidad actual
+      value: "Pa\xEDs actual"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -157831,7 +158422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -723
+      value: -660
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -162063,7 +162654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -467
+      value: -444
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -163344,7 +163935,31 @@ MonoBehaviour:
   nextPage: {fileID: 1840858512}
   actions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1916345617}
+        m_TargetAssemblyTypeName: LocalityUpdateAction, Assembly-CSharp
+        m_MethodName: Populate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1006430007}
+        m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
+        m_MethodName: ChangePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1007276173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163836,6 +164451,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1c6cb3b514d174c854ce573b500a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1011247140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1011247142}
+  - component: {fileID: 1011247141}
+  m_Layer: 0
+  m_Name: DtmCurrentCityTXT
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1011247141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011247140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 1
+    dataBuiltInTarget: System.String
+    dataClassTarget: {fileID: 0}
+    dataBuildInMap:
+      rid: 7676932162611314771
+    dataClassMap:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314771
+      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314772
+          ItemIdx: 2
+    - rid: 7676932162611314772
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: String
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314772
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 6de2533f2ab416643b115638ad3ad7db, type: 2}
+        columnValue: Name
+--- !u!4 &1011247142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1011247140}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1376147685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1013204665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -165592,7 +166287,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1246
+      value: -1382
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -165612,7 +166307,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: "Ciudad o municipio de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -165624,7 +166319,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -165713,6 +166408,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1021468193 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1021468189}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021468191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1021619011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172308,7 +173014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -172480,7 +173186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: Estado o departamento actual
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -176954,6 +177660,39 @@ PrefabInstance:
       addedObject: {fileID: 1957678867}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
+--- !u!1 &1077667751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1077667752}
+  m_Layer: 0
+  m_Name: Locality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1077667752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077667751}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 136487711}
+  - {fileID: 1376147685}
+  m_Father: {fileID: 158082492}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077746112
 GameObject:
   m_ObjectHideFlags: 0
@@ -177625,7 +178364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -177797,7 +178536,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: "Estado o departamento de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -181894,7 +182633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -182066,7 +182805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: Estado o departamento actual
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -189392,6 +190131,151 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
   m_PrefabInstance: {fileID: 1138214242}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1138928247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1138928248}
+  - component: {fileID: 1138928250}
+  - component: {fileID: 1138928249}
+  m_Layer: 0
+  m_Name: InterestLocalityUpdate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1138928248
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138928247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2023740005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1138928249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138928247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f981c2bcace17da4baf481d886b888c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AppUserService
+  onAppUserRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onPortraitRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onLocalityRegistered:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onPhoneUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onOptionsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onStatusUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onReferredUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onAliasValidated:
+    m_PersistentCalls:
+      m_Calls: []
+  onPortraitUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onLocalityUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1138928250}
+        m_TargetAssemblyTypeName: LocalityUpdateAction, Assembly-CSharp
+        m_MethodName: ApplyLocality
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 634912516}
+        m_TargetAssemblyTypeName: LocalityDisplayAction, Assembly-CSharp
+        m_MethodName: DisplayLocality
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPortraitDeleted:
+    m_PersistentCalls:
+      m_Calls: []
+  onResponseError:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 328842198}
+        m_TargetAssemblyTypeName: Leap.UI.Dialog.ChoiceDialog, Leap.UI.Dialog
+        m_MethodName: Error
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1138928250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138928247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c6e7b3fe39cee448cde2cf1d4c3660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalityUpdateAction
+  isInterest: 1
+  elementValues:
+  - {fileID: 1372076395}
+  - {fileID: 1403032307}
+  - {fileID: 1021468193}
+  dtmLocality: {fileID: 370474979}
+  btnUpdate: {fileID: 1996845860}
+  pagNext: {fileID: 2023740003}
+  updatedMessage: "La informaci\xF3n fue guardada exitosamente."
 --- !u!1001 &1138930681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201930,7 +202814,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbResidenceState
+      value: CmbCurrentState
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_IsActive
@@ -202002,7 +202886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1313
+      value: -1264
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -202022,7 +202906,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: Estado o departamento actual
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -202034,7 +202918,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -202112,7 +202996,7 @@ MonoBehaviour:
   comboSlave: {fileID: 41953984}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 621424875}
+    dataSourceMapper: {fileID: 895222972}
     dataAssetMapping: {fileID: 11400000, guid: 2a75da150cfcf4e429c89961ef41d095, type: 2}
     listItemPrefab: {fileID: 4517301539701428129, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
     listItem: {fileID: 18177397425701001, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
@@ -202123,6 +203007,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1198217354 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1198217350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198217351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1201712791
 GameObject:
   m_ObjectHideFlags: 0
@@ -205829,6 +206724,146 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3551771169115404605, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
   m_PrefabInstance: {fileID: 1231507312}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1232029059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232029060}
+  - component: {fileID: 1232029061}
+  m_Layer: 0
+  m_Name: DtmCurrentLocality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232029060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232029059}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1376147685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1232029061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232029059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 6444589722045251909
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6444589722045251909
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+        dataFieldValues:
+        - FieldName: Id
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: LocalityType
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        - FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        - FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 6444589722045251910
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 2130650891}
+    - rid: 6444589722045251911
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1198217354}
+    - rid: 6444589722045251912
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 41953985}
 --- !u!1001 &1232393779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206176,7 +207211,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbOriginCountry
+      value: CmbInterestCountry
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Pivot.x
@@ -206244,7 +207279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1153
+      value: -1040
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -206264,7 +207299,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: "Comunidad de inter\xE9s"
+      value: "Pa\xEDs de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -206276,7 +207311,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -206405,7 +207440,7 @@ MonoBehaviour:
   comboSlave: {fileID: 1908753052}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 1654308364}
+    dataSourceMapper: {fileID: 255223581}
     dataAssetMapping: {fileID: 11400000, guid: 40d185b51be307b4488091036a159cc8, type: 2}
     listItemPrefab: {fileID: 8015703652683718859, guid: e24fa1146addf4544af645f7e0444742, type: 3}
     listItem: {fileID: 5894571923424751587, guid: e24fa1146addf4544af645f7e0444742, type: 3}
@@ -227995,7 +229030,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: "Comunidad de inter\xE9s"
+      value: "Pa\xEDs de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -228007,7 +229042,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -228136,6 +229171,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1372076395 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1372076391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372076392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1372967637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228699,6 +229745,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e114e077bbdef4fbf4486453651488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1376147684
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1376147685}
+  m_Layer: 0
+  m_Name: Current
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1376147685
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376147684}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1848954044}
+  - {fileID: 895222973}
+  - {fileID: 1011247142}
+  - {fileID: 1232029060}
+  m_Father: {fileID: 1077667752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1376218758 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
@@ -228859,6 +229940,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 1376941195}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1376941197 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 1376941195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1377777495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -232487,7 +233579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1086
+      value: -1154
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -232507,7 +233599,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: "Estado o departamento de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -232519,7 +233611,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -232608,6 +233700,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1403032307 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1403032303}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403032304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1404801986
 GameObject:
   m_ObjectHideFlags: 0
@@ -236942,7 +238045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5892677643376416556, guid: 6fb241e15c8ea104a8a1e6c59abc1518, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6016936650738909092, guid: 6fb241e15c8ea104a8a1e6c59abc1518, type: 3}
       propertyPath: m_SizeDelta.x
@@ -237182,7 +238285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8476424079112604048, guid: 6fb241e15c8ea104a8a1e6c59abc1518, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8476424079112604063, guid: 6fb241e15c8ea104a8a1e6c59abc1518, type: 3}
       propertyPath: m_Pivot.x
@@ -237936,6 +239039,146 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1594617360122771297, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
   m_PrefabInstance: {fileID: 1437529736}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1438203284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1438203285}
+  - component: {fileID: 1438203286}
+  m_Layer: 0
+  m_Name: DtmUpdateCurrentLocality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1438203285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438203284}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2140041250}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1438203286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438203284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 6444589722045251909
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6444589722045251909
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+        dataFieldValues:
+        - FieldName: Id
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: LocalityType
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        - FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        - FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 6444589722045251910
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 340617610}
+    - rid: 6444589722045251911
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1751819101}
+    - rid: 6444589722045251912
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 316133898}
 --- !u!1 &1438498759
 GameObject:
   m_ObjectHideFlags: 0
@@ -237947,7 +239190,7 @@ GameObject:
   - component: {fileID: 1438498760}
   - component: {fileID: 1438498761}
   m_Layer: 5
-  m_Name: AddressDependency
+  m_Name: CurrentDependency
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237987,8 +239230,8 @@ MonoBehaviour:
   cmbCountry: {fileID: 2130650890}
   cmbState: {fileID: 1198217353}
   cmbCity: {fileID: 41953984}
-  dtmState: {fileID: 621424875}
-  dtmCity: {fileID: 454499275}
+  dtmState: {fileID: 895222972}
+  dtmCity: {fileID: 1011247141}
 --- !u!1 &1439267585
 GameObject:
   m_ObjectHideFlags: 0
@@ -248136,7 +249379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -248308,7 +249551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: "Ciudad o municipio de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -252685,7 +253928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -467
+      value: -444
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -259070,6 +260313,146 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
   m_PrefabInstance: {fileID: 1569315241}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1569590728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569590729}
+  - component: {fileID: 1569590730}
+  m_Layer: 0
+  m_Name: DtmInterestLocality
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569590729
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569590728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 136487711}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569590730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569590728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 6444589722045251909
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 6444589722045251909
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: c3f98692ae1637845b10e644fac84777, type: 2}
+        dataFieldValues:
+        - FieldName: Id
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: AppUserId
+          FieldTypeName: System.Int64
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: LocalityType
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+        - FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        - FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        - FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        - FieldName: Status
+          FieldTypeName: System.Int32
+          dataSourceType: 0
+          dataFieldSource:
+            rid: -2
+          ItemIdx: -1
+    - rid: 6444589722045251910
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251910
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1235731645}
+    - rid: 6444589722045251911
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: StateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251911
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 1908753050}
+    - rid: 6444589722045251912
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: CityId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 6444589722045251912
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 930342193}
 --- !u!1001 &1569608577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -266653,7 +268036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -266825,7 +268208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Comunidad de inter\xE9s"
+      value: "Pa\xEDs de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -271427,7 +272810,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Selecciona la ciudad o municipio
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -271599,7 +272982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: 
+      value: Ciudad o municipio actual
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -291656,7 +293039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1086
+      value: -1154
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -291676,7 +293059,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: Estado o departamento actual
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -291688,7 +293071,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -291777,6 +293160,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &1751819101 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 1751819097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751819098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1752884375
 GameObject:
   m_ObjectHideFlags: 0
@@ -295203,7 +296597,31 @@ MonoBehaviour:
   nextPage: {fileID: 677953964}
   actions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1138928250}
+        m_TargetAssemblyTypeName: LocalityUpdateAction, Assembly-CSharp
+        m_MethodName: Populate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1773692920}
+        m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
+        m_MethodName: ChangePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1775114935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -309196,6 +310614,144 @@ PrefabInstance:
       addedObject: {fileID: 1157083288}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92e68b94c3fa277469a19603e3ce295e, type: 3}
+--- !u!1 &1848954041
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1848954044}
+  - component: {fileID: 1848954042}
+  - component: {fileID: 1848954043}
+  m_Layer: 0
+  m_Name: DtmCurrentCountryFlagAllVLL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1848954042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848954041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
+  dataMapping:
+    dataMapType: 3
+    dataBuiltInTarget: <None>
+    dataClassTarget: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+    dataBuildInMap:
+      rid: -2
+    dataClassMap:
+      rid: 7676932162611314757
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7676932162611314757
+      type: {class: DataClassMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataClass: {fileID: 11400000, guid: 46b223c525c6a144eb1592bb244c2a92, type: 2}
+        dataFieldValues:
+        - FieldName: Name
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314758
+          ItemIdx: 1
+        - FieldName: Code
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314759
+          ItemIdx: 2
+        - FieldName: Flag
+          FieldTypeName: UnityEngine.Sprite
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314760
+          ItemIdx: 3
+    - rid: 7676932162611314758
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Name
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314758
+          ItemIdx: 1
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Name
+    - rid: 7676932162611314759
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Code
+          FieldTypeName: System.String
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314759
+          ItemIdx: 2
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Code
+    - rid: 7676932162611314760
+      type: {class: DataFieldValueList, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: Flag
+          FieldTypeName: UnityEngine.Sprite
+          dataSourceType: 5
+          dataFieldSource:
+            rid: 7676932162611314760
+          ItemIdx: 3
+        NeedsItem: 1
+        valueList: {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+        columnValue: Flag
+--- !u!114 &1848954043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848954041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 901348d1544bc6c4dbab009158f764e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DataMapperAction
+  dataMappers:
+  - {fileID: 1848954042}
+  parameters:
+  - {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
+  - {fileID: 11400000, guid: 8e2c0c75615b1f74f9ff27f9d5037fa6, type: 2}
+  - {fileID: 11400000, guid: 39cab8f2cf059ce4abfc432b1b615e60, type: 2}
+--- !u!4 &1848954044
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848954041}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1376147685}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1849071150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -316927,7 +318483,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbOriginState
+      value: CmbInterestState
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_IsActive
@@ -316999,7 +318555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1313
+      value: -1264
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -317019,7 +318575,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: 
+      value: "Estado o departamento de inter\xE9s"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -317031,7 +318587,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: Selecciona el estado o departamento
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -317120,7 +318676,7 @@ MonoBehaviour:
   comboSlave: {fileID: 930342196}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 1825181843}
+    dataSourceMapper: {fileID: 895344085}
     dataAssetMapping: {fileID: 11400000, guid: 2a75da150cfcf4e429c89961ef41d095, type: 2}
     listItemPrefab: {fileID: 4517301539701428129, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
     listItem: {fileID: 18177397425701001, guid: 3fbbcffe2c5e4a14fb451fb1432a31f4, type: 3}
@@ -319348,6 +320904,151 @@ MonoBehaviour:
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 481186362}
+--- !u!1 &1916345614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916345615}
+  - component: {fileID: 1916345617}
+  - component: {fileID: 1916345616}
+  m_Layer: 0
+  m_Name: CurrentLocalityUpdate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1916345615
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916345614}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2023740005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1916345616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916345614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f981c2bcace17da4baf481d886b888c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AppUserService
+  onAppUserRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onPortraitRetreived:
+    m_PersistentCalls:
+      m_Calls: []
+  onLocalityRegistered:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onPhoneUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onOptionsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onStatusUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onReferredUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onAliasValidated:
+    m_PersistentCalls:
+      m_Calls: []
+  onPortraitUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onLocalityUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1916345617}
+        m_TargetAssemblyTypeName: LocalityUpdateAction, Assembly-CSharp
+        m_MethodName: ApplyLocality
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 634912516}
+        m_TargetAssemblyTypeName: LocalityDisplayAction, Assembly-CSharp
+        m_MethodName: DisplayLocality
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPortraitDeleted:
+    m_PersistentCalls:
+      m_Calls: []
+  onResponseError:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 328842198}
+        m_TargetAssemblyTypeName: Leap.UI.Dialog.ChoiceDialog, Leap.UI.Dialog
+        m_MethodName: Error
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1916345617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916345614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c6e7b3fe39cee448cde2cf1d4c3660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocalityUpdateAction
+  isInterest: 1
+  elementValues:
+  - {fileID: 340617610}
+  - {fileID: 1751819101}
+  - {fileID: 316133898}
+  dtmLocality: {fileID: 1438203286}
+  btnUpdate: {fileID: 1376941197}
+  pagNext: {fileID: 2023740003}
+  updatedMessage: "La informaci\xF3n fue guardada exitosamente."
 --- !u!1001 &1916386175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -333795,6 +335496,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 1996845858}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1996845860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 1996845858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1999191304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -336988,6 +338700,7 @@ Transform:
   - {fileID: 1961875930}
   - {fileID: 70335711}
   - {fileID: 32078023}
+  - {fileID: 370474978}
   m_Father: {fileID: 847894687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2020454472
@@ -337755,6 +339468,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 634912517}
+    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1138928248}
+    - targetCorrespondingSourceObject: {fileID: 259023584701370358, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916345615}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 98514957450636556, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       insertIndex: -1
@@ -343017,7 +344736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_Name
-      value: PagUpdateCommunity2
+      value: PagCurrentLocality
       objectReference: {fileID: 0}
     - target: {fileID: 3626599243492655151, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: m_IsActive
@@ -354895,7 +356614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896328828039, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -355067,7 +356786,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_text
-      value: Comunidad actual
+      value: "Pa\xEDs actual"
       objectReference: {fileID: 0}
     - target: {fileID: 4452337896743369556, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
       propertyPath: m_fontSize
@@ -358907,7 +360626,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Name
-      value: CmbResidenceCountry
+      value: CmbCurrentCountry
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_Pivot.x
@@ -358975,7 +360694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1153
+      value: -1040
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -358995,7 +360714,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: ffd5da2ed12dfd64284395884414c004, type: 2}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: title
-      value: Comunidad actual
+      value: "Pa\xEDs actual"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: cmbModel
@@ -359007,7 +360726,7 @@ PrefabInstance:
       objectReference: {fileID: 4452337896361883359, guid: 00bd63c7957094543a993a843cb82e63, type: 3}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: placeholder
-      value: "Selecciona el pa\xEDs"
+      value: "Selecciona opci\xF3n"
       objectReference: {fileID: 0}
     - target: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -359085,7 +360804,7 @@ MonoBehaviour:
   comboSlave: {fileID: 1198217353}
   wheelDialogConfigs: []
   listDialogConfig:
-    dataSourceMapper: {fileID: 230540402}
+    dataSourceMapper: {fileID: 1848954042}
     dataAssetMapping: {fileID: 11400000, guid: 40d185b51be307b4488091036a159cc8, type: 2}
     listItemPrefab: {fileID: 8015703652683718859, guid: e24fa1146addf4544af645f7e0444742, type: 3}
     listItem: {fileID: 5894571923424751587, guid: e24fa1146addf4544af645f7e0444742, type: 3}
@@ -359096,6 +360815,17 @@ MonoBehaviour:
       DisplayIndex: 0
       DisplayLength: 0
       DisplayCut: 
+--- !u!114 &2130650891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2755053623149859425, guid: 0709c4701d5a65449a85c117d5244fa7, type: 3}
+  m_PrefabInstance: {fileID: 2130650887}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130650888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14280a672c674c44be45a13c1955b1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2130886063
 GameObject:
   m_ObjectHideFlags: 0
@@ -361493,6 +363223,7 @@ Transform:
   - {fileID: 1886395339}
   - {fileID: 638871853}
   - {fileID: 812240409}
+  - {fileID: 1438203285}
   m_Father: {fileID: 847894687}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2140086119
