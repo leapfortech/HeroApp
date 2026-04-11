@@ -37,9 +37,9 @@ public class ProfileDisplayAction : MonoBehaviour
 
     [Title("Pages")]
     [SerializeField]
-    Page obdPage = null;
+    Page pagRegister = null;
     [SerializeField]
-    Page profilePage = null;
+    Page pagDisplay = null;
 
     public void Clear()
     {
@@ -62,9 +62,9 @@ public class ProfileDisplayAction : MonoBehaviour
         long obdStatus = (StateManager.Instance.AppUser.Options / (long)Math.Pow(10, 0)) % 10;
 
         if (obdStatus == 1)
-            PageManager.Instance.ChangePage(obdPage);
+            PageManager.Instance.ChangePage(pagRegister);
         else
-            PageManager.Instance.ChangePage(profilePage);
+            PageManager.Instance.ChangePage(pagDisplay);
 
         SandwichMenu.Instance.Close();
     }

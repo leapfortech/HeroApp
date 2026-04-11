@@ -2,7 +2,7 @@
 using UnityEngine;
 
 using Leap.UI.Elements;
-using Leap.Data.Web;
+using Leap.UI.Page;
 using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
@@ -34,6 +34,12 @@ public class LocalityDisplayAction : MonoBehaviour
     [SerializeField]
     ValueList vllCity = null;
 
+    [Title("Pages")]
+    [SerializeField]
+    Page pagRegister = null;
+    [SerializeField]
+    Page pagDisplay = null;
+
     public void Clear()
     {
         txtInterestCountry.Clear();
@@ -45,6 +51,17 @@ public class LocalityDisplayAction : MonoBehaviour
         txtCurrentCity.Clear();
     }
 
+    public void ChangeToStartPage()
+    {
+        bool localityStatus = StateManager.Instance.InterestLocality == null;
+
+        if (localityStatus)
+            PageManager.Instance.ChangePage(pagRegister);
+        else
+            PageManager.Instance.ChangePage(pagDisplay);
+
+        SandwichMenu.Instance.Close();
+    }
 
     public void DisplayLocality()
     {

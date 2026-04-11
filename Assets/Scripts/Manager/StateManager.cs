@@ -611,6 +611,10 @@ public class StateManager : SingletonBehaviour<StateManager>
         Card = null;
         Portrait = null;
 
+        // Locality
+        InterestLocality = null;
+        CurrentLocality = null;
+
         // Feeds
         ResetAllFeeds();
 

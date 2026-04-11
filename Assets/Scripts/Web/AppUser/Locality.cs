@@ -1,13 +1,19 @@
 using System;
 
+using Sirenix.OdinInspector;
+
 public class Locality
 {
     public long Id { get; set; } = -1;
     public long AppUserId { get; set; } = -1;
     public int LocalityType { get; set; } = -1;
+    [ShowInInspector]
     public long CountryId { get; set; } = -1;
+    [ShowInInspector]
     public long StateId { get; set; } = -1;
+    [ShowInInspector]
     public long CityId { get; set; } = -1;
+    [ShowInInspector]
     public int Status { get; set; } = -1;
 
     public Locality() { }

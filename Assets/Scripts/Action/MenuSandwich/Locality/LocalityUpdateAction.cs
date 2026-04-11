@@ -59,7 +59,7 @@ public class LocalityUpdateAction : MonoBehaviour
 
     public void Populate()
     {
-        //Clear();
+        Clear();
 
         locality = isInterest ? StateManager.Instance.InterestLocality : StateManager.Instance.CurrentLocality;
 
@@ -92,7 +92,7 @@ public class LocalityUpdateAction : MonoBehaviour
     }
 
     public void ApplyLocality(long id)
-    {
+    {       
         if (id == -1)
         {
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
@@ -100,12 +100,14 @@ public class LocalityUpdateAction : MonoBehaviour
         }
 
         localityNew.Id = id;
+        localityNew.Status = 1;
 
         if (isInterest)
             StateManager.Instance.InterestLocality = localityNew;
         else
             StateManager.Instance.CurrentLocality = localityNew;
 
+        Clear();
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 

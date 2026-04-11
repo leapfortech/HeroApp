@@ -23,12 +23,12 @@ public class LocalityAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-    [SerializeField]
-    Button btnExit = null;
+    //[SerializeField]
+    //Button btnExit = null;
 
     [Title("Page")]
-    [SerializeField]
-    Page pagStart = null;
+    //[SerializeField]
+    //Page pagStart = null;
 
     [SerializeField]
     Page pagDone = null;
@@ -93,7 +93,10 @@ public class LocalityAction : MonoBehaviour
     public void ApplyLocality(LocalityResponse localityResponse)
     {
         interestLocality.Id = localityResponse.InterestLocalityId;
+        interestLocality.Status = 1;
+
         currentLocality.Id = localityResponse.CurrentLocalityId;
+        currentLocality.Status = 1;
 
         StateManager.Instance.InterestLocality = interestLocality;
         StateManager.Instance.CurrentLocality = currentLocality;
