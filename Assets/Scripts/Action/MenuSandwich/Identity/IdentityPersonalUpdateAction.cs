@@ -10,10 +10,6 @@ using Sirenix.OdinInspector;
 
 public class IdentityPersonalUpdateAction : MonoBehaviour
 {
-    [Title("Element")]
-    [SerializeField]
-    Combo cmbBirthDate = null;
-
     [Title("Data")]
     [SerializeField]
     DataMapper dtmIdentityPersonal = null;
@@ -71,9 +67,6 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
         DateTime sqlMinDate = new DateTime(1753, 1, 1);
 
         identityPersonalNew = dtmIdentityPersonal.BuildClass<IdentityPersonal>();
-
-        if (cmbBirthDate.IsEmpty())
-            identityPersonalNew.BirthDate = sqlMinDate;
 
         if (identityPersonalNew.BirthDate != sqlMinDate && CalculateAge(identityPersonalNew.BirthDate) < 18)
         {
