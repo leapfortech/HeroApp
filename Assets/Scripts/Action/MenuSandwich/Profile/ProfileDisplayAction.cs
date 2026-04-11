@@ -59,7 +59,7 @@ public class ProfileDisplayAction : MonoBehaviour
 
     public void ChangeToStartPage()
     {
-        long obdStatus = (StateManager.Instance.AppUser.Options / (long)Math.Pow(10, 0)) % 10;
+        long obdStatus = StateManager.Instance.GetOption(0);
 
         if (obdStatus == 1)
             PageManager.Instance.ChangePage(pagRegister);

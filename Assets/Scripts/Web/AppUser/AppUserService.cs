@@ -54,6 +54,9 @@ public class AppUserService : MonoBehaviour
     private UnityLongEvent onLocalityUpdated = null;
 
     [SerializeField]
+    private UnityEvent onAliasUpdated = null;
+
+    [SerializeField]
     private UnityEvent onPortraitDeleted = null;
 
     [Title("Error")]
@@ -291,6 +294,27 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             localityPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void UpdateAlias(AliasRequest aliasRequest)
+    {
+        AliasPutOperation aliasPutOp = new AliasPutOperation();
+        try
+        {
+            aliasPutOp.aliasRequest = aliasRequest;
+            aliasPutOp["on-complete"] = (Action<AliasPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onAliasUpdated.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            aliasPutOp.Send();
         }
         catch (Exception ex)
         {

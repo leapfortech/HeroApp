@@ -52,11 +52,18 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
-    public long UpdateOption(int index, int newStatus)
+    // Option
+    public long GetOption(int idx)
+    {
+        return AppUser.Options / (long)Math.Pow(10, idx) % 10;
+    }
+    
+
+    public long UpdateOption(int idx, int newStatus)
     {
         long options = AppUser.Options;
 
-        long power = (long)Math.Pow(10, index);
+        long power = (long)Math.Pow(10, idx);
         long currentStatus = (options / power) % 10;
 
         long updatedOptions = options + (newStatus - currentStatus) * power;
@@ -66,6 +73,7 @@ public class StateManager : SingletonBehaviour<StateManager>
         return updatedOptions;
     }
 
+    // Identity
     public void UpdateIdentityPersonal (long id, IdentityPersonal identityPersonal)
     {
         if (Identity == null)
@@ -89,6 +97,7 @@ public class StateManager : SingletonBehaviour<StateManager>
         Identity.BirthCityId = identityPlace.BirthCityId;
     }
 
+    // Address
     public void UpdateAddressCity(long id, AddressCity addressCity)
     {
         if (Identity == null)

@@ -165,6 +165,18 @@ public class LocalityPutOperation : HttpOperation
     public String localityId;
 }
 
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/appUser/UpdateAlias")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class AliasPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public AliasRequest aliasRequest;
+}
+
 [HttpDELETE]
 [HttpPathExt(WebServiceType.Main, "/appUser/Portrait")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]

@@ -15,6 +15,9 @@ public class AccountDisplayAction : MonoBehaviour
     Text[] txtAliass = null;
     [Space]
     [SerializeField]
+    InputField[] ifdAliass = null;
+    [Space]
+    [SerializeField]
     Text txtEmail = null;
     [SerializeField]
     Text txtPhone = null;
@@ -37,6 +40,9 @@ public class AccountDisplayAction : MonoBehaviour
     {
         for (int i = 0; i < txtAliass.Length; i++)
             txtAliass[i].TextValue = StateManager.Instance.AppUser.Alias;
+
+        for (int i = 0; i < ifdAliass.Length; i++)
+            ifdAliass[i].Text = StateManager.Instance.AppUser.Alias;
 
         bool isEmailEmpty = true, isPhoneEmpty = true;
 

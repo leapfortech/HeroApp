@@ -86,7 +86,6 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
         identityPersonalNew.IdentityId = StateManager.Instance.Identity.Id;
 
         identityService.UpdatePersonal(identityPersonalNew);
-
     }
 
     public void ApplyIdentity(long id)

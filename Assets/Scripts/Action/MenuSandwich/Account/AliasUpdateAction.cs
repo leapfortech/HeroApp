@@ -2,26 +2,35 @@
 using UnityEngine;
 
 using Leap.UI.Elements;
-using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.Data.Web;
+using Leap.UI.Page;
+
+using Sirenix.OdinInspector;
 
 
-public class ValidateAlias : MonoBehaviour
+public class AliasUpdateAction : MonoBehaviour
 {
-    [Header("Fields")]
+    [Title("Fields")]
     [SerializeField]
     InputField ifdAlias = null;
 
-    [Header("Action")]
+    [Title("Action")]
     [SerializeField]
-    Button btnNext = null;
+    Button btnUpdate = null;
+
+    [Title("Page")]
+    [SerializeField]
+    Page pagNext = null;
 
     [Space]
     [SerializeField, TextArea(2, 5)]
     String aliasInvalidMessage = "Alias inválido.";
     [SerializeField, TextArea(2, 5)]
     String aliasAlreadyExistsMessage = "El Alias ya existe.";
+
+    [Space]
+    [SerializeField, TextArea(2, 4)]
+    String updatedMessage = "La información fue guardada exitosamente.";
 
     AppUserService appUserService;
 
@@ -35,13 +44,14 @@ public class ValidateAlias : MonoBehaviour
     private void Start()
     {
         Initialize();
+        btnUpdate?.AddAction(DoUpdate);
     }
 
     public void Initialize()
     {
         Clear();
         isAliasAvailable = false;
-        RefreshRegisterButton();
+        RefreshUpdateButton();
     }
 
     public void Clear()
@@ -60,13 +70,9 @@ public class ValidateAlias : MonoBehaviour
         }
         
         ScreenDialog.Instance.Display();
-        FirebaseManager.Instance.LoginStartToken(DoValidateAlias, null);
-    }
-
-    private void DoValidateAlias(String _)
-    {
         appUserService.ValidateAlias(new AliasRequest(ifdAlias.Text));
     }
+
 
     public void ApplyAliasValidation(AliasResponse aliasResponse)
     {
@@ -75,13 +81,27 @@ public class ValidateAlias : MonoBehaviour
         if (!isAliasAvailable)
             ChoiceDialog.Instance.Error("Alias", aliasAlreadyExistsMessage);
         else
-            RefreshRegisterButton();
+            RefreshUpdateButton();
    
         ScreenDialog.Instance.Hide();
     }
 
-    public void RefreshRegisterButton()
+    public void DoUpdate()
     {
-        btnNext.Interactable = isAliasAvailable;
+        ScreenDialog.Instance.Display();
+
+        appUserService.UpdateAlias(new AliasRequest(StateManager.Instance.AppUser.Id, ifdAlias.Text));
+    }
+
+    public void ApplyAlias()
+    {
+        StateManager.Instance.AppUser.Alias = ifdAlias.Text;
+
+        ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
+    }
+
+    public void RefreshUpdateButton()
+    {
+        btnUpdate.Interactable = isAliasAvailable;
     }
 }
