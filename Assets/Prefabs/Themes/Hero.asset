@@ -33911,9 +33911,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'W: Button'
-        Reference: 0
+        Reference: 1
         Value: 0
-        Property: 
+        Property: 'Area: Giant'
     - rid: 7896456371522242342
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -34523,7 +34523,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'C: Button: TopLeft'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Corner: Dull'
     - rid: 7896456371522242410
@@ -34532,7 +34532,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'C: Button: TopRight'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Corner: Dull'
     - rid: 7896456371522242411
@@ -34541,7 +34541,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'C: Button: BottomLeft'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Corner: Dull'
     - rid: 7896456371522242412
@@ -34550,7 +34550,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'C: Button: BottomRight'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Corner: Dull'
     - rid: 7896456371522242413
@@ -35225,7 +35225,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'B: Button: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Border: Thin'
     - rid: 7896456371522242488
@@ -35252,7 +35252,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'B: Button: On: Pressed'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: Zero
     - rid: 7896456371522242491
@@ -35811,7 +35811,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'M: Button: Title: Y'
         Reference: 0
-        Value: 0
+        Value: 42
         Property: 
     - rid: 7896456371522242553
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -36287,16 +36287,16 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'F: Button: On'
-        Reference: 0
+        Reference: 1
         Value: 0
-        Property: 'Font: Legible'
+        Property: 'Font: Clear'
     - rid: 7896456371522242606
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
         themeElement:
           rid: 7896456371487375720
         Name: 'F: Button: Off'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'Font: Clear'
     - rid: 7896456371522242607
@@ -36566,7 +36566,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'O: Button: Alignment'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'O: Alignment: Center'
     - rid: 7896456371522242637
@@ -36575,7 +36575,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'O: Button: Icon: Place'
-        Reference: 0
+        Reference: 1
         Value: 0
         Property: 'O: Icon: None'
     - rid: 7896456371522242638
@@ -37268,9 +37268,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Bkg: On: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'CmpA: Dim'
+        Property: 'Subdominant: Default'
     - rid: 7896456371522242723
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37286,7 +37286,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Bkg: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
         Property: 'WhiteScale: Default'
     - rid: 7896456371522242725
@@ -37304,7 +37304,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Bkg: Off: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
         Property: 'WhiteScale: A'
     - rid: 7896456371522242727
@@ -37322,9 +37322,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Border: On: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'CmpA: Dim'
+        Property: 'Subdominant: Default'
     - rid: 7896456371522242729
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37340,9 +37340,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Border: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'CmpA: Translucent'
+        Property: 'Subdominant: Default'
     - rid: 7896456371522242731
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37358,7 +37358,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Border: Off: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
         Property: 'GreyScale: Translucent'
     - rid: 7896456371522242733
@@ -37430,9 +37430,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Title: On: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: B'
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522242741
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37448,9 +37448,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Title: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'CmpA: Default'
+        Property: 'Subdominant: Default'
     - rid: 7896456371522242743
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37466,7 +37466,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Title: Off: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
         Property: 'GreyScale: D'
     - rid: 7896456371522242745
@@ -40438,7 +40438,7 @@ MonoBehaviour:
         Name: 'Button: Title: Off'
         Reference: 1
         Value: {fileID: 0}
-        Property: 'Main: Regular'
+        Property: 'Main: Medium'
     - rid: 7896456371522243093
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
