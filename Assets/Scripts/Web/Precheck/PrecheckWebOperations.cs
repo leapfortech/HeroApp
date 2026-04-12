@@ -9,12 +9,12 @@ using hg.ApiWebKit.authorizations;
 using Leap.Data.Web;
 
 [HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/phone/RegisterPhone")]
+[HttpPathExt(WebServiceType.Main, "/precheck/RegisterPhoneSms")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
-public class RegisterPhonePostOperation : HttpOperation
+public class RegisterPhoneSmsPostOperation : HttpOperation
 {
     [HttpQueryString]
     public long phoneCountryId;
@@ -27,12 +27,12 @@ public class RegisterPhonePostOperation : HttpOperation
 }
 
 [HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/phone/ValidateCode")]
+[HttpPathExt(WebServiceType.Main, "/precheck/ValidatePhoneCodeSms")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
-public class ValidateCodePostOperation : HttpOperation
+public class ValidatePhoneCodeSmsPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public PhoneCodeRequest phoneCodeRequest;

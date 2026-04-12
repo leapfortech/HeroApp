@@ -83,7 +83,7 @@ public class PhoneAction : MonoBehaviour
     [SerializeField]
     UnityEvent onValidateCode = null;
 
-    PhoneService phoneService = null;
+    PrecheckService phoneService = null;
     ElementValue[] elementValues = null;
     bool isResend = false;
 
@@ -107,7 +107,7 @@ public class PhoneAction : MonoBehaviour
         elementValues[0] = cmbPhoneCountry.Combo;
         elementValues[1] = ifdPhoneNumber;
 
-        phoneService = GetComponent<PhoneService>();
+        phoneService = GetComponent<PrecheckService>();
     }
 
     public void Clear()
@@ -152,7 +152,7 @@ public class PhoneAction : MonoBehaviour
 
     private void DoRegisterPhone(String _)
     {
-        phoneService.RegisterPhone(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text);
+        phoneService.RegisterPhoneSms(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text);
     }
 
     public void ApplyRegisterPhone(String result)
@@ -184,7 +184,7 @@ public class PhoneAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
         PhoneCodeRequest phoneCodeRequest = new PhoneCodeRequest(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text, ifdCode.Text);
-        phoneService.ValidateCode(phoneCodeRequest);
+        phoneService.ValidatePhoneCodeSms(phoneCodeRequest);
     }
 
     public void ApplyValidateCode(String result)
