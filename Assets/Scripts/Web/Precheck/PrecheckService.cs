@@ -16,13 +16,27 @@ public class PrecheckService : MonoBehaviour
     private UnityStringEvent onPhoneSmsRegistered = null;
 
     [SerializeField]
-    private UnityStringEvent onPhoneCodeSmsValidated = null;
+    private UnityStringEvent onPhoneSmsCodeValidated = null;
+
+    [Space]
+    [SerializeField]
+    private UnityStringEvent onPhoneWARegistered = null;
+
+    [SerializeField]
+    private UnityStringEvent onPhoneWACodeValidated = null;
+
+    [Space]
+    [SerializeField]
+    private UnityStringEvent onEmailRegistered = null;
+
+    [SerializeField]
+    private UnityStringEvent onEmailCodeValidated = null;
 
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
-    // REGISTER
+    // SMS
     public void RegisterPhoneSms(long phoneCountryId, String phoneNumber)
     {
         RegisterPhoneSmsPostOperation registerPhoneSmsPostOp = new RegisterPhoneSmsPostOperation();
@@ -46,22 +60,108 @@ public class PrecheckService : MonoBehaviour
         }
     }
 
-    // VALIDATION
-    public void ValidatePhoneCodeSms(PhoneCodeRequest phoneCodeRequest)
+    public void ValidatePhoneSmsCode(PhoneCodeRequest phoneCodeRequest)
     {
-        ValidatePhoneCodeSmsPostOperation validatePhoneCodeSmsPostOp = new ValidatePhoneCodeSmsPostOperation();
+        ValidatePhoneSmsCodePostOperation validatePhoneSmsCodePostOp = new ValidatePhoneSmsCodePostOperation();
         try
         {
-            validatePhoneCodeSmsPostOp.phoneCodeRequest = phoneCodeRequest;
-
-            validatePhoneCodeSmsPostOp["on-complete"] = (Action<ValidatePhoneCodeSmsPostOperation, HttpResponse>)((op, response) =>
+            validatePhoneSmsCodePostOp.phoneCodeRequest = phoneCodeRequest;
+            validatePhoneSmsCodePostOp["on-complete"] = (Action<ValidatePhoneSmsCodePostOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onPhoneCodeSmsValidated.Invoke(validatePhoneCodeSmsPostOp.result[1..^1]);
+                    onPhoneSmsCodeValidated.Invoke(validatePhoneSmsCodePostOp.result[1..^1]);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
-            validatePhoneCodeSmsPostOp.Send();
+            validatePhoneSmsCodePostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // WHATSAPP
+    public void RegisterPhoneWA(long phoneCountryId, String phoneNumber)
+    {
+        RegisterPhoneWAPostOperation registerPhoneWAPostOp = new RegisterPhoneWAPostOperation();
+        try
+        {
+            registerPhoneWAPostOp.phoneCountryId = phoneCountryId;
+            registerPhoneWAPostOp.phoneNumber = phoneNumber;
+
+            registerPhoneWAPostOp["on-complete"] = (Action<RegisterPhoneWAPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPhoneWARegistered.Invoke(registerPhoneWAPostOp.result[1..^1]);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            registerPhoneWAPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void ValidatePhoneWACode(PhoneCodeRequest phoneCodeRequest)
+    {
+        ValidatePhoneWACodePostOperation validatePhoneWACodePostOp = new ValidatePhoneWACodePostOperation();
+        try
+        {
+            validatePhoneWACodePostOp.phoneCodeRequest = phoneCodeRequest;
+            validatePhoneWACodePostOp["on-complete"] = (Action<ValidatePhoneWACodePostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPhoneWACodeValidated.Invoke(validatePhoneWACodePostOp.result[1..^1]);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            validatePhoneWACodePostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    // EMAIL
+    public void RegisterEmail(String email)
+    {
+        RegisterEmailPostOperation registerEmailPostOp = new RegisterEmailPostOperation();
+        try
+        {
+            registerEmailPostOp.email = email;
+            registerEmailPostOp["on-complete"] = (Action<RegisterEmailPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onEmailRegistered.Invoke(registerEmailPostOp.result[1..^1]);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            registerEmailPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void ValidateEmailCode(EmailCodeRequest emailCodeRequest)
+    {
+        ValidateEmailCodePostOperation validateEmailCodePostOp = new ValidateEmailCodePostOperation();
+        try
+        {
+            validateEmailCodePostOp.emailCodeRequest = emailCodeRequest;
+            validateEmailCodePostOp["on-complete"] = (Action<ValidateEmailCodePostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onEmailCodeValidated.Invoke(validateEmailCodePostOp.result[1..^1]);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            validateEmailCodePostOp.Send();
         }
         catch (Exception ex)
         {

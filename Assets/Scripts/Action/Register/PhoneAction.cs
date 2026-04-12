@@ -184,7 +184,7 @@ public class PhoneAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
         PhoneCodeRequest phoneCodeRequest = new PhoneCodeRequest(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text, ifdCode.Text);
-        phoneService.ValidatePhoneCodeSms(phoneCodeRequest);
+        phoneService.ValidatePhoneSmsCode(phoneCodeRequest);
     }
 
     public void ApplyValidateCode(String result)
