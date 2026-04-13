@@ -120,6 +120,7 @@ public class PrecheckAction : MonoBehaviour
         cmbPhoneCountry.Clear();
         ifdPhoneNumber.Clear();
         ifdEmail.Clear();
+        ifdCode.Clear();
     }
 
     public void DisplayMethod()
@@ -344,6 +345,7 @@ public class PrecheckAction : MonoBehaviour
         }
 
         onValidateCode.Invoke();
+        Clear();
     }
 
     public void DisplayErrorMessage(String error)
