@@ -199,9 +199,13 @@ public class PrecheckAction : MonoBehaviour
             return;
         }
 
-        txtResult.TextValue = cmbPhoneCountry.GetSelectedCellString("PhonePrefix") + " " + ifdPhoneNumber.Text;
+        txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
+                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + " "
+                               + ifdPhoneNumber.Text
+                               + "</b>";
 
-        if(!isResend)
+        if (!isResend)
             onRegistered.Invoke();
         else
             ChoiceDialog.Instance.Info(resendTitle, resendMessage); 
@@ -228,7 +232,11 @@ public class PrecheckAction : MonoBehaviour
 
     public void ApplyRegisterPhoneWA(String result)
     {
-        txtResult.TextValue = cmbPhoneCountry.GetSelectedCellString("PhonePrefix") + " " + ifdPhoneNumber.Text;
+        txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
+                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + " "
+                               + ifdPhoneNumber.Text
+                               + "</b>";
 
         if (!isResend)
             onRegistered.Invoke();
@@ -257,7 +265,7 @@ public class PrecheckAction : MonoBehaviour
 
     public void ApplyRegisterEmail(String result)
     {
-        txtResult.TextValue = ifdEmail.Text;
+        txtResult.TextValue = "Ingresa el código que recibiste al correo <b>"+ ifdEmail.Text + "</b>";
 
         if (!isResend)
             onRegistered.Invoke();
@@ -345,7 +353,6 @@ public class PrecheckAction : MonoBehaviour
         }
 
         onValidateCode.Invoke();
-        Clear();
     }
 
     public void DisplayErrorMessage(String error)

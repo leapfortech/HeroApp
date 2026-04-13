@@ -6,6 +6,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
 using Leap.Data.Web;
+using Leap.Data.Collections;
 
 
 
@@ -13,19 +14,22 @@ public class RegisterAction : MonoBehaviour
 {
     [Header("Fields")]
     [SerializeField]
-    InputField ifdAlias = null;
-
-    [SerializeField]
-    InputField ifdEmail = null;
-
-    [SerializeField]
-    InputField ifdPassword = null;
+    ToggleGroup tggMethod = null;
 
     [SerializeField]
     ComboAdapter cmbPhonePrefix = null;
 
     [SerializeField]
     InputField ifdPhone = null;
+
+    [SerializeField]
+    InputField ifdEmail = null;
+
+    [SerializeField]
+    InputField ifdAlias = null;
+
+    [SerializeField]
+    InputField ifdPassword = null;
 
     [SerializeField]
     InputField ifdConfirm = null;
@@ -35,6 +39,10 @@ public class RegisterAction : MonoBehaviour
 
     [SerializeField]
     Toggle chkTerms = null;
+
+    [Header("Data")]
+    [SerializeField]
+    ValueList vllCountry = null;
 
     [Header("Action")]
     [SerializeField]
@@ -78,11 +86,10 @@ public class RegisterAction : MonoBehaviour
         if (elementValues != null)
             return;
 
-        elementValues = new ElementValue[4];
-        elementValues[0] = ifdEmail;
-        elementValues[1] = ifdPassword;
-        elementValues[2] = ifdConfirm;
-        elementValues[3] = chkTerms;
+        elementValues = new ElementValue[3];
+        elementValues[0] = ifdPassword;
+        elementValues[1] = ifdConfirm;
+        elementValues[2] = chkTerms;
 
         btnRegister?.AddAction(Register);
         btnResendLink?.AddAction(ResendMailLink);
@@ -109,6 +116,9 @@ public class RegisterAction : MonoBehaviour
 
         ifdPhone.ClearValue();
         cmbPhonePrefix.Select(2);
+        ifdEmail.ClearValue();
+        ifdAlias.ClearValue();
+        ifdReferredCode.ClearValue();
     }
 
 
@@ -134,8 +144,27 @@ public class RegisterAction : MonoBehaviour
 
     private void DoRegister(String _)
     {
-        accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, ifdEmail.Text, ifdPassword.Text, 
-                                                         cmbPhonePrefix.GetSelectedRecord().Id, ifdPhone.Text,
+        String email = null, phone = null;
+        long phoneCounryId;
+
+        if (tggMethod.Value == "P")
+        {
+            email = "hm."+ vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id,"PhonePrefix").Replace("+", "")
+                    + ifdPhone.Text.Replace("-", "")
+                    + "@heroesmigrantes.com";
+            
+            phoneCounryId = cmbPhonePrefix.GetSelectedRecord().Id;
+            phone = ifdPhone.Text;
+        }
+        else
+        {
+            email = ifdEmail.Text;
+            phoneCounryId = -1;
+            phone = null;
+        }
+
+        accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, email, ifdPassword.Text,
+                                                         phoneCounryId, phone,
                                                          ifdReferredCode.Text));
     }
 
@@ -154,10 +183,12 @@ public class RegisterAction : MonoBehaviour
 
     public void ApplyRegistered(String registerResponse)  // registerResponse : $"{appUserId}|{isMailVerified}"
     {
-        if (registerResponse[^1] == '0')
-            SendMailLink();  // First time
-        else
-            PageManager.Instance.ChangePage(pagDone);
+        //if (registerResponse[^1] == '0')
+        //    SendMailLink();  // First time
+        //else
+        //    PageManager.Instance.ChangePage(pagDone);
+
+        PageManager.Instance.ChangePage(pagDone);
     }
 
     private void SendMailLink()
