@@ -189,6 +189,8 @@ public class RegisterAction : MonoBehaviour
         //    PageManager.Instance.ChangePage(pagDone);
 
         PageManager.Instance.ChangePage(pagDone);
+        
+        ClearAll();
     }
 
     private void SendMailLink()
