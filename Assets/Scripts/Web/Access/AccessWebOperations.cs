@@ -82,4 +82,19 @@ public class ResetPasswordPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public ResetPasswordRequest resetPasswordRequest;
+
+    [HttpResponseTextBody]
+    public String webSysUserId;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/access/UpdatePassword")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class UpdatePasswordPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public UpdatePasswordRequest updatePasswordRequest;
 }

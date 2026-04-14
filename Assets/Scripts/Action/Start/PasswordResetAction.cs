@@ -16,6 +16,9 @@ using Sirenix.OdinInspector;
 
 public class PasswordResetAction : MonoBehaviour
 {
+    [Serializable]
+    public class UnityPasswordChangedEvent : UnityEvent { }
+
     [Title("Method")]
     [SerializeField]
     ToggleGroup tggMethod = null;
@@ -44,11 +47,22 @@ public class PasswordResetAction : MonoBehaviour
     [SerializeField]
     InputField ifdCode = null;
 
+    [SerializeField]
+    InputField ifdNewPassword = null;
+
+    [SerializeField]
+    InputField ifdConfirmPassword = null;
+
+
     [Header("Page")]
     [SerializeField]
     Page pagValidate = null;
+
     [SerializeField]
     Page pagNewPassword = null;
+
+    [SerializeField]
+    Page pagDone = null;
 
     [Header("Action")]
     [SerializeField]
@@ -59,6 +73,13 @@ public class PasswordResetAction : MonoBehaviour
 
     [SerializeField]
     Button btnValidateCode = null;
+
+    [SerializeField]
+    Button btnUpdatePassword = null;
+
+    [Header("Event")]
+    [SerializeField]
+    UnityPasswordChangedEvent onPasswordChanged = null;
 
     [Title("Messages")]
     [SerializeField]
@@ -87,7 +108,7 @@ public class PasswordResetAction : MonoBehaviour
     PrecheckService precheckService = null;
 
     bool isResend = false;
-
+    long webSysUserId = -1;
     private void Start()
     {
         Initialize();
@@ -95,6 +116,7 @@ public class PasswordResetAction : MonoBehaviour
         btnReset?.AddAction(Login);
         btnValidateCode?.AddAction(ValidateCode);
         btnResendCode?.AddAction(ResendCode);
+        btnUpdatePassword?.AddAction(UpdatePassword);
     }
 
     private void Initialize()
@@ -172,9 +194,11 @@ public class PasswordResetAction : MonoBehaviour
         accessService.ResetPassword(request);
     }
 
-    // Messages
-    public void ApplyResetPasswordSent()
+    
+    public void ApplyResetPasswordSent(long webSysUserId)
     {
+        this.webSysUserId = webSysUserId;
+
         FirebaseManager.Instance.AuthLogOut();
 #if !UNITY_EDITOR && UNITY_ANDROID
         if (NativeAuthManager.Instance.IsRegistered(ifdEmail.Text))
@@ -272,6 +296,34 @@ public class PasswordResetAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagNewPassword);
     }
+
+    // Update Password
+
+    private void UpdatePassword()
+    {
+        if (!ElementHelper.Validate(ifdNewPassword) && !ElementHelper.Validate(ifdConfirmPassword))
+            return;
+
+        if (ifdNewPassword.Text != ifdConfirmPassword.Text)
+        {
+            ifdNewPassword.DisplayValidity(false);
+            ifdConfirmPassword.DisplayValidity(false);
+            ChoiceDialog.Instance.Error(PageManager.Instance.CurrentPage.HeaderTitle, "Los campos <b>" + ifdNewPassword.Title + "</b> y <b>" + ifdConfirmPassword.Title + "</b> son diferentes. Por favor, revisa e intenta de nuevo.");
+            return;
+        }
+
+        ScreenDialog.Instance.Display();
+
+        accessService.UpdatePassword(new UpdatePasswordRequest(webSysUserId, ifdConfirmPassword.Text));
+    }
+
+    public void ApplyUpdatePassword()
+    {
+        Clear();
+        onPasswordChanged?.Invoke();
+        PageManager.Instance.ChangePage(pagDone);
+    }
+
 
     public void DisplayErrorMessage(String error)
     {
