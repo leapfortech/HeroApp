@@ -34,6 +34,9 @@ public class AccessService : MonoBehaviour
     [SerializeField]
     private OnboardingEvent onOnboardingRegistered = null;
 
+    [SerializeField]
+    private UnityEvent onResetPasswordSent = null;
+
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
@@ -118,6 +121,27 @@ public class AccessService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             onboardingPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void ResetPassword(ResetPasswordRequest resetPasswordRequest)
+    {
+        ResetPasswordPostOperation resetPasswordPostOp = new ResetPasswordPostOperation();
+        try
+        {
+            resetPasswordPostOp.resetPasswordRequest = resetPasswordRequest;
+            resetPasswordPostOp["on-complete"] = (Action<ResetPasswordPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onResetPasswordSent.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            resetPasswordPostOp.Send();
         }
         catch (Exception ex)
         {

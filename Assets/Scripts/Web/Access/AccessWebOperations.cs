@@ -71,3 +71,15 @@ public class OnboardingPostOperation : HttpOperation
     [HttpResponseJsonBody]
     public OnboardingResponse onboardingResponse;
 }
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/access/ResetPassword")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ResetPasswordPostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public ResetPasswordRequest resetPasswordRequest;
+}

@@ -52,10 +52,6 @@ public class LoginAction : MonoBehaviour
     [SerializeField]
     Toggle chkRemember = null;
 
-    [Header("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
-
     [Title("Authenticate")]
     [SerializeField]
     Button btnAndroidAuth;
@@ -326,7 +322,7 @@ public class LoginAction : MonoBehaviour
             if (!ElementHelper.Validate(cmbPhonePrefix.Combo) && !ElementHelper.Validate(ifdPhone) && !ElementHelper.Validate(ifdPassword))
                 return;
 
-            email = "hm." + vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id, "PhonePrefix").Replace("+", "")
+            email = "hm." + cmbPhonePrefix.GetSelectedRecord().Id.ToString() + "."
                     + ifdPhone.Text.Replace("-", "")
                     + "@heroesmigrantes.com";
         }

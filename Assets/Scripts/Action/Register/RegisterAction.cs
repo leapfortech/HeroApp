@@ -40,10 +40,6 @@ public class RegisterAction : MonoBehaviour
     [SerializeField]
     Toggle chkTerms = null;
 
-    [Header("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
-
     [Header("Action")]
     [SerializeField]
     Button btnRegister = null;
@@ -149,7 +145,7 @@ public class RegisterAction : MonoBehaviour
 
         if (tggMethod.Value == "P")
         {
-            email = "hm." + vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id, "PhonePrefix").Replace("+", "")
+            email = "hm." + cmbPhonePrefix.GetSelectedRecord().Id.ToString() + "."
                     + ifdPhone.Text.Replace("-", "")
                     + "@heroesmigrantes.com";
 

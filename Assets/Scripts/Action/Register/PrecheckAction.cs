@@ -82,7 +82,6 @@ public class PrecheckAction : MonoBehaviour
 
     [SerializeField]
     String maxAttemptsError = "Max send attempts reached.";
-    
 
     [Space]
     [Title("Events")]

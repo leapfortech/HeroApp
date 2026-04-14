@@ -8,62 +8,138 @@ using Leap.Core.Security;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
 using Leap.Data.Web;
+using Leap.UI.Extensions;
+using Leap.Data.Collections;
+using Leap.UI.Page;
+
+using Sirenix.OdinInspector;
 
 public class PasswordResetAction : MonoBehaviour
 {
-    [Header("Fields")]
+    [Title("Method")]
+    [SerializeField]
+    ToggleGroup tggMethod = null;
+    [SerializeField]
+    GameObject pnlPhone = null;
+    [SerializeField]
+    GameObject pnlEmail = null;
+
+    [Title("Elements")]
+    [SerializeField]
+    ToggleGroup tggPhoneChannel = null;
+
+    [SerializeField]
+    ComboAdapter cmbPhoneCountry = null;
+
+    [SerializeField]
+    InputField ifdPhoneNumber = null;
+
     [SerializeField]
     InputField ifdEmail = null;
 
+    [Title("Code")]
     [SerializeField]
-    String dialogTitle = "Reiniciar contraseña";
+    Text txtResult = null;
 
     [SerializeField]
-    String dialogMessage = "¿Estás seguro de reiniciar tu contraseña?";
+    InputField ifdCode = null;
+
+    [Header("Page")]
+    [SerializeField]
+    Page pagValidate = null;
+    [SerializeField]
+    Page pagNewPassword = null;
 
     [Header("Action")]
     [SerializeField]
     Button btnReset = null;
 
-    [Header("Messages")]
-    [SerializeField, TextArea(2, 5)]
-    String noInternetError = "No tienes conexión a internet. Revisa e intenta de nuevo.";
-    [SerializeField, TextArea(2, 5)]
-    String resetDone = "Hemos enviado información al correo electrónico registrado con las instrucciones para reiniciar tu contraseña.";
+    [SerializeField]
+    Button btnResendCode = null;
 
-    WebSysUserService webSysUserService;
-    ElementValue[] elements = null;
+    [SerializeField]
+    Button btnValidateCode = null;
 
-    private void Awake()
-    {
-        webSysUserService = GetComponent<WebSysUserService>();
+    [Title("Messages")]
+    [SerializeField]
+    String notExistError = "The phone number does not exist.";
 
-        elements = new ElementValue[1];
-        elements[0] = ifdEmail;
-    }
+    [SerializeField]
+    String resendTitle = "Verification Code";
+
+    [SerializeField]
+    String resendMessage = "The verification code was sent.";
+
+    [Space]
+    [SerializeField]
+    String notRegisteredError = "The phone number is not registered.";
+
+    [SerializeField]
+    String expiredError = "The code has expired. You can send another one.";
+
+    [SerializeField]
+    String badCodeError = "The code is invalid.";
+
+    [SerializeField]
+    String maxAttemptsError = "Max send attempts reached.";
+
+    AccessService accessService;
+    PrecheckService precheckService = null;
+
+    bool isResend = false;
 
     private void Start()
     {
-        btnReset?.AddAction(Ask);
+        Initialize();
+
+        btnReset?.AddAction(Login);
+        btnValidateCode?.AddAction(ValidateCode);
+        btnResendCode?.AddAction(ResendCode);
+    }
+
+    private void Initialize()
+    {
+        isResend = false;
+
+        if (precheckService != null)
+            return;
+
+        accessService = GetComponent<AccessService>();
+        precheckService = GetComponent<PrecheckService>();
     }
 
     public void Clear()
     {
-        for (int i = 0; i < elements.Length; i++)
-            elements[i].Clear();
+        Initialize();
+
+        ifdEmail.Clear();
+        cmbPhoneCountry.Clear();
+        ifdPhoneNumber.Clear();
     }
 
-    public void Ask()
+    public void DisplayMethod()
     {
-        if (!ElementHelper.Validate(elements))
-            return;
-
-        ChoiceDialog.Instance.Info(dialogTitle, dialogMessage, Login, (UnityAction)null);
+        pnlPhone.SetActive(tggMethod.Value == "P");
+        pnlEmail.SetActive(tggMethod.Value != "P");
     }
+
 
     // Reset Password
     private void Login()
     {
+        Initialize();
+
+        if (tggMethod.Value == "P")
+        {
+            if (!ElementHelper.Validate(cmbPhoneCountry.Combo) && !ElementHelper.Validate(ifdPhoneNumber))
+                return;
+        }
+        else
+        {
+            if (!ElementHelper.Validate(ifdEmail))
+                return;
+        }
+
         ScreenDialog.Instance.Display();
 
         FirebaseManager.Instance.LoginStartToken(ResetPassword, null);
@@ -71,23 +147,147 @@ public class PasswordResetAction : MonoBehaviour
 
     private void ResetPassword(String _)
     {
-        webSysUserService.ResetPassword(ifdEmail.Text);
+        String email = null;
+        long phoneCountryId = -1;
+        String phone = null;
+
+        if (tggMethod.Value == "P")
+        {
+            phoneCountryId = cmbPhoneCountry.GetSelectedId();
+            phone = ifdPhoneNumber.Text;
+
+            email = "hm." + cmbPhoneCountry.GetSelectedRecord().Id.ToString() + "."
+                    + ifdPhoneNumber.Text.Replace("-", "")
+                    + "@heroesmigrantes.com";
+        }
+        else
+            email = ifdEmail.Text;
+
+        ResetPasswordRequest request = new ResetPasswordRequest(tggMethod.Value == "P" ? 1 : 2,
+                                                                tggPhoneChannel.Value == "W" ? 1 : 2,
+                                                                phoneCountryId,
+                                                                phone,
+                                                                email);
+
+        accessService.ResetPassword(request);
     }
 
     // Messages
-    public void PasswordResetMessage()
+    public void ApplyResetPasswordSent()
     {
         FirebaseManager.Instance.AuthLogOut();
 #if !UNITY_EDITOR && UNITY_ANDROID
         if (NativeAuthManager.Instance.IsRegistered(ifdEmail.Text))
             NativeAuthManager.Instance.Unregister();
 #endif
-        ChoiceDialog.Instance.Info(dialogTitle, resetDone);
+        if (tggMethod.Value == "P")
+            txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
+                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + " "
+                               + ifdPhoneNumber.Text
+                               + "</b>";
+        else
+            txtResult.TextValue = "Ingresa el código que recibiste al correo <b>" + ifdEmail.Text + "</b>";
+
+        if (!isResend)
+            PageManager.Instance.ChangePage(pagValidate);
+        else
+            ChoiceDialog.Instance.Info(resendTitle, resendMessage);
     }
 
-    public void InternetErrorMessage()
+    // Validate
+    private void ResendCode()
     {
-        FirebaseManager.Instance.AuthLogOut();
-        ChoiceDialog.Instance.Error(dialogTitle, noInternetError);
+        ScreenDialog.Instance.Display();
+        isResend = true;
+
+        Login();
     }
+
+    private void ValidateCode()
+    {
+        if (!ElementHelper.Validate(ifdCode))
+            return;
+
+        ScreenDialog.Instance.Display();
+
+        switch (tggMethod.Value)
+        {
+            case "P":
+                switch (tggPhoneChannel.Value)
+                {
+                    case "S":
+                        FirebaseManager.Instance.LoginStartToken(ValidatePhoneSmsCode, null);
+                        break;
+
+                    case "W":
+                        FirebaseManager.Instance.LoginStartToken(ValidatePhoneWACode, null);
+                        break;
+                }
+                break;
+
+            case "E":
+                FirebaseManager.Instance.LoginStartToken(ValidateEmailCode, null);
+                break;
+        }
+    }
+
+    private void ValidatePhoneSmsCode(String _)
+    {
+        PhoneCodeRequest phoneCodeRequest = new PhoneCodeRequest(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text, ifdCode.Text);
+        precheckService.ValidatePhoneSmsCode(phoneCodeRequest);
+    }
+
+    private void ValidatePhoneWACode(String _)
+    {
+        PhoneCodeRequest phoneCodeRequest = new PhoneCodeRequest(cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text, ifdCode.Text);
+        precheckService.ValidatePhoneWACode(phoneCodeRequest);
+    }
+
+    private void ValidateEmailCode(String _)
+    {
+        EmailCodeRequest emailCodeRequest = new EmailCodeRequest(ifdEmail.Text, ifdCode.Text);
+        precheckService.ValidateEmailCode(emailCodeRequest);
+    }           
+
+    public void ApplyValidateCode(String result)
+    {
+        if (result == "NOT_FOUND")
+        {
+            ChoiceDialog.Instance.Error(notRegisteredError);
+            return;
+        }
+
+        if (result == "EXPIRED")
+        {
+            ChoiceDialog.Instance.Error(expiredError);
+            return;
+        }
+
+        if (result == "BAD_CODE")
+        {
+            ChoiceDialog.Instance.Error(badCodeError);
+            return;
+        }
+
+        PageManager.Instance.ChangePage(pagNewPassword);
+    }
+
+    public void DisplayErrorMessage(String error)
+    {
+        if (error.Contains("was not found"))
+        {
+            ChoiceDialog.Instance.Error(notExistError);
+            return;
+        }
+
+        if (error.Contains("Max send attempts reached"))
+        {
+            ChoiceDialog.Instance.Error(maxAttemptsError);
+            return;
+        }
+
+        ChoiceDialog.Instance.Error(error);
+    }
+
 }
