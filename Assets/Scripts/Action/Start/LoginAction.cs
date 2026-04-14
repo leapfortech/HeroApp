@@ -14,6 +14,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Collections;
 using Leap.Data.Web;
+using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -31,6 +32,18 @@ public class LoginAction : MonoBehaviour
 
     [Title("Fields")]
     [SerializeField]
+    ToggleGroup tggMethod = null;
+
+    [SerializeField]
+    GameObject pnlPhone = null;
+
+    [SerializeField]
+    ComboAdapter cmbPhonePrefix = null;
+
+    [SerializeField]
+    InputField ifdPhone = null;
+
+    [SerializeField]
     InputField ifdEmail = null;
 
     [SerializeField]
@@ -38,6 +51,10 @@ public class LoginAction : MonoBehaviour
 
     [SerializeField]
     Toggle chkRemember = null;
+
+    [Header("Data")]
+    [SerializeField]
+    ValueList vllCountry = null;
 
     [Title("Authenticate")]
     [SerializeField]
@@ -122,7 +139,7 @@ public class LoginAction : MonoBehaviour
     WebSysTokenService webSysTokenService = null;
     AppUserService appUserService = null;
 
-    ElementValue[] elementValues = null;
+    //ElementValue[] elementValues = null;
     LoginAppResponse loginResponse = null;
 
     RectTransform registerTrf;
@@ -138,9 +155,9 @@ public class LoginAction : MonoBehaviour
         webSysUserService = GetComponent<WebSysUserService>();
         webSysTokenService = GetComponent<WebSysTokenService>();
 
-        elementValues = new ElementValue[2];
-        elementValues[0] = ifdEmail;
-        elementValues[1] = ifdPassword;
+        //elementValues = new ElementValue[2];
+        //elementValues[0] = ifdEmail;
+        //elementValues[1] = ifdPassword;
 
         registerTrf = btnRegister.GetComponent<RectTransform>();
 #if !UNITY_EDITOR
@@ -154,8 +171,15 @@ public class LoginAction : MonoBehaviour
         txtStartVersion.TextValue = txtSupportVersion.TextValue = txtLoginVersion.TextValue = "v " + Application.version + envVersion[WebManager.Instance.EnvironmentId];
     }
 
+    public void DisplayMethod()
+    {
+        pnlPhone.SetActive(tggMethod.Value == "P");
+        ifdEmail.gameObject.SetActive(tggMethod.Value != "P");
+    }
+
     private void Start()
     {
+        // RM REVIEW
         if (!PlayerPrefs.HasKey("Email"))
             PlayerPrefs.SetString("Email", "");
 
@@ -169,15 +193,42 @@ public class LoginAction : MonoBehaviour
 
     public void Clear()
     {
-        for (int i = 0; i < elementValues.Length; i++)
-            elementValues[i].Clear();
+        //for (int i = 0; i < elementValues.Length; i++)
+        //    elementValues[i].Clear();
+
+        ifdEmail.Clear();
+        ifdPassword.Clear();
+        cmbPhonePrefix.Clear();
+        ifdPhone.Clear();
     }
 
     public void Display()
     {
-        ifdEmail.Text = PlayerPrefs.GetString("Email");
-        ifdEmail.Revalidate(ifdEmail.Text.Length > 0);
-        chkRemember.Checked = ifdEmail.Text.Length > 0;
+        String email = PlayerPrefs.GetString("Email", "");
+        int phoneCountryId = PlayerPrefs.GetInt("PhoneCountryId", -1);
+        String phone = PlayerPrefs.GetString("Phone", "");
+
+        if (!String.IsNullOrWhiteSpace(email))
+        {
+            ifdEmail.Text = email;
+            ifdEmail.Revalidate(true);
+            chkRemember.Checked = true;
+            tggMethod.Value = "E";
+        }
+        else if (phoneCountryId != -1 && !String.IsNullOrWhiteSpace(phone))
+        {
+            cmbPhonePrefix.Select(Convert.ToInt32(phoneCountryId));
+            ifdPhone.Text = phone;
+            ifdPhone.Revalidate(true);
+            
+            chkRemember.Checked = true;
+            tggMethod.Value = "P";
+        }
+        else
+        {
+            chkRemember.Checked = false;
+        }
+
 
         DisplayBiometrics();
     }
@@ -257,63 +308,37 @@ public class LoginAction : MonoBehaviour
 
     private void Register()
     {
-        if (!ElementHelper.Validate(elementValues))
+        // RM REVIEW
+        if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
             return;
 
         onRegister.Invoke(new String[] { ifdEmail.Text, ifdPassword.Text });
     }
 
     // Login
-    
-    bool loginWithAlias = false;
 
     private void DoLogin()  // Manual Login
     {
-        if (!ElementHelper.Validate(elementValues))
-            return;
+        String email = null;
 
-        if (IsEmail(ifdEmail.Text))
+        if (tggMethod.Value == "P")
         {
-            loginWithAlias = false;
-            Login(ifdEmail.Text, ifdPassword.Text);
-            return;
+            if (!ElementHelper.Validate(cmbPhonePrefix.Combo) && !ElementHelper.Validate(ifdPhone) && !ElementHelper.Validate(ifdPassword))
+                return;
+
+            email = "hm." + vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id, "PhonePrefix").Replace("+", "")
+                    + ifdPhone.Text.Replace("-", "")
+                    + "@heroesmigrantes.com";
+        }
+        else
+        {
+            if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
+                return;
+
+            email = ifdEmail.Text;
         }
 
-        loginWithAlias = true;
-        ScreenDialog.Instance.Display();
-        FirebaseManager.Instance.LoginStartToken(DoValidateAlias, null);
-    }
-
-    private bool IsEmail(string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            return false;
-
-        try
-        {
-            System.Net.Mail.MailAddress mailAddress = new System.Net.Mail.MailAddress(value);
-            return mailAddress.Address == value;
-        }
-        catch
-        {
-            return false;
-        }
-    }
-
-    private void DoValidateAlias(String _)
-    {
-        appUserService.ValidateAlias(new AliasRequest(ifdEmail.Text));
-    }
-
-    public void ApplyAliasValidation(AliasResponse aliasResponse)
-    {
-        if (aliasResponse == null || aliasResponse.Email == null)
-        {
-            ChoiceDialog.Instance.Error("Alias", "El alias es incorrecto.");
-            return;
-        }
-
-        Login(aliasResponse.Email, ifdPassword.Text);
+        Login(email, ifdPassword.Text);
     }
 
     public void Login(String[] credentials)  // Biometric Login
@@ -329,9 +354,7 @@ public class LoginAction : MonoBehaviour
 
     private void Login(String eMail, String password)
     {
-        if (!loginWithAlias)
-            ScreenDialog.Instance.Display();
-
+        ScreenDialog.Instance.Display();
         PageManager.Instance.ResetTimer();
 
         FirebaseManager.Instance.Login(eMail, password, OnLoginDone, null);
@@ -349,14 +372,36 @@ public class LoginAction : MonoBehaviour
 
     private void OnLoginDone(String eMail)
     {
-        PlayerPrefs.SetString("Email", chkRemember.Checked ? eMail : "");
+        if (chkRemember.Checked)
+        {
+            if (tggMethod.Value == "P")
+            {
+                PlayerPrefs.SetInt("PhoneCountryId", (int)cmbPhonePrefix.GetSelectedRecord().Id);
+                PlayerPrefs.SetString("Phone", ifdPhone.Text);
+                PlayerPrefs.DeleteKey("Email");
+            }
+            else
+            {
+                PlayerPrefs.SetString("Email", eMail);
+                PlayerPrefs.DeleteKey("PhoneCountryId");
+                PlayerPrefs.DeleteKey("Phone");
+            }
+        }
+        else
+        {
+            PlayerPrefs.DeleteKey("Email");
+            PlayerPrefs.DeleteKey("PhoneCountryId");
+            PlayerPrefs.DeleteKey("Phone");
+        }
+
+        PlayerPrefs.Save();
 
         accessService.LoginApp(eMail, Application.version);
     }
 
     public void ResendMailLink()
     {
-        if (!ElementHelper.Validate(elementValues))
+        if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
             return;
 
         ScreenDialog.Instance.Display();

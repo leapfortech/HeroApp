@@ -145,26 +145,24 @@ public class RegisterAction : MonoBehaviour
     private void DoRegister(String _)
     {
         String email = null, phone = null;
-        long phoneCounryId;
+        long phoneCountryId =  -1;
 
         if (tggMethod.Value == "P")
         {
-            email = "hm."+ vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id,"PhonePrefix").Replace("+", "")
+            email = "hm." + vllCountry.FindRecordCellString(cmbPhonePrefix.GetSelectedRecord().Id, "PhonePrefix").Replace("+", "")
                     + ifdPhone.Text.Replace("-", "")
                     + "@heroesmigrantes.com";
-            
-            phoneCounryId = cmbPhonePrefix.GetSelectedRecord().Id;
+
+            phoneCountryId = cmbPhonePrefix.GetSelectedRecord().Id;
             phone = ifdPhone.Text;
         }
         else
         {
             email = ifdEmail.Text;
-            phoneCounryId = -1;
-            phone = null;
         }
 
         accessService.RegisterApp(new RegisterAppRequest(ifdAlias.Text, email, ifdPassword.Text,
-                                                         phoneCounryId, phone,
+                                                         phoneCountryId, phone,
                                                          ifdReferredCode.Text));
     }
 
