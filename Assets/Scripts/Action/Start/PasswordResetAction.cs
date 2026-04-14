@@ -153,7 +153,7 @@ public class PasswordResetAction : MonoBehaviour
 
         if (tggMethod.Value == "P")
         {
-            if (!ElementHelper.Validate(cmbPhoneCountry.Combo) && !ElementHelper.Validate(ifdPhoneNumber))
+            if (!ElementHelper.Validate(cmbPhoneCountry.Combo) || !ElementHelper.Validate(ifdPhoneNumber))
                 return;
         }
         else

@@ -319,7 +319,7 @@ public class LoginAction : MonoBehaviour
 
         if (tggMethod.Value == "P")
         {
-            if (!ElementHelper.Validate(cmbPhonePrefix.Combo) && !ElementHelper.Validate(ifdPhone) && !ElementHelper.Validate(ifdPassword))
+            if (!ElementHelper.Validate(cmbPhonePrefix.Combo) || !ElementHelper.Validate(ifdPhone) || !ElementHelper.Validate(ifdPassword))
                 return;
 
             email = "hm." + cmbPhonePrefix.GetSelectedRecord().Id.ToString() + "."

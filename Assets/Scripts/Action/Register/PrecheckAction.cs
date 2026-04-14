@@ -168,7 +168,7 @@ public class PrecheckAction : MonoBehaviour
     // REGISTER SMS
     private void RegisterPhoneSms()
     {
-        if (!ElementHelper.Validate(cmbPhoneCountry.Combo) && !ElementHelper.Validate(ifdPhoneNumber))
+        if (!ElementHelper.Validate(cmbPhoneCountry.Combo) || !ElementHelper.Validate(ifdPhoneNumber))
             return;
 
         ScreenDialog.Instance.Display();
@@ -213,7 +213,7 @@ public class PrecheckAction : MonoBehaviour
     // REGISTER WA
     private void RegisterPhoneWA()
     {
-        if (!ElementHelper.Validate(cmbPhoneCountry.Combo) && !ElementHelper.Validate(ifdPhoneNumber))
+        if (!ElementHelper.Validate(cmbPhoneCountry.Combo) || !ElementHelper.Validate(ifdPhoneNumber))
             return;
 
         ScreenDialog.Instance.Display();
