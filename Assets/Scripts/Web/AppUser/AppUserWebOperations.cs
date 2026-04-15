@@ -79,18 +79,6 @@ public class AppUserPutOperation : HttpOperation
 }
 
 [HttpPUT]
-[HttpPathExt(WebServiceType.Main, "/appUser/UpdatePhone")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class AppUserPhonePutOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public PhoneRequest phoneRequest;
-}
-
-[HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/appUser/UpdateOptions")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]

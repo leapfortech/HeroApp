@@ -33,9 +33,6 @@ public class AppUserService : MonoBehaviour
     private UnityEvent onUpdated = null;
 
     [SerializeField]
-    private UnityEvent onPhoneUpdated = null;
-
-    [SerializeField]
     private UnityEvent onOptionsUpdated = null;
 
     [SerializeField]
@@ -164,27 +161,6 @@ public class AppUserService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             updateAppUserPutOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void UpdatePhone(PhoneRequest phoneRequest)
-    {
-        AppUserPhonePutOperation phonePutOp = new AppUserPhonePutOperation();
-        try
-        {
-            phonePutOp.phoneRequest = phoneRequest;
-            phonePutOp["on-complete"] = (Action<AppUserPhonePutOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onPhoneUpdated.Invoke();
-                else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
-            });
-            phonePutOp.Send();
         }
         catch (Exception ex)
         {

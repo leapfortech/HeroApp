@@ -15,16 +15,16 @@ public class EmailUpdateAction : MonoBehaviour
     [Serializable]
     public class UnityAccountChangedEvent : UnityEvent { }
 
+    [Title("Email")]
+    [SerializeField]
+    InputField ifdEmail = null;
+
     [Title("Code")]
     [SerializeField]
     Text txtResult = null;
 
     [SerializeField]
     InputField ifdCode = null;
-
-    [Title("Email")]
-    [SerializeField]
-    InputField ifdEmail = null;
 
     [Title("Action")]
     [SerializeField]
@@ -115,7 +115,7 @@ public class EmailUpdateAction : MonoBehaviour
         accessService.ResetAccount(request);
     }
 
-    public void ApplyResetAccountSent()
+    public void ApplyResetAccount()
     {
         txtResult.TextValue = "Ingresa el código que recibiste al correo <b>" + ifdEmail.Text + "</b>";
 
