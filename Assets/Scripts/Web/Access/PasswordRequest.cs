@@ -1,21 +1,21 @@
 ﻿using System;
 
-public class ResetPasswordRequest
+public class PasswordRequest
 {
     public int Method { get; set; } = -1;
-    public int Channel { get; set; } = -1;
+    public int PhoneChannel { get; set; } = -1;
     public long PhoneCountryId { get; set; } = -1;
     public String Phone { get; set; } = null;
     public String Email { get; set; } = null;
 
-    public ResetPasswordRequest()
+    public PasswordRequest()
     {
     }
 
-    public ResetPasswordRequest(int method, int channel, long phoneCountryId, String phone, String email)
+    public PasswordRequest(int method, int phoneChannel, long phoneCountryId, String phone, String email)
     {
         Method = method;
-        Channel = channel;
+        PhoneChannel = phoneChannel;
         PhoneCountryId = phoneCountryId;
         Phone = phone;
         Email = email;

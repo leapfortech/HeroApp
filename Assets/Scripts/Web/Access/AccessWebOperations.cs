@@ -81,7 +81,7 @@ public class OnboardingPostOperation : HttpOperation
 public class ResetPasswordPostOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public ResetPasswordRequest resetPasswordRequest;
+    public PasswordRequest resetPasswordRequest;
 
     [HttpResponseTextBody]
     public String webSysUserId;
@@ -97,4 +97,28 @@ public class UpdatePasswordPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
     public UpdatePasswordRequest updatePasswordRequest;
+}
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/access/ResetAccount")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ResetAccountPostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public AccountRequest accountRequest;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/access/UpdateAccount")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class UpdateAccountPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public UpdateAccountRequest updateAccountRequest;
 }

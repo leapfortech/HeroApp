@@ -40,6 +40,12 @@ public class AccessService : MonoBehaviour
     [SerializeField]
     private UnityEvent onPasswordUpdated = null;
 
+    [SerializeField]
+    private UnityEvent onResetAccountSent = null;
+
+    [SerializeField]
+    private UnityEvent onAccountUpdated = null;
+
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
@@ -131,7 +137,7 @@ public class AccessService : MonoBehaviour
         }
     }
 
-    public void ResetPassword(ResetPasswordRequest resetPasswordRequest)
+    public void ResetPassword(PasswordRequest resetPasswordRequest)
     {
         ResetPasswordPostOperation resetPasswordPostOp = new ResetPasswordPostOperation();
         try
@@ -166,6 +172,48 @@ public class AccessService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             updatePasswordPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void ResetAccount(AccountRequest accountRequest)
+    {
+        ResetAccountPostOperation resetAccountPostOp = new ResetAccountPostOperation();
+        try
+        {
+            resetAccountPostOp.accountRequest = accountRequest;
+            resetAccountPostOp["on-complete"] = (Action<ResetAccountPostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onResetAccountSent.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            resetAccountPostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void UpdateAccount(UpdateAccountRequest updateAccountRequest)
+    {
+        UpdateAccountPutOperation updateAccountPutOp = new UpdateAccountPutOperation();
+        try
+        {
+            updateAccountPutOp.updateAccountRequest = updateAccountRequest;
+            updateAccountPutOp["on-complete"] = (Action<UpdateAccountPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onAccountUpdated.Invoke();
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            updateAccountPutOp.Send();
         }
         catch (Exception ex)
         {

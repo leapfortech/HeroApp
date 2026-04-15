@@ -53,7 +53,6 @@ public class PasswordResetAction : MonoBehaviour
     [SerializeField]
     InputField ifdConfirmPassword = null;
 
-
     [Header("Page")]
     [SerializeField]
     Page pagValidate = null;
@@ -185,11 +184,11 @@ public class PasswordResetAction : MonoBehaviour
         else
             email = ifdEmail.Text;
 
-        ResetPasswordRequest request = new ResetPasswordRequest(tggMethod.Value == "P" ? 1 : 2,
-                                                                tggPhoneChannel.Value == "W" ? 1 : 2,
-                                                                phoneCountryId,
-                                                                phone,
-                                                                email);
+        PasswordRequest request = new PasswordRequest(tggMethod.Value == "P" ? 1 : 2,
+                                                      tggPhoneChannel.Value == "W" ? 1 : 2,
+                                                      phoneCountryId,
+                                                      phone,
+                                                      email);
 
         accessService.ResetPassword(request);
     }

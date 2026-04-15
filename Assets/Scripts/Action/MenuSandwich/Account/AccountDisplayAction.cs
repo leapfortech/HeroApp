@@ -18,9 +18,10 @@ public class AccountDisplayAction : MonoBehaviour
     InputField[] ifdAliass = null;
     [Space]
     [SerializeField]
-    Text txtEmail = null;
+    Text[] txtEmails = null;
+    [Space]
     [SerializeField]
-    Text txtPhone = null;
+    Text[] txtPhones = null;
 
     [Title("Actions")]
     [SerializeField]
@@ -38,8 +39,11 @@ public class AccountDisplayAction : MonoBehaviour
         for (int i = 0; i < txtAliass.Length; i++)
             txtAliass[i].Clear();
 
-        txtEmail.Clear();
-        txtPhone.Clear();
+        for (int i = 0; i < txtEmails.Length; i++)
+            txtEmails[i].Clear();
+
+        for (int i = 0; i < txtPhones.Length; i++)
+            txtPhones[i].Clear();
     }
 
 
@@ -54,12 +58,14 @@ public class AccountDisplayAction : MonoBehaviour
         bool isPhone = WebManager.Instance.WebSysUser.Email.StartsWith("hm.") &&
                        WebManager.Instance.WebSysUser.Email.EndsWith("@heroesmigrantes.com");
 
-        txtEmail.TextValue = !isPhone ? WebManager.Instance.WebSysUser.Email : "Correo no ingresado";
+        for (int i = 0; i < txtEmails.Length; i++)
+            txtEmails[i].TextValue = !isPhone ? WebManager.Instance.WebSysUser.Email : "Correo no ingresado";
+        
         btnUpdateEmail.Interactable = !isPhone;
 
-        txtPhone.TextValue = isPhone ? vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone : "Teléfono no ingresado";
+        for (int i = 0; i < txtPhones.Length; i++)
+            txtPhones[i].TextValue = isPhone ? vllCountry.FindRecordCellString(WebManager.Instance.WebSysUser.PhoneCountryId, "PhonePrefix") + " " + WebManager.Instance.WebSysUser.Phone : "Teléfono no ingresado";
+        
         btnUpdatePhone.Interactable = isPhone;
-
-
     }
 }
