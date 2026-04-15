@@ -231633,6 +231633,8 @@ MonoBehaviour:
   - {fileID: 1166822438}
   txtEmail: {fileID: 1676095639}
   txtPhone: {fileID: 1896898639}
+  btnUpdateEmail: {fileID: 1999191308}
+  btnUpdatePhone: {fileID: 2074110776}
   vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
 --- !u!224 &1260548377
 RectTransform:
@@ -353247,7 +353249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4366689725311377401, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -277.24878
+      value: -161.39029
       objectReference: {fileID: 0}
     - target: {fileID: 5359977072881784954, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_Name
@@ -353267,7 +353269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -124.75122
+      value: -240.60971
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_SizeDelta.y
@@ -353275,7 +353277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 62.37561
+      value: 120.304855
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -353283,7 +353285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_text
-      value: "Cambiar correo electr\xF3nico"
+      value: "Cambiar tel\xE9fono"
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: debaa669a57363b41ac8c04ce894af12, type: 3}
       propertyPath: m_fontSize
@@ -366342,6 +366344,17 @@ MonoBehaviour:
   actions:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1999191308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 1999191304}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999191306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1999646727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -381138,7 +381151,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 18795316980ec544493c29fadb8e8c33, type: 2}
     - target: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: title
-      value: "Cambiar correo electr\xF3nico"
+      value: "Cambiar tel\xE9fono"
       objectReference: {fileID: 0}
     - target: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
       propertyPath: btnModel
@@ -381189,6 +381202,17 @@ MonoBehaviour:
   actions:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2074110776 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 2074110772}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074110774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2074274411
 PrefabInstance:
   m_ObjectHideFlags: 0
