@@ -182,9 +182,13 @@ public class PhoneUpdateAction : MonoBehaviour
             return;
         }
 
+        String email = "hm." + cmbPhoneCountry.GetSelectedRecord().Id.ToString() + "."
+                        + ifdPhoneNumber.Text.Replace("-", "")
+                        + "@heroesmigrantes.com";
+
         UpdateAccountRequest request = new UpdateAccountRequest(WebManager.Instance.WebSysUser.Id,
                                                                 cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text,
-                                                                null);
+                                                                email);
         accessService.UpdateAccount(request);
     }
 
