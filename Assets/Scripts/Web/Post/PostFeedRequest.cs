@@ -7,7 +7,7 @@ public class PostFeedRequest
 
     // FILTERS
     public long AppUserId { get; set; } = -1;
-    public long PostSubtypeId { get; set; } = -1;
+    public long PostTypeId { get; set; } = -1;
     public long CountryId { get; set; } = -1;
     public long StateId { get; set; } = -1;
     public int Status { get; set; } = -1;
@@ -22,12 +22,12 @@ public class PostFeedRequest
     {
     }
 
-    public PostFeedRequest(int pageSize, long appUserId, long postSubtypeId, long countryId, long stateId,
+    public PostFeedRequest(int pageSize, long appUserId, long postTypeId, long countryId, long stateId,
                            int status, String cursor, int direction)
     {
         PageSize = pageSize;
         AppUserId = appUserId;
-        PostSubtypeId = postSubtypeId;
+        PostTypeId = postTypeId;
         CountryId = countryId;
         StateId = stateId;
         Status = status;

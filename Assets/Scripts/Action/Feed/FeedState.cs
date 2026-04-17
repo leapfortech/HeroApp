@@ -11,7 +11,7 @@ public class FeedState : ScriptableObject
 
     [Header("Config")]
     public int PageSize = 10;
-    public long PostSubtypeId = -1;
+    public long PostTypeId = -1;
     public int Status = 1;
 
     [NonSerialized]

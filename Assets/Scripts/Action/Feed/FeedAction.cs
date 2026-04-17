@@ -90,7 +90,7 @@ public class FeedAction : MonoBehaviour
         {
             Direction = 0,
             PageSize = state.PageSize,
-            PostSubtypeId = state.PostSubtypeId,
+            PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
@@ -121,7 +121,7 @@ public class FeedAction : MonoBehaviour
         {
             Direction = 2,
             PageSize = state.PageSize,
-            PostSubtypeId = state.PostSubtypeId,
+            PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
@@ -152,7 +152,7 @@ public class FeedAction : MonoBehaviour
         {
             Direction = 1,
             PageSize = state.PageSize,
-            PostSubtypeId = state.PostSubtypeId,
+            PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
