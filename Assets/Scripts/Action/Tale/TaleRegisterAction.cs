@@ -58,10 +58,10 @@ public class TaleRegisterAction : MonoBehaviour
 
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
-
+        
         //RM REVIEW
-        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
-        post.StateId = StateManager.Instance.Identity.BirthStateId;
+        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];

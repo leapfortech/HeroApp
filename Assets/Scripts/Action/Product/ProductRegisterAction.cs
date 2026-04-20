@@ -80,8 +80,8 @@ public class ProductRegisterAction : MonoBehaviour
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
-        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
-        post.StateId = StateManager.Instance.Identity.BirthStateId;
+        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         Contact contact = dtmContact.BuildClass<Contact>();
 

@@ -70,8 +70,8 @@ public class PuzzleRegisterAction : MonoBehaviour
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
-        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
-        post.StateId = StateManager.Instance.Identity.BirthStateId;
+        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
         puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;

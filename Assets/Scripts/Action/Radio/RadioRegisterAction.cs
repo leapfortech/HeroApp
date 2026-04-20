@@ -68,8 +68,8 @@ public class RadioRegisterAction : MonoBehaviour
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
-        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
-        post.StateId = StateManager.Instance.Identity.BirthStateId;
+        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         Link link = dtmLink.BuildClass<Link>();
         link.LinkTypeId = (long)LinkType.Url;
