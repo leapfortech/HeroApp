@@ -114,10 +114,17 @@ public class TaleRegisterAction : MonoBehaviour
         post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
 
-        Sprite selectedImage = images[(testCounter - 1) % images.Count];
+        String[] strImages = null;
 
-        String[] strImages = new String[1];
-        strImages[0] = selectedImage.ToStrBase64(ImageType.JPG);
+        if (images.Count > 0 && testCounter % images.Count == 0)
+        {
+            int imageIndex = (testCounter / images.Count - 1) % images.Count;
+
+            Sprite selectedImage = images[imageIndex];
+
+            strImages = new String[1];
+            strImages[0] = selectedImage.ToStrBase64(ImageType.JPG);
+        }
 
         taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
     }
