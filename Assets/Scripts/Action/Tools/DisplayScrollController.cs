@@ -44,9 +44,6 @@ public class DisplayScrollController : MonoBehaviour
         float w = viewport.rect.width;
         float h = viewport.rect.height;
 
-        foreach (RectTransform page in content)
-            page.sizeDelta = new Vector2(w, h);
-
         pageCount = content.childCount;
 
 
@@ -61,52 +58,43 @@ public class DisplayScrollController : MonoBehaviour
         UpdateButtons();
     }
 
-    //void Update()
-    //{
-    //    if (isAnimating)
-    //        return;
-
-    //    float spacing = ((HorizontalLayoutGroup)content.GetComponent<HorizontalLayoutGroup>())?.spacing ?? 0f;
-    //    float pageWidth = GetPageWidth();
-    //    int page = Mathf.RoundToInt(content.anchoredPosition.x * -1f / pageWidth);
-
-    //    page = Mathf.Clamp(page, 0, pageCount - 1);
-
-    //    if (page != currentPage)
-    //    {
-    //        int oldPage = currentPage;
-    //        currentPage = page;
-    //        if (pillPrefab != null && pillParent != null)
-    //            UpdateIndicators(oldPage, currentPage);
-
-    //        UpdateButtons();
-    //    }
-    //}
-
     void OnScrollChanged(Vector2 pos)
     {
         if (isAnimating)
             return;
 
-        int page = Mathf.RoundToInt(-content.anchoredPosition.x / GetPageWidth());
+        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
+
+        float raw = -content.anchoredPosition.x;
+        float step = GetPageWidth() + spacing;
+
+        int page = Mathf.RoundToInt(raw / step);
+
         page = Mathf.Clamp(page, 0, pageCount - 1);
 
         if (page != currentPage)
         {
             int oldPage = currentPage;
             currentPage = page;
+
             if (pillPrefab != null && pillParent != null)
                 UpdateIndicators(oldPage, currentPage);
-            
+
             UpdateButtons();
         }
     }
 
+    void SetScrollInstant(int page)
+    {
+        float pageWidth = GetPageWidth();
+        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
+
+        content.anchoredPosition = new Vector2(-(page * pageWidth) - (spacing * page), content.anchoredPosition.y);
+    }
+
     float GetPageWidth()
     {
-        HorizontalLayoutGroup layout = content.GetComponent<HorizontalLayoutGroup>();
-        float spacing = layout ? layout.spacing : 0f;
-        return viewport.rect.width + spacing;
+        return ((RectTransform)content.GetChild(0)).rect.width;
     }
 
     public void Next()
@@ -153,8 +141,10 @@ public class DisplayScrollController : MonoBehaviour
         isAnimating = true;
 
         float pageWidth = GetPageWidth();
+        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
         Vector2 start = content.anchoredPosition;
-        Vector2 target = new Vector2(-page * pageWidth, start.y);
+
+       Vector2 target = new Vector2(-(page * pageWidth) - (spacing * page), start.y);
 
         float t = 0;
         while (t < animTime)
@@ -166,12 +156,6 @@ public class DisplayScrollController : MonoBehaviour
 
         content.anchoredPosition = target;
         isAnimating = false;
-    }
-
-    void SetScrollInstant(int page)
-    {
-        float pageWidth = GetPageWidth();
-        content.anchoredPosition = new Vector2(-page * pageWidth, content.anchoredPosition.y);
     }
 
     void CreateIndicador()
