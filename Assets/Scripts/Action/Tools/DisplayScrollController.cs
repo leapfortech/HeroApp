@@ -46,14 +46,18 @@ public class DisplayScrollController : MonoBehaviour
 
         pageCount = content.childCount;
 
-
-        currentPage = 0;
         if (pillPrefab != null && pillParent != null)
         {
             CreateIndicador();
             UpdateIndicators(-1, 0);
         }
 
+        InitPosition();
+    }
+
+    public void InitPosition()
+    {
+        currentPage = 0;
         SetPage(0, false);
         UpdateButtons();
     }
