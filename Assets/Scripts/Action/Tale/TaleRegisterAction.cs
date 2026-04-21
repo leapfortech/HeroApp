@@ -12,6 +12,10 @@ using Sirenix.OdinInspector;
 
 public class TaleRegisterAction : MonoBehaviour
 {
+    [Title("Test Images")]
+    [SerializeField]
+    private List<Sprite> testImages;
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -78,29 +82,36 @@ public class TaleRegisterAction : MonoBehaviour
         taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
     }
 
+    List<String> srcImages = new List<String>();
     private void RegisterTest()
     {
-        if (!ElementHelper.Validate(elementValues))
-            return;
+        //if (!ElementHelper.Validate(elementValues))
+        //    return;
 
-        if (testCounter == 10)
+        if (testCounter == 600)
         {
             testCounter = 0;
             ScreenDialog.Instance.Hide();
             return;
         }
 
-        ScreenDialog.Instance.Display();
+        if (testCounter == 0)
+        {
+            ScreenDialog.Instance.Display();
+
+            for (int i = 0; i < testImages.Count; i++)
+                srcImages.Add(testImages[i].ToStrBase64(ImageType.JPG, 50));
+        }
 
         isTest = true;
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        //List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
-        if (images.Count == 0)
-        {
-            ChoiceDialog.Instance.Error("Imágenes", "Debes agregar al menos una imagen.");
-            return;
-        }
+        //if (images.Count == 0)
+        //{
+        //    ChoiceDialog.Instance.Error("Imágenes", "Debes agregar al menos una imagen.");
+        //    return;
+        //}
 
         Post post = dtmPost.BuildClass<Post>();
 
@@ -108,23 +119,13 @@ public class TaleRegisterAction : MonoBehaviour
         post.CountryId = StateManager.Instance.InterestLocality.CountryId;
         post.StateId = StateManager.Instance.InterestLocality.StateId;
 
+        String[] strImages = testCounter % srcImages.Count == 3 ? new String[] { srcImages[((testCounter - 3) / srcImages.Count) % srcImages.Count] } : null;
+
         testCounter++;
 
         post.Title = $"{post.Title} {testCounter}";
         post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
-
-        String[] strImages = null;
-
-        if (images.Count > 0 && testCounter % images.Count == 0)
-        {
-            int imageIndex = (testCounter / images.Count - 1) % images.Count;
-
-            Sprite selectedImage = images[imageIndex];
-
-            strImages = new String[1];
-            strImages[0] = selectedImage.ToStrBase64(ImageType.JPG);
-        }
 
         taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
     }
