@@ -41,10 +41,16 @@ MonoBehaviour:
         DictFloats:
           keys: []
           values: []
-        colors: []
+        colors:
+        - rid: 9045246306593013966
+        - rid: 9045246306593013967
         DictColors:
-          keys: []
-          values: []
+          keys:
+          - Background
+          - Transparent
+          values:
+          - rid: 9045246306593013966
+          - rid: 9045246306593013967
         fonts: []
         DictFonts:
           keys: []
@@ -46856,3 +46862,21 @@ MonoBehaviour:
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
         Property: 'Subdominant: Default'
+    - rid: 9045246306593013966
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 6444589537777942730
+        Name: Background
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: Transparent
+    - rid: 9045246306593013967
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 6444589537777942730
+        Name: Transparent
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: Transparent
