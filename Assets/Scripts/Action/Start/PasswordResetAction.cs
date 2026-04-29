@@ -136,6 +136,8 @@ public class PasswordResetAction : MonoBehaviour
         ifdEmail.Clear();
         cmbPhoneCountry.Clear();
         ifdPhoneNumber.Clear();
+        ifdNewPassword.Clear();
+        ifdConfirmPassword.Clear();
     }
 
     public void DisplayMethod()

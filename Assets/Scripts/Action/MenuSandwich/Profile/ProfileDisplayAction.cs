@@ -98,7 +98,7 @@ public class ProfileDisplayAction : MonoBehaviour
         if (address != null)
             isAddressEmpty = address.CountryId == -1;
 
-        txtAddress.TextValue = isAddressEmpty ? "Sin dirección" : "En " + vllCountry.FindRecordCellString(address.CountryId, "Name");
+        txtAddress.TextValue = isAddressEmpty ? "Sin ubicación actual" : "En " + vllCountry.FindRecordCellString(address.CountryId, "Name");
 
         //Portrait
         Sprite sprite = StateManager.Instance.Portrait;
