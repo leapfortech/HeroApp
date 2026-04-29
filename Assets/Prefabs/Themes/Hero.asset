@@ -1263,7 +1263,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'HM: Translucent: Bkg: Default'
         Reference: 1
-        Value: {r: 0, g: 0, b: 0, a: 0}
+        Value: {r: 0.7509433, g: 0.7240227, b: 0.7240227, a: 0.74509805}
         Property: 'WhiteScale: Default'
     - rid: 6444589575797212043
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -1298,8 +1298,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'HM: Translucent: Bkg: Pressed'
-        Reference: 1
-        Value: {r: 0, g: 0, b: 0, a: 0}
+        Reference: 0
+        Value: {r: 0.93207544, g: 0.93207544, b: 0.93207544, a: 1}
         Property: 'WhiteScale: Foggy'
     - rid: 6444589575797212047
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -1409,6 +1409,33 @@ MonoBehaviour:
         Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Semi Bold'
+    - rid: 6444590167485055958
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: B: Home: Translucent'
+        Reference: 0
+        Value: 0
+        Property: 'Corner: Bowed'
+    - rid: 6444590167485055959
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: C: Home: Translucent'
+        Reference: 1
+        Value: 0
+        Property: 'Corner: Bowed'
+    - rid: 6444590167485055961
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: C: Home: Translucent : BottomRight'
+        Reference: 1
+        Value: 0
+        Property: 'Corner: Rounded'
     - rid: 7896456371487375714
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -2897,6 +2924,9 @@ MonoBehaviour:
         - rid: 6444589554080678850
         - rid: 6444589575797212043
         - rid: 6444589575797212044
+        - rid: 6444590167485055958
+        - rid: 6444590167485055959
+        - rid: 6444590167485055961
         DictFloats:
           keys:
           - 'W: FullScreen'
@@ -3580,6 +3610,9 @@ MonoBehaviour:
           - 'HM: H: Area: Password'
           - 'HM: B: Translucent'
           - 'HM: C: Translucent'
+          - 'HM: B: Home: Translucent'
+          - 'HM: C: Home: Translucent'
+          - 'HM: C: Home: Translucent : BottomRight'
           values:
           - rid: 7896456371487375989
           - rid: 7896456371487375990
@@ -4262,6 +4295,9 @@ MonoBehaviour:
           - rid: 6444589554080678850
           - rid: 6444589575797212043
           - rid: 6444589575797212044
+          - rid: 6444590167485055958
+          - rid: 6444590167485055959
+          - rid: 6444590167485055961
         colors:
         - rid: 7896456371522240836
         - rid: 7896456371522240837
