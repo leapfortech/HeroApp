@@ -171,7 +171,14 @@ public class BiometricsAction : MonoBehaviour
 
     public void DisplayEmail()
     {
-        ifdEmail.Text = WebManager.Instance.WebSysUser.Email;
+        String email = WebManager.Instance.WebSysUser.Email;
+
+        bool isPhone = email.StartsWith("hm.", StringComparison.OrdinalIgnoreCase) &&
+                       email.EndsWith("@heroesmigrantes.com", StringComparison.OrdinalIgnoreCase);
+
+        ifdEmail.gameObject.SetActive(!isPhone);
+
+        ifdEmail.Text = email;
     }
 
     // Authenticate
