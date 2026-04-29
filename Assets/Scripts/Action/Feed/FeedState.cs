@@ -10,7 +10,7 @@ public class FeedState : ScriptableObject
     public String FeedKey;
 
     [Header("Config")]
-    public int PageSize = 10;
+    public int Count = 10;
     public long PostTypeId = -1;
     public int Status = 1;
 

@@ -3,7 +3,9 @@
 public class PostFeedRequest
 {
     // PARAMS
-    public int PageSize { get; set; } = 10;
+    public DateTime StartDateTime { get; set; }
+    public int Direction { get; set; } = -1;
+    public int Count { get; set; } = 20;
 
     // FILTERS
     public long AppUserId { get; set; } = -1;
@@ -12,26 +14,20 @@ public class PostFeedRequest
     public long StateId { get; set; } = -1;
     public int Status { get; set; } = -1;
 
-    // CURSOR
-    public string Cursor { get; set; } = null;
-
-    public int Direction { get; set; } = 0;
-
 
     public PostFeedRequest()
     {
     }
 
-    public PostFeedRequest(int pageSize, long appUserId, long postTypeId, long countryId, long stateId,
-                           int status, String cursor, int direction)
+    public PostFeedRequest(DateTime startDateTime, int direction, int count, long appUserId, long postTypeId, long countryId, long stateId, int status)
     {
-        PageSize = pageSize;
+        StartDateTime = startDateTime;
+        Direction = direction;
+        Count = count;
         AppUserId = appUserId;
         PostTypeId = postTypeId;
         CountryId = countryId;
         StateId = stateId;
         Status = status;
-        Cursor = cursor;
-        Direction = direction;
     }
 }

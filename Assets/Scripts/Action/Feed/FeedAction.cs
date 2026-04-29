@@ -22,6 +22,8 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     ListScroller lstFeed = null;
     [SerializeField]
+    LoopScroller loopFeed = null;
+    [SerializeField]
     Text txtEmpty;
 
     [Title("Action")]
@@ -89,15 +91,13 @@ public class FeedAction : MonoBehaviour
         PostFeedRequest request = new PostFeedRequest
         {
             Direction = 0,
-            PageSize = state.PageSize,
+            Count = state.Count,
             PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             CountryId = countryId,
             StateId = stateId,
-
-            Cursor = null
         };
 
         postService.GetPostFeed(request);
@@ -120,15 +120,13 @@ public class FeedAction : MonoBehaviour
         PostFeedRequest request = new PostFeedRequest
         {
             Direction = 2,
-            PageSize = state.PageSize,
+            Count = state.Count,
             PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             CountryId = countryId,
             StateId = stateId,
-
-            Cursor = state.NextCursor
         };
 
         postService.GetPostFeed(request);
@@ -151,15 +149,13 @@ public class FeedAction : MonoBehaviour
         PostFeedRequest request = new PostFeedRequest
         {
             Direction = 1,
-            PageSize = state.PageSize,
+            Count = state.Count,
             PostTypeId = state.PostTypeId,
             Status = state.Status,
 
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             CountryId = countryId,
             StateId = stateId,
-
-            Cursor = state.PrevCursor
         };
 
         postService.GetPostFeed(request);
@@ -229,7 +225,7 @@ public class FeedAction : MonoBehaviour
         state.NextCursor = response.NextCursor;
 
         if (lastDirection == 0 || lastDirection == 2)
-            state.HasMore = response.PostFulls.Count == state.PageSize;
+            state.HasMore = response.PostFulls.Count == state.Count;
 
         txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
         ScreenDialog.Instance.Hide();

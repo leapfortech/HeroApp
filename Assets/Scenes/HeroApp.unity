@@ -46181,6 +46181,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: ea889af055a7f3949963ad94f9b1ea22, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 753225534}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1218478423}
   btnOlder: {fileID: 468642591}
   btnRefresh: {fileID: 1278059738}
@@ -49638,6 +49639,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: aa9de823f4f1e7544a1e02aa063a0253, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 981462798}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1619022900}
   btnOlder: {fileID: 974158844}
   btnRefresh: {fileID: 1405577189}
@@ -98245,7 +98247,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1588832605}
+    m_TransformParent: {fileID: 1154177893}
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_Name
@@ -98265,7 +98267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchorMin.x
@@ -98273,7 +98275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -98317,7 +98319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -621.05005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -188103,6 +188105,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: c89e1a17deb1a5d4cb19c82fd17f7a09, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 340156475}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1333357875}
   btnOlder: {fileID: 1288368100}
   btnRefresh: {fileID: 1245997355}
@@ -198487,6 +198490,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: 30c3fd7eefa9f2646af25bcedd04015b, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 1010470775}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1696534716}
   btnOlder: {fileID: 467162457}
   btnRefresh: {fileID: 336410591}
@@ -224243,7 +224247,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 604016280627629421, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: m_Name
-      value: LoopScroller
+      value: LoopTale
       objectReference: {fileID: 0}
     - target: {fileID: 604016280627629421, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: m_IsActive
@@ -224363,6 +224367,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7725054842846730240, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2028775499}
+    - targetCorrespondingSourceObject: {fileID: 7725054842846730240, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 517030820}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
 --- !u!224 &1154177893 stripped
@@ -235984,6 +235991,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1220434559}
   m_CullTransparentMesh: 1
+--- !u!114 &1220447543 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+  m_PrefabInstance: {fileID: 1154177892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa68b816d04cf6c4b8ec06eb806dbf01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Leap.UI.Elements::Leap.UI.Elements.LoopScroller
 --- !u!1001 &1221119705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -270262,6 +270280,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: 8a63d23db6dcbfa4cb87e650b2a8a3b8, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 2133418984}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1654021320}
   btnOlder: {fileID: 918900147}
   btnRefresh: {fileID: 902275664}
@@ -304513,9 +304532,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1184490552}
-    - targetCorrespondingSourceObject: {fileID: 1773223659421574098, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 517030820}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8bed64bba1d1784583e55f723381b9a, type: 3}
 --- !u!224 &1588832605 stripped
@@ -311493,6 +311509,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: b93b516cee60a5243920b88ffbcb8bbd, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 1588832606}
+  loopFeed: {fileID: 1220447543}
   txtEmpty: {fileID: 517030819}
   btnOlder: {fileID: 2115401231}
   btnRefresh: {fileID: 603351985}
@@ -317464,6 +317481,7 @@ MonoBehaviour:
   feedConfig: {fileID: 11400000, guid: 28ec2ef5733814541a230141146aee81, type: 2}
   filterAppUser: 0
   lstFeed: {fileID: 2035559742}
+  loopFeed: {fileID: 0}
   txtEmpty: {fileID: 1785815678}
   btnOlder: {fileID: 1151499944}
   btnRefresh: {fileID: 2072350482}
