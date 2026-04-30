@@ -1271,9 +1271,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'HM: B: Translucent'
-        Reference: 0
+        Reference: 1
         Value: 0
-        Property: 
+        Property: Zero
     - rid: 6444589575797212044
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -1562,6 +1562,87 @@ MonoBehaviour:
         Reference: 0
         Value: {r: 0.32156864, g: 0.32156864, b: 0.32156864, a: 1}
         Property: 
+    - rid: 6444590175015928591
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Title: Start'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Large'
+    - rid: 6444590175015928592
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Start: White'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'WhiteScale: Default'
+    - rid: 6444590175015928593
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Title: Start'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Semi Bold'
+    - rid: 6444590175015928594
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: SubTitle: Start'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Fine'
+    - rid: 6444590175015928596
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: SubTitle: Start'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Light'
+    - rid: 6444590175015928597
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Start: Blue'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Identity: Dark'
+    - rid: 6444590175015928604
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: SubTitle: Start: Blue'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Identity: Dark'
+    - rid: 6444590175015928692
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Login: Border: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Identity: Default'
+    - rid: 6444590175015928693
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: B: Login'
+        Reference: 1
+        Value: 0
+        Property: 'Border: Fat'
     - rid: 7896456371487375714
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3053,6 +3134,7 @@ MonoBehaviour:
         - rid: 6444590167485055958
         - rid: 6444590167485055959
         - rid: 6444590167485055961
+        - rid: 6444590175015928693
         DictFloats:
           keys:
           - 'W: FullScreen'
@@ -3739,6 +3821,7 @@ MonoBehaviour:
           - 'HM: B: Home: Translucent'
           - 'HM: C: Home: Translucent'
           - 'HM: C: Home: Translucent: BottomRight'
+          - 'HM: B: Login'
           values:
           - rid: 7896456371487375989
           - rid: 7896456371487375990
@@ -4424,6 +4507,7 @@ MonoBehaviour:
           - rid: 6444590167485055958
           - rid: 6444590167485055959
           - rid: 6444590167485055961
+          - rid: 6444590175015928693
         colors:
         - rid: 7896456371522240836
         - rid: 7896456371522240837
@@ -5010,6 +5094,7 @@ MonoBehaviour:
         - rid: 6444589575797212049
         - rid: 6444590169403950023
         - rid: 6444590169403950024
+        - rid: 6444590175015928692
         DictColors:
           keys:
           - 'BioLogin: Apple: Bkg : Default'
@@ -5597,6 +5682,7 @@ MonoBehaviour:
           - 'HM: Translucent: Border: Disabled'
           - 'HM: Translucent: Conf: Bkg: Default'
           - 'HM: Translucent: Conf: Bkg: Pressed'
+          - 'HM: Login: Border: Default'
           values:
           - rid: 7896456371522240836
           - rid: 7896456371522240837
@@ -6183,6 +6269,7 @@ MonoBehaviour:
           - rid: 6444589575797212049
           - rid: 6444590169403950023
           - rid: 6444590169403950024
+          - rid: 6444590175015928692
         fonts:
         - rid: 7896456371522241478
         - rid: 7896456371522241479
@@ -7126,6 +7213,8 @@ MonoBehaviour:
         - rid: 6444590167485055962
         - rid: 6444590167485055965
         - rid: 6444590167485055968
+        - rid: 6444590175015928591
+        - rid: 6444590175015928594
         DictFloats:
           keys:
           - Major
@@ -7211,6 +7300,8 @@ MonoBehaviour:
           - 'HM: Title: Btn: Home'
           - 'HM: Des: Btn: Home'
           - 'HM: Btn: Home'
+          - 'HM: Btn: Title: Start'
+          - 'HM: Btn: SubTitle: Start'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -7295,6 +7386,8 @@ MonoBehaviour:
           - rid: 6444590167485055962
           - rid: 6444590167485055965
           - rid: 6444590167485055968
+          - rid: 6444590175015928591
+          - rid: 6444590175015928594
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -7526,6 +7619,9 @@ MonoBehaviour:
         - rid: 6444590169403950025
         - rid: 6444590169403950026
         - rid: 6444590169403950027
+        - rid: 6444590175015928592
+        - rid: 6444590175015928597
+        - rid: 6444590175015928604
         DictColors:
           keys:
           - Major
@@ -7758,6 +7854,9 @@ MonoBehaviour:
           - 'HM: Title: Btn: Home: Conf'
           - 'HM: Des: Conf: Btn: Home'
           - 'HM: Btn: Home: Conf'
+          - 'HM: Btn: Start: White'
+          - 'HM: Btn: SubTitle: Start: Blue'
+          - 'HM: Btn: Start: Blue'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -7989,6 +8088,9 @@ MonoBehaviour:
           - rid: 6444590169403950025
           - rid: 6444590169403950026
           - rid: 6444590169403950027
+          - rid: 6444590175015928592
+          - rid: 6444590175015928604
+          - rid: 6444590175015928597
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -8073,6 +8175,8 @@ MonoBehaviour:
         - rid: 6444590167485055964
         - rid: 6444590167485055967
         - rid: 6444590167485055970
+        - rid: 6444590175015928593
+        - rid: 6444590175015928596
         DictFonts:
           keys:
           - Major
@@ -8158,6 +8262,8 @@ MonoBehaviour:
           - 'HM: Title: Btn: Home'
           - 'HM: Des: Btn: Home'
           - 'HM: Btn: Home'
+          - 'HM: Btn: Title: Start'
+          - 'HM: Btn: SubTitle: Start'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -8242,6 +8348,8 @@ MonoBehaviour:
           - rid: 6444590167485055964
           - rid: 6444590167485055967
           - rid: 6444590167485055970
+          - rid: 6444590175015928593
+          - rid: 6444590175015928596
         sprites: []
         DictSprites:
           keys: []
