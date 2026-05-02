@@ -7509,6 +7509,8 @@ MonoBehaviour:
         - rid: 6444590167485055968
         - rid: 6444590175015928591
         - rid: 6444590175015928594
+        - rid: 8259207057964531726
+        - rid: 8259207057964531729
         DictFloats:
           keys:
           - Major
@@ -7596,6 +7598,8 @@ MonoBehaviour:
           - 'HM: Btn: Home'
           - 'HM: Btn: Title: Start'
           - 'HM: Btn: SubTitle: Start'
+          - 'HM: Btn: Menu'
+          - 'HM: Btn: Menu: Des'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -7682,6 +7686,8 @@ MonoBehaviour:
           - rid: 6444590167485055968
           - rid: 6444590175015928591
           - rid: 6444590175015928594
+          - rid: 8259207057964531726
+          - rid: 8259207057964531729
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -7916,6 +7922,8 @@ MonoBehaviour:
         - rid: 6444590175015928592
         - rid: 6444590175015928597
         - rid: 6444590175015928604
+        - rid: 8259207057964531727
+        - rid: 8259207057964531730
         DictColors:
           keys:
           - Major
@@ -8151,6 +8159,8 @@ MonoBehaviour:
           - 'HM: Btn: Start: White'
           - 'HM: Btn: SubTitle: Start: Blue'
           - 'HM: Btn: Start: Blue'
+          - 'HM: Btn: Menu'
+          - 'HM: Btn: Menu: Des'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -8385,6 +8395,8 @@ MonoBehaviour:
           - rid: 6444590175015928592
           - rid: 6444590175015928604
           - rid: 6444590175015928597
+          - rid: 8259207057964531727
+          - rid: 8259207057964531730
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -8471,6 +8483,8 @@ MonoBehaviour:
         - rid: 6444590167485055970
         - rid: 6444590175015928593
         - rid: 6444590175015928596
+        - rid: 8259207057964531728
+        - rid: 8259207057964531731
         DictFonts:
           keys:
           - Major
@@ -8558,6 +8572,8 @@ MonoBehaviour:
           - 'HM: Btn: Home'
           - 'HM: Btn: Title: Start'
           - 'HM: Btn: SubTitle: Start'
+          - 'HM: Btn: Menu'
+          - 'HM: Btn: Menu: Des'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -8644,6 +8660,8 @@ MonoBehaviour:
           - rid: 6444590167485055970
           - rid: 6444590175015928593
           - rid: 6444590175015928596
+          - rid: 8259207057964531728
+          - rid: 8259207057964531731
         sprites: []
         DictSprites:
           keys: []
@@ -11846,6 +11864,10 @@ MonoBehaviour:
         - rid: 4368655488958857355
         - rid: 4368655488958857356
         - rid: 4368655488958857357
+        - rid: 8259207057466196826
+        - rid: 8259207057466196827
+        - rid: 8259207057466196828
+        - rid: 8259207057466196829
         DictFloats:
           keys:
           - 'W: Page: Header'
@@ -12160,6 +12182,10 @@ MonoBehaviour:
           - 'HM: H: Feed: Bkg'
           - 'HM: B: Feed: Bkg'
           - 'HM: C: Feed: Bkg'
+          - 'HM: W: Header'
+          - 'HM: H: Header'
+          - 'HM: B: Header'
+          - 'HM: C: Header'
           values:
           - rid: 7896456371522243118
           - rid: 7896456371522243119
@@ -12473,6 +12499,10 @@ MonoBehaviour:
           - rid: 4368655488958857355
           - rid: 4368655488958857356
           - rid: 4368655488958857357
+          - rid: 8259207057466196826
+          - rid: 8259207057466196827
+          - rid: 8259207057466196828
+          - rid: 8259207057466196829
         colors:
         - rid: 7896456371522243417
         - rid: 7896456371522243418
@@ -12613,6 +12643,8 @@ MonoBehaviour:
         - rid: 6444589630477828101
         - rid: 4368655488958857358
         - rid: 4368655488958857359
+        - rid: 8259207057466196830
+        - rid: 8259207057466196831
         DictColors:
           keys:
           - 'Page: Bkg'
@@ -12754,6 +12786,8 @@ MonoBehaviour:
           - 'HM: Photo: Profile: Border'
           - 'HM: Photo: Feed: Bkg'
           - 'HM: Photo: Feed: Border'
+          - 'HM: Header: Bkg'
+          - 'HM: Header: Border'
           values:
           - rid: 7896456371522243417
           - rid: 7896456371522243418
@@ -12894,6 +12928,8 @@ MonoBehaviour:
           - rid: 6444589630477828101
           - rid: 4368655488958857358
           - rid: 4368655488958857359
+          - rid: 8259207057466196830
+          - rid: 8259207057466196831
         fonts: []
         DictFonts:
           keys: []
@@ -47486,6 +47522,114 @@ MonoBehaviour:
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
         Property: 'Subdominant: Default'
+    - rid: 8259207057466196826
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: W: Header'
+        Reference: 1
+        Value: 1008
+        Property: 'Page: Content: W'
+    - rid: 8259207057466196827
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: H: Header'
+        Reference: 0
+        Value: 227
+        Property: 
+    - rid: 8259207057466196828
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: B: Header'
+        Reference: 0
+        Value: 0
+        Property: 
+    - rid: 8259207057466196829
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: C: Header'
+        Reference: 1
+        Value: 0
+        Property: 'Corner: Bowed'
+    - rid: 8259207057466196830
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: Header: Bkg'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 8259207057466196831
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375721
+        Name: 'HM: Header: Border'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 8259207057964531726
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Compact'
+    - rid: 8259207057964531727
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 8259207057964531728
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Bold'
+    - rid: 8259207057964531729
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu: Des'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Fine'
+    - rid: 8259207057964531730
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu: Des'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 8259207057964531731
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Btn: Menu: Des'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Light'
     - rid: 9045246306593013966
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
