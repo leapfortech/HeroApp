@@ -15,29 +15,12 @@ public class FeedState : ScriptableObject
     public int Status = 1;
 
     [NonSerialized]
-    public bool IsLoading;
-    [NonSerialized]
-    public bool HasMore = true;
-
-    [NonSerialized]
-    public String PrevCursor;
-
-    [NonSerialized]
-    public String NextCursor;
-
-    [NonSerialized]
     public List<PostFull> PostFulls;
     [NonSerialized]
     public HashSet<long> PostIds;
 
     public void ResetRuntime()
     {
-        IsLoading = false;
-        HasMore = true;
-
-        PrevCursor = null;
-        NextCursor = null;
-
         PostFulls = new List<PostFull>();
         PostIds = new HashSet<long>();
     }

@@ -18,19 +18,11 @@ public class FeedAction : MonoBehaviour
     bool filterAppUser = false;
 
     [Space]
-    [Title("List")]
-    [SerializeField]
-    ListScroller lstFeed = null;
+    [Title("Loop")]
     [SerializeField]
     LoopScroller loopFeed = null;
     [SerializeField]
     Text txtEmpty;
-
-    [Title("Action")]
-    [SerializeField]
-    Button btnOlder = null;
-    [SerializeField]
-    Button btnRefresh = null;
 
     [Title("Event")]
     [SerializeField]
@@ -41,7 +33,7 @@ public class FeedAction : MonoBehaviour
 
     Dictionary<int, long> indexes = new();
     int idx = 0;
-    
+
     private int lastDirection = 0;
     long countryId = -1, stateId = -1;
 
@@ -53,8 +45,6 @@ public class FeedAction : MonoBehaviour
 
     private void Start()
     {
-        btnOlder?.AddAction(LoadOlder);
-        btnRefresh?.AddAction(Refresh);
     }
 
     public void SelectPost(int idx)
@@ -65,9 +55,9 @@ public class FeedAction : MonoBehaviour
 
     public long GetPostId(int idx)
     {
-        if (indexes.TryGetValue(idx, out long postId))
-            return postId;
-        return -1;
+        if (!indexes.TryGetValue(idx, out long postId))
+            return -1;
+        return postId;
     }
 
     public void SetFilters(long countryId = -1, long stateId = -1)
@@ -76,16 +66,12 @@ public class FeedAction : MonoBehaviour
         this.stateId = stateId;
     }
 
-    public void FirstLoad()
+    public void GetFirstFeeds()
     {
-        if (state.IsLoading)
-            return;
-
         if (state.PostFulls.Count > 0)
             return;
 
         ScreenDialog.Instance.Display();
-        state.IsLoading = true;
         lastDirection = 0;
 
         PostFeedRequest request = new PostFeedRequest
@@ -103,48 +89,9 @@ public class FeedAction : MonoBehaviour
         postService.GetPostFeed(request);
     }
 
-    // OLDER
-    public void LoadOlder()
+    public void GetNextFeeds()
     {
-        if (state.IsLoading)
-            return;
-
-        if (!state.HasMore)
-            return;
-
         ScreenDialog.Instance.Display();
-        state.IsLoading = true;
-
-        lastDirection = 2;
-
-        PostFeedRequest request = new PostFeedRequest
-        {
-            Direction = 2,
-            Count = state.Count,
-            PostTypeId = state.PostTypeId,
-            Status = state.Status,
-
-            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
-            CountryId = countryId,
-            StateId = stateId,
-        };
-
-        postService.GetPostFeed(request);
-    }
-
-    // REFRESH
-    public void Refresh()
-    {
-        if (state.IsLoading)
-            return;
-
-        if (string.IsNullOrEmpty(state.PrevCursor))
-            return;
-
-        ScreenDialog.Instance.Display();
-        state.IsLoading = true;
-
-        lastDirection = 1;
 
         PostFeedRequest request = new PostFeedRequest
         {
@@ -161,10 +108,8 @@ public class FeedAction : MonoBehaviour
         postService.GetPostFeed(request);
     }
 
-    public void ApplyFeed(PostFeedResponse response)
+    public void ApplyFeeds(PostFeedResponse response)
     {
-        state.IsLoading = false;
-
         if (response.PostFulls.Count == 0)
         {
             ScreenDialog.Instance.Hide();
@@ -183,7 +128,7 @@ public class FeedAction : MonoBehaviour
 
             idx = 0;
             indexes.Clear();
-            lstFeed.Clear();
+            //>>lstFeed.Clear();
             DisplayFrom(0);
         }
         else if (lastDirection == 2) // OLDER
@@ -207,7 +152,7 @@ public class FeedAction : MonoBehaviour
 
             indexes.Clear();
             idx = 0;
-            lstFeed.Clear();
+            //>>lstFeed.Clear();
 
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
@@ -220,38 +165,30 @@ public class FeedAction : MonoBehaviour
             DisplayFrom(0);
         }
 
-        // SET CURSORS
-        state.PrevCursor = response.PrevCursor;
-        state.NextCursor = response.NextCursor;
-
-        if (lastDirection == 0 || lastDirection == 2)
-            state.HasMore = response.PostFulls.Count == state.Count;
-
         txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
         ScreenDialog.Instance.Hide();
     }
 
     private void DisplayFrom(int startIdx)
     {
-        for (int i = startIdx; i < state.PostFulls.Count; i++)
+        for (int i = 0; i < state.PostFulls.Count; i++)
         {
-            indexes[idx] = state.PostFulls[i].PostId;
-            idx++;
+            indexes[idx++] = state.PostFulls[i].PostId;
 
             String summary = state.PostFulls[i].Summary;
 
             if (!String.IsNullOrEmpty(summary) && summary.Length > 100)
-                summary = summary.Substring(0, 100) + "...";
+                summary = summary[..100] + "...";
 
-            ListScrollerValue scrollerValue = new ListScrollerValue(3, true);
+            LoopScrollerValue scrollerValue = new LoopScrollerValue(3, state.PostFulls[i].PublicationDateTime);
             scrollerValue.SetText(0, state.PostFulls[i].Description);
             scrollerValue.SetSprite(1, state.PostFulls[i].TitleSprite);
             scrollerValue.SetText(2, summary);
 
-            lstFeed.AddValue(scrollerValue);
+            loopFeed.AddValue(scrollerValue);
         }
 
-        lstFeed.ApplyValues();
+        //>>lstFeed.ApplyValues();
         txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
     }
 }

@@ -7,10 +7,6 @@ public class PostFeedResponse
 
     public int Total { get; set; }
 
-    // CURSORS
-    public string PrevCursor { get; set; }
-    public string NextCursor { get; set; }
-
     public PostFeedResponse()
     {
     }
