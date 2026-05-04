@@ -19,6 +19,7 @@ public class DateTimeDefaultIndexAction : MonoBehaviour
 
     public int[] GetTimeIndexes()
     {
-        return new int[] { DateTime.Now.Hour, DateTime.Now.Minute };
+        DateTime now = DateTime.Now;
+        return new int[] { now.Hour, now.Minute };
     }
 }
