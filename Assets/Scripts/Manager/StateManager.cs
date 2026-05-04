@@ -55,10 +55,9 @@ public class StateManager : SingletonBehaviour<StateManager>
     // Option
     public long GetOption(int idx)
     {
-        return AppUser.Options / (long)Math.Pow(10, idx) % 10;
+        return AppUser.Options / (long)Math.Pow(10, idx) % 10;  // JAD >> array
     }
     
-
     public long UpdateOption(int idx, int newStatus)
     {
         long options = AppUser.Options;
@@ -115,7 +114,7 @@ public class StateManager : SingletonBehaviour<StateManager>
     private List<FeedState> feedStates = new();
     private Dictionary<String, FeedState> feedMap;
 
-    private void FeedInitilize()
+    private void FeedInitialize()
     {
         if (feedMap != null)
             return;
@@ -123,31 +122,28 @@ public class StateManager : SingletonBehaviour<StateManager>
         feedMap = new Dictionary<String, FeedState>();
 
         for (int i = 0; i < feedStates.Count; i++)
+            feedMap[feedStates[i].FeedKey] = Instantiate(feedStates[i]);
+    }
+
+    public FeedState GetFeedState(String feedKey)
+    {
+        FeedInitialize();
+
+        if (!feedMap.TryGetValue(feedKey, out FeedState state))
         {
-            FeedState feedState = Instantiate(feedStates[i]);
-            feedState.ResetRuntime();
-
-            feedMap[feedState.FeedKey] = feedState;
+            Debug.LogError($"Feed not found: {feedKey.ToString()}");
+            return null;
         }
+
+        return state;
     }
 
-    public FeedState GetFeed(string feedKey)
+    public void ResetAllFeedStates()
     {
-        FeedInitilize();
-
-        if (feedMap.TryGetValue(feedKey, out FeedState state))
-            return state;
-
-        Debug.LogError("Feed not found: " + feedKey);
-        return null;
-    }
-
-    public void ResetAllFeeds()
-    {
-        FeedInitilize();
+        FeedInitialize();
 
         foreach (FeedState feed in feedMap.Values)
-            feed.ResetRuntime();
+            feed.PostFulls = new List<PostFull>();
     }
 
 
@@ -625,7 +621,7 @@ public class StateManager : SingletonBehaviour<StateManager>
         CurrentLocality = null;
 
         // Feeds
-        ResetAllFeeds();
+        ResetAllFeedStates();
 
         // Tale
         ClearTale();

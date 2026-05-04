@@ -7,7 +7,7 @@
       "dependencies": {
         "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git#0.1.7"
       },
-      "hash": "4437bc2752cfafcd730a6d500e009afbbc97b5c6"
+      "hash": "f080c9f03ce5845e4576b5be36df5f3830edc7a6"
     },
     "com.lefortech.core.security": {
       "version": "https://github.com/leapfortech/LeapCoreSecurity.git",
@@ -154,7 +154,7 @@
       "dependencies": {
         "com.lefortech.core.tools": "https://github.com/leapfortech/LeapCoreTools.git"
       },
-      "hash": "0bfe748e923baee88ff68548ff547e6f763e7f8b"
+      "hash": "0e5eebc442694fd851513afce140366e3168b1da"
     },
     "com.lefortech.ui.extensions": {
       "version": "https://github.com/leapfortech/LeapUIExtensions.git",
@@ -246,6 +246,30 @@
       "source": "registry",
       "dependencies": {
         "com.unity.modules.androidjni": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.mono-cecil": {
+      "version": "1.11.6",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.nuget.newtonsoft-json": {
+      "version": "3.2.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.project-auditor": {
+      "version": "1.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.nuget.mono-cecil": "1.10.1",
+        "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
       "url": "https://packages.unity.com"
     },

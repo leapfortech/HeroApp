@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2730450887187334824}
   - component: {fileID: 1914185303728754170}
+  - component: {fileID: 5418691031044894580}
   m_Layer: 0
   m_Name: LstItmCCard1TextToggle
   m_TagString: Untagged
@@ -58,6 +59,26 @@ MonoBehaviour:
   - {fileID: 2860328716705908454}
   buttons: []
   toggle: {fileID: 5312367820565114474}
+--- !u!114 &5418691031044894580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730450887187334825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1001 &200771109954029399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3701696421670798583, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: spacing
-      value: 12
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5359977072881784954, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Name
@@ -296,11 +317,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6845694637643296992, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 36
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6845694637643296992, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 36
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6949975912794496753, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_SizeDelta.x
@@ -312,11 +333,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -72
+      value: -76
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 36
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -328,12 +349,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_fontSize
-      value: 46
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_fontAsset
       value: 
-      objectReference: {fileID: 11400000, guid: 0320fa1479017914d93c19e8378562df, type: 2}
+      objectReference: {fileID: 11400000, guid: d081affdbd93f6340a8d6e087488ada4, type: 2}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_fontColor.b
       value: 0
@@ -344,12 +365,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_fontSizeBase
-      value: 46
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: -8698068912704883475, guid: 0320fa1479017914d93c19e8378562df, type: 2}
+      objectReference: {fileID: -3105111878818088225, guid: d081affdbd93f6340a8d6e087488ada4, type: 2}
     - target: {fileID: 8436609823093871507, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 60
@@ -380,15 +401,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609823093871509, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.b
-      value: 0.39215687
+      value: 0.44705883
       objectReference: {fileID: 0}
     - target: {fileID: 8436609823093871509, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.g
-      value: 0.2627451
+      value: 0.2901961
       objectReference: {fileID: 0}
     - target: {fileID: 8436609823093871509, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.r
-      value: 0.10980392
+      value: 0.003921569
       objectReference: {fileID: 0}
     - target: {fileID: 8436609823093871509, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Circle.m_Radius
@@ -396,47 +417,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.b
-      value: 0.6627451
+      value: 0.34901962
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.g
-      value: 0.45882353
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.9019608
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.a
-      value: 0.003921569
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.b
-      value: 0
+      value: 0.34901962
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_OutlineColor.r
-      value: 0
+      value: 0.9019608
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Circle.m_Radius
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Rectangle.m_CornerRadius.w
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Rectangle.m_CornerRadius.x
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Rectangle.m_CornerRadius.y
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8821703072341529321, guid: 4d49b8c4c5643ec4c847b0a5998e867c, type: 3}
       propertyPath: m_Rectangle.m_CornerRadius.z
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

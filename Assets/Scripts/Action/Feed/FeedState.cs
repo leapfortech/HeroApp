@@ -15,13 +15,5 @@ public class FeedState : ScriptableObject
     public int Status = 1;
 
     [NonSerialized]
-    public List<PostFull> PostFulls;
-    [NonSerialized]
-    public HashSet<long> PostIds;
-
-    public void ResetRuntime()
-    {
-        PostFulls = new List<PostFull>();
-        PostIds = new HashSet<long>();
-    }
+    public List<PostFull> PostFulls = new List<PostFull>();
 }

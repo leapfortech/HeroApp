@@ -80,7 +80,7 @@ public class CardAction : MonoBehaviour
         txtValid.TextValue = DateTime.Today > card.ExpirationDate ? "" : valid;
         txtOverdue.TextValue = DateTime.Today > card.ExpirationDate ? overdue : "";
         txtCardNumber.TextValue = (new String('x', card.Digits - 4) + card.Number).FormatCard();
-        txtExpirationDate.TextValue = $"{card.ExpirationDate:MM/yy}";
+        txtExpirationDate.TextValue = card.ExpirationDate.ToString("MM/yy");
         txtCardHolder.TextValue = card.Holder;
         imgCardBrand.Sprite = vllCardBrand.FindRecordCellSprite(card.TypeId, "Brand");
     }

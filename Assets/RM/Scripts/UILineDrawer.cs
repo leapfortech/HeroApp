@@ -225,10 +225,11 @@ public class UILineDrawer : MonoBehaviour, IBeginDragHandler, IDragHandler, IEnd
 
     public String GetStrokes()
     {
-        UILineRenderer[] lineRdrs = GetComponentsInChildren<UILineRenderer>();
+        List<UILineRenderer> lineRdrs = new();
+        GetComponentsInChildren<UILineRenderer>(lineRdrs);
 
-        List<float> strokes = new List<float> { lineRdrs.Length };
-        for (int i = 0; i < lineRdrs.Length; i++)
+        List<float> strokes = new List<float> { lineRdrs.Count };
+        for (int i = 0; i < lineRdrs.Count; i++)
         {
             strokes.Add(lineRdrs[i].points.Count);
             for (int k = 0; k < lineRdrs[i].points.Count; k++)

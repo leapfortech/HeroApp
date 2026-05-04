@@ -47,10 +47,9 @@ public class StepProgressAction : MonoBehaviour
             GameObject segment = Instantiate(prefabToUse, segmentsContainer);
 
             LayoutElement layoutElement = segment.GetComponent<LayoutElement>();
-
-            if (layoutElement == null)
-                layoutElement = segment.AddComponent<LayoutElement>();
-
+#if UNITY_EDITOR
+            if (layoutElement == null) Debug.LogError($"LayoutElement NOT found in Segment Prefab {prefabToUse.name}");
+#endif
             layoutElement.flexibleWidth = 1;
 
             if (isCurrent)
@@ -58,7 +57,7 @@ public class StepProgressAction : MonoBehaviour
                 Leap.UI.Elements.Text txtStep = segment.GetComponentInChildren<Leap.UI.Elements.Text>();
 
                 if (txtStep != null)
-                    txtStep.TextValue = $"Paso {currentStep}";
+                    txtStep.TextValue = $"Paso {currentStep.ToString()}";
             }
         }
     }

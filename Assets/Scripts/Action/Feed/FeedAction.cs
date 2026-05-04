@@ -22,93 +22,82 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     LoopScroller loopFeed = null;
     [SerializeField]
-    Text txtEmpty;
-
-    [Title("Event")]
-    [SerializeField]
-    UnityLongEvent onSelected = null;
+    GameObject txtEmpty;
 
     PostService postService;
-    FeedState state;
+    FeedState feedState;
 
-    Dictionary<int, long> indexes = new();
-    int idx = 0;
-
-    private int lastDirection = 0;
-    long countryId = -1, stateId = -1;
+    //long countryId = -1;
+    //long stateId = -1;
 
     private void Awake()
     {
         postService = GetComponent<PostService>();
-        state = StateManager.Instance.GetFeed(feedConfig.FeedKey);
-    }
-
-    private void Start()
-    {
-    }
-
-    public void SelectPost(int idx)
-    {
-        if (indexes.TryGetValue(idx, out long postId))
-            onSelected.Invoke(postId);
     }
 
     public long GetPostId(int idx)
     {
-        if (!indexes.TryGetValue(idx, out long postId))
-            return -1;
-        return postId;
+        return feedState.PostFulls[idx].PostId;
     }
 
-    public void SetFilters(long countryId = -1, long stateId = -1)
-    {
-        this.countryId = countryId;
-        this.stateId = stateId;
-    }
+    //public void SetFilters(long countryId = -1, long stateId = -1)
+    //{
+    //    this.countryId = countryId;
+    //    this.stateId = stateId;
+    //}
 
-    public void GetFirstFeeds()
+    public void CreateFeeds(bool force)
     {
-        if (state.PostFulls.Count > 0)
+        if (feedState != null && !force)
             return;
 
-        ScreenDialog.Instance.Display();
-        lastDirection = 0;
+        feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
+        feedState.PostFulls = new List<PostFull>(feedState.Count * 4);
 
-        PostFeedRequest request = new PostFeedRequest
+        loopFeed.ClearValues();
+        DateTime now = DateTime.Now;
+        PostFull emptyPostFull = new PostFull();
+        for (int i = 0; i < feedState.Count * 4; i++)
         {
-            Direction = 0,
-            Count = state.Count,
-            PostTypeId = state.PostTypeId,
-            Status = state.Status,
+            feedState.PostFulls.Add(emptyPostFull);
+            loopFeed.AddValue(CreateValue(emptyPostFull, now));
+        }
+        loopFeed.ApplyValues();
 
-            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
-            CountryId = countryId,
-            StateId = stateId,
-        };
-
-        postService.GetPostFeed(request);
+        GetPosts(0, new FeedUserData(-1, DateTime.Now), 2);
     }
 
-    public void GetNextFeeds()
+    public LoopScrollerValue CreateValue(PostFull postFull, DateTime now)
+    {
+        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItem.ElementCount, null);
+        UpdateValue(postFull, loopValue, now);
+        return loopValue;
+    }
+
+    public void GetPosts(int startLoopIdx, object userData, int direction)
     {
         ScreenDialog.Instance.Display();
 
+        FeedUserData feedUserData = (FeedUserData)userData;
         PostFeedRequest request = new PostFeedRequest
         {
-            Direction = 1,
-            Count = state.Count,
-            PostTypeId = state.PostTypeId,
-            Status = state.Status,
+            Chunk = startLoopIdx,
 
+            StartDateTime = feedUserData.PublicationDateTime,
+            Direction = direction,
+            Count = feedUserData.PostId == -1 ? feedState.Count + feedState.Count : feedState.Count,
+
+            PostTypeId = feedState.PostTypeId,
             AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
-            CountryId = countryId,
-            StateId = stateId,
+            //CountryId = countryId,
+            //StateId = stateId,
+            Status = feedState.Status,
         };
 
         postService.GetPostFeed(request);
     }
 
-    public void ApplyFeeds(PostFeedResponse response)
+    public void ApplyPosts(PostFeedResponse response)
     {
         if (response.PostFulls.Count == 0)
         {
@@ -116,79 +105,32 @@ public class FeedAction : MonoBehaviour
             return;
         }
 
-        if (lastDirection == 1) // REFRESH
+        //response.Chunk = response.Chunk == -1 ? 0 : (response.Chunk + feedState.Count);
+        int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
+        int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
+
+        //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
+
+        DateTime now = DateTime.Now;
+        for (int i = 0; i < response.PostFulls.Count; i++)
         {
-            for (int i = 0; i < response.PostFulls.Count; i++)
-            {
-                PostFull post = response.PostFulls[i];
-
-                if (state.PostIds.Add(post.PostId))
-                    state.PostFulls.Insert(0, post);
-            }
-
-            idx = 0;
-            indexes.Clear();
-            //>>lstFeed.Clear();
-            DisplayFrom(0);
-        }
-        else if (lastDirection == 2) // OLDER
-        {
-            int startIndex = state.PostFulls.Count;
-
-            for (int i = 0; i < response.PostFulls.Count; i++)
-            {
-                PostFull post = response.PostFulls[i];
-
-                if (state.PostIds.Add(post.PostId))
-                    state.PostFulls.Add(post);
-            }
-
-            DisplayFrom(startIndex);
-        }
-        else // INITIAL
-        {
-            state.PostIds.Clear();
-            state.PostFulls.Clear();
-
-            indexes.Clear();
-            idx = 0;
-            //>>lstFeed.Clear();
-
-            for (int i = 0; i < response.PostFulls.Count; i++)
-            {
-                PostFull post = response.PostFulls[i];
-
-                if (state.PostIds.Add(post.PostId))
-                    state.PostFulls.Add(post);
-            }
-
-            DisplayFrom(0);
+            int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+            feedState.PostFulls[k] = response.PostFulls[i];
+            UpdateValue(response.PostFulls[i], loopFeed[k], now);
         }
 
-        txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
+        loopFeed.RefreshVisibleValues();
+
+        txtEmpty.SetActive(feedState.PostFulls.Count == 0);
         ScreenDialog.Instance.Hide();
     }
 
-    private void DisplayFrom(int startIdx)
+    public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime now)
     {
-        for (int i = 0; i < state.PostFulls.Count; i++)
-        {
-            indexes[idx++] = state.PostFulls[i].PostId;
-
-            String summary = state.PostFulls[i].Summary;
-
-            if (!String.IsNullOrEmpty(summary) && summary.Length > 100)
-                summary = summary[..100] + "...";
-
-            LoopScrollerValue scrollerValue = new LoopScrollerValue(3, state.PostFulls[i].PublicationDateTime);
-            scrollerValue.SetText(0, state.PostFulls[i].Description);
-            scrollerValue.SetSprite(1, state.PostFulls[i].TitleSprite);
-            scrollerValue.SetText(2, summary);
-
-            loopFeed.AddValue(scrollerValue);
-        }
-
-        //>>lstFeed.ApplyValues();
-        txtEmpty.gameObject.SetActive(state.PostFulls.Count == 0);
+        loopValue.UserData = postFull.PublicationDateTime.Year == 1753 ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
+        loopValue.SetSprite(0, null);
+        loopValue.SetText(1, postFull.AppUserAlias);
+        loopValue.SetText(2, postFull.PublicationDateTime.Year == 1753 ? null : $"@{postFull.AppUserAlias} - hace {((int)(now - postFull.PublicationDateTime).TotalHours).ToString()} horas");
+        loopValue.SetText(3, postFull.Summary);
     }
 }
