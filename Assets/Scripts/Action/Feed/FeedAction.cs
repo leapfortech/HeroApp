@@ -17,6 +17,9 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     bool filterAppUser = false;
 
+    [SerializeField, Space(5f), ListDrawerSettings(ShowPaging = false)]
+    Sprite[] portraits = new Sprite[0];
+
     [Space]
     [Title("Loop")]
     [SerializeField]
@@ -26,6 +29,7 @@ public class FeedAction : MonoBehaviour
 
     PostService postService;
     FeedState feedState;
+    int feedCount = 0;
 
     //long countryId = -1;
     //long stateId = -1;
@@ -52,14 +56,15 @@ public class FeedAction : MonoBehaviour
             return;
 
         feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
-        feedState.PostFulls = new List<PostFull>(feedState.Count * 4);
+        feedCount = feedState.Count * 4;
+        //feedState.PostFulls = new List<PostFull>(feedCount);
 
         loopFeed.ClearValues();
         DateTime now = DateTime.Now;
         PostFull emptyPostFull = new PostFull();
-        for (int i = 0; i < feedState.Count * 4; i++)
+        for (int i = 0; i < feedCount; i++)
         {
-            feedState.PostFulls.Add(emptyPostFull);
+            //feedState.PostFulls.Add(emptyPostFull);
             loopFeed.AddValue(CreateValue(emptyPostFull, now));
         }
         loopFeed.ApplyValues();
@@ -76,7 +81,7 @@ public class FeedAction : MonoBehaviour
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {
-        ScreenDialog.Instance.Display();
+        //ScreenDialog.Instance.Display();
 
         FeedUserData feedUserData = (FeedUserData)userData;
         PostFeedRequest request = new PostFeedRequest
@@ -101,36 +106,57 @@ public class FeedAction : MonoBehaviour
     {
         if (response.PostFulls.Count == 0)
         {
-            ScreenDialog.Instance.Hide();
+            //ScreenDialog.Instance.Hide();
             return;
         }
 
         //response.Chunk = response.Chunk == -1 ? 0 : (response.Chunk + feedState.Count);
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
         int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
+        int direction = response.Direction;
 
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
         DateTime now = DateTime.Now;
-        for (int i = 0; i < response.PostFulls.Count; i++)
+        if (direction == 1)
         {
-            int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-            feedState.PostFulls[k] = response.PostFulls[i];
-            UpdateValue(response.PostFulls[i], loopFeed[k], now);
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                int k = (startLoopIdx - i - 1) % loopFeed.ValuesCount;
+                if (k < 0)
+                    break;
+                //feedState.PostFulls[k] = response.PostFulls[i];
+                UpdateValue(response.PostFulls[i], loopFeed[k], now);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                //feedState.PostFulls[k] = response.PostFulls[i];
+                UpdateValue(response.PostFulls[i], loopFeed[k], now);
+            }
         }
 
         loopFeed.RefreshVisibleValues();
 
-        txtEmpty.SetActive(feedState.PostFulls.Count == 0);
-        ScreenDialog.Instance.Hide();
+        txtEmpty.SetActive(response.Total == 0);
+        //ScreenDialog.Instance.Hide();
     }
 
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime now)
     {
-        loopValue.UserData = postFull.PublicationDateTime.Year == 1753 ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
-        loopValue.SetSprite(0, null);
+        bool empty = postFull.PublicationDateTime.Year == 1753;
+        loopValue.ItemType = empty ? 0 : postFull.ImageCount == 0 ? 1 : 2;
+        loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
+        loopValue.UserData = empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
+
+        loopValue.SetSprite(0, empty ? null : portraits.Length > 0 ? portraits[postFull.PostId % portraits.Length] : null);
         loopValue.SetText(1, postFull.AppUserAlias);
-        loopValue.SetText(2, postFull.PublicationDateTime.Year == 1753 ? null : $"@{postFull.AppUserAlias} - hace {((int)(now - postFull.PublicationDateTime).TotalHours).ToString()} horas");
+        loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - hace {((int)(now - postFull.PublicationDateTime).TotalHours).ToString()} horas");
         loopValue.SetText(3, postFull.Summary);
+        loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
+        loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
     }
 }
