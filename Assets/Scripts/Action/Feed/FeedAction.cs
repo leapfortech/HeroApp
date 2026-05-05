@@ -81,9 +81,11 @@ public class FeedAction : MonoBehaviour
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {
-        //ScreenDialog.Instance.Display();
-
         FeedUserData feedUserData = (FeedUserData)userData;
+
+        if (feedUserData.PostId == -1)
+            ScreenDialog.Instance.Display();
+
         PostFeedRequest request = new PostFeedRequest
         {
             Chunk = startLoopIdx,
@@ -106,7 +108,7 @@ public class FeedAction : MonoBehaviour
     {
         if (response.PostFulls.Count == 0)
         {
-            //ScreenDialog.Instance.Hide();
+            ScreenDialog.Instance.Hide();
             return;
         }
 
@@ -142,7 +144,7 @@ public class FeedAction : MonoBehaviour
         loopFeed.RefreshVisibleValues();
 
         txtEmpty.SetActive(response.Total == 0);
-        //ScreenDialog.Instance.Hide();
+        ScreenDialog.Instance.Hide();
     }
 
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime now)
