@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
-using Leap.Core.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -27,12 +25,20 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     GameObject txtEmpty;
 
+    [Title("Debug")]
+    [SerializeField]
+    Text txtDebug = null;
+    [SerializeField]
+    RectTransform trfOverlay = null;
+
     PostService postService;
     FeedState feedState;
     int feedCount = 0;
 
     //long countryId = -1;
     //long stateId = -1;
+
+    String[] valueDates;
 
     private void Awake()
     {
@@ -59,15 +65,20 @@ public class FeedAction : MonoBehaviour
         feedCount = feedState.Count * 4;
         //feedState.PostFulls = new List<PostFull>(feedCount);
 
+        valueDates = new String[feedCount];
+
         loopFeed.ClearValues();
         DateTime now = DateTime.Now;
         PostFull emptyPostFull = new PostFull();
-        for (int i = 0; i < feedCount; i++)
+        for (int k = 0; k < feedCount; k++)
         {
             //feedState.PostFulls.Add(emptyPostFull);
             loopFeed.AddValue(CreateValue(emptyPostFull, now));
+            valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
+
+        UpdateOverlay(0);
 
         GetPosts(0, new FeedUserData(-1, DateTime.Now), 2);
     }
@@ -129,6 +140,7 @@ public class FeedAction : MonoBehaviour
                     break;
                 //feedState.PostFulls[k] = response.PostFulls[i];
                 UpdateValue(response.PostFulls[i], loopFeed[k], now);
+                UpdateDebug(k, response.PostFulls[i]);
             }
         }
         else
@@ -138,9 +150,11 @@ public class FeedAction : MonoBehaviour
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 //feedState.PostFulls[k] = response.PostFulls[i];
                 UpdateValue(response.PostFulls[i], loopFeed[k], now);
+                UpdateDebug(k, response.PostFulls[i]);
             }
         }
 
+        txtDebug.TextValue = String.Join('\n', valueDates);
         loopFeed.RefreshVisibleValues();
 
         txtEmpty.SetActive(response.Total == 0);
@@ -160,5 +174,19 @@ public class FeedAction : MonoBehaviour
         loopValue.SetText(3, postFull.Summary);
         loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
         loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
+    }
+
+    public void UpdateDebug(int k, PostFull postFull)
+    {
+        if (postFull.PublicationDateTime.Year == 1753)
+            valueDates[k] = "--:--:--:---- : -1";
+        else
+            valueDates[k] = $"{postFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {postFull.Title}";
+
+    }
+
+    public void UpdateOverlay(int idx)
+    {
+        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
