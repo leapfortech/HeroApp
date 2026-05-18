@@ -117,6 +117,9 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyPosts(PostFeedResponse response)
     {
+        for (int i = 0; i < valueDates.Length; i++)
+            valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
+
         if (response.PostFulls.Count == 0)
         {
             ScreenDialog.Instance.Hide();
@@ -179,9 +182,9 @@ public class FeedAction : MonoBehaviour
     public void UpdateDebug(int k, PostFull postFull)
     {
         if (postFull.PublicationDateTime.Year == 1753)
-            valueDates[k] = "--:--:--:---- : -1";
+            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
         else
-            valueDates[k] = $"{postFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {postFull.Title}";
+            valueDates[k] = $"<color=red>{postFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {postFull.Title}</color>";
 
     }
 
