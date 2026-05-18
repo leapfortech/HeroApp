@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 
 using UnityEngine;
 using MPUIKIT;
 
-using System.Collections;
 using UnityEngine.UI;
 
 public class DisplayScrollController : MonoBehaviour
@@ -19,11 +20,17 @@ public class DisplayScrollController : MonoBehaviour
     [SerializeField]
     Transform pillParent;
 
-    [Header("Config")]
+    [Header("Nav")]
+    [SerializeField]
+    Leap.UI.Elements.Text txtCurrentPage = null;
     [SerializeField]
     Leap.UI.Elements.Button btnNext = null;
     [SerializeField]
-    Leap.UI.Elements.Button btnPrev = null;  
+    Leap.UI.Elements.Button btnPrev = null;
+    [Space, SerializeField]
+    Leap.UI.Elements.ToggleGroup tggNav = null;
+    [Space, SerializeField]
+    Leap.UI.Elements.Toggle[] tglNav = null;
 
     [Header("Config")]
     public float animTime = 0.25f;
@@ -32,7 +39,9 @@ public class DisplayScrollController : MonoBehaviour
     int currentPage = 0;
     int pageCount;
 
+    bool initialized = false;
     bool isAnimating = false;
+    bool tglPressed = false;
 
     void Start()
     {
@@ -53,6 +62,8 @@ public class DisplayScrollController : MonoBehaviour
         }
 
         InitPosition();
+
+        initialized = true;
     }
 
     public void InitPosition()
@@ -60,6 +71,30 @@ public class DisplayScrollController : MonoBehaviour
         currentPage = 0;
         SetPage(0, false);
         UpdateButtons();
+    }
+    public void OnToggleChanged()
+    {
+        if (tggNav == null)
+            return;
+
+        if (!tglPressed)
+            SetPage(Convert.ToInt32(tggNav.Value), true);
+        
+        tglPressed = false;
+    }
+
+    void OnPageChanged()
+    {
+        if (txtCurrentPage != null)
+            txtCurrentPage.TextValue = (currentPage + 1).ToString() + "/" + pageCount.ToString();
+
+        if (tglNav == null || tglNav.Length == 0 || tglNav.Length <= currentPage)
+            return;
+
+        if (initialized)
+            tglPressed = true;
+
+        tglNav[currentPage].Press();
     }
 
     void OnScrollChanged(Vector2 pos)
@@ -85,6 +120,8 @@ public class DisplayScrollController : MonoBehaviour
                 UpdateIndicators(oldPage, currentPage);
 
             UpdateButtons();
+
+            OnPageChanged();
         }
     }
 
@@ -111,6 +148,11 @@ public class DisplayScrollController : MonoBehaviour
         SetPage(currentPage - 1, true);
     }
 
+    public void SetPage(int index)
+    {
+        SetPage(index, true);
+    }
+
     public void SetPage(int index, bool animated)
     {
         if (index < 0 || index >= pageCount)
@@ -120,7 +162,10 @@ public class DisplayScrollController : MonoBehaviour
 
         int oldIndex = currentPage;
         currentPage = index;
+
         UpdateButtons();
+
+        OnPageChanged();
 
         if (pillPrefab != null && pillParent != null)
             UpdateIndicators(oldIndex, currentPage);
