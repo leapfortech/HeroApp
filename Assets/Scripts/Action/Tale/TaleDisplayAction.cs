@@ -7,6 +7,7 @@ using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Core.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -15,20 +16,46 @@ public class TaleDisplayAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
-    [Space]
-    [Title("Details")]
+
+    [Space, Title("Details")]
+    [SerializeField]
+    Text txtAlias = null;
+    [SerializeField]
+    Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
+    Text txtPlace = null;
+    [SerializeField]
+    Text txtSummary = null;
+    [SerializeField]
     Text txtDescription = null;
 
-    [Title("Event")]
+    [Space, Title("Contents")]
+    [SerializeField]
+    int charsPerLine = 40;
+    [SerializeField]
+    int lineHeight = 15;
+    [SerializeField]
+    float contentPadding = 40f;
+    [Space, SerializeField]
+    RectTransform[] contents = null;
+
+    [Space, Title("Values")]
+    [SerializeField]
+    ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllState = null;
+    //[SerializeField]
+    //ValueList vllCity = null;
+
+    [Space, Title("Event")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
 
-    [Title("Page")]
+    [Space, Title("Page")]
     [SerializeField]
     Page pagDetail;
 
@@ -70,14 +97,38 @@ public class TaleDisplayAction : MonoBehaviour
         if (taleFull == null)
             return;
 
-        txtTitle.TextValue = taleFull.Title;
-        txtDescription.TextValue = taleFull.Description;
+        // Post
+        txtAlias.TextValue = $"Publicado por: <b>@{taleFull.AppUserAlias}</b>";
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "-" : taleFull.Title;
 
+        String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
+        String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");
+        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+
+        txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
+
+
+        // Images
         List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
-        
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {taleFull.PostId, taleFull.Id});
 
+        RefreshContents();
+
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    private void RefreshContents()
+    {
+        for (int i = 0; i < contents.Length; i++)
+        {
+            Text txtScroll = contents[i].GetComponentInChildren<Text>();
+            int lineCount = Mathf.CeilToInt((float)txtScroll.TextValue.Length / charsPerLine);
+            float height = lineCount * lineHeight;
+
+            contents[i].sizeDelta = new Vector2(contents[i].sizeDelta.x, height + contentPadding);
+        }
     }
 }

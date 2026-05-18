@@ -7,6 +7,7 @@ using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Core.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -15,18 +16,61 @@ public class TreatmentDisplayAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
-    [Space]
-    [Title("Details")]
+
+    [Space, Title("Details")]
+    [SerializeField]
+    Text txtAlias = null;
+    [SerializeField]
+    Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
+    [SerializeField]
+    Text txtPlace = null;
+    [SerializeField]
+    Text txtSummary = null;
+    [SerializeField]
+    Text txtDescription = null;
+    [SerializeField]
+    Text txtIngredients = null;
+    [SerializeField]
+    Text txtPreparation = null;
+    [SerializeField]
+    Text txtUsage = null;
+    //[SerializeField]
+    //Text txtAnnotation = null;
 
-    [Title("Event")]
+    [Space, Title("Contents")]
+    [SerializeField]
+    int charsPerLine = 40;
+    [SerializeField]
+    int lineHeight = 15;
+    [SerializeField]
+    float contentPadding = 40f;
+    [Space, SerializeField]
+    RectTransform[] contents = null;
+
+    [Space, Title("List")]
+    [SerializeField]
+    ListScroller lstDisease = null;
+
+    [Space, Space]
+    [Title("Values")]
+    [SerializeField]
+    ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllState = null;
+    //[SerializeField]
+    //ValueList vllCity = null;
+    [SerializeField]
+    ValueList vllDisease = null;
+
+    [Space, Title("Event")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
 
-    [Title("Page")]
+    [Space, Title("Page")]
     [SerializeField]
     Page pagDetail;
 
@@ -68,13 +112,53 @@ public class TreatmentDisplayAction : MonoBehaviour
         if (treatmentFull == null)
             return;
 
-        txtTitle.TextValue = treatmentFull.Title;
+        // Post
+        txtAlias.TextValue = $"Publicado por: <b>@{treatmentFull.AppUserAlias}</b>";
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "-" : treatmentFull.Title;
+        txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        txtSummary.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Summary) ? "-" : treatmentFull.Summary;
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Description) ? "-" : treatmentFull.Description;
 
+        String country = treatmentFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(treatmentFull.PostCountryId, "Name");
+        String state = treatmentFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(treatmentFull.PostStateId, "Name");
+        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+
+        // Treatment
+        txtIngredients.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Ingredients) ? "-" : treatmentFull.Ingredients;
+        txtPreparation.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Preparation) ? "-" : treatmentFull.Preparation;
+        txtUsage.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Usage) ? "-" : treatmentFull.Usage;
+        //txtAnnotation.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Annotation) ? "-" : treatmentFull.Annotation;
+
+        // Disease
+        for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
+        {
+            ListScrollerValue value = new ListScrollerValue(1, true);
+            value.SetText(0, vllDisease.FindRecordCellString(treatmentFull.DiseaseFulls[i].DiseaseTypeId, "Name"));
+
+            lstDisease.AddValue(value);
+        }
+
+        lstDisease.ApplyValues();
+
+        // Images
         List<Sprite> images = StateManager.Instance.GetTreatmentImagesById(treatmentId);
-
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
-        
+
+        RefreshContents();
+
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    private void RefreshContents()
+    {
+        for (int i = 0; i < contents.Length; i++)
+        {
+            Text txtScroll = contents[i].GetComponentInChildren<Text>();
+            int lineCount = Mathf.CeilToInt((float)txtScroll.TextValue.Length / charsPerLine);
+            float height = lineCount * lineHeight;
+
+            contents[i].sizeDelta = new Vector2(contents[i].sizeDelta.x, height + contentPadding);
+        }
     }
 }
