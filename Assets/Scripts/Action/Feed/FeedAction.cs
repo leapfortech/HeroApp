@@ -157,7 +157,8 @@ public class FeedAction : MonoBehaviour
             }
         }
 
-        txtDebug.TextValue = String.Join('\n', valueDates);
+        if (txtDebug != null)
+            txtDebug.TextValue = String.Join('\n', valueDates);
         loopFeed.RefreshVisibleValues();
 
         txtEmpty.SetActive(response.Total == 0);
@@ -190,6 +191,9 @@ public class FeedAction : MonoBehaviour
 
     public void UpdateOverlay(int idx)
     {
+        if (trfOverlay == null)
+            return;
+
         trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
