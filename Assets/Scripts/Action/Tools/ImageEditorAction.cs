@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -9,27 +10,37 @@ using Sirenix.OdinInspector;
 
 public class ImageEditorAction : MonoBehaviour
 {
-    [Title("Data")]
+    [Space, Title("Display")]
     [SerializeField]
-    ValueList vllImages = null;
+    Image imgDisplay = null;
+    [SerializeField]
+    Sprite sprEmpty = null;
 
-    [Space]
-    [Title("Images")]
+    [Space, Title("Images")]
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
     String spriteName = "Tale";
     [SerializeField]
     ListScroller lstImage = null;
+    //[SerializeField]
+    //Text txtEmpty;
+
+    [Title("Data")]
     [SerializeField]
-    Text txtEmpty;
+    ValueList vllImages = null;
 
     [Title("Action")]
     [SerializeField]
     Button btnAdd = null;
+    [SerializeField]
+    Button btnDelete = null;
+
+    private int currentIdx = 0;
 
     public void Clear()
     {
+        imgDisplay.Clear();
         lstImage.Clear();
         vllImages.ClearRecords();
     }
@@ -46,25 +57,51 @@ public class ImageEditorAction : MonoBehaviour
         }
 
         if (vllImages.RecordCount > 0)
-            txtEmpty.gameObject.SetActive(false);
+            btnDelete.gameObject.SetActive(true);
         else
-            txtEmpty.gameObject.SetActive(true);
+        {
+            imgDisplay.Sprite = sprEmpty;
+            btnDelete.gameObject.SetActive(false);
+        }
 
         if (vllImages.RecordCount < maxCount)
             btnAdd.gameObject.SetActive(true);
         else
             btnAdd.gameObject.SetActive(false);
+
+        if (vllImages.RecordCount > 0)
+            SelectImage(0);
+    }
+
+    public void SelectImage(int idx)
+    {
+        currentIdx = idx;
+
+        imgDisplay.Sprite = vllImages.GetRecordCellSprite(currentIdx, "Image");
     }
 
     public void AddImage(Texture2D image)
     {
-        vllImages.AddRecord(image.CreateSprite($"{spriteName}_{vllImages.RecordCount + 1}"));
+        Sprite newSprite = image.CreateSprite($"{spriteName}_{vllImages.RecordCount + 1}");
+
+        List<Sprite> imgs = new List<Sprite>();
+        imgs.Add(newSprite);
+
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            imgs.Add(vllImages.GetRecordCellSprite(i, "Image"));
+
+        vllImages.ClearRecords();
+
+        for (int i = 0; i < imgs.Count; i++)
+            vllImages.AddRecord(imgs[i]);
+
         RefreshImages();
     }
 
-    public void RemoveImage(int idx)
+    public void RemoveImage()
     {
-        vllImages.RemoveRecord(idx);
+        vllImages.RemoveRecord(currentIdx);
+
         RefreshImages();
     }
 }
