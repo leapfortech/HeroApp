@@ -238,7 +238,7 @@ MonoBehaviour:
         Name: 'HM: O: Button: Icon: Place'
         Reference: 1
         Value: 0
-        Property: 'O: Icon: Left'
+        Property: 'O: Icon: None'
     - rid: 749284608293994574
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -415,7 +415,7 @@ MonoBehaviour:
       data:
         themeElement:
           rid: 7896456371487375720
-        Name: 'HM: H: FeedMain'
+        Name: 'HM: S: FeedMain'
         Reference: 0
         Value: 83
         Property: 
@@ -434,9 +434,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: C: FeedMain: Default'
-        Reference: 0
+        Reference: 1
         Value: 0
-        Property: 
+        Property: 'Corner: Dull'
     - rid: 749284659829932088
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -525,7 +525,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: I: FeedMain'
         Reference: 0
-        Value: 84
+        Value: 56
         Property: 
     - rid: 4368655488958857344
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -561,7 +561,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'FeedMain: Icon: Default'
         Reference: 0
-        Value: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
+        Value: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
         Property: 'WhiteScale: Default'
     - rid: 4368655488958857348
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -615,7 +615,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'FeedMain: Icon: Pressed'
         Reference: 0
-        Value: {r: 0.94117653, g: 0.94117653, b: 0.94117653, a: 1}
+        Value: {r: 0.5803922, g: 0.5803922, b: 0.5803922, a: 1}
         Property: 
     - rid: 4368655488958857354
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -741,7 +741,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'FeedRegular: Icon: Default'
         Reference: 0
-        Value: {r: 0.9764706, g: 0.9764706, b: 0.9764706, a: 1}
+        Value: {r: 0.6, g: 0.6, b: 0.6, a: 1}
         Property: 
     - rid: 4368655488958857368
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -759,8 +759,116 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'FeedRegular: Icon: Pressed'
         Reference: 0
-        Value: {r: 0.9333334, g: 0.9333334, b: 0.9333334, a: 1}
+        Value: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
         Property: 
+    - rid: 4368655948687343830
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedLikeOn
+        Reference: 0
+        Value: {fileID: -884565631, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 4368655948687343831
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedFavoriteOff
+        Reference: 0
+        Value: {fileID: -1832349705, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 4368655948687343832
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedFavoriteOn
+        Reference: 0
+        Value: {fileID: -2142752144, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 4368655948687343833
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedDislikeOff
+        Reference: 0
+        Value: {fileID: 632193018, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 4368655948687343834
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedDislikeOn
+        Reference: 0
+        Value: {fileID: 19577379, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 4368655948687343835
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Bkg: Off: Default'
+        Reference: 0
+        Value: {r: 0.97647065, g: 0.97647065, b: 0.97647065, a: 1}
+        Property: 
+    - rid: 4368655948687343836
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Bkg: On: Default'
+        Reference: 0
+        Value: {r: 0.97647065, g: 0.97647065, b: 0.97647065, a: 1}
+        Property: 
+    - rid: 4368655948687343837
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Bkg: Disabled'
+        Reference: 0
+        Value: {r: 0.97647065, g: 0.97647065, b: 0.97647065, a: 1}
+        Property: 
+    - rid: 4368655948687343838
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: I: FeedRegular'
+        Reference: 0
+        Value: 40
+        Property: 
+    - rid: 4368655948687343839
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Icon: Off: Default'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'GreyScale: C'
+    - rid: 4368655948687343840
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Icon: On: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Subdominant: Default'
+    - rid: 4368655948687343841
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedRegular: Icon: Disabled'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'GreyScale: E'
     - rid: 6444589537777942730
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -10132,6 +10240,7 @@ MonoBehaviour:
         - rid: 749284659829932086
         - rid: 749284659829932087
         - rid: 749284659829932097
+        - rid: 4368655948687343838
         DictFloats:
           keys:
           - 'W: Button'
@@ -10459,10 +10568,11 @@ MonoBehaviour:
           - 'HM: O: Menu: Icon: Place'
           - 'HM: C: List'
           - 'HM: W: FeedMain'
-          - 'HM: H: FeedMain'
+          - 'HM: S: FeedMain'
           - 'HM: B: FeedMain: Default'
           - 'HM: C: FeedMain: Default'
           - 'HM: I: FeedMain'
+          - 'HM: I: FeedRegular'
           values:
           - rid: 7896456371522242341
           - rid: 7896456371522242342
@@ -10793,6 +10903,7 @@ MonoBehaviour:
           - rid: 749284659829932086
           - rid: 749284659829932087
           - rid: 749284659829932097
+          - rid: 4368655948687343838
         colors:
         - rid: 7896456371522242661
         - rid: 7896456371522242662
@@ -11222,6 +11333,12 @@ MonoBehaviour:
         - rid: 749284659829932094
         - rid: 749284659829932095
         - rid: 749284659829932096
+        - rid: 4368655948687343835
+        - rid: 4368655948687343836
+        - rid: 4368655948687343837
+        - rid: 4368655948687343839
+        - rid: 4368655948687343840
+        - rid: 4368655948687343841
         DictColors:
           keys:
           - 'Main: Bkg: On: Default'
@@ -11652,6 +11769,12 @@ MonoBehaviour:
           - 'HM: FeedMain: Border: On: Default'
           - 'HM: FeedMain: Bkg: Disabled'
           - 'HM: FeedMain: Border: Disabled'
+          - 'HM: FeedRegular: Bkg: Off: Default'
+          - 'HM: FeedRegular: Bkg: On: Default'
+          - 'HM: FeedRegular: Bkg: Disabled'
+          - 'HM: FeedRegular: Icon: Off: Default'
+          - 'HM: FeedRegular: Icon: On: Default'
+          - 'HM: FeedRegular: Icon: Disabled'
           values:
           - rid: 7896456371522242661
           - rid: 7896456371522242662
@@ -12081,6 +12204,12 @@ MonoBehaviour:
           - rid: 749284659829932094
           - rid: 749284659829932095
           - rid: 749284659829932096
+          - rid: 4368655948687343835
+          - rid: 4368655948687343836
+          - rid: 4368655948687343837
+          - rid: 4368655948687343839
+          - rid: 4368655948687343840
+          - rid: 4368655948687343841
         fonts:
         - rid: 7896456371522243087
         - rid: 7896456371522243088
@@ -12200,12 +12329,27 @@ MonoBehaviour:
           - rid: 6444589537777942809
           - rid: 6444589537777942810
         sprites:
+        - rid: 4368655948687343831
+        - rid: 4368655948687343832
         - rid: 7896456371522243117
+        - rid: 4368655948687343830
+        - rid: 4368655948687343833
+        - rid: 4368655948687343834
         DictSprites:
           keys:
-          - Home
+          - FeedLikeOff
+          - FeedLikeOn
+          - FeedFavoriteOff
+          - FeedFavoriteOn
+          - FeedDislikeOff
+          - FeedDislikeOn
           values:
           - rid: 7896456371522243117
+          - rid: 4368655948687343830
+          - rid: 4368655948687343831
+          - rid: 4368655948687343832
+          - rid: 4368655948687343833
+          - rid: 4368655948687343834
     - rid: 7896456371487375721
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -36553,7 +36697,7 @@ MonoBehaviour:
         Name: 'B: Button: Off: Default'
         Reference: 1
         Value: 0
-        Property: 'Border: Thin'
+        Property: Zero
     - rid: 7896456371522242488
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -38702,9 +38846,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Icon: On: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522242735
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -38720,9 +38864,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Icon: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 
+        Property: 'Subdominant: Default'
     - rid: 7896456371522242737
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -38738,9 +38882,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'Button: Icon: Off: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 
+        Property: 'GreyScale: D'
     - rid: 7896456371522242739
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -41986,9 +42130,9 @@ MonoBehaviour:
       data:
         themeElement:
           rid: 7896456371487375720
-        Name: Home
+        Name: FeedLikeOff
         Reference: 0
-        Value: {fileID: 0}
+        Value: {fileID: -1168445502, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
         Property: 
     - rid: 7896456371522243118
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}

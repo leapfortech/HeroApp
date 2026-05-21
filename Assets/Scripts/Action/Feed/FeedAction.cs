@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using URandom = UnityEngine.Random;
 
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
@@ -85,7 +86,7 @@ public class FeedAction : MonoBehaviour
 
     public LoopScrollerValue CreateValue(PostFull postFull, DateTime now)
     {
-        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItem.ElementCount, null);
+        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItem, null);
         UpdateValue(postFull, loopValue, now);
         return loopValue;
     }
@@ -178,6 +179,11 @@ public class FeedAction : MonoBehaviour
         loopValue.SetText(3, postFull.Summary);
         loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
         loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
+
+        int r = URandom.Range(0, 10);
+        loopValue.SetCheck(0, r > 7);
+        loopValue.SetCheck(1, r < 2);
+        loopValue.SetCheck(2, r > 3 && r < 6);
     }
 
     public void UpdateDebug(int k, PostFull postFull)
@@ -195,5 +201,20 @@ public class FeedAction : MonoBehaviour
             return;
 
         trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
+    }
+
+    public void FavoriteApply(int dataIndex, bool check)
+    {
+        Debug.Log($"Favorite {dataIndex} is {(check ? "" : "UN")}CHECKED");
+    }
+
+    public void LikeApply(int dataIndex, bool check)
+    {
+        Debug.Log($"Like {dataIndex} is {(check ? "" : "UN")}CHECKED");
+    }
+
+    public void DislikeApply(int dataIndex, bool check)
+    {
+        Debug.Log($"Dislike {dataIndex} is {(check ? "" : "UN")}CHECKED");
     }
 }
