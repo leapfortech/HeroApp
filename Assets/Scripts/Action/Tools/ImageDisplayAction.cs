@@ -9,7 +9,13 @@ using MPUIKIT;
 
 public class ImageDisplayAction : MonoBehaviour
 {
-    [Title("Images")]
+    [Space, Title("Test Images")]
+    [SerializeField]
+    List<Sprite> testImages = null;
+
+    [Space, Title("Display")]
+    [SerializeField]
+    Image imgDisplay = null;
     [SerializeField]
     ListScroller lstImage = null;
 
@@ -24,18 +30,30 @@ public class ImageDisplayAction : MonoBehaviour
     private Color colorOff = Color.gray;
 
     private GameObject[] indicators;
+    
+    private List<Sprite> images = new List<Sprite>();
 
+    private int currentIdx = 0;
 
     public void Clear()
     {
+        testImages = null;
+        images.Clear();
         lstImage.Clear();
         foreach (Transform child in indicatorParent)
             Destroy(child.gameObject);
     }
 
+    public void DisplayTestImages()
+    {
+        Display(testImages);
+    }
 
-    public void Display(List<Sprite> images)
+
+    public void Display(List<Sprite> imgs)
     {       
+        this.images = imgs;
+        
         if (images == null || images.Count == 0)
             return;
 
@@ -50,17 +68,26 @@ public class ImageDisplayAction : MonoBehaviour
             lstImage.ApplyAddValue(scrollerValue);
         }
 
-        UpdateIndicator(0);
+        SelectImage(0);
     }
 
-    public void UpdateIndicator(int currentIndex)
+    public void SelectImage(int idx)
+    {
+        currentIdx = idx;
+
+        imgDisplay.Sprite = images[idx];
+
+        UpdateIndicator(idx);
+    }
+
+    public void UpdateIndicator(int currentIdx)
     {
         for (int i = 0; i < indicators.Length; i++)
         {
             MPImage indicatorImage = indicators[i].GetComponent<MPImage>();
 
             if (indicatorImage != null)
-                indicatorImage.color = (i == currentIndex) ? colorOn : colorOff;
+                indicatorImage.color = (i == currentIdx) ? colorOn : colorOff;
         }
     }
 
