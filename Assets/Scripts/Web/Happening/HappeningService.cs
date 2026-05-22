@@ -37,12 +37,13 @@ public class HappeningService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         HappeningGetFullOperation happeningFullGetOp = new HappeningGetFullOperation();
         try
         {
             happeningFullGetOp.id = id;
+            happeningFullGetOp.likeAppUserId = likeAppUserId;
             happeningFullGetOp["on-complete"] = (Action<HappeningGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class HappeningService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         HappeningFullByPostIdGetFullOperation happeningFullByPostIdGetOp = new HappeningFullByPostIdGetFullOperation();
         try
         {
             happeningFullByPostIdGetOp.postId = postId;
+            happeningFullByPostIdGetOp.likeAppUserId=likeAppUserId;
             happeningFullByPostIdGetOp["on-complete"] = (Action<HappeningFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

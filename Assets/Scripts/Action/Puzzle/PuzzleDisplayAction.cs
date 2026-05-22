@@ -55,7 +55,7 @@ public class PuzzleDisplayAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        puzzleService.GetFullByPostId(postId);
+        puzzleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
     public void ApplyFull(PuzzleFull puzzleFull)

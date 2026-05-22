@@ -19,6 +19,8 @@ public class TreatmentGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long id;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public TreatmentFull treatmentFull;
@@ -33,6 +35,8 @@ public class TreatmentFullByPostIdGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long postId;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public TreatmentFull treatmentFull;

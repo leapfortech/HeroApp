@@ -37,12 +37,13 @@ public class NewsService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         NewsGetFullOperation newsFullGetOp = new NewsGetFullOperation();
         try
         {
             newsFullGetOp.id = id;
+            newsFullGetOp.likeAppUserId = likeAppUserId;
             newsFullGetOp["on-complete"] = (Action<NewsGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class NewsService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         NewsFullByPostIdGetFullOperation newsFullByPostIdGetOp = new NewsFullByPostIdGetFullOperation();
         try
         {
             newsFullByPostIdGetOp.postId = postId;
+            newsFullByPostIdGetOp.likeAppUserId = likeAppUserId;
             newsFullByPostIdGetOp["on-complete"] = (Action<NewsFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

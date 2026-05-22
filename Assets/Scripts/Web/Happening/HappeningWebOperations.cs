@@ -19,6 +19,8 @@ public class HappeningGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long id;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public HappeningFull happeningFull;
@@ -33,6 +35,8 @@ public class HappeningFullByPostIdGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long postId;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public HappeningFull happeningFull;

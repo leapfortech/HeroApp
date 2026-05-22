@@ -37,12 +37,13 @@ public class TreatmentService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         TreatmentGetFullOperation treatmentFullGetOp = new TreatmentGetFullOperation();
         try
         {
             treatmentFullGetOp.id = id;
+            treatmentFullGetOp.likeAppUserId = likeAppUserId;
             treatmentFullGetOp["on-complete"] = (Action<TreatmentGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class TreatmentService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         TreatmentFullByPostIdGetFullOperation treatmentFullByPostIdGetOp = new TreatmentFullByPostIdGetFullOperation();
         try
         {
             treatmentFullByPostIdGetOp.postId = postId;
+            treatmentFullByPostIdGetOp.likeAppUserId=likeAppUserId;
             treatmentFullByPostIdGetOp["on-complete"] = (Action<TreatmentFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

@@ -19,6 +19,8 @@ public class PuzzleGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long id;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public PuzzleFull puzzleFull;
@@ -33,6 +35,8 @@ public class PuzzleFullByPostIdGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long postId;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public PuzzleFull puzzleFull;

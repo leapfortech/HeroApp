@@ -81,7 +81,7 @@ public class TaleDisplayAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        taleService.GetFullByPostId(postId);
+        taleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
     public void ApplyFull(TaleFull taleFull)

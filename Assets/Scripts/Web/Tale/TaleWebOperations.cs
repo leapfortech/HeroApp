@@ -19,6 +19,8 @@ public class TaleGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long id;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public TaleFull taleFull;
@@ -33,6 +35,8 @@ public class TaleFullByPostIdGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long postId;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public TaleFull taleFull;

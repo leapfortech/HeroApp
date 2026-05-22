@@ -96,7 +96,7 @@ public class TreatmentDisplayAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        treatmentService.GetFullByPostId(postId);
+        treatmentService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
     public void ApplyFull(TreatmentFull treatmentFull)

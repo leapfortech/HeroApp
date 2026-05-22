@@ -19,6 +19,8 @@ public class RadioGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long id;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public RadioFull radioFull;
@@ -33,6 +35,8 @@ public class RadioFullByPostIdGetFullOperation : HttpOperation
 {
     [HttpQueryString]
     public long postId;
+    [HttpQueryString]
+    public long likeAppUserId;
 
     [HttpResponseJsonBody]
     public RadioFull radioFull;

@@ -37,12 +37,13 @@ public class RecipeService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         RecipeGetFullOperation recipeFullGetOp = new RecipeGetFullOperation();
         try
         {
             recipeFullGetOp.id = id;
+            recipeFullGetOp.likeAppUserId = likeAppUserId;
             recipeFullGetOp["on-complete"] = (Action<RecipeGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class RecipeService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         RecipeFullByPostIdGetFullOperation recipeFullByPostIdGetOp = new RecipeFullByPostIdGetFullOperation();
         try
         {
             recipeFullByPostIdGetOp.postId = postId;
+            recipeFullByPostIdGetOp.likeAppUserId=likeAppUserId;
             recipeFullByPostIdGetOp["on-complete"] = (Action<RecipeFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

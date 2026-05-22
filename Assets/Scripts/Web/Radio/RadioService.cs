@@ -37,12 +37,13 @@ public class RadioService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         RadioGetFullOperation radioFullGetOp = new RadioGetFullOperation();
         try
         {
             radioFullGetOp.id = id;
+            radioFullGetOp.likeAppUserId = likeAppUserId;
             radioFullGetOp["on-complete"] = (Action<RadioGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class RadioService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         RadioFullByPostIdGetFullOperation radioFullByPostIdGetOp = new RadioFullByPostIdGetFullOperation();
         try
         {
             radioFullByPostIdGetOp.postId = postId;
+            radioFullByPostIdGetOp.likeAppUserId= likeAppUserId;
             radioFullByPostIdGetOp["on-complete"] = (Action<RadioFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

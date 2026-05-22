@@ -37,12 +37,13 @@ public class TaleService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         TaleGetFullOperation taleFullGetOp = new TaleGetFullOperation();
         try
         {
             taleFullGetOp.id = id;
+            taleFullGetOp.likeAppUserId = likeAppUserId;
             taleFullGetOp["on-complete"] = (Action<TaleGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class TaleService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         TaleFullByPostIdGetFullOperation taleFullByPostIdGetOp = new TaleFullByPostIdGetFullOperation();
         try
         {
             taleFullByPostIdGetOp.postId = postId;
+            taleFullByPostIdGetOp.likeAppUserId = likeAppUserId;
             taleFullByPostIdGetOp["on-complete"] = (Action<TaleFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

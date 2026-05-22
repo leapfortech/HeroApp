@@ -37,12 +37,13 @@ public class ProductService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id)
+    public void GetFull(long id, long likeAppUserId)
     {
         ProductGetFullOperation productFullGetOp = new ProductGetFullOperation();
         try
         {
             productFullGetOp.id = id;
+            productFullGetOp.likeAppUserId = likeAppUserId;
             productFullGetOp["on-complete"] = (Action<ProductGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -58,12 +59,13 @@ public class ProductService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId)
+    public void GetFullByPostId(long postId, long likeAppUserId)
     {
         ProductFullByPostIdGetFullOperation productFullByPostIdGetOp = new ProductFullByPostIdGetFullOperation();
         try
         {
             productFullByPostIdGetOp.postId = postId;
+            productFullByPostIdGetOp.likeAppUserId= likeAppUserId;
             productFullByPostIdGetOp["on-complete"] = (Action<ProductFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
