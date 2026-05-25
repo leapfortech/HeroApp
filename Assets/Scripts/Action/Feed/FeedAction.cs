@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using URandom = UnityEngine.Random;
+//using URandom = UnityEngine.Random;
 
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
@@ -180,10 +180,10 @@ public class FeedAction : MonoBehaviour
         loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
         loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
 
-        int r = URandom.Range(0, 10);
-        loopValue.SetCheck(0, r > 7);
-        loopValue.SetCheck(1, r < 2);
-        loopValue.SetCheck(2, r > 3 && r < 6);
+        //int r = URandom.Range(0, 10);
+        loopValue.SetCheck(0, postFull.Favorite != 0);
+        loopValue.SetCheck(1, postFull.Like == 0);
+        loopValue.SetCheck(2, postFull.Like == 5);
     }
 
     public void UpdateDebug(int k, PostFull postFull)

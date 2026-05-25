@@ -23,6 +23,8 @@ public class PostFull
     public String Summary { get; set; } = null;
     public String Description { get; set; } = null;
     public int ImageCount { get; set; } = 0;
+    public int Favorite { get; set; } = 0;
+    public int Like { get; set; } = -1;
     public int LikeCount { get; set; } = 0;
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
     public int PostStatus { get; set; } = -1;
@@ -36,7 +38,7 @@ public class PostFull
     }
 
     public PostFull(long postId, long appUserId, String appUserAlias, long postTypeId, long postCountryId, long postStateId, String title, String titleImage,
-                    String summary, String description, int imageCount, int likeCount, DateTime publicationDateTime, int postStatus,
+                    String summary, String description, int imageCount, int favorite, int like, int likeCount, DateTime publicationDateTime, int postStatus,
                     ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls)
     {
         PostId = postId;
@@ -50,6 +52,8 @@ public class PostFull
         Summary = summary;
         Description = description;
         ImageCount = imageCount;
+        Favorite = favorite;
+        Like = like;
         LikeCount = likeCount;
         PublicationDateTime = publicationDateTime;
         PostStatus = postStatus;

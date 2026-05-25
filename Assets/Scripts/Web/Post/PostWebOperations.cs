@@ -34,7 +34,7 @@ public class ImagesByIdGetOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/PostFeed")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class PostFeedOperation : HttpOperation
 {
@@ -50,7 +50,7 @@ public class PostFeedOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/RegisterShare")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class ShareRegisterOperation : HttpOperation
 {
@@ -65,7 +65,7 @@ public class ShareRegisterOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/RegisterFavorite")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class FavoriteRegisterOperation : HttpOperation
 {
@@ -77,10 +77,70 @@ public class FavoriteRegisterOperation : HttpOperation
 }
 
 [HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/DeleteFavorite")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class FavoriteDeleteOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Favorite favorite;
+
+    [HttpResponseTextBody]
+    public String done;
+}
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/RegisterLike")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class LikeRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Like like;
+
+    [HttpResponseTextBody]
+    public String likeId;
+}
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/DeleteLike")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class LikeDeleteOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Like like;
+
+    [HttpResponseTextBody]
+    public String done;
+}
+
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/RegisterReaction")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ReactionRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Reaction reaction;
+
+    [HttpResponseTextBody]
+    public String reactionId;
+}
+
+[HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/RegisterComment")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class CommentRegisterOperation : HttpOperation
 {
@@ -95,7 +155,7 @@ public class CommentRegisterOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/RegisterCommentPlaint")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class CommentPlaintRegisterOperation : HttpOperation
 {
@@ -110,7 +170,7 @@ public class CommentPlaintRegisterOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/RegisterPostPlaint")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class PostPlaintRegisterOperation : HttpOperation
 {
@@ -125,7 +185,7 @@ public class PostPlaintRegisterOperation : HttpOperation
 [HttpPathExt(WebServiceType.Main, "/post/RegisterPostRead")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
-[HttpAccept("application/json")]
+[HttpAccept("text/plain")]
 [HttpFirebaseAuthorization]
 public class PostReadRegisterOperation : HttpOperation
 {
@@ -134,34 +194,4 @@ public class PostReadRegisterOperation : HttpOperation
 
     [HttpResponseTextBody]
     public String postReadId;
-}
-
-[HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/RegisterReaction")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class ReactionRegisterOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public Reaction reaction;
-
-    [HttpResponseTextBody]
-    public String reactionId;
-}
-
-[HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/RegisterLike")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("application/json")]
-[HttpFirebaseAuthorization]
-public class LikeRegisterOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public Like like;
-
-    [HttpResponseTextBody]
-    public String likeId;
 }

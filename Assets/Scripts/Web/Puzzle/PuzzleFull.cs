@@ -25,8 +25,8 @@ public class PuzzleFull : PostFull
                         long postSubtypeId,
                         long postCountryId, long postStateId,
                         String title, String titleImage, String summary, String description,
-                        int imageCount, int likeCount, DateTime publicationDateTime,
-                        int postStatus,
+                        int imageCount, int favorite, int like, int likeCount,
+                        DateTime publicationDateTime, int postStatus,
                         ContactFull contactFull,
                         List<LinkFull> linkFulls,
                         List<CommentFull> commentFulls,
@@ -38,7 +38,7 @@ public class PuzzleFull : PostFull
                         String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
-                imageCount, likeCount, publicationDateTime, postStatus,
+                imageCount, favorite, like, likeCount, publicationDateTime, postStatus,
                 contactFull, linkFulls, commentFulls)
     {
         Id = id;

@@ -23,6 +23,9 @@ public class PostService : MonoBehaviour
     [SerializeField]
     private UnityLongEvent onRegistered = null;
 
+    [SerializeField]
+    private UnityBoolEvent onDeleted = null;
+
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
@@ -116,6 +119,90 @@ public class PostService : MonoBehaviour
         }
     }
 
+    public void DeleteFavorite(Favorite favorite)
+    {
+        FavoriteDeleteOperation favoriteDeleteOp = new FavoriteDeleteOperation();
+        try
+        {
+            favoriteDeleteOp.favorite = favorite;
+            favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterLike(Like like)
+    {
+        LikeRegisterOperation likeRegisterOp = new LikeRegisterOperation();
+        try
+        {
+            likeRegisterOp.like = like;
+            likeRegisterOp["on-complete"] = (Action<LikeRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.likeId));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            likeRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteLike(Like like)
+    {
+        LikeDeleteOperation likeDeleteOp = new LikeDeleteOperation();
+        try
+        {
+            likeDeleteOp.like = like;
+            likeDeleteOp["on-complete"] = (Action<LikeDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            likeDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterReaction(Reaction reaction)
+    {
+        ReactionRegisterOperation reactionRegisterOp = new ReactionRegisterOperation();
+        try
+        {
+            reactionRegisterOp.reaction = reaction;
+            reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onRegistered.Invoke(Convert.ToInt64(op.reactionId));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            reactionRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void RegisterComment(Comment comment)
     {
         CommentRegisterOperation commentRegisterOp = new CommentRegisterOperation();
@@ -137,7 +224,7 @@ public class PostService : MonoBehaviour
         }
     }
 
-    public void RegisterCommenPlaint(CommentPlaint commentPlaint)
+    public void RegisterCommentPlaint(CommentPlaint commentPlaint)
     {
         CommentPlaintRegisterOperation commentPlaintRegisterOp = new CommentPlaintRegisterOperation();
         try
@@ -193,48 +280,6 @@ public class PostService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             postReadRegisterOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void RegisterReaction(Reaction reaction)
-    {
-        ReactionRegisterOperation reactionRegisterOp = new ReactionRegisterOperation();
-        try
-        {
-            reactionRegisterOp.reaction = reaction;
-            reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.reactionId));
-                else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
-            });
-            reactionRegisterOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void RegisterLike(Like like)
-    {
-        LikeRegisterOperation likeRegisterOp = new LikeRegisterOperation();
-        try
-        {
-            likeRegisterOp.like = like;
-            likeRegisterOp["on-complete"] = (Action<LikeRegisterOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.likeId));
-                else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
-            });
-            likeRegisterOp.Send();
         }
         catch (Exception ex)
         {

@@ -79,7 +79,7 @@ public class PostToolsAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         long commentPlaintTypeId = vllCommentPlaintType.GetRecordId(idx);
-        postService.RegisterCommenPlaint(new CommentPlaint(commentPlaintTypeId, postId, appUserId));
+        postService.RegisterCommentPlaint(new CommentPlaint(commentPlaintTypeId, postId, appUserId));
     }
 
     public void ApplyCommentPlaint(long commentPlaintId)
