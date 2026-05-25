@@ -40,7 +40,8 @@ public class ImageEditorAction : MonoBehaviour
 
     public void Clear()
     {
-        imgDisplay.Clear();
+        if (imgDisplay != null)
+            imgDisplay.Sprite = sprEmpty;
         lstImage.Clear();
         vllImages.ClearRecords();
     }
