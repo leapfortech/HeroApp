@@ -21,6 +21,8 @@ public class ListOptionAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     ListScroller lstOption = null;
+    [SerializeField]
+    Text txtEmpty = null;
 
     [SerializeField]
     ValueList vllOptionType = null;
@@ -51,6 +53,7 @@ public class ListOptionAction : MonoBehaviour
         if (vllName != null)
         {
             ChoiceDialog.Instance.Error("<b>" + vllName + "</b> ya está en la lista.");
+            cmbOption.Clear();
             return;
         }
 
@@ -100,6 +103,9 @@ public class ListOptionAction : MonoBehaviour
 
             lstOption.AddValue(scrollerValue);
         }
+
+        if (txtEmpty != null)
+            txtEmpty.gameObject.SetActive(vllOption.RecordCount == 0);
 
         lstOption.ApplyValues();
     }
