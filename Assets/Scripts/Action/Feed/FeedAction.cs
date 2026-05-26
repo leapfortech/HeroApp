@@ -203,18 +203,51 @@ public class FeedAction : MonoBehaviour
         trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 
-    public void FavoriteApply(int dataIndex, bool check)
+    public void ApplyFavorite(int dataIndex, bool check)
     {
         Debug.Log($"Favorite {dataIndex} is {(check ? "" : "UN")}CHECKED");
+
+        int k = dataIndex % loopFeed.ValuesCount;
+        loopFeed[k].SetCheck(0, check);
+
+        Favorite favorite = new Favorite(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId);
+        if (check)
+            postService.RegisterFavorite(favorite);
+        else
+            postService.DeleteFavorite(favorite);
     }
 
-    public void LikeApply(int dataIndex, bool check)
+    public void ApplyLike(int dataIndex, bool check)
     {
         Debug.Log($"Like {dataIndex} is {(check ? "" : "UN")}CHECKED");
+
+        int k = dataIndex % loopFeed.ValuesCount;
+        loopFeed[k].SetCheck(1, check);
+
+        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId, 5);
+        if (check)
+        {
+            loopFeed[k].SetCheck(2, false);
+            postService.RegisterLike(like);
+        }
+        else
+            postService.DeleteLike(like);
     }
 
-    public void DislikeApply(int dataIndex, bool check)
+    public void ApplyDislike(int dataIndex, bool check)
     {
         Debug.Log($"Dislike {dataIndex} is {(check ? "" : "UN")}CHECKED");
+
+        int k = dataIndex % loopFeed.ValuesCount;
+        loopFeed[k].SetCheck(2, check);
+
+        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId, 0);
+        if (check)
+        {
+            loopFeed[k].SetCheck(1, false);
+            postService.RegisterLike(like);
+        }
+        else
+            postService.DeleteLike(like);
     }
 }
