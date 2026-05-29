@@ -161,6 +161,27 @@ public class PostService : MonoBehaviour
         }
     }
 
+    public void UpdateLike(Like like)
+    {
+        LikeUpdateOperation likeUpdateOp = new LikeUpdateOperation();
+        try
+        {
+            likeUpdateOp.like = like;
+            likeUpdateOp["on-complete"] = (Action<LikeUpdateOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            likeUpdateOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     public void DeleteLike(Like like)
     {
         LikeDeleteOperation likeDeleteOp = new LikeDeleteOperation();

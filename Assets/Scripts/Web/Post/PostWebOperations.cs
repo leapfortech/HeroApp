@@ -107,6 +107,21 @@ public class LikeRegisterOperation : HttpOperation
 }
 
 [HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/UpdateLike")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class LikeUpdateOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Like like;
+
+    [HttpResponseTextBody]
+    public String done;
+}
+
+[HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/DeleteLike")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]

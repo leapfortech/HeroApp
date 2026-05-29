@@ -107,7 +107,7 @@ public class FeedAction : MonoBehaviour
             Count = feedUserData.PostId == -1 ? feedState.Count + feedState.Count : feedState.Count,
 
             PostTypeId = feedState.PostTypeId,
-            AppUserId = filterAppUser ? StateManager.Instance.AppUser.Id : -1,
+            AppUserId = -1, //filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             //CountryId = countryId,
             //StateId = stateId,
             Status = feedState.Status,
@@ -139,9 +139,9 @@ public class FeedAction : MonoBehaviour
         {
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
-                int k = (startLoopIdx - i - 1) % loopFeed.ValuesCount;
-                if (k < 0)
-                    break;
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;  // - i - 1)
+                //if (k < 0)
+                //    break;
                 //feedState.PostFulls[k] = response.PostFulls[i];
                 UpdateValue(response.PostFulls[i], loopFeed[k], now);
                 UpdateDebug(k, response.PostFulls[i]);
