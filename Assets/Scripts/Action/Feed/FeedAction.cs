@@ -118,11 +118,14 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyPosts(PostFeedResponse response)
     {
-        for (int i = 0; i < valueDates.Length; i++)
-            valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
+        if (txtDebug != null)
+            for (int i = 0; i < valueDates.Length; i++)
+                valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
         if (response.PostFulls.Count == 0)
         {
+            if (txtDebug != null)
+                txtDebug.TextValue = String.Join('\n', valueDates);
             ScreenDialog.Instance.Hide();
             return;
         }
