@@ -52,6 +52,8 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
+    public Player Player { get; set; } = null;
+
     public List<PuzzleResultSummary> PuzzleResultSummarys { get; set; }
 
     // Option

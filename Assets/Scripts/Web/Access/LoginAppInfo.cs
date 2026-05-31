@@ -10,6 +10,7 @@ public class LoginAppInfo
     public String Portrait { get; set; }
     public Locality InterestLocality { get; set; }
     public Locality CurrentLocality { get; set; }
+    public Player Player { get; set; }
     public List<PuzzleResultSummary> PuzzleResultSummarys { get; set; }
     public Card Card { get; set; }
     public Notification[] Notifications { get; set; }
@@ -20,7 +21,7 @@ public class LoginAppInfo
     }
 
     public LoginAppInfo(ReferredCount referredCount, Identity identity, Address address, String portrait,
-                        Locality interestLocality, Locality currentLocality, List<PuzzleResultSummary> puzzleResultSummarys, 
+                        Locality interestLocality, Locality currentLocality, Player player, List<PuzzleResultSummary> puzzleResultSummarys, 
                         Card card, Notification[] notifications)
     {
         ReferredCount = referredCount;
@@ -29,6 +30,8 @@ public class LoginAppInfo
         Portrait = portrait;
         InterestLocality = interestLocality;
         CurrentLocality = currentLocality;
+        Player = player;
+        PuzzleResultSummarys = puzzleResultSummarys;
         Card = card;
         Notifications = notifications;
     }

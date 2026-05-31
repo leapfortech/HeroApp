@@ -516,6 +516,7 @@ public class LoginAction : MonoBehaviour
         StateManager.Instance.Identity = loginAppInfo.Identity;
         StateManager.Instance.Address = loginAppInfo.Address;
         StateManager.Instance.Portrait = loginAppInfo.Portrait != null ? loginAppInfo.Portrait.CreateSprite("Portrait") : null;
+        StateManager.Instance.Player = loginAppInfo.Player;
         StateManager.Instance.PuzzleResultSummarys = loginAppInfo.PuzzleResultSummarys;
         StateManager.Instance.InterestLocality = loginAppInfo.InterestLocality;
         StateManager.Instance.CurrentLocality = loginAppInfo.CurrentLocality;
