@@ -56,6 +56,21 @@ public class PuzzleGetFullsOperation : HttpOperation
     public List<PuzzleFull> puzzleFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/puzzle/NextPuzzle")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class NextPuzzlePostOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PuzzleNextRequest puzzleNextRequest;
+
+    [HttpResponseJsonBody]
+    public PuzzleFull puzzleFull;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/puzzle/register")]
@@ -86,6 +101,21 @@ public class PuzzlePutOperation : HttpOperation
 
     [HttpResponseTextBody]
     public bool response;
+}
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/puzzle/SaveResult")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class PuzzleSaveResultPutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PuzzleResultRequest puzzleResultRequest;
+
+    [HttpResponseJsonBody]
+    public PuzzleResultResponse puzzleResultResponse;
 }
 
 [HttpPUT]

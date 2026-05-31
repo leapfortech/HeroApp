@@ -17,6 +17,8 @@ public class PuzzleService : MonoBehaviour
 
     [Serializable]
     public class PuzzleFullsEvent : UnityEvent<List<PuzzleFull>> { }
+    [Serializable]
+    public class PuzzleResultEvent : UnityEvent<PuzzleResultResponse> { }
 
     [SerializeField]
     private PuzzleFullEvent onFullRetreived = null;
@@ -25,10 +27,16 @@ public class PuzzleService : MonoBehaviour
     private PuzzleFullsEvent onFullsRetreived = null;
 
     [SerializeField]
+    private PuzzleFullEvent onNextFullRetreived = null;
+
+    [SerializeField]
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
     private UnityBoolEvent onUpdated = null;
+
+    [SerializeField]
+    private PuzzleResultEvent onResultUpdated = null;
 
 
     [Title("Error")]
@@ -102,6 +110,27 @@ public class PuzzleService : MonoBehaviour
         }
     }
 
+    public void GetNextPuzzle(PuzzleNextRequest puzzleNextRequest)
+    {
+        NextPuzzlePostOperation nextPuzzlePostOp = new NextPuzzlePostOperation();
+        try
+        {
+            nextPuzzlePostOp.puzzleNextRequest = puzzleNextRequest;
+            nextPuzzlePostOp["on-complete"] = (Action<NextPuzzlePostOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onNextFullRetreived.Invoke(op.puzzleFull);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            nextPuzzlePostOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
     // REGISTER
     public void Register(RegisterPuzzleRequest registerPuzzleRequest)
     {
@@ -139,6 +168,27 @@ public class PuzzleService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             referredPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void SaveResult(PuzzleResultRequest puzzleResultRequest)
+    {
+        PuzzleSaveResultPutOperation saveResultPutOp = new PuzzleSaveResultPutOperation();
+        try
+        {
+            saveResultPutOp.puzzleResultRequest = puzzleResultRequest;
+            saveResultPutOp["on-complete"] = (Action<PuzzleSaveResultPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onResultUpdated.Invoke(op.puzzleResultResponse);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            saveResultPutOp.Send();
         }
         catch (Exception ex)
         {

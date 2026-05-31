@@ -52,6 +52,8 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
+    public List<PuzzleResultSummary> PuzzleResultSummarys { get; set; }
+
     // Option
     public long GetOption(int idx)
     {
@@ -603,6 +605,33 @@ public class StateManager : SingletonBehaviour<StateManager>
         }
 
         PuzzleFulls.Add(puzzleFull);
+    }
+
+    public int GetTotalPuzzlePoints()
+    {
+        if (PuzzleResultSummarys == null)
+            return 0;
+
+        int totalPoints = 0;
+
+        for (int i = 0; i < PuzzleResultSummarys.Count; i++)
+            totalPoints += PuzzleResultSummarys[i].TotalPoints;
+
+        return totalPoints;
+    }
+
+    public PuzzleResultSummary GetPuzzleResultSummary(long puzzleGameId)
+    {
+        if (PuzzleResultSummarys == null)
+            return null;
+
+        for (int i = 0; i < PuzzleResultSummarys.Count; i++)
+        {
+            if (PuzzleResultSummarys[i].PuzzleGameId == puzzleGameId)
+                return PuzzleResultSummarys[i];
+        }
+
+        return null;
     }
 
     // Clear
