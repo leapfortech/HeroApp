@@ -30,8 +30,12 @@ public class SlangAction : MonoBehaviour
     Text txtWinPoints = null;
 
     [Title("Action")]
+    [SerializeField]
+    Button btnExit = null;
 
     [Title("Page")]
+    [SerializeField]
+    Page pagHome = null;
     [SerializeField]
     Page pagSlang = null;
     [SerializeField]
@@ -56,6 +60,8 @@ public class SlangAction : MonoBehaviour
 
     private void Start()
     {
+        btnExit?.AddAction(Exit);
+
         btnAnswer1?.AddAction(() => SaveResult(0));
         btnAnswer2?.AddAction(() => SaveResult(1));
         btnAnswer3?.AddAction(() => SaveResult(2));
@@ -64,6 +70,11 @@ public class SlangAction : MonoBehaviour
     public void Clear()
     {
         
+    }
+
+    private void Exit()
+    {
+        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => PageManager.Instance.ChangePage(pagHome), null, "Sí", "No");
     }
 
     // Display
