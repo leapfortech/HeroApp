@@ -28,6 +28,8 @@ public class SlangAction : MonoBehaviour
     PercentBar pcbTimer = null;
     [SerializeField]
     Text txtWinPoints = null;
+    [SerializeField]
+    Text txtCorrectAnswer = null;
 
     [Title("Action")]
     [SerializeField]
@@ -209,6 +211,9 @@ public class SlangAction : MonoBehaviour
             PageManager.Instance.ChangePage(pagCorrect);
         }
         else
+        {
+            txtCorrectAnswer.TextValue = puzzleResultResponse.CorrectAnswer;
             PageManager.Instance.ChangePage(pagIncorrect);
+        }
     }
 }
