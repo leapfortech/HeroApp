@@ -4,11 +4,12 @@ using System.Collections.Generic;
 public class PuzzleFull : PostFull
 {
     public long Id { get; set; }
-    public long PuzzleSubtypeId { get; set; }
+    public long PuzzleGameId { get; set; }
     public long CountryId { get; set; }
     public String Question { get; set; }
     public String Hint { get; set; }
     public int Difficulty { get; set; }
+    public int Delay { get; set; }
     public int Points { get; set; }
     public int PlayCount { get; set; }
     public int Status { get; set; }
@@ -22,7 +23,7 @@ public class PuzzleFull : PostFull
     }
 
     public PuzzleFull(long id, long postId, long appUserId, String appUserAlias,
-                        long postSubtypeId,
+                        long postTypeId,
                         long postCountryId, long postStateId,
                         String title, String titleImage, String summary, String description,
                         int imageCount, int favorite, int like, int likeCount,
@@ -30,23 +31,24 @@ public class PuzzleFull : PostFull
                         ContactFull contactFull,
                         List<LinkFull> linkFulls,
                         List<CommentFull> commentFulls,
-                        long puzzleSubtypeId, long countryId,
+                        long puzzleGameId, long countryId,
                         String question, String hint,
-                        int difficulty, int points, int playCount,
+                        int difficulty, int delay, int points, int playCount,
                         int status,
                         List<PuzzleAnswerFull> puzzleAnswerFulls,
                         String[] images)
-        : base(postId, appUserId, appUserAlias, postSubtypeId,
+        : base(postId, appUserId, appUserAlias, postTypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
                 imageCount, favorite, like, likeCount, publicationDateTime, postStatus,
                 contactFull, linkFulls, commentFulls)
     {
         Id = id;
-        PuzzleSubtypeId = puzzleSubtypeId;
+        PuzzleGameId = puzzleGameId;
         CountryId = countryId;
         Question = question;
         Hint = hint;
         Difficulty = difficulty;
+        Delay = delay;
         Points = points;
         PlayCount = playCount;
         Status = status;

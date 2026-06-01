@@ -636,6 +636,25 @@ public class StateManager : SingletonBehaviour<StateManager>
         return null;
     }
 
+    public void UpdatePuzzleResultSummary(long puzzleGameId, int points, int medals, int cups)
+    {
+        if (PuzzleResultSummarys == null)
+            PuzzleResultSummarys = new List<PuzzleResultSummary>();
+
+        for (int i = 0; i < PuzzleResultSummarys.Count; i++)
+        {
+            if (PuzzleResultSummarys[i].PuzzleGameId == puzzleGameId)
+            {
+                PuzzleResultSummarys[i].TotalPoints += points;
+                PuzzleResultSummarys[i].TotalMedals += medals;
+                PuzzleResultSummarys[i].TotalCups += cups;
+                return;
+            }
+        }
+
+        PuzzleResultSummarys.Add(new PuzzleResultSummary(puzzleGameId, points, medals, cups));
+    }
+
     // Clear
 
     public void ClearAll()

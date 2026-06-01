@@ -4,7 +4,7 @@ public class Puzzle
 {
     public long Id { get; set; }
     public long PostId { get; set; }
-    public long PuzzleSubtypeId { get; set; }
+    public long PuzzleGameId { get; set; }
     public long CountryId { get; set; }
     public String Question { get; set; }
     public String Hint { get; set; }
@@ -15,12 +15,12 @@ public class Puzzle
 
     public Puzzle() { }
 
-    public Puzzle(long id, long postId, long puzzleSubtypeId, long countryId, String question, String hint,
+    public Puzzle(long id, long postId, long puzzleGameId, long countryId, String question, String hint,
                     int difficulty, int points, int playCount, int status)
     {
         Id = id;
         PostId = postId;
-        PuzzleSubtypeId = puzzleSubtypeId;
+        PuzzleGameId = puzzleGameId;
         CountryId = countryId;
         Question = question;
         Hint = hint;
@@ -34,7 +34,7 @@ public class Puzzle
     {
         Id = puzzleFull.Id;
         PostId = puzzleFull.PostId;
-        PuzzleSubtypeId = puzzleFull.PuzzleSubtypeId;
+        PuzzleGameId = puzzleFull.PuzzleGameId;
         CountryId = puzzleFull.CountryId;
         Question = puzzleFull.Question;
         Hint = puzzleFull.Hint;
@@ -46,7 +46,7 @@ public class Puzzle
 
     public void Update(Puzzle puzzle)
     {
-        PuzzleSubtypeId = puzzle.PuzzleSubtypeId;
+        PuzzleGameId = puzzle.PuzzleGameId;
         CountryId = puzzle.CountryId;
         Question = puzzle.Question;
         Hint = puzzle.Hint;
