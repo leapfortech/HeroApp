@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -22,6 +23,10 @@ public class SlangAction : MonoBehaviour
     [SerializeField]
     Button btnAnswer3 = null;
     [SerializeField]
+    Text txtTimer = null;
+    [SerializeField]
+    PercentBar pcbTimer = null;
+    [SerializeField]
     Text txtWinPoints = null;
 
     [Title("Action")]
@@ -39,6 +44,9 @@ public class SlangAction : MonoBehaviour
     PuzzleFull puzzleFull = null;
     PuzzleFull nextPuzzleFull = null;
     List<PuzzleAnswerFull> currentAnswers = new List<PuzzleAnswerFull>();
+
+    Coroutine timerCoroutine = null;
+    float remainingTime = 0f, startTime = 0f;
 
 
     private void Awake()
@@ -117,6 +125,44 @@ public class SlangAction : MonoBehaviour
         btnAnswer3.Title = currentAnswers[2].Description;
 
         PageManager.Instance.ChangePage(pagSlang);
+
+        StartTimer();
+    }
+
+    private void StartTimer()
+    {
+        StopTimer();
+
+        startTime = Time.time;
+        remainingTime = puzzleFull.Delay;
+
+        timerCoroutine = StartCoroutine(TimerRoutine());
+    }
+
+    private IEnumerator TimerRoutine()
+    {
+        while (remainingTime > 0)
+        {
+            txtTimer.TextValue = Mathf.CeilToInt(remainingTime) + " s";
+            pcbTimer.Pourcent = remainingTime / puzzleFull.Delay;
+
+            yield return new WaitForSeconds(1f);
+
+            remainingTime -= 1f;
+        }
+
+        txtTimer.TextValue = "0s";
+        
+        SaveResult(-1);
+    }
+
+    private void StopTimer()
+    {
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
     }
 
     public void DisplayHelp()
@@ -127,14 +173,18 @@ public class SlangAction : MonoBehaviour
     // Result
     private void SaveResult(int index)
     {
-        if (index < 0 || index >= currentAnswers.Count)
-            return;
+        StopTimer();
 
-        PuzzleAnswerFull answer = currentAnswers[index];
+        int elapsedSeconds = Mathf.RoundToInt(Time.time - startTime);
 
         ScreenDialog.Instance.Display();
 
-        puzzleService.SaveResult(new PuzzleResultRequest(StateManager.Instance.Player.Id, puzzleFull.Id, answer.Id, 30));
+        long answerId = -1;
+
+        if (index >= 0 && index < currentAnswers.Count)
+            answerId = currentAnswers[index].Id;
+
+        puzzleService.SaveResult(new PuzzleResultRequest(StateManager.Instance.Player.Id, puzzleFull.Id, answerId, elapsedSeconds));
     }
 
     public void ApplySaveResult(PuzzleResultResponse puzzleResultResponse)
