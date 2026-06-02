@@ -48,6 +48,7 @@ public class DataMapperAction : MonoBehaviour
             countryFlags[i] = new CountryFlag();
             countryFlags[i].Name = countryRecords[i].GetCellString("Name");
             countryFlags[i].Code = countryRecords[i].GetCellString("Code");
+            countryFlags[i].PhonePrefixName = countryRecords[i].GetCellString("PhonePrefixName");
             countryFlags[i].Flag = valueFlag.FindRecordCellSprite("Code", countryFlags[i].Code, "Flag");
         }
 
