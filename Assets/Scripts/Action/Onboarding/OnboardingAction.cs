@@ -158,6 +158,19 @@ public class OnboardingAction : MonoBehaviour
         StateManager.Instance.Identity = identity;
         StateManager.Instance.Address = address;
 
+        // Locality Default
+        if (obdResponse.LocalityResponse != null)
+        {
+            Locality interestLocality = new Locality(obdResponse.LocalityResponse.InterestLocalityId, StateManager.Instance.AppUser.Id, 1,
+                                                     identity.BirthCountryId, identity.BirthStateId, identity.BirthCityId, 1);
+
+            Locality currentLocality = new Locality(obdResponse.LocalityResponse.CurrentLocalityId, StateManager.Instance.AppUser.Id, 2,
+                                                    address.CountryId, address.StateId, address.CityId, 1);
+
+            StateManager.Instance.InterestLocality = interestLocality;
+            StateManager.Instance.CurrentLocality = currentLocality;
+        }
+
         if (portrait != null)
             StateManager.Instance.Portrait = portrait.CreateSprite("Portrait");
         else
