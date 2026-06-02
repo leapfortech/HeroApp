@@ -9,9 +9,11 @@ public class StepProgressAction : MonoBehaviour
     RectTransform segmentsContainer;
 
     [SerializeField]
-    GameObject segmentOnPrefab;
+    GameObject segmentDonePrefab;
     [SerializeField]
-    GameObject segmentOffPrefab;
+    GameObject segmentCurrentPrefab;
+    [SerializeField]
+    GameObject segmentPendingPrefab;
 
     [Header("Layout")]
     [SerializeField]
@@ -40,24 +42,32 @@ public class StepProgressAction : MonoBehaviour
 
         for (int i = 1; i <= totalSteps; i++)
         {
-            bool isCurrent = i == currentStep;
+            GameObject prefabToUse;
 
-            GameObject prefabToUse = isCurrent ? segmentOnPrefab : segmentOffPrefab;
+            if (i < currentStep)
+                prefabToUse = segmentDonePrefab;
+            else if (i == currentStep)
+                prefabToUse = segmentCurrentPrefab;
+            else
+                prefabToUse = segmentPendingPrefab;
 
             GameObject segment = Instantiate(prefabToUse, segmentsContainer);
 
             LayoutElement layoutElement = segment.GetComponent<LayoutElement>();
+
 #if UNITY_EDITOR
-            if (layoutElement == null) Debug.LogError($"LayoutElement NOT found in Segment Prefab {prefabToUse.name}");
+            if (layoutElement == null)
+                Debug.LogError($"LayoutElement NOT found in Segment Prefab {prefabToUse.name}");
 #endif
+
             layoutElement.flexibleWidth = 1;
 
-            if (isCurrent)
+            if (i == currentStep)
             {
                 Leap.UI.Elements.Text txtStep = segment.GetComponentInChildren<Leap.UI.Elements.Text>();
 
                 if (txtStep != null)
-                    txtStep.TextValue = $"Paso {currentStep.ToString()}";
+                    txtStep.TextValue = $"Paso {currentStep}";
             }
         }
     }

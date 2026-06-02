@@ -198,8 +198,10 @@ public class PrecheckAction : MonoBehaviour
             return;
         }
 
+        String phonePrefix = cmbPhoneCountry.GetSelectedCellString("PhonePrefixName").Split(' ')[0];
+
         txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
-                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + phonePrefix
                                + " "
                                + ifdPhoneNumber.Text
                                + "</b>";
@@ -231,8 +233,10 @@ public class PrecheckAction : MonoBehaviour
 
     public void ApplyRegisterPhoneWA(String result)
     {
+        String phonePrefix = cmbPhoneCountry.GetSelectedCellString("PhonePrefixName").Split(' ')[0];
+
         txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
-                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + phonePrefix
                                + " "
                                + ifdPhoneNumber.Text
                                + "</b>";
