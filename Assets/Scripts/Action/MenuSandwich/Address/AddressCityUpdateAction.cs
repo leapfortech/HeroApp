@@ -63,9 +63,10 @@ public class AddressCityUpdateAction : MonoBehaviour
     {
         addressCityNew = dtmAddressCity.BuildClass<AddressCity>();
 
-        if (!IdentityChanged())
+        if (!AddressChanged())
         {
-            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            //ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            ChangeNextPage();
             return;
         }
 
@@ -87,31 +88,28 @@ public class AddressCityUpdateAction : MonoBehaviour
 
         StateManager.Instance.UpdateAddressCity(id, addressCityNew);
 
+        ChangeNextPage();
+    }
+
+    private void ChangeNextPage()
+    {
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 
-    private bool IdentityChanged()
+    private bool AddressChanged()
     {
         if (addressCity == null || addressCityNew == null)
             return false;
 
-        if (NormalizeId(addressCity.CountryId) != NormalizeId(addressCityNew.CountryId))
+        if (addressCity.CountryId != addressCityNew.CountryId)
             return true;
 
-        if (NormalizeId(addressCity.StateId) != NormalizeId(addressCityNew.StateId))
+        if (addressCity.StateId != addressCityNew.StateId)
             return true;
 
-        if (NormalizeId(addressCity.CityId) != NormalizeId(addressCityNew.CityId))
+        if (addressCity.CityId != addressCityNew.CityId)
             return true;
 
         return false;
-    }
-
-    private long? NormalizeId(long? value)
-    {
-        if (!value.HasValue || value.Value <= 0)
-            return null;
-
-        return value.Value;
     }
 }

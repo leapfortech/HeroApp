@@ -65,7 +65,8 @@ public class IdentityPlaceUpdateAction : MonoBehaviour
 
         if (!IdentityChanged())
         {
-            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            //ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            ChangeNextPage();
             return;
         }
 
@@ -88,6 +89,11 @@ public class IdentityPlaceUpdateAction : MonoBehaviour
 
         StateManager.Instance.UpdateIdentityPlace(id, identityPlaceNew);
 
+        ChangeNextPage();
+    }
+
+    private void ChangeNextPage()
+    {
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 

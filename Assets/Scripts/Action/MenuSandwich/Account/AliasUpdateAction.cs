@@ -7,7 +7,6 @@ using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
 
-
 public class AliasUpdateAction : MonoBehaviour
 {
     [Title("Fields")]

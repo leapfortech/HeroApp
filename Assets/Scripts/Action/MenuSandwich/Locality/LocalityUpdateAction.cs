@@ -78,7 +78,8 @@ public class LocalityUpdateAction : MonoBehaviour
 
         if (!LocalityChanged())
         {
-            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            //ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            ChangeNextPage();
             return;
         }
 
@@ -108,6 +109,11 @@ public class LocalityUpdateAction : MonoBehaviour
             StateManager.Instance.CurrentLocality = localityNew;
 
         Clear();
+        ChangeNextPage();
+    }
+
+    private void ChangeNextPage()
+    {
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 

@@ -76,7 +76,8 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
 
         if (!IdentityChanged())
         {
-            ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            //ChoiceDialog.Instance.Warning("Sin cambios", "No se detectaron cambios en la información.");
+            ChangeNextPage();
             return;
         }
 
@@ -98,6 +99,11 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
 
         StateManager.Instance.UpdateIdentityPersonal(id, identityPersonalNew);
 
+        ChangeNextPage();
+    }
+
+    private void ChangeNextPage()
+    {
         ChoiceDialog.Instance.Info("Información actualizada", updatedMessage, () => PageManager.Instance.ChangePage(pagNext));
     }
 
@@ -119,16 +125,16 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
         if (identityPersonal == null || identityPersonalNew == null)
             return false;
 
-        if (!string.Equals(identityPersonal.FirstName1 ?? "", identityPersonalNew.FirstName1 ?? ""))
+        if (!String.Equals(identityPersonal.FirstName1 ?? "", identityPersonalNew.FirstName1 ?? ""))
             return true;
 
-        if (!string.Equals(identityPersonal.FirstName2 ?? "", identityPersonalNew.FirstName2 ?? ""))
+        if (!String.Equals(identityPersonal.FirstName2 ?? "", identityPersonalNew.FirstName2 ?? ""))
             return true;
 
-        if (!string.Equals(identityPersonal.LastName1 ?? "", identityPersonalNew.LastName1 ?? ""))
+        if (!String.Equals(identityPersonal.LastName1 ?? "", identityPersonalNew.LastName1 ?? ""))
             return true;
 
-        if (!string.Equals(identityPersonal.LastName2 ?? "", identityPersonalNew.LastName2 ?? ""))
+        if (!String.Equals(identityPersonal.LastName2 ?? "", identityPersonalNew.LastName2 ?? ""))
             return true;
 
         if (identityPersonal.GenderId != identityPersonalNew.GenderId)
@@ -136,7 +142,6 @@ public class IdentityPersonalUpdateAction : MonoBehaviour
 
         if (identityPersonal.BirthDate.Date != identityPersonalNew.BirthDate.Date)
             return true;
-
 
         return false;
     }
