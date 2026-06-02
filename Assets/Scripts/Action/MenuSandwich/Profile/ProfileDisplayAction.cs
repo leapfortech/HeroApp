@@ -31,6 +31,9 @@ public class ProfileDisplayAction : MonoBehaviour
     [SerializeField]
     Text txtAddress = null;
 
+    [SerializeField]
+    Button btnDelete = null;
+
     [Title("Data")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -102,6 +105,8 @@ public class ProfileDisplayAction : MonoBehaviour
 
         //Portrait
         Sprite sprite = StateManager.Instance.Portrait;
+
+        btnDelete.gameObject.SetActive(sprite != null);
 
         if (imgSqrPortraits.Length > 0)
         {

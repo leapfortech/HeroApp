@@ -27,16 +27,16 @@ public class PortraitUpdateAction : MonoBehaviour
 
     private void Start()
     {
-        btnDelete?.AddAction(DoDelete);
-    }
-
-    public void DoDelete()
-    {
-        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?",
-                                      () => Delete(), null, "Sí", "No");
+        btnDelete?.AddAction(Delete);
     }
 
     public void Delete()
+    {
+        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?",
+                                      () => DoDelete(), null, "Sí", "No");
+    }
+
+    public void DoDelete()
     {
         ScreenDialog.Instance.Display();
         appUserService.DeletePortrait(StateManager.Instance.AppUser.Id);
