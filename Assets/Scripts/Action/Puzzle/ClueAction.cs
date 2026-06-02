@@ -62,8 +62,7 @@ public class ClueAction : MonoBehaviour
 
     Coroutine timerCoroutine = null;
     float remainingTime = 0f, startTime = 0f;
-    bool letterRevealed = false;
-
+    bool letterRevealed = false, exit = false;
     private void Awake()
     {
         puzzleService = GetComponent<PuzzleService>();
@@ -85,13 +84,14 @@ public class ClueAction : MonoBehaviour
 
     private void Exit()
     {
-        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => DoExit(), null, "Sí", "No");
+        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?\n\nSi abandonas el reto, se marcará como incorrecto y perderás la oportunidad de ganar puntos.\n\n",
+                                      () => DoExit(), null, "Sí", "No");
     }
 
     private void DoExit()
     {
-        StopTimer();
-        PageManager.Instance.ChangePage(pagExit);
+        exit = true;
+        SaveResult(-1);
     }
 
     // Display
@@ -107,6 +107,7 @@ public class ClueAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         int difficulty = 1;
+        exit = false;
 
         puzzleService.GetNextPuzzle(new PuzzleNextRequest(StateManager.Instance.Player.Id, 2, StateManager.Instance.InterestLocality.CountryId, difficulty));
     }
@@ -245,8 +246,13 @@ public class ClueAction : MonoBehaviour
         }
         else
         {
-            txtCorrectAnswer.TextValue = puzzleResultResponse.CorrectAnswer;
-            PageManager.Instance.ChangePage(pagIncorrect);
+            if (!exit)
+            {
+                txtCorrectAnswer.TextValue = puzzleResultResponse.CorrectAnswer;
+                PageManager.Instance.ChangePage(pagIncorrect);
+            }
+            else
+                PageManager.Instance.ChangePage(pagExit);
         }
     }
 }
