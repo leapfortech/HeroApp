@@ -37,7 +37,7 @@ public class PhraseAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagHome = null;
+    Page pagExit = null;
     [SerializeField]
     Page pagPhrase = null;
     [SerializeField]
@@ -76,7 +76,13 @@ public class PhraseAction : MonoBehaviour
 
     private void Exit()
     {
-        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => PageManager.Instance.ChangePage(pagHome), null, "Sí", "No");
+        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => DoExit(), null, "Sí", "No");
+    }
+
+    private void DoExit()
+    {
+        StopTimer();
+        PageManager.Instance.ChangePage(pagExit);
     }
 
     // Display

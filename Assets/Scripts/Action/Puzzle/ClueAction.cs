@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -39,10 +41,12 @@ public class ClueAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     UnityStringEvent OnStart = null;
+    [SerializeField]
+    UnityEvent OnRevealLetter = null;
 
     [Title("Page")]
     [SerializeField]
-    Page pagHome = null;
+    Page pagExit = null;
     [SerializeField]
     Page pagClue = null;
     [SerializeField]
@@ -58,7 +62,7 @@ public class ClueAction : MonoBehaviour
 
     Coroutine timerCoroutine = null;
     float remainingTime = 0f, startTime = 0f;
-
+    bool letterRevealed = false;
 
     private void Awake()
     {
@@ -81,7 +85,13 @@ public class ClueAction : MonoBehaviour
 
     private void Exit()
     {
-        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => PageManager.Instance.ChangePage(pagHome), null, "Sí", "No");
+        ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?", () => DoExit(), null, "Sí", "No");
+    }
+
+    private void DoExit()
+    {
+        StopTimer();
+        PageManager.Instance.ChangePage(pagExit);
     }
 
     // Display
@@ -123,14 +133,21 @@ public class ClueAction : MonoBehaviour
         txtPoints.TextValue = "Puntos: " + puzzleFull.Points.ToString();
         txtQuestion.TextValue = puzzleFull.Question;
 
-        OnStart.Invoke("Test");
-
         currentAnswers.Clear();
 
         for (int i = 0; i < puzzleFull.PuzzleAnswerFulls.Count; i++)
             currentAnswers.Add(puzzleFull.PuzzleAnswerFulls[i]);
 
-        // Fisher-Yates Shuffle
+        String word = "";
+        for (int i = 0; i < currentAnswers.Count; i++)
+        {
+            if (currentAnswers[i].IsCorrect == 1)
+            {
+                word = currentAnswers[i].Description;
+                break;
+            }
+        }
+
         for (int i = currentAnswers.Count - 1; i > 0; i--)
         {
             int randomIndex = UnityEngine.Random.Range(0, i + 1);
@@ -139,6 +156,8 @@ public class ClueAction : MonoBehaviour
             currentAnswers[i] = currentAnswers[randomIndex];
             currentAnswers[randomIndex] = temp;
         }
+
+        OnStart.Invoke(word);
 
         btnAnswer1.Title = currentAnswers[0].Description;
         btnAnswer2.Title = currentAnswers[1].Description;
@@ -155,6 +174,7 @@ public class ClueAction : MonoBehaviour
 
         startTime = Time.time;
         remainingTime = puzzleFull.Delay;
+        letterRevealed = false;
 
         timerCoroutine = StartCoroutine(TimerRoutine());
     }
@@ -165,6 +185,12 @@ public class ClueAction : MonoBehaviour
         {
             txtTimer.TextValue = Mathf.CeilToInt(remainingTime) + " s";
             pcbTimer.Pourcent = remainingTime / puzzleFull.Delay;
+
+            if (!letterRevealed && remainingTime <= (puzzleFull.Delay / 2f))
+            {
+                letterRevealed = true;
+                OnRevealLetter?.Invoke();
+            }
 
             yield return new WaitForSeconds(1f);
 
