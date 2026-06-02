@@ -43,18 +43,26 @@ MonoBehaviour:
     Indexed: 0
     valueList: {fileID: 11400000}
     Index: 3
+  - Name: Demonym
+    oldName: Demonym
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 4
   columnNames:
   - Name
   - Code
   - PhonePrefix
   - PhonePrefixName
+  - Demonym
   columnIndexes:
     keys:
     - Name
     - Code
     - PhonePrefix
     - PhonePrefixName
-    values: 00000000010000000200000003000000
+    - Demonym
+    values: 0000000001000000020000000300000004000000
   statusName: Status
   statusValue: 1
   columnFilters: []
@@ -64,6 +72,8 @@ MonoBehaviour:
     keys: 
     values: []
   cellIndexers:
+  - keys: []
+    values: []
   - keys: []
     values: []
   - keys: []

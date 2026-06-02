@@ -3,12 +3,11 @@ using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
 
+using Leap.Data.Collections;
 using Leap.UI.Elements;
-using Leap.Data.Web;
-using Leap.UI.Page;
-using Leap.UI.Dialog;
 
 using Sirenix.OdinInspector;
+
 
 public class HomeAction : MonoBehaviour
 {
@@ -18,18 +17,16 @@ public class HomeAction : MonoBehaviour
     [SerializeField]
     GameObject carouselInactive = null;
 
-    [Title("Action")]
+    [Title("Elements")]
     [SerializeField]
-    Button btnLocality = null;
-
-    [Title("Pages")]
+    Text txtPuzzleTitle1 = null;
     [SerializeField]
-    Page pagLocality = null;
+    Text txtPuzzleTitle2 = null;
 
-    private void Start()
-    {
-        btnLocality?.AddAction(ChangePageLocality);
-    }
+    [Title("Values")]
+    [SerializeField]
+    ValueList vllCountry = null;
+
 
     public void RefreshHome()
     {
@@ -37,10 +34,13 @@ public class HomeAction : MonoBehaviour
 
         carouselActive.SetActive(!localityStatus);
         carouselInactive.SetActive(localityStatus);
-    }
 
-    private void ChangePageLocality()
-    {
-        PageManager.Instance.ChangePage(pagLocality);
+        if (!localityStatus)
+        {
+            String demonym = vllCountry.FindRecordCellString(Convert.ToInt32(StateManager.Instance.InterestLocality.CountryId), "Demonym");
+
+            txtPuzzleTitle1.TextValue = !String.IsNullOrWhiteSpace(demonym) ? "Fiesta " : "Diversión y";
+            txtPuzzleTitle2.TextValue = !String.IsNullOrWhiteSpace(demonym) ? demonym : " recreación";
+        }
     }
 }
