@@ -35,6 +35,12 @@ public class TreatmentRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Message")]
+    [SerializeField]
+    String disclaimerTitle = "Aviso importante";
+    [Space, SerializeField, TextArea(2, 4)]
+    String disclaimerMessage = "Estás compartiendo una experiencia personal o recomendación. No publiques información falsa, peligrosa ni que sustituya la evaluación de un profesional de la salud. El contenido que compartas será visible para otros usuarios.";
+
     TreatmentService treatmentService = null;
 
     private void Awake()
@@ -55,6 +61,11 @@ public class TreatmentRegisterAction : MonoBehaviour
     }
 
     private void Register()
+    {
+        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(), null, "De acuerdo", "Regresar");
+    }
+    
+    private void DoRegister()
     {
         if (!ElementHelper.Validate(elementValues))
             return;

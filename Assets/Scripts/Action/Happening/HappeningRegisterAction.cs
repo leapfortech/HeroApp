@@ -36,6 +36,12 @@ public class HappeningRegisterAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Message")]
+    [SerializeField]
+    String disclaimerTitle = "Aviso importante";
+    [Space, SerializeField, TextArea(2, 4)]
+    String disclaimerMessage = "Te recomendamos";
+
     HappeningService happeningService = null;
 
     private void Awake()
@@ -58,6 +64,11 @@ public class HappeningRegisterAction : MonoBehaviour
     }
 
     private void Register()
+    {
+        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(), null, "De acuerdo", "Regresar");
+    }
+
+    private void DoRegister()
     {
         if (!ElementHelper.Validate(elementValues))
             return;
