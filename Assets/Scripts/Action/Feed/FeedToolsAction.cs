@@ -16,18 +16,9 @@ public class FeedToolsAction : MonoBehaviour
         postService = GetComponent<PostService>();
     }
 
-    private bool TryGetPostId(int idx, out long postId)
-    {
-        postId = feedAction.GetPostId(idx);
-        return postId != -1;
-    }
-
     // Share
-    public void RegisterShare(int idx)
+    public void RegisterShare(long postId)
     {
-        if (!TryGetPostId(idx, out long postId))
-            return;
-
         ScreenDialog.Instance.Display();
 
         postService.RegisterShare(new Share(postId, StateManager.Instance.AppUser.Id));
@@ -39,11 +30,8 @@ public class FeedToolsAction : MonoBehaviour
     }
 
     // Favorite
-    public void RegisterFavorite(int idx)
+    public void RegisterFavorite(long postId)
     {
-        if (!TryGetPostId(idx, out long postId))
-            return;
-
         ScreenDialog.Instance.Display();
 
         postService.RegisterFavorite(new Favorite(postId, StateManager.Instance.AppUser.Id));
@@ -55,21 +43,15 @@ public class FeedToolsAction : MonoBehaviour
     }
 
     // Like/Dislike
-    public void RegisterLike(int idx)
+    public void RegisterLike(long postId)
     {
-        if (!TryGetPostId(idx, out long postId))
-            return;
-
         ScreenDialog.Instance.Display();
 
         postService.RegisterLike(new Like(postId, StateManager.Instance.AppUser.Id, LIKE));
     }
 
-    public void RegisterDislike(int idx)
+    public void RegisterDislike(long postId)
     {
-        if (!TryGetPostId(idx, out long postId))
-            return;
-
         ScreenDialog.Instance.Display();
 
         postService.RegisterLike(new Like(postId, StateManager.Instance.AppUser.Id, DISLIKE));
@@ -81,11 +63,8 @@ public class FeedToolsAction : MonoBehaviour
     }
 
     // PostRead
-    public void RegisterPostRead(int idx)
+    public void RegisterPostRead(long postId)
     {
-        if (!TryGetPostId(idx, out long postId))
-            return;
-
         ScreenDialog.Instance.Display();
 
         postService.RegisterPostRead(new PostRead(postId, StateManager.Instance.AppUser.Id));

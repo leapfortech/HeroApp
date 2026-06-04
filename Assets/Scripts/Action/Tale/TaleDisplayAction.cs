@@ -31,7 +31,7 @@ public class TaleDisplayAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
 
-    [Space, Title("Contents")]
+    [Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
     [SerializeField]
@@ -41,7 +41,7 @@ public class TaleDisplayAction : MonoBehaviour
     [Space, SerializeField]
     RectTransform[] contents = null;
 
-    [Space, Title("Values")]
+    [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
     [SerializeField]
@@ -49,15 +49,15 @@ public class TaleDisplayAction : MonoBehaviour
     //[SerializeField]
     //ValueList vllCity = null;
 
-    [Space, Title("Event")]
+    [Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
+    [Title("Event")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
-
-    [Space, Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     TaleService taleService;
 

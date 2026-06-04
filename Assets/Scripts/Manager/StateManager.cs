@@ -142,15 +142,6 @@ public class StateManager : SingletonBehaviour<StateManager>
         return state;
     }
 
-    public void ResetAllFeedStates()
-    {
-        FeedInitialize();
-
-        foreach (FeedState feed in feedMap.Values)
-            feed.PostFulls = new List<PostFull>();
-    }
-
-
     // Tale
     public List<TaleFull> TaleFulls { get; set; }
     private Dictionary<long, TaleFull> DictTaleFulls { get; set; } = new Dictionary<long, TaleFull>();
@@ -697,7 +688,7 @@ public class StateManager : SingletonBehaviour<StateManager>
         CurrentLocality = null;
 
         // Feeds
-        ResetAllFeedStates();
+        FeedInitialize();
 
         // Tale
         ClearTale();

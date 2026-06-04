@@ -14,6 +14,6 @@ public class FeedState : ScriptableObject
     public long PostTypeId = -1;
     public int Status = 1;
 
-    [NonSerialized]
-    public List<PostFull> PostFulls = new List<PostFull>();
+    //[NonSerialized]
+    //public List<PostFull> PostFulls = new List<PostFull>();
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 //using URandom = UnityEngine.Random;
 
+using Leap.Core.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
 
@@ -13,8 +14,8 @@ public class FeedAction : MonoBehaviour
     [Title("Feed")]
     [SerializeField]
     FeedState feedConfig = null;
-    [SerializeField]
-    bool filterAppUser = false;
+    //[SerializeField]
+    //bool filterAppUser = false;
 
     [SerializeField, Space(5f), ListDrawerSettings(ShowPaging = false)]
     Sprite[] portraits = new Sprite[0];
@@ -32,30 +33,18 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     RectTransform trfOverlay = null;
 
+    [Title("Event")]
+    [SerializeField]
+    UnityLongEvent onValueSelected = null;
+
     PostService postService;
     FeedState feedState;
     int feedCount = 0;
-
-    //long countryId = -1;
-    //long stateId = -1;
-
-    String[] valueDates;
 
     private void Awake()
     {
         postService = GetComponent<PostService>();
     }
-
-    public long GetPostId(int idx)
-    {
-        return feedState.PostFulls[idx].PostId;
-    }
-
-    //public void SetFilters(long countryId = -1, long stateId = -1)
-    //{
-    //    this.countryId = countryId;
-    //    this.stateId = stateId;
-    //}
 
     public void CreateFeeds(bool force)
     {
@@ -113,6 +102,8 @@ public class FeedAction : MonoBehaviour
             Status = feedState.Status,
         };
 
+        Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
+
         postService.GetPostFeed(request);
     }
 
@@ -132,7 +123,7 @@ public class FeedAction : MonoBehaviour
 
         //response.Chunk = response.Chunk == -1 ? 0 : (response.Chunk + feedState.Count);
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
-        int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
+        //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
         int direction = response.Direction;
 
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
@@ -189,22 +180,12 @@ public class FeedAction : MonoBehaviour
         loopValue.SetCheck(2, postFull.Like == 5);
     }
 
-    public void UpdateDebug(int k, PostFull postFull)
+    public void SelectValue(int idx)
     {
-        if (postFull.PublicationDateTime.Year == 1753)
-            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
-        else
-            valueDates[k] = $"<color=red>{postFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {postFull.Title}</color>";
-
+        onValueSelected.Invoke(((FeedUserData)loopFeed[idx].UserData).PostId);
     }
 
-    public void UpdateOverlay(int idx)
-    {
-        if (trfOverlay == null)
-            return;
-
-        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
-    }
+    // 
 
     public void ApplyFavorite(int dataIndex, bool check)
     {
@@ -252,5 +233,26 @@ public class FeedAction : MonoBehaviour
         }
         else
             postService.DeleteLike(like);
+    }
+
+    // Debug
+
+    String[] valueDates;
+
+    public void UpdateDebug(int k, PostFull postFull)
+    {
+        if (postFull.PublicationDateTime.Year == 1753)
+            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
+        else
+            valueDates[k] = $"<color=red>{postFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {postFull.Title}</color>";
+
+    }
+
+    public void UpdateOverlay(int idx)
+    {
+        if (trfOverlay == null)
+            return;
+
+        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
