@@ -30,7 +30,7 @@ public class PostToolsAction : MonoBehaviour
     public void SetIds(long[] ids)
     {
         postId = ids[0];
-        appUserId = StateManager.Instance.appUserId;
+        appUserId = StateManager.Instance.AppUser.Id;
     }
 
     // Reaction

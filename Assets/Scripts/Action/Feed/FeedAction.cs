@@ -20,7 +20,6 @@ public class FeedAction : MonoBehaviour
     [SerializeField, Space(5f), ListDrawerSettings(ShowPaging = false)]
     Sprite[] portraits = new Sprite[0];
 
-    [Space]
     [Title("Loop")]
     [SerializeField]
     LoopScroller loopFeed = null;
@@ -95,11 +94,13 @@ public class FeedAction : MonoBehaviour
             Direction = direction,
             Count = feedUserData.PostId == -1 ? feedState.Count + feedState.Count : feedState.Count,
 
+            LikeAppUserId = StateManager.Instance.AppUser.Id,
+
             PostTypeId = feedState.PostTypeId,
             AppUserId = -1, //filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             //CountryId = countryId,
             //StateId = stateId,
-            Status = feedState.Status,
+            Status = feedState.Status
         };
 
         Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
@@ -176,8 +177,8 @@ public class FeedAction : MonoBehaviour
 
         //int r = URandom.Range(0, 10);
         loopValue.SetCheck(0, postFull.Favorite != 0);
-        loopValue.SetCheck(1, postFull.Like == 0);
-        loopValue.SetCheck(2, postFull.Like == 5);
+        loopValue.SetCheck(1, postFull.Like == 5);
+        loopValue.SetCheck(2, postFull.Like == 1);
     }
 
     public void SelectValue(int idx)
@@ -189,12 +190,12 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyFavorite(int dataIndex, bool check)
     {
-        Debug.Log($"Favorite {dataIndex} is {(check ? "" : "UN")}CHECKED");
+        //Debug.Log($"Favorite {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(0, check);
 
-        Favorite favorite = new Favorite(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId);
+        Favorite favorite = new Favorite(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
         if (check)
             postService.RegisterFavorite(favorite);
         else
@@ -203,16 +204,17 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyLike(int dataIndex, bool check)
     {
-        Debug.Log($"Like {dataIndex} is {(check ? "" : "UN")}CHECKED");
+        //Debug.Log($"Like {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(1, check);
 
-        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId, 5);
+        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id, 5);
         if (check)
         {
             loopFeed[k].SetCheck(2, false);
-            postService.RegisterLike(like);
+            loopFeed.RefreshVisibleValues();
+            postService.UpdateLike(like);
         }
         else
             postService.DeleteLike(like);
@@ -220,20 +222,29 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyDislike(int dataIndex, bool check)
     {
-        Debug.Log($"Dislike {dataIndex} is {(check ? "" : "UN")}CHECKED");
+        //Debug.Log($"Dislike {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(2, check);
 
-        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.appUserId, 0);
+        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id, 1);
         if (check)
         {
             loopFeed[k].SetCheck(1, false);
-            postService.RegisterLike(like);
+            loopFeed.RefreshVisibleValues();
+            postService.UpdateLike(like);
         }
         else
+        {
+            like.Rank = -1;
             postService.DeleteLike(like);
+        }
     }
+
+    //public void ApplyLikeChanged(long likeId)
+    //{
+    //    Debug.Log($"Like Result : {likeId}");
+    //}
 
     // Debug
 

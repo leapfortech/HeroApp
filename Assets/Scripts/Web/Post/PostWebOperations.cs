@@ -76,7 +76,7 @@ public class FavoriteRegisterOperation : HttpOperation
     public String favoriteId;
 }
 
-[HttpPOST]
+[HttpDELETE]
 [HttpPathExt(WebServiceType.Main, "/post/DeleteFavorite")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
@@ -118,10 +118,10 @@ public class LikeUpdateOperation : HttpOperation
     public Like like;
 
     [HttpResponseTextBody]
-    public String done;
+    public String likeId;
 }
 
-[HttpPOST]
+[HttpDELETE]
 [HttpPathExt(WebServiceType.Main, "/post/DeleteLike")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
@@ -133,7 +133,7 @@ public class LikeDeleteOperation : HttpOperation
     public Like like;
 
     [HttpResponseTextBody]
-    public String done;
+    public String likeId;
 }
 
 [HttpPOST]

@@ -19,10 +19,6 @@ public class StateManager : SingletonBehaviour<StateManager>
 
     [PropertySpace]
     [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
-    public long appUserId { get; set; } = -1;
-
-    [PropertySpace]
-    [ShowInInspector, HideReferenceObjectPicker, ReadOnly]
     public AppUser AppUser { get; set; } = null;
 
     [PropertySpace]

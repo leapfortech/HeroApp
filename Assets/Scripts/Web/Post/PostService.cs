@@ -24,7 +24,13 @@ public class PostService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
-    private UnityBoolEvent onDeleted = null;
+    private UnityBoolEvent onFavoriteChanged = null;
+
+    [SerializeField]
+    private UnityLongEvent onLikeChanged = null;
+
+    //[SerializeField]
+    //private UnityBoolEvent onDeleted = null;
 
     [Title("Error")]
     [SerializeField]
@@ -128,7 +134,7 @@ public class PostService : MonoBehaviour
             favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                    onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
@@ -149,7 +155,7 @@ public class PostService : MonoBehaviour
             likeRegisterOp["on-complete"] = (Action<LikeRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.likeId));
+                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
@@ -170,7 +176,7 @@ public class PostService : MonoBehaviour
             likeUpdateOp["on-complete"] = (Action<LikeUpdateOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
@@ -191,7 +197,7 @@ public class PostService : MonoBehaviour
             likeDeleteOp["on-complete"] = (Action<LikeDeleteOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onDeleted.Invoke(Convert.ToBoolean(op.done));
+                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
