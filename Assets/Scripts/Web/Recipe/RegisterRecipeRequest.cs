@@ -1,4 +1,6 @@
-﻿public class RegisterRecipeRequest : RegisterPostRequest
+﻿using System;
+
+public class RegisterRecipeRequest : RegisterPostRequest
 {
     public Recipe Recipe { get; set; }
 
@@ -11,12 +13,10 @@
         Recipe = recipe;
     }
 
-    public RegisterRecipeRequest(RegisterPostRequest registerPostRequest, Recipe recipe)
+    public RegisterRecipeRequest(Post post, String[] images, Recipe recipe)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Images = images;
 
         Recipe = recipe;
     }

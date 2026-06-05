@@ -39,7 +39,6 @@ public class HappeningUpdateAction : MonoBehaviour
 
     HappeningService happeningService = null;
 
-    long postId = -1, happeningId = -1;
     Post post = null;
     Happening happening = null;
 
@@ -62,16 +61,8 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetIds(long[] ids)
+    public void Display(HappeningFull happeningFull)
     {
-        postId = ids[0];
-        happeningId = ids[1];
-    }
-
-    public void Populate()
-    {
-        HappeningFull happeningFull = StateManager.Instance.GetHappeningFullById(happeningId);
-
         post = new Post(happeningFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -83,7 +74,9 @@ public class HappeningUpdateAction : MonoBehaviour
         String endTimeStr = happening.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
 
-        List<Sprite> images = StateManager.Instance.GetHappeningImagesById(happeningId);
+        List<Sprite> images = new List<Sprite>();
+        for (int i = 0; i < happeningFull.Images.Length; i++)
+            images.Add(happeningFull.Images[i].CreateSprite($"HappeningImage_{i}"));
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
@@ -120,7 +113,7 @@ public class HappeningUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        happeningService.UpdateHappening(new RegisterHappeningRequest(new RegisterPostRequest(post, null, null, strImages), happening));
+        happeningService.UpdateHappening(new RegisterHappeningRequest(post, strImages, happening));
     }
 
     public void ApplyHappening(bool updated)

@@ -45,7 +45,6 @@ public class RadioUpdateAction : MonoBehaviour
 
     RadioService radioService = null;
 
-    long postId = -1, radioId = -1;
     Post post = null;
     Radio radio = null;
 
@@ -68,16 +67,8 @@ public class RadioUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetIds(long[] ids)
+    public void Display(RadioFull radioFull)
     {
-        postId = ids[0];
-        radioId = ids[1];
-    }
-
-    public void Populate()
-    {
-        RadioFull radioFull = StateManager.Instance.GetRadioFullById(radioId);
-
         post = new Post(radioFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -96,7 +87,9 @@ public class RadioUpdateAction : MonoBehaviour
             radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
         OnRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
-        List<Sprite> images = StateManager.Instance.GetRadioImagesById(radioId);
+        List<Sprite> images = new List<Sprite>();
+        for (int i = 0; i < radioFull.Images.Length; i++)
+            images.Add(radioFull.Images[i].CreateSprite($"RadioImage_{i}"));
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
@@ -120,8 +113,7 @@ public class RadioUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.UpdateRadio(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
-                                                       radio, radioTypes, radioLanguages));
+        radioService.UpdateRadio(new RegisterRadioRequest(post, new List<Link> { link }, strImages, radio, radioTypes, radioLanguages));
     }
 
     public void ApplyUpdate(bool updated)

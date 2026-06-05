@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class RegisterRadioRequest : RegisterPostRequest
 {
@@ -10,29 +11,12 @@ public class RegisterRadioRequest : RegisterPostRequest
     {
     }
 
-    public RegisterRadioRequest(RegisterPostRequest registerPostRequest,
-                                List<RadioType> radioTypes,
-                                List<RadioLanguage> radioLanguages)
+    public RegisterRadioRequest(Post post, List<Link> links, String[] images,
+                                Radio radio, List<RadioType> radioTypes, List<RadioLanguage> radioLanguages)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
-
-        Radio = null;
-        RadioTypes = radioTypes;
-        RadioLanguages = radioLanguages;
-    }
-
-    public RegisterRadioRequest(RegisterPostRequest registerPostRequest,
-                                Radio radio,
-                                List<RadioType> radioTypes,
-                                List<RadioLanguage> radioLanguages)
-    {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Links = links;
+        Images = images;
 
         Radio = radio;
         RadioTypes = radioTypes;

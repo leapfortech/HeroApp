@@ -72,7 +72,7 @@ public class RecipeRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        recipeService.Register(new RegisterRecipeRequest(new RegisterPostRequest(post, null, null, strImages), recipe));
+        recipeService.Register(new RegisterRecipeRequest(post, strImages, recipe));
     }
 
     public void ApplyRecipe(long recipeId)

@@ -48,7 +48,6 @@ public class ProductUpdateAction : MonoBehaviour
 
     ProductService productService = null;
 
-    long postId = -1, productId = -1;
     Post post = null;
     Contact contact = null;
     Product product = null;
@@ -74,16 +73,8 @@ public class ProductUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetIds(long[] ids)
+    public void Display(ProductFull productFull)
     {
-        postId = ids[0];
-        productId = ids[1];
-    }
-
-    public void Populate()
-    {
-        ProductFull productFull = StateManager.Instance.GetProductFullById(productId);
-
         post = new Post(productFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -143,7 +134,9 @@ public class ProductUpdateAction : MonoBehaviour
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
 
-        List<Sprite> images = StateManager.Instance.GetProductImagesById(productId);
+        List<Sprite> images = new List<Sprite>();
+        for (int i = 0; i < productFull.Images.Length; i++)
+            images.Add(productFull.Images[i].CreateSprite($"ProductImage_{i}"));
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
@@ -158,14 +151,14 @@ public class ProductUpdateAction : MonoBehaviour
 
         contact.Update(dtmContact.BuildClass<Contact>());
 
-        List<Link> linkNews = new();
+        List<Link> links = new();
 
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
             if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-                linkNews.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+                links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
         String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
@@ -173,7 +166,7 @@ public class ProductUpdateAction : MonoBehaviour
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
             if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-                linkNews.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+                links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
         String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
@@ -183,7 +176,7 @@ public class ProductUpdateAction : MonoBehaviour
             if (email != null && !string.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
-                linkNews.Add(email);
+                links.Add(email);
             }
         }
 
@@ -194,7 +187,7 @@ public class ProductUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        productService.UpdateProduct(new RegisterProductRequest(new RegisterPostRequest(post, contact, linkNews, strImages), product));
+        productService.UpdateProduct(new RegisterProductRequest(post, contact, links, strImages, product));
     }
 
     public void ApplyUpdate(bool updated)

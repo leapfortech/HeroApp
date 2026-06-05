@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class RegisterProductRequest : RegisterPostRequest
 {
@@ -13,12 +14,22 @@ public class RegisterProductRequest : RegisterPostRequest
         Product = product;
     }
 
-    public RegisterProductRequest(RegisterPostRequest registerPostRequest, Product product)
+    public RegisterProductRequest(Post post, Contact contact, Link link, String[] images, Product product)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Contact = contact;
+        Links = new List<Link>() { link };
+        Images = images;
+
+        Product = product;
+    }
+
+    public RegisterProductRequest(Post post, Contact contact, List<Link> links, String[] images, Product product)
+    {
+        Post = post;
+        Contact = contact;
+        Links = links;
+        Images = images;
 
         Product = product;
     }

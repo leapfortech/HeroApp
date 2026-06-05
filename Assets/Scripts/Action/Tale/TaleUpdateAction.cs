@@ -32,8 +32,8 @@ public class TaleUpdateAction : MonoBehaviour
 
     TaleService taleService = null;
 
-    long postId = -1, taleId = -1;
     Post post = null;
+    Tale tale = null;
 
     private void Awake()
     {
@@ -51,18 +51,16 @@ public class TaleUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void SetIds(long[] ids)
+    public void Display(TaleFull taleFull)
     {
-        postId = ids[0];
-        taleId = ids[1];
-    }
-
-    public void Populate()
-    {
-        post = new Post(StateManager.Instance.GetTaleFullById(taleId));
+        post = new Post(taleFull);
         dtmPost.PopulateClass<Post>(post);
 
-        List<Sprite> images = StateManager.Instance.GetTaleImagesById(taleId);
+        tale = new Tale(taleFull);
+
+        List<Sprite> images = new List<Sprite>();
+        for (int i = 0; i < taleFull.Images.Length; i++)
+            images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
         dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
     }
 
@@ -80,7 +78,7 @@ public class TaleUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        taleService.UpdateTale(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        taleService.UpdateTale(new RegisterTaleRequest(post, strImages, tale));
     }
 
     public void ApplyUpdate(bool updated)

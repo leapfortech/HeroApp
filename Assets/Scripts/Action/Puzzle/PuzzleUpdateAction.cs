@@ -38,7 +38,6 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     PuzzleService puzzleService = null;
 
-    long postId = -1, puzzleId = -1;
     Post post = null;
     Puzzle puzzle = null;
 
@@ -59,16 +58,8 @@ public class PuzzleUpdateAction : MonoBehaviour
         dtmPuzzleAnswer.ClearElements();
     }
 
-    public void SetIds(long[] ids)
+    public void Display(PuzzleFull puzzleFull)
     {
-        postId = ids[0];
-        puzzleId = ids[1];
-    }
-
-    public void Populate()
-    {
-        PuzzleFull puzzleFull = StateManager.Instance.GetPuzzleFullById(puzzleId);
-
         post = new Post(puzzleFull);
         dtmPost.PopulateClass<Post>(post);
 
@@ -103,8 +94,7 @@ public class PuzzleUpdateAction : MonoBehaviour
         puzzle.Update(dtmPuzzle.BuildClass<Puzzle>());
         puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
-                                                             puzzle, puzzleAnswers));
+        puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
     }
 
     public void ApplyUpdate(bool updated)

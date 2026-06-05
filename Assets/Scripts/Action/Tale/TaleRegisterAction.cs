@@ -79,7 +79,7 @@ public class TaleRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        taleService.Register(new RegisterTaleRequest(post, strImages, null));
     }
 
     List<String> srcImages = new List<String>();
@@ -127,7 +127,7 @@ public class TaleRegisterAction : MonoBehaviour
         post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
 
-        taleService.Register(new RegisterTaleRequest(new RegisterPostRequest(post, null, null, strImages)));
+        taleService.Register(new RegisterTaleRequest(post, strImages, null));
     }
 
     public void ApplyTale(long taleId)

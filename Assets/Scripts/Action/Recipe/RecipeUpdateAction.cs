@@ -91,7 +91,7 @@ public class RecipeUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        recipeService.UpdateRecipe(new RegisterRecipeRequest(new RegisterPostRequest(post, null, null, strImages), recipe));
+        recipeService.UpdateRecipe(new RegisterRecipeRequest(post, strImages, recipe));
     }
 
     public void ApplyUpdate(bool updated)

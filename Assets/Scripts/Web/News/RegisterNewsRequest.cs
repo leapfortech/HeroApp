@@ -1,4 +1,7 @@
-﻿public class RegisterNewsRequest : RegisterPostRequest
+﻿using System;
+using System.Collections.Generic;
+
+public class RegisterNewsRequest : RegisterPostRequest
 {
     public News News { get; set; }
 
@@ -11,12 +14,20 @@
         News = news;
     }
 
-    public RegisterNewsRequest(RegisterPostRequest registerPostRequest, News news)
+    public RegisterNewsRequest(Post post, Link link, String[] images, News news)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Links = new List<Link>() { link };
+        Images = images;
+
+        News = news;
+    }
+
+    public RegisterNewsRequest(Post post, List<Link> links, String[] images, News news)
+    {
+        Post = post;
+        Links = links;
+        Images = images;
 
         News = news;
     }

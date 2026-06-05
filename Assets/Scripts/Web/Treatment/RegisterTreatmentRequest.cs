@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class RegisterTreatmentRequest : RegisterPostRequest
 {
@@ -15,12 +16,10 @@ public class RegisterTreatmentRequest : RegisterPostRequest
         Diseases = diseases;
     }
 
-    public RegisterTreatmentRequest(RegisterPostRequest registerPostRequest, Treatment treatment, List<Disease> diseases)
+    public RegisterTreatmentRequest(Post post, String[] images, Treatment treatment, List<Disease> diseases)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Images = images;
 
         Treatment = treatment;
         Diseases = diseases;

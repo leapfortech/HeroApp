@@ -14,4 +14,11 @@ public class Tale
         PostId = postId;
         Status = status;
     }
+
+    public Tale(TaleFull taleFull)
+    {
+        Id = taleFull.Id;
+        PostId = taleFull.PostId;
+        Status = taleFull.Status;
+    }
 }

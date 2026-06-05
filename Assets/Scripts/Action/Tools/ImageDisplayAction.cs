@@ -2,10 +2,9 @@
 using UnityEngine;
 
 using Leap.UI.Elements;
-
-using Sirenix.OdinInspector;
 using MPUIKIT;
 
+using Sirenix.OdinInspector;
 
 public class ImageDisplayAction : MonoBehaviour
 {
@@ -48,7 +47,6 @@ public class ImageDisplayAction : MonoBehaviour
     {
         Display(testImages);
     }
-
 
     public void Display(List<Sprite> imgs)
     {       

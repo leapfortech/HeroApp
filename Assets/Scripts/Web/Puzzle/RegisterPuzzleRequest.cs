@@ -15,13 +15,9 @@ public class RegisterPuzzleRequest : RegisterPostRequest
         PuzzleAnswers = puzzleAnswers;
     }
 
-    public RegisterPuzzleRequest(RegisterPostRequest registerPostRequest, Puzzle puzzle,
-                                 List<PuzzleAnswer> puzzleAnswers)
+    public RegisterPuzzleRequest(Post post, Puzzle puzzle, List<PuzzleAnswer> puzzleAnswers)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
 
         Puzzle = puzzle;
         PuzzleAnswers = puzzleAnswers;

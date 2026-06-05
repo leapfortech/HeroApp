@@ -87,7 +87,7 @@ public class TreatmentRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        treatmentService.Register(new RegisterTreatmentRequest(new RegisterPostRequest(post, null, null, strImages), treatment, diseases));
+        treatmentService.Register(new RegisterTreatmentRequest(post, strImages, treatment, diseases));
     }
 
     public void ApplyTreatment(long treatmentId)

@@ -1,4 +1,6 @@
-﻿public class RegisterHappeningRequest : RegisterPostRequest
+﻿using System;
+
+public class RegisterHappeningRequest : RegisterPostRequest
 {
     public Happening Happening { get; set; }
 
@@ -11,12 +13,10 @@
         Happening = happening;
     }
 
-    public RegisterHappeningRequest(RegisterPostRequest registerPostRequest, Happening happening)
+    public RegisterHappeningRequest(Post post, String[] images, Happening happening)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Images = images;
 
         Happening = happening;
     }

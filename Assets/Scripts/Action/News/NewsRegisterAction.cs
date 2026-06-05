@@ -102,8 +102,7 @@ public class NewsRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.Register(new RegisterNewsRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
-                                                     news));
+        newsService.Register(new RegisterNewsRequest(post, link, strImages, news));
     }
 
     List<String> srcImages = new List<String>();
@@ -163,8 +162,7 @@ public class NewsRegisterAction : MonoBehaviour
                                          Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
         }
 
-        newsService.Register(new RegisterNewsRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages),
-                                                     news));
+        newsService.Register(new RegisterNewsRequest(post, new List<Link> { link }, strImages, news));
     }
 
     public void ApplyNews(long newsId)

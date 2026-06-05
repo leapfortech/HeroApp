@@ -82,8 +82,7 @@ public class RadioRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.Register(new RegisterRadioRequest(new RegisterPostRequest(post, null, new List<Link> { link }, strImages), 
-                                                       radioTypes, radioLanguages));
+        radioService.Register(new RegisterRadioRequest(post, new List<Link> { link }, strImages, null, radioTypes, radioLanguages));
     }
 
     public void ApplyRadio(long radioId)

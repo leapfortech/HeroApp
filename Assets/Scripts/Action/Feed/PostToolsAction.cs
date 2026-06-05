@@ -27,11 +27,11 @@ public class PostToolsAction : MonoBehaviour
         postService = GetComponent<PostService>();
     }
 
-    public void SetIds(long[] ids)
-    {
-        postId = ids[0];
-        appUserId = StateManager.Instance.AppUser.Id;
-    }
+    //public void SetIds(long[] ids)
+    //{
+    //    postId = ids[0];
+    //    appUserId = StateManager.Instance.AppUser.Id;
+    //}
 
     // Reaction
     public void RegisterReaction(int idx)

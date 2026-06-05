@@ -108,7 +108,7 @@ public class HappeningRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        happeningService.Register(new RegisterHappeningRequest(new RegisterPostRequest(post, null, null, strImages), happening));
+        happeningService.Register(new RegisterHappeningRequest(post, strImages, happening));
     }
 
     public void ApplyHappening(long happeningId)

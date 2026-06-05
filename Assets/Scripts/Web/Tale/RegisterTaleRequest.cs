@@ -1,4 +1,6 @@
-﻿public class RegisterTaleRequest : RegisterPostRequest
+﻿using System;
+
+public class RegisterTaleRequest : RegisterPostRequest
 {
     public Tale Tale { get; set; }
 
@@ -11,13 +13,11 @@
         Tale = tale;
     }
 
-    public RegisterTaleRequest(RegisterPostRequest registerPostRequest)
+    public RegisterTaleRequest(Post post, String[] images, Tale tale)
     {
-        Post = registerPostRequest.Post;
-        Contact = registerPostRequest.Contact;
-        Links = registerPostRequest.Links;
-        Images = registerPostRequest.Images;
+        Post = post;
+        Images = images;
 
-        Tale = null;
+        Tale = tale;
     }
 }

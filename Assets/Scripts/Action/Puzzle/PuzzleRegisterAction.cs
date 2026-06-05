@@ -76,8 +76,7 @@ public class PuzzleRegisterAction : MonoBehaviour
         Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
         puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        puzzleService.Register(new RegisterPuzzleRequest(new RegisterPostRequest(post, null, null, null), 
-                                                         puzzle, puzzleAnswers));
+        puzzleService.Register(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
     }
 
     public void ApplyPuzzle(long puzzleId)

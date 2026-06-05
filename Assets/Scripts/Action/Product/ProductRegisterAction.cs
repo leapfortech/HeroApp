@@ -122,7 +122,7 @@ public class ProductRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        productService.Register(new RegisterProductRequest(new RegisterPostRequest(post, contact, links, strImages), product));
+        productService.Register(new RegisterProductRequest(post, contact, links, strImages, product));
     }
 
     public void ApplyProduct(long productId)
