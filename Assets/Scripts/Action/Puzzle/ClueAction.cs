@@ -43,6 +43,8 @@ public class ClueAction : MonoBehaviour
     UnityStringEvent OnStart = null;
     [SerializeField]
     UnityEvent OnRevealLetter = null;
+    [SerializeField]
+    UnityStringEvent OnAnswerSelected = null;
 
     [Title("Page")]
     [SerializeField]
@@ -116,7 +118,7 @@ public class ClueAction : MonoBehaviour
     {
         if (puzzleFull == null || puzzleFull.Id == 0 || puzzleFull.Id == -1)
         {
-            ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.");
+            ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit), null);
             return;
         }
 
@@ -224,12 +226,23 @@ public class ClueAction : MonoBehaviour
 
         int elapsedSeconds = Mathf.RoundToInt(Time.time - startTime);
 
-        ScreenDialog.Instance.Display();
-
         long answerId = -1;
 
         if (index >= 0 && index < currentAnswers.Count)
+        {
             answerId = currentAnswers[index].Id;
+
+            OnAnswerSelected.Invoke(currentAnswers[index].Description);
+        }
+
+        StartCoroutine(SaveResultCoroutine(answerId, elapsedSeconds));
+    }
+
+    private IEnumerator SaveResultCoroutine(long answerId, int elapsedSeconds)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        ScreenDialog.Instance.Display();
 
         puzzleService.SaveResult(new PuzzleResultRequest(StateManager.Instance.Player.Id, puzzleFull.Id, answerId, elapsedSeconds));
     }

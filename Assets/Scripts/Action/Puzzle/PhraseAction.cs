@@ -108,7 +108,7 @@ public class PhraseAction : MonoBehaviour
     {
         if (puzzleFull == null || puzzleFull.Id == 0 || puzzleFull.Id == -1)
         {
-            ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.");
+            ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit), null);
             return;
         }
 
