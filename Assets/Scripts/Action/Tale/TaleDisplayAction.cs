@@ -98,7 +98,7 @@ public class TaleDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{taleFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "-" : taleFull.Title;
 
         String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");

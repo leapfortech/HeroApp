@@ -117,7 +117,7 @@ public class HappeningDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{happeningFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(happeningFull.Title) ? "-" : happeningFull.Title;
         txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 

@@ -113,7 +113,7 @@ public class TreatmentDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{treatmentFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "-" : treatmentFull.Title;
         txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 

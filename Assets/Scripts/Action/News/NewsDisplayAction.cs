@@ -136,7 +136,7 @@ public class NewsDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{newsFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(newsFull.Title) ? "-" : newsFull.Title;
         txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 

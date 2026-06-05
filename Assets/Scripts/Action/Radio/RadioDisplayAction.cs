@@ -125,7 +125,7 @@ public class RadioDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{radioFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{radioFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(radioFull.Title) ? "-" : radioFull.Title;
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");

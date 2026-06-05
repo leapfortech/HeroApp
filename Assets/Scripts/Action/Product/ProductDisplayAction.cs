@@ -124,7 +124,7 @@ public class ProductDisplayAction : MonoBehaviour
             return;
 
         // Post
-        txtAlias.TextValue = $"Publicado por: <b>@{productFull.AppUserAlias}</b>";
+        txtAlias.TextValue = $"@{productFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(productFull.Title) ? "-" : productFull.Title;
         txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         

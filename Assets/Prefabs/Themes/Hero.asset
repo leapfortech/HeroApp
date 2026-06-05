@@ -678,7 +678,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'HM: Game: Slang: Bkg: Default'
         Reference: 0
-        Value: {r: 0.8862745, g: 0.09019608, b: 0.8509804, a: 0.19607843}
+        Value: {r: 0.26157278, g: 0, b: 0.8773585, a: 0.6666667}
         Property: 
     - rid: 749284857701466426
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -696,7 +696,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'HM: Game: Clue: Bkg: Default'
         Reference: 0
-        Value: {r: 0.14813091, g: 0.3903902, b: 0.82641506, a: 0.19607843}
+        Value: {r: 0.06505875, g: 0.16567832, b: 0.8113208, a: 0.79607844}
         Property: 
     - rid: 749284857701466428
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -714,7 +714,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'HM: Game: Phrase: Bkg: Default'
         Reference: 0
-        Value: {r: 0.115714, g: 0.6981132, b: 0.030295402, a: 0.19607843}
+        Value: {r: 0.3052111, g: 0.6603774, b: 0.252314, a: 0.89411765}
         Property: 
     - rid: 749284857701466430
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -877,7 +877,7 @@ MonoBehaviour:
         Name: 'HM: Title: Game'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'BlackScale: Default'
+        Property: 'WhiteScale: Default'
     - rid: 3833715606836216370
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -932,6 +932,33 @@ MonoBehaviour:
         Reference: 0
         Value: 60
         Property: 
+    - rid: 4182706191305540768
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Place: Details'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Mini'
+    - rid: 4182706191305540769
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Place: Details'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 4182706191305540770
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Place: Details'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Regular'
     - rid: 4368655488958857344
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -8648,6 +8675,7 @@ MonoBehaviour:
         - rid: 749284860381364748
         - rid: 749284903544685043
         - rid: 749284904652505088
+        - rid: 4182706191305540768
         DictFloats:
           keys:
           - Major
@@ -8743,6 +8771,7 @@ MonoBehaviour:
           - 'HM: Game: Answer'
           - 'HM: Phrase'
           - 'HM: Clue'
+          - 'HM: Place: Details'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -8837,6 +8866,7 @@ MonoBehaviour:
           - rid: 749284860381364748
           - rid: 749284903544685043
           - rid: 749284904652505088
+          - rid: 4182706191305540768
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -9079,6 +9109,7 @@ MonoBehaviour:
         - rid: 749284860381364749
         - rid: 749284903544685044
         - rid: 749284904652505089
+        - rid: 4182706191305540769
         DictColors:
           keys:
           - Major
@@ -9322,6 +9353,7 @@ MonoBehaviour:
           - 'HM: Game: Answer'
           - 'HM: Phrase'
           - 'HM: Clue'
+          - 'HM: Place: Details'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -9564,6 +9596,7 @@ MonoBehaviour:
           - rid: 749284860381364749
           - rid: 749284903544685044
           - rid: 749284904652505089
+          - rid: 4182706191305540769
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -9658,6 +9691,7 @@ MonoBehaviour:
         - rid: 749284860381364750
         - rid: 749284903544685045
         - rid: 749284904652505090
+        - rid: 4182706191305540770
         DictFonts:
           keys:
           - Major
@@ -9753,6 +9787,7 @@ MonoBehaviour:
           - 'HM: Game: Answer'
           - 'HM: Phrase'
           - 'HM: Clue'
+          - 'HM: Place: Details'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -9847,6 +9882,7 @@ MonoBehaviour:
           - rid: 749284860381364750
           - rid: 749284903544685045
           - rid: 749284904652505090
+          - rid: 4182706191305540770
         sprites: []
         DictSprites:
           keys: []
