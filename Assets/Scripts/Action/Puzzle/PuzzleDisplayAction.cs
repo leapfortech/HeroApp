@@ -28,8 +28,6 @@ public class PuzzleDisplayAction : MonoBehaviour
 
     PuzzleService puzzleService;
 
-    long postId = -1, puzzleId = -1;
-
     private void Awake()
     {
         puzzleService = GetComponent<PuzzleService>();
@@ -44,13 +42,9 @@ public class PuzzleDisplayAction : MonoBehaviour
 
     public void Display(long postId)
     {
-        this.postId = postId;
-
-        PuzzleFull puzzleFull = StateManager.Instance.GetPuzzleFullByPostId(postId);
-        if (puzzleFull != null)
+        if (StateManager.Instance.PuzzleFull?.PostId == postId)
         {
-            puzzleId = puzzleFull.Id;
-            Display(puzzleFull);
+            Display();
             return;
         }
 
@@ -60,13 +54,14 @@ public class PuzzleDisplayAction : MonoBehaviour
 
     public void ApplyFull(PuzzleFull puzzleFull)
     {
-        puzzleId = puzzleFull.Id;
-        StateManager.Instance.AddPuzzleFull(puzzleFull);
-        Display(puzzleFull);
+        StateManager.Instance.PuzzleFull = puzzleFull;
+
+        Display();
     }
 
-    private void Display(PuzzleFull puzzleFull)
-    {       
+    private void Display()
+    {
+        PuzzleFull puzzleFull = StateManager.Instance.PuzzleFull;
         if (puzzleFull == null)
             return;
 
@@ -74,6 +69,6 @@ public class PuzzleDisplayAction : MonoBehaviour
 
         PageManager.Instance.ChangePage(pagDetail);
 
-        onDisplayed.Invoke(new long[2] {puzzleFull.PostId, puzzleFull.Id});
+        onDisplayed.Invoke(new long[2] { puzzleFull.PostId, puzzleFull.Id});
     }
 }

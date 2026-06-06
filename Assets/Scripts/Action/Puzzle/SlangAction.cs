@@ -114,15 +114,6 @@ public class SlangAction : MonoBehaviour
 
         this.puzzleFull = puzzleFull;
 
-        StateManager.Instance.AddPuzzleFull(puzzleFull);
-        Display(puzzleFull);
-    }
-
-    private void Display(PuzzleFull puzzleFull)
-    {
-        if (puzzleFull == null)
-            return;
-
         txtPoints.TextValue = "Puntos: " + puzzleFull.Points.ToString();
         txtQuestion.TextValue = puzzleFull.Question;
 
@@ -210,8 +201,7 @@ public class SlangAction : MonoBehaviour
 
     public void ApplySaveResult(PuzzleResultResponse puzzleResultResponse)
     {
-        StateManager.Instance.UpdatePuzzleResultSummary(puzzleFull.PuzzleGameId, puzzleResultResponse.Points, puzzleResultResponse.NewMedals,
-                                                        puzzleResultResponse.NewCups);
+        StateManager.Instance.UpdatePuzzleResultSummary(puzzleFull.PuzzleGameId, puzzleResultResponse.Points, puzzleResultResponse.NewMedals, puzzleResultResponse.NewCups);
 
         if (puzzleResultResponse.Correct == 1)
         {

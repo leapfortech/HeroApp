@@ -20,4 +20,10 @@ public class RegisterTaleRequest : RegisterPostRequest
 
         Tale = tale;
     }
+
+    public RegisterTaleRequest(Post post, String[] images)
+    {
+        Post = post;
+        Images = images;
+    }
 }

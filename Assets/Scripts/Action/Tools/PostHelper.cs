@@ -414,6 +414,56 @@ public class PostHelper : MonoBehaviour
         newsImagesDic.Add(newsId, newsImages);
     }
 
+    // Puzzle
+    public List<PuzzleFull> PuzzleFulls { get; set; }
+    private Dictionary<long, PuzzleFull> DictPuzzleFulls { get; set; } = new Dictionary<long, PuzzleFull>();
+    private Dictionary<long, PuzzleFull> DictPuzzleFullsByPostId = new Dictionary<long, PuzzleFull>();
+
+    public void ClearPuzzle()
+    {
+        PuzzleFulls = null;
+        DictPuzzleFulls.Clear();
+        DictPuzzleFullsByPostId.Clear();
+    }
+
+    public PuzzleFull GetPuzzleFullById(long puzzleId)
+    {
+        if (!DictPuzzleFulls.TryGetValue(puzzleId, out PuzzleFull puzzleFull))
+            return null;
+        return puzzleFull;
+    }
+
+    public PuzzleFull GetPuzzleFullByPostId(long postId)
+    {
+        if (!DictPuzzleFullsByPostId.TryGetValue(postId, out PuzzleFull puzzleFull))
+            return null;
+
+        return puzzleFull;
+    }
+
+    public void AddPuzzleFull(PuzzleFull puzzleFull)
+    {
+        if (puzzleFull == null)
+            return;
+
+        if (PuzzleFulls == null)
+            PuzzleFulls = new List<PuzzleFull>();
+
+        DictPuzzleFulls[puzzleFull.Id] = puzzleFull;
+        DictPuzzleFullsByPostId[puzzleFull.PostId] = puzzleFull;
+
+        for (int i = 0; i < PuzzleFulls.Count; i++)
+        {
+            if (PuzzleFulls[i].Id == puzzleFull.Id)
+            {
+                PuzzleFulls[i] = puzzleFull;
+                return;
+            }
+        }
+
+        PuzzleFulls.Add(puzzleFull);
+    }
+
     // Clear
 
     public void ClearAll()
@@ -424,5 +474,6 @@ public class PostHelper : MonoBehaviour
         ClearProduct();
         ClearHappening();
         ClearNews();
+        ClearPuzzle();
     }
 }

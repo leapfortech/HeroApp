@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.Data.Collections;
 using Leap.UI.Elements;
 
-
 using Sirenix.OdinInspector;
-using Leap.Data.Collections;
 
 
 public class DisplayGameProfile : MonoBehaviour

@@ -124,15 +124,6 @@ public class ClueAction : MonoBehaviour
 
         this.puzzleFull = puzzleFull;
 
-        StateManager.Instance.AddPuzzleFull(puzzleFull);
-        Display(puzzleFull);
-    }
-
-    private void Display(PuzzleFull puzzleFull)
-    {
-        if (puzzleFull == null)
-            return;
-
         txtPoints.TextValue = "Puntos: " + puzzleFull.Points.ToString();
         txtQuestion.TextValue = puzzleFull.Question;
 
@@ -249,23 +240,19 @@ public class ClueAction : MonoBehaviour
 
     public void ApplySaveResult(PuzzleResultResponse puzzleResultResponse)
     {
-        StateManager.Instance.UpdatePuzzleResultSummary(puzzleFull.PuzzleGameId, puzzleResultResponse.Points, puzzleResultResponse.NewMedals,
-                                                        puzzleResultResponse.NewCups);
+        StateManager.Instance.UpdatePuzzleResultSummary(puzzleFull.PuzzleGameId, puzzleResultResponse.Points, puzzleResultResponse.NewMedals, puzzleResultResponse.NewCups);
 
         if (puzzleResultResponse.Correct == 1)
         {
             txtWinPoints.TextValue = puzzleResultResponse.Points.ToString() + " Puntos";
             PageManager.Instance.ChangePage(pagCorrect);
         }
-        else
+        else if (!exit)
         {
-            if (!exit)
-            {
-                txtCorrectAnswer.TextValue = puzzleResultResponse.CorrectAnswer;
-                PageManager.Instance.ChangePage(pagIncorrect);
-            }
-            else
-                PageManager.Instance.ChangePage(pagExit);
+            txtCorrectAnswer.TextValue = puzzleResultResponse.CorrectAnswer;
+            PageManager.Instance.ChangePage(pagIncorrect);
         }
+        else
+            PageManager.Instance.ChangePage(pagExit);
     }
 }
