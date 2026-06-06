@@ -88,7 +88,7 @@ public class TaleDetailAction : MonoBehaviour
     {
         // Post
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "-" : taleFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "Noticia" : taleFull.Title;
 
         String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
         String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");

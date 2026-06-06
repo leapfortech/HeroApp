@@ -127,7 +127,7 @@ public class NewsDetailAction : MonoBehaviour
 
         // Post
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(newsFull.Title) ? "-" : newsFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title;
         txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)

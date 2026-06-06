@@ -103,7 +103,7 @@ public class TreatmentDetailAction : MonoBehaviour
     {
         // Post
         txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "-" : treatmentFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title;
         txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)

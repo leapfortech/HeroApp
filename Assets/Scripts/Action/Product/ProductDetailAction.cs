@@ -114,7 +114,7 @@ public class ProductDetailAction : MonoBehaviour
     {
         // Post
         txtAlias.TextValue = $"@{productFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(productFull.Title) ? "-" : productFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title;
         txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         
         if (txtSummary != null)

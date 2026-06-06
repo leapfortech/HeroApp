@@ -107,7 +107,7 @@ public class HappeningDetailAction : MonoBehaviour
     {
         // Post
         txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(happeningFull.Title) ? "-" : happeningFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title;
         txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)

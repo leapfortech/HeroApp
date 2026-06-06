@@ -116,7 +116,7 @@ public class RadioDetailAction : MonoBehaviour
 
         // Post
         txtAlias.TextValue = $"@{radioFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(radioFull.Title) ? "-" : radioFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title;
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");
         String state = radioFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(radioFull.PostStateId, "Name");
