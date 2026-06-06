@@ -105,7 +105,7 @@ public class FeedAction : MonoBehaviour
             Status = feedState.Status
         };
 
-        Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
+        //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
 
         postService.GetPostFeed(request);
     }

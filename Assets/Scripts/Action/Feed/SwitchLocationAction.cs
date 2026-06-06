@@ -8,43 +8,46 @@ using Sirenix.OdinInspector;
 
 public class SwitchLocationAction : MonoBehaviour
 {
-    [Space, Title("Details")]
+    [Title("Switch")]
+    [SerializeField]
+    private Button btnSwitch = null;
+    [SerializeField]
+    private RectTransform rectIcon = null;
+
+    [Title("Location")]
     [SerializeField]
     public Text txtCountry = null;
     [SerializeField]
     public Text txtState = null;
 
-    [Space, Title("Values")]
+    [Title("Values")]
     [SerializeField]
     public ValueList vllCountry = null;
     [SerializeField]
     public ValueList vllState = null;
 
-    [Space, Title("Event")]
+    [Title("Event")]
     [SerializeField]
     private UnityIntEvent onLocationChanged = null;
-
-    [Title("Action")]
-    [SerializeField]
-    private RectTransform switchTarget = null;
-    [SerializeField]
-    private float xCurrent = 0f;
-    [SerializeField]
-    private float xInterest = 60f;
-    [SerializeField]
-    private Button btnSwitch = null;
 
     private Locality interestLocality = null;
     private Locality currentLocality = null;
 
     private bool showingInterest = true;
 
+    private RectTransform rectButton = null;
+    private float xButton, xIcon;
+    private Vector2 posButton, posIcon;
+
     private void Start()
     {
+        rectButton = btnSwitch.GetComponent<RectTransform>();
         btnSwitch?.AddAction(Switch);
 
-        if (switchTarget == null && btnSwitch != null)
-            switchTarget = btnSwitch.GetComponent<RectTransform>();
+        posButton = rectButton.anchoredPosition;
+        xButton = posButton.x;
+        posIcon = rectIcon.anchoredPosition;
+        xIcon = posIcon.x;
     }
 
 
@@ -81,12 +84,14 @@ public class SwitchLocationAction : MonoBehaviour
 
     private void MoveSwitch(bool interest)
     {
-        if (switchTarget == null)
+        if (rectButton == null)
             return;
 
-        Vector2 pos = switchTarget.anchoredPosition;
-        pos.x = interest ? xInterest : xCurrent;
-        switchTarget.anchoredPosition = pos;
+        posButton.x = interest ? -xButton : xButton;
+        rectButton.anchoredPosition = posButton;
+
+        posIcon.x = interest ? -xIcon : xIcon;
+        rectIcon.anchoredPosition = posIcon;
     }
 
     private void Display(long countryId, long stateId)
