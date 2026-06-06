@@ -1,6 +1,5 @@
-
 using System;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Leap/App/Feed State")]

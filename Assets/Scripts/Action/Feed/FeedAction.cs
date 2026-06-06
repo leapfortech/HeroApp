@@ -69,6 +69,8 @@ public class FeedAction : MonoBehaviour
 
         UpdateOverlay(0);
 
+        txtEmpty.SetActive(false);
+
         GetPosts(0, new FeedUserData(-1, DateTime.Now), 2);
     }
 
@@ -114,6 +116,8 @@ public class FeedAction : MonoBehaviour
             for (int i = 0; i < valueDates.Length; i++)
                 valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
+        txtEmpty.SetActive(response.Total == 0);
+
         if (response.PostFulls.Count == 0)
         {
             if (txtDebug != null)
@@ -157,7 +161,6 @@ public class FeedAction : MonoBehaviour
             txtDebug.TextValue = String.Join('\n', valueDates);
         loopFeed.RefreshVisibleValues();
 
-        txtEmpty.SetActive(response.Total == 0);
         ScreenDialog.Instance.Hide();
     }
 
