@@ -959,6 +959,96 @@ MonoBehaviour:
         Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Regular'
+    - rid: 4182706209445642564
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: B: Switch'
+        Reference: 1
+        Value: 0
+        Property: Zero
+    - rid: 4182706209445642565
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: C: Switch'
+        Reference: 0
+        Value: 64
+        Property: 
+    - rid: 4182706209445642566
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: W: Switch'
+        Reference: 0
+        Value: 592
+        Property: 
+    - rid: 4182706209445642567
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: H: Switch'
+        Reference: 0
+        Value: 128
+        Property: 
+    - rid: 4182706209445642568
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Switch: Bkg: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 4182706209445642569
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Switch: Bkg: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: B'
+    - rid: 4182706209445642570
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Swithc: Border: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: Transparent
+    - rid: 4182706209445642571
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Switch: Border: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: Transparent
+    - rid: 4182706209445642572
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Swithc: Bkg: Disabled'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'GreyScale: C'
+    - rid: 4182706209445642573
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Swithc: Border: Disabled'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: Transparent
     - rid: 4368655488958857344
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -4431,6 +4521,10 @@ MonoBehaviour:
         - rid: 3833715606836216373
         - rid: 3833715606836216374
         - rid: 3833715606836216375
+        - rid: 4182706209445642564
+        - rid: 4182706209445642565
+        - rid: 4182706209445642566
+        - rid: 4182706209445642567
         DictFloats:
           keys:
           - 'W: FullScreen'
@@ -5145,6 +5239,10 @@ MonoBehaviour:
           - 'HM: O: Game: Icon: Place'
           - 'HM: I: Game: Size'
           - 'HM: M: Game: Spacing'
+          - 'HM: B: Switch'
+          - 'HM: C: Switch'
+          - 'HM: W: Switch'
+          - 'HM: H: Switch'
           values:
           - rid: 7896456371487375989
           - rid: 7896456371487375990
@@ -5858,6 +5956,10 @@ MonoBehaviour:
           - rid: 3833715606836216373
           - rid: 3833715606836216374
           - rid: 3833715606836216375
+          - rid: 4182706209445642564
+          - rid: 4182706209445642565
+          - rid: 4182706209445642566
+          - rid: 4182706209445642567
         colors:
         - rid: 7896456371522240836
         - rid: 7896456371522240837
@@ -6477,6 +6579,12 @@ MonoBehaviour:
         - rid: 3833715606836216369
         - rid: 3833715606836216371
         - rid: 3833715606836216372
+        - rid: 4182706209445642568
+        - rid: 4182706209445642569
+        - rid: 4182706209445642570
+        - rid: 4182706209445642571
+        - rid: 4182706209445642572
+        - rid: 4182706209445642573
         DictColors:
           keys:
           - 'BioLogin: Apple: Bkg : Default'
@@ -7097,6 +7205,12 @@ MonoBehaviour:
           - 'HM: Title: Game'
           - 'HM: Title: Game: Pressed'
           - 'HM: Title: Game: Disabled'
+          - 'HM: Switch: Bkg: Default'
+          - 'HM: Switch: Bkg: Pressed'
+          - 'HM: Swithc: Border: Default'
+          - 'HM: Switch: Border: Pressed'
+          - 'HM: Swithc: Bkg: Disabled'
+          - 'HM: Swithc: Border: Disabled'
           values:
           - rid: 7896456371522240836
           - rid: 7896456371522240837
@@ -7716,6 +7830,12 @@ MonoBehaviour:
           - rid: 3833715606836216369
           - rid: 3833715606836216371
           - rid: 3833715606836216372
+          - rid: 4182706209445642568
+          - rid: 4182706209445642569
+          - rid: 4182706209445642570
+          - rid: 4182706209445642571
+          - rid: 4182706209445642572
+          - rid: 4182706209445642573
         fonts:
         - rid: 7896456371522241478
         - rid: 7896456371522241479
