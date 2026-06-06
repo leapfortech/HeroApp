@@ -31,6 +31,18 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
 
+    [Space, Title("Images")]
+    [SerializeField]
+    GameObject goEmptyImages = null;
+    [SerializeField]
+    GameObject goImages = null;
+
+    [Space, Title("Comments")]
+    [SerializeField]
+    GameObject goEmptyComments = null;
+    //[SerializeField]
+    //GameObject goComments = null;
+
     [Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -89,13 +101,18 @@ public class TaleDetailAction : MonoBehaviour
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
 
-
         // Images
+        goEmptyImages.SetActive(taleFull.Images.Length == 0);
+        goImages.SetActive(taleFull.Images.Length != 0);
+
         List<Sprite> images = new List<Sprite>();
         for (int i = 0; i < taleFull.Images.Length; i++)
             images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
+
+        // Comments
+        goEmptyComments.SetActive(true);
 
         RefreshContents();
 
