@@ -48,6 +48,18 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     Text txtLocation = null;
 
+    [Space, Title("Images")]
+    [SerializeField]
+    GameObject goEmptyImages = null;
+    [SerializeField]
+    GameObject goImages = null;
+
+    [Space, Title("Comments")]
+    [SerializeField]
+    GameObject goEmptyComments = null;
+    //[SerializeField]
+    //GameObject goComments = null;
+
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -119,11 +131,17 @@ public class HappeningDetailAction : MonoBehaviour
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
 
         // Images
+        goEmptyImages.SetActive(happeningFull.Images.Length == 0);
+        goImages.SetActive(happeningFull.Images.Length != 0);
+
         List<Sprite> images = new List<Sprite>();
         for (int i = 0; i < happeningFull.Images.Length; i++)
             images.Add(happeningFull.Images[i].CreateSprite($"HappeningImage_{i}"));
         onImagesDisplay.Invoke(images);
-        onDisplayed.Invoke(new long[2] { happeningFull.PostId, happeningFull.Id });
+        onDisplayed.Invoke(new long[2] {happeningFull.PostId, happeningFull.Id});
+
+        // Comments
+        goEmptyComments.SetActive(true);
 
         RefreshContents();
 

@@ -51,6 +51,18 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtEmail = null;
 
+    [Space, Title("Images")]
+    [SerializeField]
+    GameObject goEmptyImages = null;
+    [SerializeField]
+    GameObject goImages = null;
+
+    [Space, Title("Comments")]
+    [SerializeField]
+    GameObject goEmptyComments = null;
+    //[SerializeField]
+    //GameObject goComments = null;
+
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -154,11 +166,17 @@ public class ProductDetailAction : MonoBehaviour
         }
 
         // Images
+        goEmptyImages.SetActive(productFull.Images.Length == 0);
+        goImages.SetActive(productFull.Images.Length != 0);
+
         List<Sprite> images = new List<Sprite>();
         for (int i = 0; i < productFull.Images.Length; i++)
             images.Add(productFull.Images[i].CreateSprite($"ProductImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
+
+        // Comments
+        goEmptyComments.SetActive(true);
 
         RefreshContents();
 
