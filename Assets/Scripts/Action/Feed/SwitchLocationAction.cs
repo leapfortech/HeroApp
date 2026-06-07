@@ -19,6 +19,8 @@ public class SwitchLocationAction : MonoBehaviour
     public Text txtCountry = null;
     [SerializeField]
     public Text txtState = null;
+    [SerializeField]
+    public Image imgCountryFlag = null;
 
     [Title("Values")]
     [SerializeField]
@@ -97,7 +99,10 @@ public class SwitchLocationAction : MonoBehaviour
     private void Display(long countryId, long stateId)
     {
         if (txtCountry != null)
+        {
             txtCountry.TextValue = vllCountry.FindRecordCellString(countryId, "Name");
+            imgCountryFlag.Sprite = vllCountry.FindRecordCellSprite(countryId, "Flag");
+        }
 
         if (txtState != null)
             txtState.TextValue = vllState.FindRecordCellString(stateId, "Name");
