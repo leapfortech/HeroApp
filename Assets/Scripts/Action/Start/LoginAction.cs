@@ -305,10 +305,30 @@ public class LoginAction : MonoBehaviour
     private void Register()
     {
         // RM REVIEW
-        if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
-            return;
+        //if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
+        //    return;
 
-        onRegister.Invoke(new String[] { ifdEmail.Text, ifdPassword.Text });
+        String email = null;
+
+        if (tggMethod.Value == "P")
+        {
+            if (!ElementHelper.Validate(cmbPhonePrefix.Combo) || !ElementHelper.Validate(ifdPhone) || !ElementHelper.Validate(ifdPassword))
+                return;
+
+            email = "hm." + cmbPhonePrefix.GetSelectedRecord().Id.ToString() + "."
+                    + ifdPhone.Text.Replace("-", "")
+                    + "@heroesmigrantes.com";
+        }
+        else
+        {
+            if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
+                return;
+
+            email = ifdEmail.Text;
+        }
+
+        onRegister.Invoke(new String[] { email, ifdPassword.Text });
+        //onRegister.Invoke(new String[] { ifdEmail.Text, ifdPassword.Text });
     }
 
     // Login

@@ -185,6 +185,7 @@ public class BiometricsAction : MonoBehaviour
 
     public void Authenticate()
     {
+        //DebugManager.Instance.DebugInfo("Biometrics : Start Authenticate");
 #if UNITY_EDITOR
 
 #elif UNITY_ANDROID
