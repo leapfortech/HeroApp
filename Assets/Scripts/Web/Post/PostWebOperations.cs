@@ -45,6 +45,22 @@ public class PostFeedOperation : HttpOperation
     public PostFeedResponse postFeedResponse;
 }
 
+// POST
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/CommentFeed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class CommentFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public CommentFeedRequest commentFeedRequest;
+
+    [HttpResponseJsonBody]
+    public CommentFeedResponse commentFeedResponse;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/RegisterShare")]

@@ -14,8 +14,14 @@ public class PostService : MonoBehaviour
     [Serializable]
     public class PostFeedResponseEvent : UnityEvent<PostFeedResponse> { }
 
+    [Serializable]
+    public class CommentFeedResponseEvent : UnityEvent<CommentFeedResponse> { }
+
     [SerializeField]
     private PostFeedResponseEvent onFeedRetreived = null;
+
+    [SerializeField]
+    private CommentFeedResponseEvent onCommentFeedRetreived = null;
 
     [SerializeField]
     private UnityStringsEvent onImagesRetreived = null;
@@ -75,6 +81,27 @@ public class PostService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             postFeedOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void GetCommentFeed(CommentFeedRequest commentFeedRequest)
+    {
+        CommentFeedOperation commentFeedOp = new CommentFeedOperation();
+        try
+        {
+            commentFeedOp.commentFeedRequest = commentFeedRequest;
+            commentFeedOp["on-complete"] = (Action<CommentFeedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onCommentFeedRetreived.Invoke(op.commentFeedResponse);
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            commentFeedOp.Send();
         }
         catch (Exception ex)
         {
