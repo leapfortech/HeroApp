@@ -15,8 +15,10 @@ using Leap.UI.Dialog;
 using Leap.Data.Collections;
 using Leap.Data.Web;
 using Leap.UI.Extensions;
+//using Leap.Core.Debug;
 
 using Sirenix.OdinInspector;
+using System.Text.RegularExpressions;
 
 public class LoginAction : MonoBehaviour
 {
@@ -176,8 +178,8 @@ public class LoginAction : MonoBehaviour
     private void Start()
     {
         // RM REVIEW
-        if (!PlayerPrefs.HasKey("Email"))
-            PlayerPrefs.SetString("Email", "");
+        //if (!PlayerPrefs.HasKey("Email"))
+        //    PlayerPrefs.SetString("Email", "");
 
         btnLogin?.AddAction(DoLogin);
 
@@ -203,6 +205,10 @@ public class LoginAction : MonoBehaviour
         String email = PlayerPrefs.GetString("Email", "");
         int phoneCountryId = PlayerPrefs.GetInt("PhoneCountryId", -1);
         String phone = PlayerPrefs.GetString("Phone", "");
+
+        //DebugManager.Instance.DebugInfo("Email: " + email);
+        //DebugManager.Instance.DebugInfo("PhoneCountryId: " + phoneCountryId.ToString());
+        //DebugManager.Instance.DebugInfo("phone: " + phone);
 
         if (!String.IsNullOrWhiteSpace(email))
         {
@@ -304,10 +310,6 @@ public class LoginAction : MonoBehaviour
 
     private void Register()
     {
-        // RM REVIEW
-        //if (!ElementHelper.Validate(ifdEmail) && !ElementHelper.Validate(ifdPassword))
-        //    return;
-
         String email = null;
 
         if (tggMethod.Value == "P")
@@ -328,7 +330,6 @@ public class LoginAction : MonoBehaviour
         }
 
         onRegister.Invoke(new String[] { email, ifdPassword.Text });
-        //onRegister.Invoke(new String[] { ifdEmail.Text, ifdPassword.Text });
     }
 
     // Login
@@ -388,13 +389,25 @@ public class LoginAction : MonoBehaviour
 
     private void OnLoginDone(String eMail)
     {
+        //DebugManager.Instance.DebugInfo("OnLoginDone email = " + (eMail ?? "NULL"));
+
         if (chkRemember.Checked)
         {
-            if (tggMethod.Value == "P")
+            bool isPhoneLogin = eMail.StartsWith("hm.") && eMail.EndsWith("@heroesmigrantes.com");
+
+            if (isPhoneLogin)
             {
-                PlayerPrefs.SetInt("PhoneCountryId", (int)cmbPhonePrefix.GetSelectedRecord().Id);
-                PlayerPrefs.SetString("Phone", ifdPhone.Text);
-                PlayerPrefs.DeleteKey("Email");
+                Match match = Regex.Match(eMail, @"^hm\.(\d+)\.(\d+)@heroesmigrantes\.com$", RegexOptions.IgnoreCase);
+
+                if (match.Success)
+                {
+                    int phoneCountryId = Convert.ToInt32(match.Groups[1].Value);
+                    String phone = match.Groups[2].Value;
+
+                    PlayerPrefs.SetInt("PhoneCountryId", phoneCountryId);
+                    PlayerPrefs.SetString("Phone", phone);
+                    PlayerPrefs.DeleteKey("Email");
+                }
             }
             else
             {
