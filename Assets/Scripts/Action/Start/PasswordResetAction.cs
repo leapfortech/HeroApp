@@ -206,11 +206,15 @@ public class PasswordResetAction : MonoBehaviour
             NativeAuthManager.Instance.Unregister();
 #endif
         if (tggMethod.Value == "P")
+        {
+            String phonePrefix = cmbPhoneCountry.GetSelectedCellString("PhonePrefixName").Split(' ')[0];
+
             txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
-                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
-                               + " "
-                               + ifdPhoneNumber.Text
-                               + "</b>";
+                                   + phonePrefix
+                                   + " "
+                                   + ifdPhoneNumber.Text
+                                   + "</b>";
+        }
         else
             txtResult.TextValue = "Ingresa el código que recibiste al correo <b>" + ifdEmail.Text + "</b>";
 
