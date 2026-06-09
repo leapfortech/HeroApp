@@ -125,8 +125,10 @@ public class PhoneUpdateAction : MonoBehaviour
 
     public void ApplyResetAccount()
     {
+        String phonePrefix = cmbPhoneCountry.GetSelectedCellString("PhonePrefixName").Split(' ')[0];
+
         txtResult.TextValue = "Ingresa el código que recibiste al número de celular <b> "
-                               + cmbPhoneCountry.GetSelectedCellString("PhonePrefix")
+                               + phonePrefix
                                + " "
                                + ifdPhoneNumber.Text
                                + "</b>";
