@@ -136,7 +136,7 @@ MonoBehaviour:
       data:
         themeElement:
           rid: 7896456371487375715
-        Name: Post
+        Name: PostRegister
         Reference: 0
         Value: {fileID: -1299303885, guid: dc75f0a3eb3a6ff4a929a04a40ffd74a, type: 3}
         Property: 
@@ -1065,7 +1065,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: W: Tab'
         Reference: 0
-        Value: 324
+        Value: 150
         Property: 
     - rid: 4182706217894281494
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -1128,7 +1128,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: I: Tab'
         Reference: 0
-        Value: 60
+        Value: 80
         Property: 150
     - rid: 4182706217894281501
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -1597,6 +1597,24 @@ MonoBehaviour:
         Name: FeedReactionOn
         Reference: 0
         Value: {fileID: 1915305097, guid: 3b7c6c9b29aee954cb553d2de57b5e0f, type: 3}
+        Property: 
+    - rid: 5164850546837029385
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: PostUpdate
+        Reference: 0
+        Value: {fileID: 763670326, guid: 43339ed8c87496a4cabc4389d1a077c1, type: 3}
+        Property: 
+    - rid: 5164850610607752134
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: FeedPlaintOff
+        Reference: 0
+        Value: {fileID: 0}
         Property: 
     - rid: 6444589537777942730
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -8229,6 +8247,7 @@ MonoBehaviour:
         - rid: 6444589556229996741
         - rid: 6444589556229996742
         - rid: 749284301064373234
+        - rid: 5164850546837029385
         DictSprites:
           keys:
           - 'Page: Header: Back'
@@ -8243,7 +8262,8 @@ MonoBehaviour:
           - 'Page: Close'
           - BioApple
           - BioAndroid
-          - Post
+          - PostRegister
+          - PostUpdate
           values:
           - rid: 7896456371522241527
           - rid: 7896456371522241528
@@ -8258,6 +8278,7 @@ MonoBehaviour:
           - rid: 6444589556229996741
           - rid: 6444589556229996742
           - rid: 749284301064373234
+          - rid: 5164850546837029385
     - rid: 7896456371487375716
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -13291,6 +13312,7 @@ MonoBehaviour:
         - rid: 4368655948687343834
         - rid: 5164850541716570634
         - rid: 5164850541716570635
+        - rid: 5164850610607752134
         DictSprites:
           keys:
           - FeedLikeOff
@@ -13301,6 +13323,7 @@ MonoBehaviour:
           - FeedDislikeOn
           - FeedReactionOff
           - FeedReactionOn
+          - FeedPlaintOff
           values:
           - rid: 7896456371522243117
           - rid: 4368655948687343830
@@ -13310,6 +13333,7 @@ MonoBehaviour:
           - rid: 4368655948687343834
           - rid: 5164850541716570634
           - rid: 5164850541716570635
+          - rid: 5164850610607752134
     - rid: 7896456371487375721
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
