@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Dialog;

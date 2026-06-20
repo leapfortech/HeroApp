@@ -9,7 +9,6 @@ using Leap.Core.Debug;
 using Leap.Core.Security;
 using Leap.Data.Collections;
 using Leap.Data.Web;
-using Leap.Finance.Payment;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 
