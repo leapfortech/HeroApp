@@ -38,7 +38,7 @@ public class ReferredAction : MonoBehaviour
     {
         String referringMessage = AppManager.Instance.GetParamValue("ReferringMessage");
 
-        referringMessage = referringMessage.Replace("ReferringCode", StateManager.Instance.AppUser.ReferringCode);
+        referringMessage = referringMessage.Replace("{REFERRING_CODE}", StateManager.Instance.AppUser.ReferringCode);
 
         String url = "https://wa.me/?text=" + UnityWebRequest.EscapeURL(referringMessage);
 
