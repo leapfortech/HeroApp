@@ -18,18 +18,16 @@ public class RadioFull : PostFull
     public RadioFull(long id, long postId, long appUserId, String appUserAlias,
                      long postSubtypeId, long postCountryId, long postStateId,
                      String title, String titleImage, String summary, String description,
-                     int imageCount, int favorite, int like, int likeCount,
+                     int imageCount, int favorite, int like, int likeCount, long reactionPhraseId,
                      DateTime publicationDateTime, int postStatus,
-                     ContactFull contactFull,
-                     List<LinkFull> linkFulls,
-                     List<CommentFull> commentFulls,
+                     ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
                      int status,
                      List<RadioTypeFull> radioTypeFulls,
                      List<RadioLanguageFull> radioLanguageFulls,
                      String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
-                imageCount, favorite, like, likeCount, publicationDateTime, postStatus,
+                imageCount, favorite, like, likeCount, reactionPhraseId, publicationDateTime, postStatus,
                 contactFull, linkFulls, commentFulls)
     {
         Id = id;

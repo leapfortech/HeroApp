@@ -5,6 +5,7 @@ using UnityEngine;
 using Leap.Core.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
+using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -25,6 +26,10 @@ public class FeedAction : MonoBehaviour
     LoopScroller loopFeed = null;
     [SerializeField]
     GameObject txtEmpty;
+
+    [Title("Reaction")]
+    [SerializeField]
+    ComboAdapter cmbReaction = null;
 
     [Title("Debug")]
     [SerializeField]
@@ -182,6 +187,7 @@ public class FeedAction : MonoBehaviour
         loopValue.SetCheck(0, postFull.Favorite != 0);
         loopValue.SetCheck(1, postFull.Like == 5);
         loopValue.SetCheck(2, postFull.Like == 1);
+        loopValue.SetCheck(3, postFull.ReactionPhraseId != -1);
     }
 
     public void SelectValue(int idx)
@@ -244,30 +250,33 @@ public class FeedAction : MonoBehaviour
         }
     }
 
+    int reactionIdx = -1;
+
     public void ApplyReaction(int dataIndex, bool check)
     {
         //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
-        int k = dataIndex % loopFeed.ValuesCount;
-        loopFeed[k].SetCheck(3, check);
+        reactionIdx = dataIndex % loopFeed.ValuesCount;
+        loopFeed[reactionIdx].SetCheck(3, check);
 
         if (!check)
         {
-            postService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id));
+            postService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[reactionIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
+            reactionIdx = -1;
             return;
         }
 
         // Dialog
+        cmbReaction.Combo.Click();
     }
 
-    public void ApplyReaction(int dataIndex, long reactionTypeId)
+    public void RegisterReaction()
     {
-        //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
+        long reactionPhraseId = cmbReaction.GetSelectedId();
 
-        int k = dataIndex % loopFeed.ValuesCount;
-
-        Reaction reaction = new Reaction(reactionTypeId, ((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
+        Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[reactionIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
         postService.RegisterReaction(reaction);
+        reactionIdx = -1;
     }
 
     //public void ApplyLikeChanged(long likeId)

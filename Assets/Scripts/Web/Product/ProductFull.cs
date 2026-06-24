@@ -26,11 +26,9 @@ public class ProductFull : PostFull
                        long postSubtypeId,
                        long postCountryId, long postStateId,
                        String title, String titleImage, String summary, String description,
-                       int imageCount, int favorite, int like, int likeCount,
+                       int imageCount, int favorite, int like, int likeCount, long reactionPhraseId,
                        DateTime publicationDateTime, int postStatus,
-                       ContactFull contactFull,
-                       List<LinkFull> linkFulls,
-                       List<CommentFull> commentFulls,
+                       ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
                        long productSubtypeId, long saleCountryId, long saleStateId,
                        long currencyId, double price, double discountPrice,
                        long deliveryTypeId, String annotation,
@@ -39,7 +37,7 @@ public class ProductFull : PostFull
                        String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                 postCountryId, postStateId, title, titleImage, summary, description,
-                imageCount, favorite, like, likeCount, publicationDateTime, postStatus,
+                imageCount, favorite, like, likeCount, reactionPhraseId, publicationDateTime, postStatus,
                 contactFull, linkFulls, commentFulls)
     {
         Id = id;
