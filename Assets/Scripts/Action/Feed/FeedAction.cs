@@ -249,13 +249,25 @@ public class FeedAction : MonoBehaviour
         //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
         int k = dataIndex % loopFeed.ValuesCount;
-        loopFeed[k].SetCheck(0, check);
+        loopFeed[k].SetCheck(3, check);
 
-        Favorite favorite = new Favorite(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
-        if (check)
-            postService.RegisterFavorite(favorite);
-        else
-            postService.DeleteFavorite(favorite);
+        if (!check)
+        {
+            postService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id));
+            return;
+        }
+
+        // Dialog
+    }
+
+    public void ApplyReaction(int dataIndex, long reactionTypeId)
+    {
+        //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
+
+        int k = dataIndex % loopFeed.ValuesCount;
+
+        Reaction reaction = new Reaction(reactionTypeId, ((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
+        postService.RegisterReaction(reaction);
     }
 
     //public void ApplyLikeChanged(long likeId)

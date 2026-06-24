@@ -25,6 +25,6 @@ public class Reaction
         ReactionTypeId = reactionTypeId;
         PostId = postId;
         AppUserId = appUserId;
-        Status = -1;
+        Status = 1;
     }
 }

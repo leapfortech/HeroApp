@@ -35,6 +35,9 @@ public class PostService : MonoBehaviour
     [SerializeField]
     private UnityLongEvent onLikeChanged = null;
 
+    [SerializeField]
+    private UnityBoolEvent onReactionChanged = null;
+
     //[SerializeField]
     //private UnityBoolEvent onDeleted = null;
 
@@ -250,6 +253,27 @@ public class PostService : MonoBehaviour
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
             reactionRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteReaction(Reaction reaction)
+    {
+        ReactionDeleteOperation reactionDeleteOp = new ReactionDeleteOperation();
+        try
+        {
+            reactionDeleteOp.reaction = reaction;
+            reactionDeleteOp["on-complete"] = (Action<ReactionDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+            });
+            reactionDeleteOp.Send();
         }
         catch (Exception ex)
         {

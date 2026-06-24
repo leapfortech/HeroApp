@@ -167,6 +167,21 @@ public class ReactionRegisterOperation : HttpOperation
     public String reactionId;
 }
 
+[HttpDELETE]
+[HttpPathExt(WebServiceType.Main, "/post/DeleteReaction")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class ReactionDeleteOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Reaction reaction;
+
+    [HttpResponseTextBody]
+    public String done;
+}
+
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/RegisterComment")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
