@@ -37,12 +37,6 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -124,9 +118,6 @@ public class TaleDetailAction : MonoBehaviour
             images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, taleFull.Favorite != 0);

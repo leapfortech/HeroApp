@@ -57,12 +57,6 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -188,9 +182,6 @@ public class ProductDetailAction : MonoBehaviour
             images.Add(productFull.Images[i].CreateSprite($"ProductImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, productFull.Favorite != 0);

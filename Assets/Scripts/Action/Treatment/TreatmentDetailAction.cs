@@ -45,12 +45,6 @@ public class TreatmentDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -155,9 +149,6 @@ public class TreatmentDetailAction : MonoBehaviour
             images.Add(treatmentFull.Images[i].CreateSprite($"TreatmentImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, treatmentFull.Favorite != 0);

@@ -44,12 +44,6 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -163,9 +157,6 @@ public class NewsDetailAction : MonoBehaviour
             images.Add(newsFull.Images[i].CreateSprite($"NewsImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {newsFull.PostId, newsFull.Id});
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, newsFull.Favorite != 0);

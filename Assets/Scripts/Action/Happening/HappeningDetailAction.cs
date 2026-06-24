@@ -54,12 +54,6 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -153,9 +147,6 @@ public class HappeningDetailAction : MonoBehaviour
             images.Add(happeningFull.Images[i].CreateSprite($"HappeningImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {happeningFull.PostId, happeningFull.Id});
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, happeningFull.Favorite != 0);

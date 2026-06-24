@@ -37,12 +37,6 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Comments")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-    //[SerializeField]
-    //GameObject goComments = null;
-
     [Space, Title("Contents")]
     [SerializeField]
     int charsPerLine = 40;
@@ -168,9 +162,6 @@ public class RadioDetailAction : MonoBehaviour
             images.Add(radioFull.Images[i].CreateSprite($"RadioImage_{i}"));
         onImagesDisplay.Invoke(images);
         onDisplayed.Invoke(new long[2] {radioFull.PostId, radioFull.Id});
-
-        // Comments
-        goEmptyComments.SetActive(true);
 
         // Actions
         SetToggle(tglFavorite, radioFull.Favorite != 0);
