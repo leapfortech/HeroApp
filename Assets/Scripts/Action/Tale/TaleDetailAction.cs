@@ -61,9 +61,13 @@ public class TaleDetailAction : MonoBehaviour
     //[SerializeField]
     //ValueList vllCity = null;
 
-    [Title("Page")]
+    [Space, Title("Actions")]
     [SerializeField]
-    Page pagDetail;
+    Toggle tglFavorite = null;
+    [SerializeField]
+    Toggle tglLike = null;
+    [SerializeField]
+    Toggle tglDislike = null;
 
     [Title("Event")]
     [SerializeField]
@@ -71,11 +75,19 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     UnityLongsEvent onDisplayed = null;
 
+    [Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
     TaleService taleService;
+    PostService postService;
+
+    long postId = -1;
 
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
+        postService = GetComponent<PostService>();
     }
 
     public void Display(long postId)
@@ -86,9 +98,11 @@ public class TaleDetailAction : MonoBehaviour
 
     public void ApplyFull(TaleFull taleFull)
     {
+        postId = taleFull.PostId;
+        
         // Post
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "Noticia" : taleFull.Title;
+        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title;
 
         String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
         String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");
@@ -114,9 +128,58 @@ public class TaleDetailAction : MonoBehaviour
         // Comments
         goEmptyComments.SetActive(true);
 
+        // Actions
+        SetToggle(tglFavorite, taleFull.Favorite != 0);
+        SetToggle(tglLike, taleFull.Like == 5);
+        SetToggle(tglDislike, taleFull.Like == 1);
+
         RefreshContents();
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyFavorite(bool check)
+    {
+        Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
+        if (check)
+            postService.RegisterFavorite(favorite);
+        else
+            postService.DeleteFavorite(favorite);
+    }
+
+    public void ApplyLike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
+        if (check)
+        {
+            tglDislike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+            postService.DeleteLike(like);
+    }
+
+    public void ApplyDislike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
+        if (check)
+        {
+            tglLike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+        {
+            like.Rank = -1;
+            postService.DeleteLike(like);
+        }
+    }
+
+    private void SetToggle(Toggle toggle, bool value)
+    {
+        if (value)
+            toggle.Check();
+        else
+            toggle.Uncheck();
     }
 
     private void RefreshContents()

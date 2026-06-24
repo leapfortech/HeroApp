@@ -75,6 +75,14 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ValueList vllRadioLanguage = null;
 
+    [Space, Title("Actions")]
+    [SerializeField]
+    Toggle tglFavorite = null;
+    [SerializeField]
+    Toggle tglLike = null;
+    [SerializeField]
+    Toggle tglDislike = null;
+
     [Space, Title("Event")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
@@ -86,12 +94,15 @@ public class RadioDetailAction : MonoBehaviour
     Page pagDetail;
 
     RadioService radioService;
+    PostService postService;
 
+    long postId = -1;
     String url = null;
 
     private void Awake()
     {
         radioService = GetComponent<RadioService>();
+        postService = GetComponent<PostService>();
     }
 
     private void Start()
@@ -112,6 +123,7 @@ public class RadioDetailAction : MonoBehaviour
 
     public void ApplyFull(RadioFull radioFull)
     {
+        postId = radioFull.PostId;
         url = radioFull.LinkFulls[0].Url;
 
         // Post
@@ -160,9 +172,58 @@ public class RadioDetailAction : MonoBehaviour
         // Comments
         goEmptyComments.SetActive(true);
 
+        // Actions
+        SetToggle(tglFavorite, radioFull.Favorite != 0);
+        SetToggle(tglLike, radioFull.Like == 5);
+        SetToggle(tglDislike, radioFull.Like == 1);
+
         RefreshContents();
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyFavorite(bool check)
+    {
+        Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
+        if (check)
+            postService.RegisterFavorite(favorite);
+        else
+            postService.DeleteFavorite(favorite);
+    }
+
+    public void ApplyLike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
+        if (check)
+        {
+            tglDislike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+            postService.DeleteLike(like);
+    }
+
+    public void ApplyDislike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
+        if (check)
+        {
+            tglLike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+        {
+            like.Rank = -1;
+            postService.DeleteLike(like);
+        }
+    }
+
+    private void SetToggle(Toggle toggle, bool value)
+    {
+        if (value)
+            toggle.Check();
+        else
+            toggle.Uncheck();
     }
 
     private void RefreshContents()

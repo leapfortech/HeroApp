@@ -76,6 +76,14 @@ public class TreatmentDetailAction : MonoBehaviour
     [SerializeField]
     ValueList vllDisease = null;
 
+    [Space, Title("Actions")]
+    [SerializeField]
+    Toggle tglFavorite = null;
+    [SerializeField]
+    Toggle tglLike = null;
+    [SerializeField]
+    Toggle tglDislike = null;
+
     [Space, Title("Event")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
@@ -87,10 +95,14 @@ public class TreatmentDetailAction : MonoBehaviour
     Page pagDetail;
 
     TreatmentService treatmentService;
+    PostService postService;
+
+    long postId = -1;
 
     private void Awake()
     {
         treatmentService = GetComponent<TreatmentService>();
+        postService = GetComponent<PostService>();
     }
 
     public void Display(long postId)
@@ -101,6 +113,8 @@ public class TreatmentDetailAction : MonoBehaviour
 
     public void ApplyFull(TreatmentFull treatmentFull)
     {
+        postId = treatmentFull.PostId;
+
         // Post
         txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title;
@@ -145,9 +159,58 @@ public class TreatmentDetailAction : MonoBehaviour
         // Comments
         goEmptyComments.SetActive(true);
 
+        // Actions
+        SetToggle(tglFavorite, treatmentFull.Favorite != 0);
+        SetToggle(tglLike, treatmentFull.Like == 5);
+        SetToggle(tglDislike, treatmentFull.Like == 1);
+
         RefreshContents();
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyFavorite(bool check)
+    {
+        Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
+        if (check)
+            postService.RegisterFavorite(favorite);
+        else
+            postService.DeleteFavorite(favorite);
+    }
+
+    public void ApplyLike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
+        if (check)
+        {
+            tglDislike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+            postService.DeleteLike(like);
+    }
+
+    public void ApplyDislike(bool check)
+    {
+        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
+        if (check)
+        {
+            tglLike.Uncheck();
+            postService.UpdateLike(like);
+        }
+        else
+        {
+            like.Rank = -1;
+            postService.DeleteLike(like);
+        }
+    }
+
+    private void SetToggle(Toggle toggle, bool value)
+    {
+        if (value)
+            toggle.Check();
+        else
+            toggle.Uncheck();
     }
 
     private void RefreshContents()
