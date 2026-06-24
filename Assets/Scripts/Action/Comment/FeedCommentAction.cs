@@ -24,14 +24,12 @@ public class FeedCommentAction : MonoBehaviour
     [Title("Loop")]
     [SerializeField]
     LoopScroller loopFeed = null;
-    [SerializeField]
-    GameObject txtEmpty;
 
     [Space, Title("Register")]
     [SerializeField]
     GameObject goEmptyComments = null;
     [SerializeField]
-    GameObject goComments = null;
+    GameObject goLoop = null;
     [SerializeField]
     InputField ifdComment = null;
 
@@ -75,7 +73,7 @@ public class FeedCommentAction : MonoBehaviour
 
         UpdateOverlay(0);
 
-        txtEmpty.SetActive(false);
+        goEmptyComments.SetActive(false);
 
         GetComments(0, new FeedCommentUserData(-1, DateTime.Now), 2);
     }
@@ -119,11 +117,9 @@ public class FeedCommentAction : MonoBehaviour
             for (int i = 0; i < valueDates.Length; i++)
                 valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
-        txtEmpty.SetActive(response.Total == 0);
-
         // Comments
-        goEmptyComments.SetActive(response.CommentFulls.Count == 0);
-        goComments.SetActive(response.CommentFulls.Count != 0);
+        goEmptyComments.SetActive(response.Total == 0);
+        goLoop.SetActive(response.Total == 0);
 
         if (response.CommentFulls.Count == 0)
         {
