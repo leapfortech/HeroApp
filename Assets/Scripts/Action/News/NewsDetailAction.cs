@@ -9,6 +9,7 @@ using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
+using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -63,6 +64,10 @@ public class NewsDetailAction : MonoBehaviour
     Toggle tglLike = null;
     [SerializeField]
     Toggle tglDislike = null;
+    [SerializeField]
+    Toggle tglReaction = null;
+    [SerializeField]
+    ComboAdapter cmbReaction = null;
 
     [Space, Title("Values")]
     [SerializeField]
@@ -162,6 +167,7 @@ public class NewsDetailAction : MonoBehaviour
         SetToggle(tglFavorite, newsFull.Favorite != 0);
         SetToggle(tglLike, newsFull.Like == 5);
         SetToggle(tglDislike, newsFull.Like == 1);
+        SetToggle(tglReaction, newsFull.ReactionPhraseId != -1);
 
         RefreshContents();
 
@@ -202,6 +208,26 @@ public class NewsDetailAction : MonoBehaviour
             like.Rank = -1;
             postService.DeleteLike(like);
         }
+    }
+
+    public void ApplyReaction(bool check)
+    {
+        if (!check)
+        {
+            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+            return;
+        }
+
+        // Dialog
+        cmbReaction.Combo.Click();
+    }
+
+    public void RegisterReaction()
+    {
+        long reactionPhraseId = cmbReaction.GetSelectedId();
+
+        Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
+        postService.RegisterReaction(reaction);
     }
 
     private void SetToggle(Toggle toggle, bool value)
