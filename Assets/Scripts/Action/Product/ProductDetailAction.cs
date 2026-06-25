@@ -93,6 +93,8 @@ public class ProductDetailAction : MonoBehaviour
     Toggle tglReaction = null;
     [SerializeField]
     ComboAdapter cmbReaction = null;
+    [SerializeField]
+    ComboAdapter cmbPlaintType = null;
 
     [Space, Title("Event")]
     [SerializeField]
@@ -256,6 +258,27 @@ public class ProductDetailAction : MonoBehaviour
         Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
         postService.RegisterReaction(reaction);
         tglReaction.Check();
+    }
+
+    // Plaint
+    public void DisplayPlaintTypes()
+    {
+        cmbPlaintType.Combo.Click();
+    }
+
+    public void ApplyPlaint()
+    {
+        ScreenDialog.Instance.Display();
+
+        long plaintTypeId = cmbPlaintType.GetSelectedId();
+
+        PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
+        postService.RegisterPostPlaint(postPlaint);
+    }
+
+    public void PlaintRegistered()
+    {
+        ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
 
     private void SetToggle(Toggle toggle, bool value)
