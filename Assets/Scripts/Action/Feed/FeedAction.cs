@@ -199,8 +199,6 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyFavorite(int dataIndex, bool check)
     {
-        //Debug.Log($"Favorite {dataIndex} is {(check ? "" : "UN")}CHECKED");
-
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(0, check);
 
@@ -213,8 +211,6 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyLike(int dataIndex, bool check)
     {
-        //Debug.Log($"Like {dataIndex} is {(check ? "" : "UN")}CHECKED");
-
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(1, check);
 
@@ -231,8 +227,6 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyDislike(int dataIndex, bool check)
     {
-        //Debug.Log($"Dislike {dataIndex} is {(check ? "" : "UN")}CHECKED");
-
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(2, check);
 
@@ -254,10 +248,8 @@ public class FeedAction : MonoBehaviour
 
     public void ApplyReaction(int dataIndex, bool check)
     {
-        //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
-
         reactionIdx = dataIndex % loopFeed.ValuesCount;
-        //loopFeed[reactionIdx].SetCheck(3, check);
+
         loopFeed[reactionIdx].SetCheck(3, false);
         loopFeed.RefreshVisibleValues();
 
