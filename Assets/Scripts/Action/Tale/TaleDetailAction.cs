@@ -173,6 +173,8 @@ public class TaleDetailAction : MonoBehaviour
 
     public void ApplyReaction(bool check)
     {
+        tglReaction.Uncheck();
+
         if (!check)
         {
             postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
@@ -189,6 +191,7 @@ public class TaleDetailAction : MonoBehaviour
 
         Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
         postService.RegisterReaction(reaction);
+        tglReaction.Check();
     }
 
     private void SetToggle(Toggle toggle, bool value)

@@ -257,7 +257,9 @@ public class FeedAction : MonoBehaviour
         //Debug.Log($"Reaction {dataIndex} is {(check ? "" : "UN")}CHECKED");
 
         reactionIdx = dataIndex % loopFeed.ValuesCount;
-        loopFeed[reactionIdx].SetCheck(3, check);
+        //loopFeed[reactionIdx].SetCheck(3, check);
+        loopFeed[reactionIdx].SetCheck(3, false);
+        loopFeed.RefreshVisibleValues();
 
         if (!check)
         {
@@ -276,6 +278,9 @@ public class FeedAction : MonoBehaviour
 
         Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[reactionIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
         postService.RegisterReaction(reaction);
+
+        loopFeed[reactionIdx].SetCheck(3, true);
+        loopFeed.RefreshVisibleValues();
         reactionIdx = -1;
     }
 
