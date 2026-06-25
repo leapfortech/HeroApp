@@ -31,6 +31,13 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbReaction = null;
 
+    [Title("Plaint")]
+    [SerializeField]
+    ComboAdapter cmbPlaintType = null;
+    [PropertySpace(6f)]
+    [SerializeField]
+    ChoiceOption[] options = null;
+
     [Title("Debug")]
     [SerializeField]
     Text txtDebug = null;
@@ -274,6 +281,42 @@ public class FeedAction : MonoBehaviour
         loopFeed[reactionIdx].SetCheck(3, true);
         loopFeed.RefreshVisibleValues();
         reactionIdx = -1;
+    }
+
+    // Plaint
+
+    int plaintDataIndex = -1;
+    public void DisplayMenu(int dataIndex)
+    {
+        plaintDataIndex = dataIndex;
+        ChoiceDialog.Instance.Menu(0, "Opciones", options);
+    }
+
+    public void SelectValue()
+    {
+        SelectValue(plaintDataIndex);
+    }
+
+    public void DisplayPlaintTypes()
+    {
+        cmbPlaintType.Combo.Click();
+    }
+
+    public void ApplyPlaint()
+    {
+        ScreenDialog.Instance.Display();
+        
+        int plaintIdx = plaintDataIndex % loopFeed.ValuesCount;
+
+        long plaintTypeId = cmbPlaintType.GetSelectedId();
+
+        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[plaintIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+        postService.RegisterPostPlaint(postPlaint);
+    }
+
+    public void PlaintRegistered()
+    {
+        ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
 
     //public void ApplyLikeChanged(long likeId)
