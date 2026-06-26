@@ -25,13 +25,17 @@ public class FeedCommentAction : MonoBehaviour
     [SerializeField]
     LoopScroller loopFeed = null;
 
-    [Space, Title("Register")]
+    [Space, Title("Elements")]
     [SerializeField]
     GameObject goEmptyComments = null;
     [SerializeField]
     GameObject goLoop = null;
     [SerializeField]
     InputField ifdComment = null;
+
+    [Title("Action")]
+    [SerializeField]
+    Button btnRegister = null;
 
     [Title("Debug")]
     [SerializeField]
@@ -47,6 +51,11 @@ public class FeedCommentAction : MonoBehaviour
     private void Awake()
     {
         postService = GetComponent<PostService>();
+    }
+
+    private void Start()
+    {
+        btnRegister?.AddAction(RegisterComment);
     }
 
     public void CreateFeeds(bool force)
@@ -119,7 +128,7 @@ public class FeedCommentAction : MonoBehaviour
 
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
-        goLoop.SetActive(response.Total == 0);
+        goLoop.SetActive(response.Total != 0);
 
         if (response.CommentFulls.Count == 0)
         {
@@ -185,13 +194,16 @@ public class FeedCommentAction : MonoBehaviour
     // Register
     public void RegisterComment()
     {
+        ScreenDialog.Instance.Display();
         Comment comment = new Comment(-1, postId, StateManager.Instance.AppUser.Id, ifdComment.Text, -1);
         postService.RegisterComment(comment);
     }
 
     public void ApplyComment(long commentId)
     {
-
+        ifdComment.Clear();
+        ScreenDialog.Instance.Hide();
+        // RM REFRESH LOOP
     }
 
     // Debug
