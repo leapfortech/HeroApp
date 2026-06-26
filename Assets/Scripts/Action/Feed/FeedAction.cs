@@ -18,9 +18,6 @@ public class FeedAction : MonoBehaviour
     //[SerializeField]
     //bool filterAppUser = false;
 
-    [SerializeField, Space(5f), ListDrawerSettings(ShowPaging = false)]
-    Sprite[] portraits = new Sprite[0];
-
     [Title("Loop")]
     [SerializeField]
     LoopScroller loopFeed = null;
