@@ -38,6 +38,9 @@ public class PostService : MonoBehaviour
     [SerializeField]
     private UnityBoolEvent onReactionChanged = null;
 
+    [SerializeField]
+    private UnityLongEvent onPlaintRegistered = null;
+
     //[SerializeField]
     //private UnityBoolEvent onDeleted = null;
 
@@ -332,7 +335,7 @@ public class PostService : MonoBehaviour
             postPlaintRegisterOp["on-complete"] = (Action<PostPlaintRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
+                    onPlaintRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
