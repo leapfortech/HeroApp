@@ -20,6 +20,8 @@ public class TaleDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -100,8 +102,10 @@ public class TaleDetailAction : MonoBehaviour
     public void ApplyFull(TaleFull taleFull)
     {
         postId = taleFull.PostId;
-        
+
         // Post
+        imgThumbnail.Sprite = taleFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title;
 

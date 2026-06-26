@@ -20,6 +20,8 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -121,6 +123,8 @@ public class HappeningDetailAction : MonoBehaviour
         postId = happeningFull.PostId;
 
         // Post
+        imgThumbnail.Sprite = happeningFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title;
         txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");

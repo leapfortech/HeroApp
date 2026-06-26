@@ -20,6 +20,8 @@ public class NewsDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -137,6 +139,8 @@ public class NewsDetailAction : MonoBehaviour
         url = newsFull.LinkFulls[0].Url;
 
         // Post
+        imgThumbnail.Sprite = newsFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title;
         txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");

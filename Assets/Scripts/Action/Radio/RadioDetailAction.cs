@@ -20,6 +20,8 @@ public class RadioDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -128,6 +130,8 @@ public class RadioDetailAction : MonoBehaviour
         url = radioFull.LinkFulls[0].Url;
 
         // Post
+        imgThumbnail.Sprite = radioFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{radioFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title;
 

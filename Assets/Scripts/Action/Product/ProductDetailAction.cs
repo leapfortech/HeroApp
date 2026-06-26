@@ -20,6 +20,8 @@ public class ProductDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -128,6 +130,8 @@ public class ProductDetailAction : MonoBehaviour
         postId = productFull.PostId;
 
         // Post
+        imgThumbnail.Sprite = productFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{productFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title;
         txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");

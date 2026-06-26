@@ -20,6 +20,8 @@ public class TreatmentDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -117,6 +119,8 @@ public class TreatmentDetailAction : MonoBehaviour
         postId = treatmentFull.PostId;
 
         // Post
+        imgThumbnail.Sprite = treatmentFull.ThumbnailSprite;
+
         txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
         txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title;
         txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
