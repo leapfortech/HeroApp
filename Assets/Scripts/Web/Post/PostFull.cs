@@ -10,6 +10,12 @@ public class PostFull
     public long PostId { get; set; } = -1L;
     public long AppUserId { get; set; } = -1L;
     public String AppUserAlias { get; set; } = null;
+    public String Thumbnail
+    {
+        get => null;
+        set => ThumbnailSprite = value?.CreateSprite("Thumbnail" + PostId.ToString("D02"));
+    }
+    public Sprite ThumbnailSprite { get; set; } = null;
     public long PostTypeId { get; set; } = -1L;
     public long PostCountryId { get; set; } = -1L;
     public long PostStateId { get; set; } = -1L;

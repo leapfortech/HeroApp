@@ -183,7 +183,7 @@ public class FeedAction : MonoBehaviour
         loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
         loopValue.UserData = empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
 
-        loopValue.SetSprite(0, empty ? null : portraits.Length > 0 ? portraits[postFull.PostId % portraits.Length] : null);
+        loopValue.SetSprite(0, empty ? null : postFull.ThumbnailSprite);
         loopValue.SetText(1, postFull.AppUserAlias);
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - hace {((int)(now - postFull.PublicationDateTime).TotalHours).ToString()} horas");
         loopValue.SetText(3, postFull.Summary);
