@@ -58,6 +58,12 @@ public class FeedCommentAction : MonoBehaviour
         btnRegister?.AddAction(RegisterComment);
     }
 
+    public void SelectValue(long postId)
+    {
+        this.postId = postId;
+    }
+
+
     public void CreateFeeds(bool force)
     {
         //if (feedState != null && !force)
@@ -94,7 +100,6 @@ public class FeedCommentAction : MonoBehaviour
         return loopValue;
     }
 
-    // RM REVIEW PostId SelectLoop
     public void GetComments(int startLoopIdx, object commentUserData, int direction)
     {
         FeedCommentUserData feedCommentUserData = (FeedCommentUserData)commentUserData;
