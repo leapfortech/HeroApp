@@ -48,6 +48,7 @@ public class FeedAction : MonoBehaviour
     PostService postService;
     FeedState feedState;
     int feedCount = 0;
+    int selectedIdx = -1;
 
     private void Awake()
     {
@@ -66,12 +67,12 @@ public class FeedAction : MonoBehaviour
         valueDates = new String[feedCount];
 
         loopFeed.ClearValues();
-        DateTime now = DateTime.Now;
+        DateTime utcNow = DateTime.UtcNow;
         PostFull emptyPostFull = new PostFull();
         for (int k = 0; k < feedCount; k++)
         {
             //feedState.PostFulls.Add(emptyPostFull);
-            loopFeed.AddValue(CreateValue(emptyPostFull, now));
+            loopFeed.AddValue(CreateValue(emptyPostFull, utcNow));
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
@@ -80,7 +81,7 @@ public class FeedAction : MonoBehaviour
 
         txtEmpty.SetActive(false);
 
-        GetPosts(0, new FeedUserData(-1, DateTime.Now), 2);
+        GetPosts(0, new FeedUserData(-1, utcNow), 2);
     }
 
     public LoopScrollerValue CreateValue(PostFull postFull, DateTime now)
@@ -142,7 +143,7 @@ public class FeedAction : MonoBehaviour
 
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
-        DateTime now = DateTime.Now;
+        DateTime utcNow = DateTime.UtcNow;
         if (direction == 1)
         {
             for (int i = 0; i < response.PostFulls.Count; i++)
@@ -151,7 +152,7 @@ public class FeedAction : MonoBehaviour
                 //if (k < 0)
                 //    break;
                 //feedState.PostFulls[k] = response.PostFulls[i];
-                UpdateValue(response.PostFulls[i], loopFeed[k], now);
+                UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
         }
@@ -161,7 +162,7 @@ public class FeedAction : MonoBehaviour
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 //feedState.PostFulls[k] = response.PostFulls[i];
-                UpdateValue(response.PostFulls[i], loopFeed[k], now);
+                UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
         }
@@ -196,10 +197,11 @@ public class FeedAction : MonoBehaviour
 
     public void SelectValue(int idx)
     {
-        onValueSelected.Invoke(((FeedUserData)loopFeed[idx].UserData).PostId);
+        selectedIdx = idx % loopFeed.ValuesCount;
+        onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
-    // 
+    // Favorite
 
     public void ApplyFavorite(int dataIndex, bool check)
     {
@@ -212,6 +214,14 @@ public class FeedAction : MonoBehaviour
         else
             postService.DeleteFavorite(favorite);
     }
+
+    public void ApplyDetailFavorite(bool check)
+    {
+        loopFeed[selectedIdx].SetCheck(0, check);
+        loopFeed.RefreshVisibleValues();
+    }
+
+    // Like
 
     public void ApplyLike(int dataIndex, bool check)
     {
@@ -228,6 +238,14 @@ public class FeedAction : MonoBehaviour
         else
             postService.DeleteLike(like);
     }
+
+    public void ApplyDetailLike(bool check)
+    {
+        loopFeed[selectedIdx].SetCheck(1, check);
+        loopFeed.RefreshVisibleValues();
+    }
+
+    // Dislike
 
     public void ApplyDislike(int dataIndex, bool check)
     {
@@ -248,23 +266,27 @@ public class FeedAction : MonoBehaviour
         }
     }
 
-    int reactionIdx = -1;
+    public void ApplyDetailDislike(bool check)
+    {
+        loopFeed[selectedIdx].SetCheck(2, check);
+        loopFeed.RefreshVisibleValues();
+    }
+
+    // Reaction
 
     public void ApplyReaction(int dataIndex, bool check)
     {
-        reactionIdx = dataIndex % loopFeed.ValuesCount;
+        selectedIdx = dataIndex % loopFeed.ValuesCount;
 
-        loopFeed[reactionIdx].SetCheck(3, false);
+        loopFeed[selectedIdx].SetCheck(3, false);
         loopFeed.RefreshVisibleValues();
 
         if (!check)
         {
-            postService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[reactionIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
-            reactionIdx = -1;
+            postService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
             return;
         }
 
-        // Dialog
         cmbReaction.Combo.Click();
     }
 
@@ -272,26 +294,30 @@ public class FeedAction : MonoBehaviour
     {
         long reactionPhraseId = cmbReaction.GetSelectedId();
 
-        Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[reactionIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+        Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
         postService.RegisterReaction(reaction);
 
-        loopFeed[reactionIdx].SetCheck(3, true);
+        loopFeed[selectedIdx].SetCheck(3, true);
         loopFeed.RefreshVisibleValues();
-        reactionIdx = -1;
+    }
+
+    public void ApplyDetailReaction(bool check)
+    {
+        loopFeed[selectedIdx].SetCheck(3, check);
+        loopFeed.RefreshVisibleValues();
     }
 
     // Plaint
 
-    int plaintDataIndex = -1;
     public void DisplayMenu(int dataIndex)
     {
-        plaintDataIndex = dataIndex;
+        selectedIdx = dataIndex % loopFeed.ValuesCount;
         ChoiceDialog.Instance.Menu(0, "Opciones", options);
     }
 
     public void SelectValue()
     {
-        SelectValue(plaintDataIndex);
+        SelectValue(selectedIdx);
     }
 
     public void DisplayPlaintTypes()
@@ -303,11 +329,9 @@ public class FeedAction : MonoBehaviour
     {
         ScreenDialog.Instance.Display();
         
-        int plaintIdx = plaintDataIndex % loopFeed.ValuesCount;
-
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
-        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[plaintIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
         postService.RegisterPostPlaint(postPlaint);
     }
 
@@ -315,11 +339,6 @@ public class FeedAction : MonoBehaviour
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
-
-    //public void ApplyLikeChanged(long likeId)
-    //{
-    //    Debug.Log($"Like Result : {likeId}");
-    //}
 
     // Debug
 

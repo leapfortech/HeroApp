@@ -91,7 +91,13 @@ public class TreatmentDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityLongsEvent onDisplayed = null;
+    UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    UnityBoolEvent onLikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onDislikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onReactionChanged = null;
 
     [Space, Title("Page")]
     [SerializeField]
@@ -159,7 +165,7 @@ public class TreatmentDetailAction : MonoBehaviour
         for (int i = 0; i < treatmentFull.Images.Length; i++)
             images.Add(treatmentFull.Images[i].CreateSprite($"TreatmentImage_{i}"));
         onImagesDisplay.Invoke(images);
-        onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
+        //onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
 
         // Actions
         SetToggle(tglFavorite, treatmentFull.Favorite != 0);
@@ -172,6 +178,8 @@ public class TreatmentDetailAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagDetail);
     }
 
+    // Favorite
+
     public void ApplyFavorite(bool check)
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
@@ -180,6 +188,13 @@ public class TreatmentDetailAction : MonoBehaviour
         else
             postService.DeleteFavorite(favorite);
     }
+
+    public void ApplyDetailFavorite()
+    {
+        onFavoriteChanged.Invoke(tglFavorite.Checked);
+    }
+
+    // Like
 
     public void ApplyLike(bool check)
     {
@@ -208,6 +223,14 @@ public class TreatmentDetailAction : MonoBehaviour
         }
     }
 
+    public void ApplyDetailLike()
+    {
+        onLikeChanged.Invoke(tglLike.Checked);
+        onDislikeChanged.Invoke(tglDislike.Checked);
+    }
+
+    // Reaction
+
     public void ApplyReaction(bool check)
     {
         tglReaction.Uncheck();
@@ -218,7 +241,6 @@ public class TreatmentDetailAction : MonoBehaviour
             return;
         }
 
-        // Dialog
         cmbReaction.Combo.Click();
     }
 
@@ -231,7 +253,13 @@ public class TreatmentDetailAction : MonoBehaviour
         tglReaction.Check();
     }
 
+    public void ApplyDetailReaction()
+    {
+        onReactionChanged.Invoke(tglReaction.Checked);
+    }
+
     // Plaint
+
     public void DisplayPlaintTypes()
     {
         cmbPlaintType.Combo.Click();
@@ -251,6 +279,8 @@ public class TreatmentDetailAction : MonoBehaviour
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
+
+    //
 
     private void SetToggle(Toggle toggle, bool value)
     {

@@ -87,7 +87,13 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityLongsEvent onDisplayed = null;
+    UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    UnityBoolEvent onLikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onDislikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onReactionChanged = null;
 
     [Space, Title("Page")]
     [SerializeField]
@@ -167,7 +173,7 @@ public class NewsDetailAction : MonoBehaviour
         for (int i = 0; i < newsFull.Images.Length; i++)
             images.Add(newsFull.Images[i].CreateSprite($"NewsImage_{i}"));
         onImagesDisplay.Invoke(images);
-        onDisplayed.Invoke(new long[2] {newsFull.PostId, newsFull.Id});
+        //onDisplayed.Invoke(new long[2] {newsFull.PostId, newsFull.Id});
 
         // Actions
         SetToggle(tglFavorite, newsFull.Favorite != 0);
@@ -180,6 +186,8 @@ public class NewsDetailAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagDetail);
     }
 
+    // Favorite
+
     public void ApplyFavorite(bool check)
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
@@ -188,6 +196,13 @@ public class NewsDetailAction : MonoBehaviour
         else
             postService.DeleteFavorite(favorite);
     }
+
+    public void ApplyDetailFavorite()
+    {
+        onFavoriteChanged.Invoke(tglFavorite.Checked);
+    }
+
+    // Like
 
     public void ApplyLike(bool check)
     {
@@ -216,6 +231,14 @@ public class NewsDetailAction : MonoBehaviour
         }
     }
 
+    public void ApplyDetailLike()
+    {
+        onLikeChanged.Invoke(tglLike.Checked);
+        onDislikeChanged.Invoke(tglDislike.Checked);
+    }
+
+    // Reaction
+
     public void ApplyReaction(bool check)
     {
         tglReaction.Uncheck();
@@ -226,7 +249,6 @@ public class NewsDetailAction : MonoBehaviour
             return;
         }
 
-        // Dialog
         cmbReaction.Combo.Click();
     }
 
@@ -239,7 +261,13 @@ public class NewsDetailAction : MonoBehaviour
         tglReaction.Check();
     }
 
+    public void ApplyDetailReaction()
+    {
+        onReactionChanged.Invoke(tglReaction.Checked);
+    }
+
     // Plaint
+
     public void DisplayPlaintTypes()
     {
         cmbPlaintType.Combo.Click();

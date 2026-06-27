@@ -90,7 +90,13 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityLongsEvent onDisplayed = null;
+    UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    UnityBoolEvent onLikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onDislikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onReactionChanged = null;
 
     [Space, Title("Page")]
     [SerializeField]
@@ -172,7 +178,7 @@ public class RadioDetailAction : MonoBehaviour
         for (int i = 0; i < radioFull.Images.Length; i++)
             images.Add(radioFull.Images[i].CreateSprite($"RadioImage_{i}"));
         onImagesDisplay.Invoke(images);
-        onDisplayed.Invoke(new long[2] {radioFull.PostId, radioFull.Id});
+        //onDisplayed.Invoke(new long[2] {radioFull.PostId, radioFull.Id});
 
         // Actions
         SetToggle(tglFavorite, radioFull.Favorite != 0);
@@ -185,6 +191,8 @@ public class RadioDetailAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagDetail);
     }
 
+    // Favorite
+
     public void ApplyFavorite(bool check)
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
@@ -193,6 +201,13 @@ public class RadioDetailAction : MonoBehaviour
         else
             postService.DeleteFavorite(favorite);
     }
+
+    public void ApplyDetailFavorite()
+    {
+        onFavoriteChanged.Invoke(tglFavorite.Checked);
+    }
+
+    // Like
 
     public void ApplyLike(bool check)
     {
@@ -221,6 +236,14 @@ public class RadioDetailAction : MonoBehaviour
         }
     }
 
+    public void ApplyDetailLike()
+    {
+        onLikeChanged.Invoke(tglLike.Checked);
+        onDislikeChanged.Invoke(tglDislike.Checked);
+    }
+
+    // Reaction
+
     public void ApplyReaction(bool check)
     {
         tglReaction.Uncheck();
@@ -231,7 +254,6 @@ public class RadioDetailAction : MonoBehaviour
             return;
         }
 
-        // Dialog
         cmbReaction.Combo.Click();
     }
 
@@ -244,7 +266,13 @@ public class RadioDetailAction : MonoBehaviour
         tglReaction.Check();
     }
 
+    public void ApplyDetailReaction()
+    {
+        onReactionChanged.Invoke(tglReaction.Checked);
+    }
+
     // Plaint
+
     public void DisplayPlaintTypes()
     {
         cmbPlaintType.Combo.Click();
@@ -264,6 +292,8 @@ public class RadioDetailAction : MonoBehaviour
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
+
+    //
 
     private void SetToggle(Toggle toggle, bool value)
     {

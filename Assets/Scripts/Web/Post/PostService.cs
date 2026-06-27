@@ -146,7 +146,7 @@ public class PostService : MonoBehaviour
             favoriteRegisterOp["on-complete"] = (Action<FavoriteRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.favoriteId));
+                    onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });
@@ -251,7 +251,7 @@ public class PostService : MonoBehaviour
             reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onRegistered.Invoke(Convert.ToInt64(op.reactionId));
+                    onReactionChanged.Invoke(Convert.ToInt64(op.reactionId) != -1);
                 else
                     onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
             });

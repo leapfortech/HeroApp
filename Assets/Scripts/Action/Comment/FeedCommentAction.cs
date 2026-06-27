@@ -64,21 +64,18 @@ public class FeedCommentAction : MonoBehaviour
 
     public void CreateFeeds(bool force)
     {
-        //if (feedState != null && !force)
-        //    return;
+        if (feedCount != 0 && !force)
+            return;
 
-        //feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
         feedCount = count * 4;
-        //feedState.PostFulls = new List<PostFull>(feedCount);
 
         valueDates = new String[feedCount];
 
         loopFeed.ClearValues();
-        DateTime now = DateTime.Now;
+        DateTime now = DateTime.UtcNow;
         CommentFull emptyCommentFull = new CommentFull();
         for (int k = 0; k < feedCount; k++)
         {
-            //feedState.PostFulls.Add(emptyPostFull);
             loopFeed.AddValue(CreateValue(emptyCommentFull, now));
             valueDates[k] = "--:--:--:---- : -1";
         }
@@ -89,7 +86,7 @@ public class FeedCommentAction : MonoBehaviour
         goEmptyComments.SetActive(false);
         loopFeed.gameObject.SetActive(false);
 
-        GetComments(0, new FeedCommentUserData(-1, DateTime.Now), 2);
+        GetComments(0, new FeedCommentUserData(-1, now), 2);
     }
 
     public LoopScrollerValue CreateValue(CommentFull commentFull, DateTime now)

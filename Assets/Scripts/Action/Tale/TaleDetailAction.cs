@@ -76,7 +76,13 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityLongsEvent onDisplayed = null;
+    UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    UnityBoolEvent onLikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onDislikeChanged = null;
+    [SerializeField]
+    UnityBoolEvent onReactionChanged = null;
 
     [Title("Page")]
     [SerializeField]
@@ -128,7 +134,7 @@ public class TaleDetailAction : MonoBehaviour
         for (int i = 0; i < taleFull.Images.Length; i++)
             images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
         onImagesDisplay.Invoke(images);
-        onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
+        //onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
 
         // Actions
         SetToggle(tglFavorite, taleFull.Favorite != 0);
@@ -141,6 +147,8 @@ public class TaleDetailAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagDetail);
     }
 
+    // Favorite
+
     public void ApplyFavorite(bool check)
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
@@ -149,6 +157,13 @@ public class TaleDetailAction : MonoBehaviour
         else
             postService.DeleteFavorite(favorite);
     }
+
+    public void ApplyDetailFavorite()
+    {
+        onFavoriteChanged.Invoke(tglFavorite.Checked);
+    }
+
+    // Like
 
     public void ApplyLike(bool check)
     {
@@ -177,6 +192,14 @@ public class TaleDetailAction : MonoBehaviour
         }
     }
 
+    public void ApplyDetailLike()
+    {
+        onLikeChanged.Invoke(tglLike.Checked);
+        onDislikeChanged.Invoke(tglDislike.Checked);
+    }
+
+    // Reaction
+
     public void ApplyReaction(bool check)
     {
         tglReaction.Uncheck();
@@ -187,7 +210,6 @@ public class TaleDetailAction : MonoBehaviour
             return;
         }
 
-        // Dialog
         cmbReaction.Combo.Click();
     }
 
@@ -200,7 +222,13 @@ public class TaleDetailAction : MonoBehaviour
         tglReaction.Check();
     }
 
+    public void ApplyDetailReaction()
+    {
+        onReactionChanged.Invoke(tglReaction.Checked);
+    }
+
     // Plaint
+
     public void DisplayPlaintTypes()
     {
         cmbPlaintType.Combo.Click();
@@ -220,6 +248,8 @@ public class TaleDetailAction : MonoBehaviour
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
+
+    //
 
     private void SetToggle(Toggle toggle, bool value)
     {
