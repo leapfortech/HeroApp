@@ -29,8 +29,6 @@ public class FeedCommentAction : MonoBehaviour
     [SerializeField]
     GameObject goEmptyComments = null;
     [SerializeField]
-    GameObject goLoop = null;
-    [SerializeField]
     InputField ifdComment = null;
 
     [Title("Action")]
@@ -89,6 +87,7 @@ public class FeedCommentAction : MonoBehaviour
         UpdateOverlay(0);
 
         goEmptyComments.SetActive(false);
+        loopFeed.gameObject.SetActive(false);
 
         GetComments(0, new FeedCommentUserData(-1, DateTime.Now), 2);
     }
@@ -104,8 +103,8 @@ public class FeedCommentAction : MonoBehaviour
     {
         FeedCommentUserData feedCommentUserData = (FeedCommentUserData)commentUserData;
 
-        if (feedCommentUserData.PostId == -1)
-            ScreenDialog.Instance.Display();
+        //if (feedCommentUserData.PostId == -1)
+        //    ScreenDialog.Instance.Display();
 
         CommentFeedRequest request = new CommentFeedRequest
         {
@@ -133,14 +132,14 @@ public class FeedCommentAction : MonoBehaviour
 
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
-        goLoop.SetActive(response.Total != 0);
+        loopFeed.gameObject.SetActive(response.Total != 0);
 
         if (response.CommentFulls.Count == 0)
         {
             if (txtDebug != null)
                 txtDebug.TextValue = String.Join('\n', valueDates);
 
-            ScreenDialog.Instance.Hide();
+            //ScreenDialog.Instance.Hide();
             return;
         }
 
@@ -179,7 +178,7 @@ public class FeedCommentAction : MonoBehaviour
             txtDebug.TextValue = String.Join('\n', valueDates);
         loopFeed.RefreshVisibleValues();
 
-        ScreenDialog.Instance.Hide();
+        //ScreenDialog.Instance.Hide();
     }
 
     public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime now)
@@ -199,6 +198,12 @@ public class FeedCommentAction : MonoBehaviour
     // Register
     public void RegisterComment()
     {
+        if (!ifdComment.IsValid())
+        {
+            ChoiceDialog.Instance.Error(ifdComment.GetValidError());
+            return;
+        }
+
         ScreenDialog.Instance.Display();
         Comment comment = new Comment(-1, postId, StateManager.Instance.AppUser.Id, ifdComment.Text, -1);
         postService.RegisterComment(comment);
