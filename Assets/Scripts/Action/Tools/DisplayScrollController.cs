@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Collections;
 
 using UnityEngine;
+using UHorizontalLayoutGroup = UnityEngine.UI.HorizontalLayoutGroup;
 using MPUIKIT;
 
-using UnityEngine.UI;
+using Leap.UI.Elements;
 
 public class DisplayScrollController : MonoBehaviour
 {
     [Header("Scroll")]
-    public ScrollRect scrollRect;
-    public RectTransform viewport;
-    public RectTransform content;
+    public UnityEngine.UI.ScrollRect scrollRect;
 
     [Header("Indicators")]
     [SerializeField]
@@ -22,22 +21,29 @@ public class DisplayScrollController : MonoBehaviour
 
     [Header("Nav")]
     [SerializeField]
-    Leap.UI.Elements.Text txtCurrentPage = null;
+    Text txtCurrentPage = null;
     [SerializeField]
-    Leap.UI.Elements.Button btnNext = null;
+    Button btnNext = null;
     [SerializeField]
-    Leap.UI.Elements.Button btnPrev = null;
+    Button btnPrev = null;
     [Space, SerializeField]
-    Leap.UI.Elements.ToggleGroup tggNav = null;
+    ToggleGroup tggNav = null;
     [Space, SerializeField]
-    Leap.UI.Elements.Toggle[] tglNav = null;
+    Toggle[] tglNav = null;
 
     [Header("Config")]
     public float animTime = 0.25f;
 
-    List<RectTransform> pills = new List<RectTransform>();
+    RectTransform viewport;
+    RectTransform content;
+
     int currentPage = 0;
     int pageCount;
+
+    float spacing = 0f;
+    float pageWidth = 0f;
+
+    List<RectTransform> pills = new List<RectTransform>();
 
     bool initialized = false;
     bool isAnimating = false;
@@ -47,13 +53,12 @@ public class DisplayScrollController : MonoBehaviour
     {
         scrollRect.onValueChanged.AddListener(OnScrollChanged);
 
-        scrollRect.content = content;
-        scrollRect.viewport = viewport;
-
-        float w = viewport.rect.width;
-        float h = viewport.rect.height;
-
+        content = scrollRect.content;
+        viewport = scrollRect.viewport;
         pageCount = content.childCount;
+
+        spacing = content.GetComponent<UHorizontalLayoutGroup>().spacing;
+        pageWidth = ((RectTransform)content.GetChild(0)).rect.width;
 
         if (pillPrefab != null && pillParent != null)
         {
@@ -97,45 +102,34 @@ public class DisplayScrollController : MonoBehaviour
         tglNav[currentPage].Press();
     }
 
-    void OnScrollChanged(Vector2 pos)
+    void OnScrollChanged(Vector2 vPos)
     {
         if (isAnimating)
             return;
 
-        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
+        float pos = -content.anchoredPosition.x;
+        float step = pageWidth + spacing;
 
-        float raw = -content.anchoredPosition.x;
-        float step = GetPageWidth() + spacing;
-
-        int page = Mathf.RoundToInt(raw / step);
-
+        int page = Mathf.RoundToInt(pos / step);
         page = Mathf.Clamp(page, 0, pageCount - 1);
 
-        if (page != currentPage)
-        {
-            int oldPage = currentPage;
-            currentPage = page;
+        if (page == currentPage)
+            return;
 
-            if (pillPrefab != null && pillParent != null)
-                UpdateIndicators(oldPage, currentPage);
+        int oldPage = currentPage;
+        currentPage = page;
 
-            UpdateButtons();
+        if (pillPrefab != null && pillParent != null)
+            UpdateIndicators(oldPage, currentPage);
 
-            OnPageChanged();
-        }
+        UpdateButtons();
+
+        OnPageChanged();
     }
 
     void SetScrollInstant(int page)
     {
-        float pageWidth = GetPageWidth();
-        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
-
         content.anchoredPosition = new Vector2(-(page * pageWidth) - (spacing * page), content.anchoredPosition.y);
-    }
-
-    float GetPageWidth()
-    {
-        return ((RectTransform)content.GetChild(0)).rect.width;
     }
 
     public void Next()
@@ -178,19 +172,14 @@ public class DisplayScrollController : MonoBehaviour
 
     void UpdateButtons()
     {
-        if (btnPrev != null)
-            btnPrev.Interactable = currentPage > 0;
-
-        if (btnNext != null)
-            btnNext.Interactable = currentPage < pageCount - 1;
+        btnPrev.Interactable = currentPage > 0;
+        btnNext.Interactable = currentPage < pageCount - 1;
     }
 
     IEnumerator AnimateScroll(int page)
     {
         isAnimating = true;
 
-        float pageWidth = GetPageWidth();
-        float spacing = content.GetComponent<HorizontalLayoutGroup>()?.spacing ?? 0f;
         Vector2 start = content.anchoredPosition;
 
        Vector2 target = new Vector2(-(page * pageWidth) - (spacing * page), start.y);

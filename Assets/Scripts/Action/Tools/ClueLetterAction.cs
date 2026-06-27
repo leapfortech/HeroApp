@@ -1,7 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
 using System.Collections.Generic;
-using System;
+
+using UnityEngine;
+using UHorizontalLayoutGroup = UnityEngine.UI.HorizontalLayoutGroup;
+using ULayoutElement = UnityEngine.UI.LayoutElement;
+
+using Leap.UI.Elements;
 
 public class ClueLetterAction : MonoBehaviour
 {
@@ -17,9 +21,13 @@ public class ClueLetterAction : MonoBehaviour
     float spacing = 10f;
 
     private String currentWord = "";
-    private List<Leap.UI.Elements.Text> txtLetters = new List <Leap.UI.Elements.Text>();
+    private List<Text> txtLetters = new List <Text>();
 
-    
+    private void Start()
+    {
+        lettersContainer.GetComponent<UHorizontalLayoutGroup>().spacing = spacing;
+    }
+
     public void DisplayWord(String word)
     {
         currentWord = word.ToUpper();
@@ -29,27 +37,15 @@ public class ClueLetterAction : MonoBehaviour
 
         txtLetters.Clear();
 
-        HorizontalLayoutGroup layout = lettersContainer.GetComponent<HorizontalLayoutGroup>();
-
-        if (layout != null)
-            layout.spacing = spacing;
-
         for (int i = 0; i < currentWord.Length; i++)
         {
             GameObject item = Instantiate(letterPrefab, lettersContainer);
 
-            Leap.UI.Elements.Text txtLetter = item.GetComponentInChildren<Leap.UI.Elements.Text>();
+            Text txtLetter = item.GetComponentInChildren<Text>();
+            txtLetter.TextValue = "";
+            txtLetters.Add(txtLetter);
 
-            if (txtLetter != null)
-            {
-                txtLetter.TextValue = "";
-                txtLetters.Add(txtLetter);
-            }
-
-            LayoutElement layoutElement = item.GetComponent<LayoutElement>();
-
-            if (layoutElement != null)
-                layoutElement.flexibleWidth = 1;
+            item.GetComponent<ULayoutElement>().flexibleWidth = 1;
         }
     }
 
