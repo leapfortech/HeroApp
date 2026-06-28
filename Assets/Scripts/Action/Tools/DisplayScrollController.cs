@@ -152,8 +152,6 @@ public class DisplayScrollController : MonoBehaviour
         if (index < 0 || index >= pageCount)
             return;
 
-        StopAllCoroutines();
-
         int oldIndex = currentPage;
         currentPage = index;
 
@@ -163,6 +161,15 @@ public class DisplayScrollController : MonoBehaviour
 
         if (pillPrefab != null && pillParent != null)
             UpdateIndicators(oldIndex, currentPage);
+
+        // DisplayScroll está apagado
+        if (!isActiveAndEnabled)
+        {
+            SetScrollInstant(index);
+            return;
+        }
+
+        StopAllCoroutines();
 
         if (animated)
             StartCoroutine(AnimateScroll(index));
@@ -182,7 +189,7 @@ public class DisplayScrollController : MonoBehaviour
 
         Vector2 start = content.anchoredPosition;
 
-       Vector2 target = new Vector2(-(page * pageWidth) - (spacing * page), start.y);
+        Vector2 target = new Vector2(-(page * pageWidth) - (spacing * page), start.y);
 
         float t = 0;
         while (t < animTime)
