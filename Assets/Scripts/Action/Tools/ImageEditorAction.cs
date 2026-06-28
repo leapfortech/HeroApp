@@ -43,6 +43,8 @@ public class ImageEditorAction : MonoBehaviour
         if (imgDisplay != null)
             imgDisplay.Sprite = sprEmpty;
         lstImage.Clear();
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            vllImages.GetRecordCellSprite(i, "Image").Destroy();
         vllImages.ClearRecords();
     }
 
@@ -71,7 +73,7 @@ public class ImageEditorAction : MonoBehaviour
             btnAdd.gameObject.SetActive(false);
 
         if (vllImages.RecordCount > 0)
-            SelectImage(0);
+            SelectImage(vllImages.RecordCount - 1);
     }
 
     public void SelectImage(int idx)
@@ -85,22 +87,14 @@ public class ImageEditorAction : MonoBehaviour
     {
         Sprite newSprite = image.CreateSprite($"{spriteName}_{vllImages.RecordCount + 1}");
 
-        List<Sprite> imgs = new List<Sprite>();
-        imgs.Add(newSprite);
-
-        for (int i = 0; i < vllImages.RecordCount; i++)
-            imgs.Add(vllImages.GetRecordCellSprite(i, "Image"));
-
-        vllImages.ClearRecords();
-
-        for (int i = 0; i < imgs.Count; i++)
-            vllImages.AddRecord(imgs[i]);
+        vllImages.AddRecord(newSprite);
 
         RefreshImages();
     }
 
     public void RemoveImage()
     {
+        vllImages.GetRecordCellSprite(currentIdx, "Image").Destroy();
         vllImages.RemoveRecord(currentIdx);
 
         RefreshImages();
