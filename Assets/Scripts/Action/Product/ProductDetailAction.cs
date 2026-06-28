@@ -191,14 +191,10 @@ public class ProductDetailAction : MonoBehaviour
         }
 
         // Images
-        goEmptyImages.SetActive(productFull.Images.Length == 0);
-        goImages.SetActive(productFull.Images.Length != 0);
+        goEmptyImages.SetActive(productFull.ImageSprites.Count == 0);
+        goImages.SetActive(productFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < productFull.Images.Length; i++)
-            images.Add(productFull.Images[i].CreateSprite($"ProductImage_{i}"));
-        onImagesDisplay.Invoke(images);
-        //onDisplayed.Invoke(new long[2] {productFull.PostId, productFull.Id});
+        onImagesDisplay.Invoke(productFull.ImageSprites);
 
         // Actions
         SetToggle(tglFavorite, productFull.Favorite != 0);

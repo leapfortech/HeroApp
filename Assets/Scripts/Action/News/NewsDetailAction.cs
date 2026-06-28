@@ -166,14 +166,10 @@ public class NewsDetailAction : MonoBehaviour
         txtNewsDateTime.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         // Images
-        goEmptyImages.SetActive(newsFull.Images.Length == 0);
-        goImages.SetActive(newsFull.Images.Length != 0);
+        goEmptyImages.SetActive(newsFull.ImageSprites.Count == 0);
+        goImages.SetActive(newsFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < newsFull.Images.Length; i++)
-            images.Add(newsFull.Images[i].CreateSprite($"NewsImage_{i}"));
-        onImagesDisplay.Invoke(images);
-        //onDisplayed.Invoke(new long[2] {newsFull.PostId, newsFull.Id});
+        onImagesDisplay.Invoke(newsFull.ImageSprites);
 
         // Actions
         SetToggle(tglFavorite, newsFull.Favorite != 0);

@@ -156,14 +156,10 @@ public class HappeningDetailAction : MonoBehaviour
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
 
         // Images
-        goEmptyImages.SetActive(happeningFull.Images.Length == 0);
-        goImages.SetActive(happeningFull.Images.Length != 0);
+        goEmptyImages.SetActive(happeningFull.ImageSprites.Count == 0);
+        goImages.SetActive(happeningFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < happeningFull.Images.Length; i++)
-            images.Add(happeningFull.Images[i].CreateSprite($"HappeningImage_{i}"));
-        onImagesDisplay.Invoke(images);
-        //onDisplayed.Invoke(new long[2] {happeningFull.PostId, happeningFull.Id});
+        onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
         // Actions
         SetToggle(tglFavorite, happeningFull.Favorite != 0);

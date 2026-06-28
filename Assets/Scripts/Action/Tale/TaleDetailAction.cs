@@ -131,7 +131,6 @@ public class TaleDetailAction : MonoBehaviour
         goImages.SetActive(taleFull.ImageSprites.Count != 0);
 
         onImagesDisplay.Invoke(taleFull.ImageSprites);
-        //onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
 
         // Actions
         SetToggle(tglFavorite, taleFull.Favorite != 0);

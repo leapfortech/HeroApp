@@ -171,14 +171,10 @@ public class RadioDetailAction : MonoBehaviour
         }
 
         // Images
-        goEmptyImages.SetActive(radioFull.Images.Length == 0);
-        goImages.SetActive(radioFull.Images.Length != 0);
+        goEmptyImages.SetActive(radioFull.ImageSprites.Count == 0);
+        goImages.SetActive(radioFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < radioFull.Images.Length; i++)
-            images.Add(radioFull.Images[i].CreateSprite($"RadioImage_{i}"));
-        onImagesDisplay.Invoke(images);
-        //onDisplayed.Invoke(new long[2] {radioFull.PostId, radioFull.Id});
+        onImagesDisplay.Invoke(radioFull.ImageSprites);
 
         // Actions
         SetToggle(tglFavorite, radioFull.Favorite != 0);

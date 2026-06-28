@@ -158,14 +158,10 @@ public class TreatmentDetailAction : MonoBehaviour
         lstDisease.ApplyValues();
 
         // Images
-        goEmptyImages.SetActive(treatmentFull.Images.Length == 0);
-        goImages.SetActive(treatmentFull.Images.Length != 0);
+        goEmptyImages.SetActive(treatmentFull.ImageSprites.Count == 0);
+        goImages.SetActive(treatmentFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < treatmentFull.Images.Length; i++)
-            images.Add(treatmentFull.Images[i].CreateSprite($"TreatmentImage_{i}"));
-        onImagesDisplay.Invoke(images);
-        //onDisplayed.Invoke(new long[2] {treatmentFull.PostId, treatmentFull.Id});
+        onImagesDisplay.Invoke(treatmentFull.ImageSprites);
 
         // Actions
         SetToggle(tglFavorite, treatmentFull.Favorite != 0);
