@@ -67,7 +67,7 @@ public class RadioUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(RadioFull radioFull)
+    public void ApplyFull(RadioFull radioFull)
     {
         post = new Post(radioFull);
         dtmPost.PopulateClass<Post>(post);
@@ -87,10 +87,7 @@ public class RadioUpdateAction : MonoBehaviour
             radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
         OnRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < radioFull.Images.Length; i++)
-            images.Add(radioFull.Images[i].CreateSprite($"RadioImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(radioFull.ImageSprites);
     }
 
     private void DoUpdate()

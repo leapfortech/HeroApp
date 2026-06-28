@@ -62,7 +62,7 @@ public class TreatmentUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(TreatmentFull treatmentFull)
+    public void ApplyFull(TreatmentFull treatmentFull)
     {
         post = new Post(treatmentFull);
         dtmPost.PopulateClass<Post>(post);
@@ -75,10 +75,7 @@ public class TreatmentUpdateAction : MonoBehaviour
             diseaseIds[i] = treatmentFull.DiseaseFulls[i].DiseaseTypeId;
         OnPopulated?.Invoke(diseaseIds);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < treatmentFull.Images.Length; i++)
-            images.Add(treatmentFull.Images[i].CreateSprite($"TreatmentImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(treatmentFull.ImageSprites);
     }
 
     private void DoUpdate()

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+using Leap.Graphics.Tools;
+
 public class ProductFull : PostFull
 {
     public long Id { get; set; }
@@ -15,7 +18,18 @@ public class ProductFull : PostFull
     public int Status { get; set; }
 
     public List<ProductReviewFull> ProductReviewFulls { get; set; }
-    public String[] Images { get; set; }
+    public String[] Images
+    {
+        get => null;
+        set
+        {
+            ImageSprites = new List<Sprite>();
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] != null)
+                    ImageSprites.Add(value[i].CreateSprite("Product_" + i.ToString("D02")));
+        }
+    }
+    public List<Sprite> ImageSprites { get; set; }
 
 
     public ProductFull()

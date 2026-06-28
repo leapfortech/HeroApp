@@ -19,10 +19,6 @@ public class FlowControlAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
 
-    [Title("Event")]
-    [SerializeField]
-    UnityEvent onSelected = null;
-
     [Title("Page")]
     [SerializeField]
     Page pagStart = null;
@@ -40,7 +36,6 @@ public class FlowControlAction : MonoBehaviour
     public void ActivateRegister()
     {
         ClearAll();
-        onSelected?.Invoke();
 
         btnRegister.gameObject.SetActive(true);
         btnUpdate.gameObject.SetActive(false);
@@ -50,9 +45,6 @@ public class FlowControlAction : MonoBehaviour
 
     public void ActivateUpdate()
     {
-        ClearAll();
-        onSelected?.Invoke();
-
         btnRegister.gameObject.SetActive(false);
         btnUpdate.gameObject.SetActive(true);
 

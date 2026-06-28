@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+using Leap.Graphics.Tools;
+
 public class RadioFull : PostFull
 {
     public long Id { get; set; }
@@ -9,7 +12,18 @@ public class RadioFull : PostFull
 
     public List<RadioTypeFull> RadioTypeFulls { get; set; }
     public List<RadioLanguageFull> RadioLanguageFulls { get; set; }
-    public String[] Images { get; set; }
+    public String[] Images
+    {
+        get => null;
+        set
+        {
+            ImageSprites = new List<Sprite>();
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] != null)
+                    ImageSprites.Add(value[i].CreateSprite("Radio_" + i.ToString("D02")));
+        }
+    }
+    public List<Sprite> ImageSprites { get; set; }
 
     public RadioFull()
     {

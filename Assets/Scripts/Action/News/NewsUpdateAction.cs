@@ -60,7 +60,7 @@ public class NewsUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(NewsFull newsFull)
+    public void ApplyFull(NewsFull newsFull)
     {
         post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(post);
@@ -73,10 +73,7 @@ public class NewsUpdateAction : MonoBehaviour
         String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmTime.PopulateBuiltIn<String>(dateTimeStr);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < newsFull.Images.Length; i++)
-            images.Add(newsFull.Images[i].CreateSprite($"NewsImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(newsFull.ImageSprites);
     }
 
     private void DoUpdate()

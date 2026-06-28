@@ -16,7 +16,7 @@ public class TaleFull : PostFull
             ImageSprites = new List<Sprite>();
             for (int i = 0; i < value.Length; i++)
                 if (value[i] != null)
-                    ImageSprites.Add(value[i].CreateSprite("TaleImage_" + i.ToString("D02")));
+                    ImageSprites.Add(value[i].CreateSprite("Tale_" + i.ToString("D02")));
         }
     }
     public List<Sprite> ImageSprites { get; set; }

@@ -73,7 +73,7 @@ public class ProductUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(ProductFull productFull)
+    public void ApplyFull(ProductFull productFull)
     {
         post = new Post(productFull);
         dtmPost.PopulateClass<Post>(post);
@@ -134,10 +134,7 @@ public class ProductUpdateAction : MonoBehaviour
         product = new Product(productFull);
         dtmProduct.PopulateClass<Product>(product);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < productFull.Images.Length; i++)
-            images.Add(productFull.Images[i].CreateSprite($"ProductImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(productFull.ImageSprites);
     }
 
     private void DoUpdate()

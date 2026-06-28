@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UnityEngine;
+using Leap.Graphics.Tools;
+
 public class HappeningFull : PostFull
 {
     public long Id { get; set; }
@@ -17,7 +20,18 @@ public class HappeningFull : PostFull
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
     public int Status { get; set; }
-    public String[] Images { get; set; }
+    public String[] Images
+    {
+        get => null;
+        set
+        {
+            ImageSprites = new List<Sprite>();
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] != null)
+                    ImageSprites.Add(value[i].CreateSprite("Happening_" + i.ToString("D02")));
+        }
+    }
+    public List<Sprite> ImageSprites { get; set; }
 
     public HappeningFull()
     {

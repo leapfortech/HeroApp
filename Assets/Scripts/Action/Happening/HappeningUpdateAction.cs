@@ -61,7 +61,7 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(HappeningFull happeningFull)
+    public void ApplyFull(HappeningFull happeningFull)
     {
         post = new Post(happeningFull);
         dtmPost.PopulateClass<Post>(post);
@@ -74,10 +74,7 @@ public class HappeningUpdateAction : MonoBehaviour
         String endTimeStr = happening.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < happeningFull.Images.Length; i++)
-            images.Add(happeningFull.Images[i].CreateSprite($"HappeningImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(happeningFull.ImageSprites);
     }
 
     private void DoUpdate()
