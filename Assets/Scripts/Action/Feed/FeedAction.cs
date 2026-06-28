@@ -175,7 +175,7 @@ public class FeedAction : MonoBehaviour
         ScreenDialog.Instance.Hide();
     }
 
-    public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime now)
+    public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime utcNow)
     {
         bool empty = postFull.PublicationDateTime.Year == 1753;
         loopValue.ItemType = empty ? 0 : postFull.ImageCount == 0 ? 1 : 2;
@@ -186,43 +186,7 @@ public class FeedAction : MonoBehaviour
         loopValue.SetSprite(0, empty ? null : postFull.ThumbnailSprite);
         loopValue.SetText(1, postFull.Title);
 
-        String sDelay = "hace ";
-        int delay = 0;
-        TimeSpan timeSpan = now - postFull.PublicationDateTime;
-        if (timeSpan.TotalDays >= 365)
-        {
-            delay = (int)(timeSpan.TotalDays / 365);
-            sDelay += delay.ToString() + (delay > 1 ? " años" : " año");
-        }
-        else if (timeSpan.TotalDays > 30)
-        {
-            delay = (int)(timeSpan.TotalDays / 30);
-            sDelay += delay.ToString() + (delay > 1 ? " meses" : " mes");
-        }
-        else if (timeSpan.TotalDays >= 7)
-        {
-            delay = (int)(timeSpan.TotalDays / 7);
-            sDelay += delay.ToString() + (delay > 1 ? " semanas" : " semana");
-        }
-        else if (timeSpan.TotalDays >= 1)
-        {
-            delay = (int)timeSpan.TotalDays;
-            sDelay += delay.ToString() + (delay > 1 ? " días" : " día");
-        }
-        else if (timeSpan.TotalHours >= 1)
-        {
-            delay = (int)timeSpan.TotalHours;
-            sDelay += delay.ToString() + (delay > 1 ? " horas" : " hora");
-        }
-        else if (timeSpan.TotalMinutes >= 1)
-        {
-            delay = (int)timeSpan.TotalMinutes;
-            sDelay += delay.ToString() + (delay > 1 ? " minutos" : " minuto");
-        }
-        else
-            sDelay = "ahora";
-
-        loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {sDelay}");
+        loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {PostHelper.GetFeedDelay(utcNow - postFull.PublicationDateTime)}");
         loopValue.SetText(3, (postFull.Description != null && postFull.Description.Length > 84) ? postFull.Description[0..83] + "..." : postFull.Description);
         loopValue.GetSprite(4)?.Destroy();
         loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);

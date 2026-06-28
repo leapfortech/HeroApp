@@ -178,7 +178,7 @@ public class FeedCommentAction : MonoBehaviour
         //ScreenDialog.Instance.Hide();
     }
 
-    public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime now)
+    public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime utcNow)
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
         //loopValue.ItemType = empty ? 0 : commentFull.ImageCount == 0 ? 1 : 2;
@@ -186,7 +186,7 @@ public class FeedCommentAction : MonoBehaviour
         loopValue.UserData = empty ? null : new FeedUserData(commentFull.PostId, commentFull.PublicationDateTime);
 
         loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, empty ? null : $"Hace {((int)(now - commentFull.PublicationDateTime).TotalHours).ToString()} horas");
+        loopValue.SetText(1, empty ? null : $"{PostHelper.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
         loopValue.SetText(2, commentFull.Message);
 
         //int r = URandom.Range(0, 10);
