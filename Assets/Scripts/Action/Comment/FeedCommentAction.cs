@@ -182,11 +182,11 @@ public class FeedCommentAction : MonoBehaviour
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
         //loopValue.ItemType = empty ? 0 : commentFull.ImageCount == 0 ? 1 : 2;
-        //loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
+        loopValue.ItemSize = 430;
         loopValue.UserData = empty ? null : new FeedUserData(commentFull.PostId, commentFull.PublicationDateTime);
 
         loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, empty ? null : $"@{commentFull.AppUserAlias} - hace {((int)(now - commentFull.PublicationDateTime).TotalHours).ToString()} horas");
+        loopValue.SetText(1, empty ? null : $"Hace {((int)(now - commentFull.PublicationDateTime).TotalHours).ToString()} horas");
         loopValue.SetText(2, commentFull.Message);
 
         //int r = URandom.Range(0, 10);
