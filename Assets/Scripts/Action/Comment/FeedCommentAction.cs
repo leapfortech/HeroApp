@@ -202,7 +202,7 @@ public class FeedCommentAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        Comment comment = new Comment(-postId, StateManager.Instance.AppUser.Id, ifdComment.Text);
+        Comment comment = new Comment(postId, StateManager.Instance.AppUser.Id, ifdComment.Text);
         postService.RegisterComment(comment);
     }
 
