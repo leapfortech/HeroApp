@@ -3,11 +3,11 @@ using System;
 public class FeedCommentUserData
 {
     public long PostId { get; set; }
-    public DateTime CreateDateTime { get; set; }
+    public DateTime PublicationDateTime { get; set; }
 
-    public FeedCommentUserData(long postId, DateTime createDateTime)
+    public FeedCommentUserData(long postId, DateTime publicationDateTime)
     {
         PostId = postId;
-        CreateDateTime = createDateTime;
+        PublicationDateTime = publicationDateTime;
     }
 }

@@ -7,6 +7,7 @@ public class CommentFull
     public long AppUserId { get; set; }
     public String AppUserAlias { get; set; }
     public String Message { get; set; }
+    public DateTime PublicationDateTime { get; set; }
     public DateTime CreateDateTime { get; set; }
     public DateTime UpdateDateTime { get; set; }
     public int Status { get; set; }
@@ -16,13 +17,14 @@ public class CommentFull
     }
 
     public CommentFull(long id, long postId, long appUserId, String appUserAlias,
-                             String message, DateTime createDateTime, DateTime updateDateTime, int status)
+                             String message, DateTime publicationDateTime, DateTime createDateTime, DateTime updateDateTime, int status)
     {
         Id = id;
         PostId = postId;
         AppUserId = appUserId;
         AppUserAlias = appUserAlias;
         Message = message;
+        PublicationDateTime = publicationDateTime;
         CreateDateTime = createDateTime;
         UpdateDateTime = updateDateTime;
         Status = status;

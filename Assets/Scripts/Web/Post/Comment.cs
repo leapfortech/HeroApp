@@ -6,16 +6,18 @@ public class Comment
     public long PostId { get; set; }
     public long AppUserId { get; set; }
     public String Message { get; set; }
+    public DateTime PublicationDateTime { get; set; }
     public int Status { get; set; }
 
     public Comment() { }
 
-    public Comment(long id, long postId, long appUserId, String message, int status)
+    public Comment(long id, long postId, long appUserId, String message, DateTime publicationDateTime, int status)
     {
         Id = id;
         PostId = postId;
         AppUserId = appUserId;
         Message = message;
+        PublicationDateTime = publicationDateTime;
         Status = status;
     }
 
@@ -25,6 +27,7 @@ public class Comment
         PostId = postId;
         AppUserId = appUserId;
         Message = message;
+        PublicationDateTime = DateTime.UtcNow;
         Status = -1;
     }
 }

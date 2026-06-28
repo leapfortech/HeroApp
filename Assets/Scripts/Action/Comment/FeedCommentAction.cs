@@ -107,7 +107,7 @@ public class FeedCommentAction : MonoBehaviour
         {
             Chunk = startLoopIdx,
 
-            StartDateTime = feedCommentUserData.CreateDateTime,
+            StartDateTime = feedCommentUserData.PublicationDateTime,
             Direction = direction,
             Count = feedCommentUserData.PostId == -1 ? count + count : count,
 
@@ -180,13 +180,13 @@ public class FeedCommentAction : MonoBehaviour
 
     public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime now)
     {
-        bool empty = commentFull.CreateDateTime.Year == 1753;
+        bool empty = commentFull.PublicationDateTime.Year == 1753;
         //loopValue.ItemType = empty ? 0 : commentFull.ImageCount == 0 ? 1 : 2;
         //loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
-        loopValue.UserData = empty ? null : new FeedUserData(commentFull.PostId, commentFull.CreateDateTime);
+        loopValue.UserData = empty ? null : new FeedUserData(commentFull.PostId, commentFull.PublicationDateTime);
 
         loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, empty ? null : $"@{commentFull.AppUserAlias} - hace {((int)(now - commentFull.CreateDateTime).TotalHours).ToString()} horas");
+        loopValue.SetText(1, empty ? null : $"@{commentFull.AppUserAlias} - hace {((int)(now - commentFull.PublicationDateTime).TotalHours).ToString()} horas");
         loopValue.SetText(2, commentFull.Message);
 
         //int r = URandom.Range(0, 10);
@@ -202,7 +202,7 @@ public class FeedCommentAction : MonoBehaviour
         }
 
         ScreenDialog.Instance.Display();
-        Comment comment = new Comment(-1, postId, StateManager.Instance.AppUser.Id, ifdComment.Text, -1);
+        Comment comment = new Comment(-postId, StateManager.Instance.AppUser.Id, ifdComment.Text);
         postService.RegisterComment(comment);
     }
 
@@ -219,10 +219,10 @@ public class FeedCommentAction : MonoBehaviour
 
     public void UpdateDebug(int k, CommentFull commentFull)
     {
-        if (commentFull.CreateDateTime.Year == 1753)
+        if (commentFull.PublicationDateTime.Year == 1753)
             valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
         else
-            valueDates[k] = $"<color=red>{commentFull.CreateDateTime.ToString("HH:mm:ss:ffff")} : {commentFull.Message}</color>";
+            valueDates[k] = $"<color=red>{commentFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {commentFull.Message}</color>";
 
     }
 
