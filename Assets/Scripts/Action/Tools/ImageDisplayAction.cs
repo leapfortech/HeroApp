@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using MPUIKIT;
 
@@ -29,18 +30,17 @@ public class ImageDisplayAction : MonoBehaviour
     private Color colorOff = Color.gray;
 
     private GameObject[] indicators;
-    
-    private List<Sprite> images = new List<Sprite>();
 
-    private int currentIdx = 0;
+    private List<Sprite> images = new List<Sprite>();
 
     public void Clear()
     {
         testImages = null;
+        for (int i = 0; i < images.Count; i++)
+            images[i].Destroy();
         images.Clear();
         lstImage.Clear();
-        foreach (Transform child in indicatorParent)
-            Destroy(child.gameObject);
+        ClearIndicators();
     }
 
     public void DisplayTestImages()
@@ -49,9 +49,9 @@ public class ImageDisplayAction : MonoBehaviour
     }
 
     public void Display(List<Sprite> imgs)
-    {       
+    {
         this.images = imgs;
-        
+
         if (images == null || images.Count == 0)
             return;
 
@@ -71,34 +71,34 @@ public class ImageDisplayAction : MonoBehaviour
 
     public void SelectImage(int idx)
     {
-        currentIdx = idx;
-
         imgDisplay.Sprite = images[idx];
 
         UpdateIndicator(idx);
     }
 
-    public void UpdateIndicator(int currentIdx)
+    public void UpdateIndicator(int idx)
     {
         for (int i = 0; i < indicators.Length; i++)
         {
             MPImage indicatorImage = indicators[i].GetComponent<MPImage>();
 
             if (indicatorImage != null)
-                indicatorImage.color = (i == currentIdx) ? colorOn : colorOff;
+                indicatorImage.color = (i == idx) ? colorOn : colorOff;
         }
     }
 
     private void CreateIndicators(int count)
     {
-        foreach (Transform child in indicatorParent)
-            Destroy(child.gameObject);
+        ClearIndicators();
 
         indicators = new GameObject[count];
         for (int i = 0; i < count; i++)
-        {
-            GameObject indicator = Instantiate(indicatorPrefab, indicatorParent);
-            indicators[i] = indicator;
-        }
+            indicators[i] = Instantiate(indicatorPrefab, indicatorParent);
+    }
+
+    private void ClearIndicators()
+    {
+        foreach (Transform child in indicatorParent)
+            Destroy(child.gameObject);
     }
 }

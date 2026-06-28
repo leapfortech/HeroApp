@@ -127,13 +127,10 @@ public class TaleDetailAction : MonoBehaviour
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
 
         // Images
-        goEmptyImages.SetActive(taleFull.Images.Length == 0);
-        goImages.SetActive(taleFull.Images.Length != 0);
+        goEmptyImages.SetActive(taleFull.ImageSprites.Count == 0);
+        goImages.SetActive(taleFull.ImageSprites.Count != 0);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < taleFull.Images.Length; i++)
-            images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
-        onImagesDisplay.Invoke(images);
+        onImagesDisplay.Invoke(taleFull.ImageSprites);
         //onDisplayed.Invoke(new long[2] { taleFull.PostId, taleFull.Id });
 
         // Actions

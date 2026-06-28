@@ -13,7 +13,7 @@ public class PostFull
     public String Thumbnail
     {
         get => null;
-        set => ThumbnailSprite = value?.CreateSprite("Thumbnail" + PostId.ToString("D02"));
+        set => ThumbnailSprite = value?.CreateSprite("Thumbnail_" + PostId.ToString("D02"));
     }
     public Sprite ThumbnailSprite { get; set; } = null;
     public long PostTypeId { get; set; } = -1L;
@@ -23,7 +23,7 @@ public class PostFull
     public String TitleImage 
     {
         get => null;
-        set => TitleSprite = value?.CreateSprite("Title" + PostId.ToString("D02"));
+        set => TitleSprite = value?.CreateSprite("Title_" + PostId.ToString("D02"));
     }
     public Sprite TitleSprite { get; set; } = null;
     public String Summary { get; set; } = null;

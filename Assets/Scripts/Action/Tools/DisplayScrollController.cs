@@ -79,7 +79,7 @@ public class DisplayScrollController : MonoBehaviour
     }
     public void OnToggleChanged()
     {
-        if (tggNav == null)
+        if (tggNav == null || !initialized)
             return;
 
         if (!tglPressed)

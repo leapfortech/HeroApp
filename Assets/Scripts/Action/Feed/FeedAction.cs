@@ -3,6 +3,7 @@ using UnityEngine;
 //using URandom = UnityEngine.Random;
 
 using Leap.Core.Tools;
+using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
@@ -181,10 +182,12 @@ public class FeedAction : MonoBehaviour
         loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
         loopValue.UserData = empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
 
+        loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, empty ? null : postFull.ThumbnailSprite);
         loopValue.SetText(1, postFull.AppUserAlias);
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - hace {((int)(now - postFull.PublicationDateTime).TotalHours).ToString()} horas");
         loopValue.SetText(3, postFull.Summary);
+        loopValue.GetSprite(4)?.Destroy();
         loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
         loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
 

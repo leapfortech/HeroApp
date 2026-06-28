@@ -51,17 +51,14 @@ public class TaleUpdateAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
-    public void Display(TaleFull taleFull)
+    public void ApplyFull(TaleFull taleFull)
     {
         post = new Post(taleFull);
         dtmPost.PopulateClass<Post>(post);
 
         tale = new Tale(taleFull);
 
-        List<Sprite> images = new List<Sprite>();
-        for (int i = 0; i < taleFull.Images.Length; i++)
-            images.Add(taleFull.Images[i].CreateSprite($"TaleImage_{i}"));
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
+        dtmImagesVLL.PopulateBuiltInList<Sprite>(taleFull.ImageSprites);
     }
 
     private void DoUpdate()
