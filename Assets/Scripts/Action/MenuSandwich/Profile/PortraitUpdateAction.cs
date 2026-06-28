@@ -18,7 +18,7 @@ public class PortraitUpdateAction : MonoBehaviour
     Page PagNext = null;
 
     AppUserService appUserService = null;
-    Sprite sptPortrait = null;
+    Texture2D portrait = null;
 
     private void Awake()
     {
@@ -32,8 +32,7 @@ public class PortraitUpdateAction : MonoBehaviour
 
     public void Delete()
     {
-        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?",
-                                      () => DoDelete(), null, "Sí", "No");
+        ChoiceDialog.Instance.Warning("Eliminar fotografía", "¿Estás seguro de borrar la fotografía de perfil?", DoDelete, null, "Sí", "No");
     }
 
     public void DoDelete()
@@ -44,21 +43,21 @@ public class PortraitUpdateAction : MonoBehaviour
 
     public void ApplyDelete()
     {
+        StateManager.Instance.Portrait.Destroy();
         StateManager.Instance.Portrait = null;
         ScreenDialog.Instance.Hide();
     }
 
     public void DoUpdate(Texture2D portrait)
     {
-        sptPortrait = portrait.CreateSprite("Portrait");
-
+        this.portrait = portrait;
         appUserService.UpdatePortrait(StateManager.Instance.AppUser.Id, portrait.ToStrBase64(ImageType.JPG));
     }
 
     public void ApplyPortrait()
     {
-        StateManager.Instance.Portrait = sptPortrait;
+        StateManager.Instance.Portrait.Destroy();
+        StateManager.Instance.Portrait = portrait.CreateSprite("Portrait");
         PageManager.Instance.ChangePage(PagNext);
-        //RM REVIEW DestroySprite
     }
 }
