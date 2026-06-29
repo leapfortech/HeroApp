@@ -50,6 +50,7 @@ public class FeedAction : MonoBehaviour
     FeedState feedState;
     int feedCount = 0;
     int selectedIdx = -1;
+    PostFull emptyPostFull = new PostFull();
 
     private void Awake()
     {
@@ -68,10 +69,9 @@ public class FeedAction : MonoBehaviour
 
         loopFeed.ClearValues();
         DateTime utcNow = DateTime.UtcNow;
-        PostFull emptyPostFull = new PostFull();
         for (int k = 0; k < feedCount; k++)
         {
-            loopFeed.AddValue(CreateValue(emptyPostFull, utcNow));
+            loopFeed.AddValue(CreateEmptyValue(emptyPostFull, utcNow));
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
@@ -83,7 +83,7 @@ public class FeedAction : MonoBehaviour
         GetPosts(0, new FeedUserData(-1, utcNow), 2);
     }
 
-    public LoopScrollerValue CreateValue(PostFull postFull, DateTime utcNow)
+    public LoopScrollerValue CreateEmptyValue(PostFull postFull, DateTime utcNow)
     {
         LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
         UpdateValue(postFull, loopValue, utcNow);
@@ -130,22 +130,13 @@ public class FeedAction : MonoBehaviour
 
         txtEmpty.SetActive(response.Total == 0);
 
-        if (response.PostFulls.Count == 0)
-        {
-            if (txtDebug != null)
-                txtDebug.TextValue = String.Join('\n', valueDates);
-            ScreenDialog.Instance.Hide();
-            return;
-        }
-
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
-        //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
-        int direction = response.Direction;
 
+        //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
         DateTime utcNow = DateTime.UtcNow;
-        if (direction == 1)
+        if (response.Direction == 1)
         {
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
@@ -154,6 +145,13 @@ public class FeedAction : MonoBehaviour
                 //    break;
                 UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
+            }
+
+            for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+            {
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                UpdateValue(emptyPostFull, loopFeed[k], utcNow);
+                UpdateDebug(k, emptyPostFull);
             }
         }
         else
@@ -164,11 +162,18 @@ public class FeedAction : MonoBehaviour
                 UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
+
+            for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+            {
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                UpdateValue(emptyPostFull, loopFeed[k], utcNow);
+                UpdateDebug(k, emptyPostFull);
+            }
         }
+        loopFeed.RefreshVisibleValues();
 
         if (txtDebug != null)
             txtDebug.TextValue = String.Join('\n', valueDates);
-        loopFeed.RefreshVisibleValues();
 
         ScreenDialog.Instance.Hide();
     }
