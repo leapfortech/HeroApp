@@ -92,6 +92,9 @@ public class FeedAction : MonoBehaviour
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {
+        if (userData == null)
+            return;
+
         FeedUserData feedUserData = (FeedUserData)userData;
 
         if (feedUserData.PostId == -1)
@@ -174,7 +177,7 @@ public class FeedAction : MonoBehaviour
     {
         bool empty = postFull.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : postFull.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = postFull.ImageCount == 0 ? 460 : 1058;
+        loopValue.ItemSize = empty ? 2000 : postFull.ImageCount == 0 ? 460 : 1058;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime));
 
         if (empty)

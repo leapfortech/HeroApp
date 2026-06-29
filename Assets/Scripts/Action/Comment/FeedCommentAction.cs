@@ -179,7 +179,7 @@ public class FeedCommentAction : MonoBehaviour
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = 430;
+        loopValue.ItemSize = empty ? 2000 : 430;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedCommentUserData(commentFull.PostId, commentFull.PublicationDateTime));
 
         if (empty)
