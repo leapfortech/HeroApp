@@ -135,7 +135,6 @@ public class FeedAction : MonoBehaviour
             return;
         }
 
-        //response.Chunk = response.Chunk == -1 ? 0 : (response.Chunk + feedState.Count);
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
         //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
         int direction = response.Direction;
@@ -147,10 +146,9 @@ public class FeedAction : MonoBehaviour
         {
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;  // - i - 1)
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 //if (k < 0)
                 //    break;
-                //feedState.PostFulls[k] = response.PostFulls[i];
                 UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
@@ -160,7 +158,6 @@ public class FeedAction : MonoBehaviour
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                //feedState.PostFulls[k] = response.PostFulls[i];
                 UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
