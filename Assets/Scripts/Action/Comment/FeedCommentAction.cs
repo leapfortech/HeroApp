@@ -97,6 +97,9 @@ public class FeedCommentAction : MonoBehaviour
 
     public void GetComments(int startLoopIdx, object commentUserData, int direction)
     {
+        if (commentUserData == null)
+            return;
+
         FeedCommentUserData feedCommentUserData = (FeedCommentUserData)commentUserData;
 
         //if (feedCommentUserData.PostId == -1)
