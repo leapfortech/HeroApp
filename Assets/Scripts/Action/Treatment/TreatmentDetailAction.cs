@@ -147,6 +147,7 @@ public class TreatmentDetailAction : MonoBehaviour
         //txtAnnotation.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Annotation) ? "-" : treatmentFull.Annotation;
 
         // Disease
+        lstDisease.Clear();
         for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
         {
             ListScrollerValue value = new ListScrollerValue(1, true);

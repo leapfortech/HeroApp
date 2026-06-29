@@ -153,6 +153,7 @@ public class RadioDetailAction : MonoBehaviour
         txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
 
         // Radio Type
+        lstRadioType.Clear();
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
         {
             ListScrollerValue value = new ListScrollerValue(1, true);
@@ -162,6 +163,7 @@ public class RadioDetailAction : MonoBehaviour
         }
 
         // Radio Language
+        lstRadioLanguage.Clear();
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
         {
             ListScrollerValue value = new ListScrollerValue(1, true);

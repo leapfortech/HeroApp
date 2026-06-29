@@ -72,6 +72,8 @@ public class ListOptionAction : MonoBehaviour
 
     public void AddRecords(long[] optionIds)
     {
+        Clear();
+        
         if (vllOptionType == null)
             return;
 
