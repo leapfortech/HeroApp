@@ -76,6 +76,7 @@ public class TreatmentRegisterAction : MonoBehaviour
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
+        post.Title = "Remedio";
         post.CountryId = StateManager.Instance.InterestLocality.CountryId;
         post.StateId = StateManager.Instance.InterestLocality.StateId;
 
