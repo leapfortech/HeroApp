@@ -91,7 +91,7 @@ public class FeedCommentAction : MonoBehaviour
 
     public LoopScrollerValue CreateValue(CommentFull commentFull, DateTime now)
     {
-        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItem, null);
+        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
         UpdateValue(commentFull, loopValue, now);
         return loopValue;
     }

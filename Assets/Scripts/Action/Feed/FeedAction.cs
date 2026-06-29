@@ -63,7 +63,6 @@ public class FeedAction : MonoBehaviour
 
         feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
         feedCount = feedState.Count * 4;
-        //feedState.PostFulls = new List<PostFull>(feedCount);
 
         valueDates = new String[feedCount];
 
@@ -72,7 +71,6 @@ public class FeedAction : MonoBehaviour
         PostFull emptyPostFull = new PostFull();
         for (int k = 0; k < feedCount; k++)
         {
-            //feedState.PostFulls.Add(emptyPostFull);
             loopFeed.AddValue(CreateValue(emptyPostFull, utcNow));
             valueDates[k] = "--:--:--:---- : -1";
         }
@@ -87,7 +85,7 @@ public class FeedAction : MonoBehaviour
 
     public LoopScrollerValue CreateValue(PostFull postFull, DateTime now)
     {
-        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItem, null);
+        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
         UpdateValue(postFull, loopValue, now);
         return loopValue;
     }
@@ -178,19 +176,26 @@ public class FeedAction : MonoBehaviour
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime utcNow)
     {
         bool empty = postFull.PublicationDateTime.Year == 1753;
-        loopValue.ItemType = empty ? 0 : postFull.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = postFull.ImageCount == 0 ? 430 : 1058;
-        loopValue.UserData = empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime);
+        loopValue.ItemIdx = empty ? 0 : postFull.ImageCount == 0 ? 1 : 2;
+        loopValue.ItemSize = postFull.ImageCount == 0 ? 460 : 1058;
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedUserData(postFull.PostId, postFull.PublicationDateTime));
+
+        if (empty)
+            return;
 
         loopValue.GetSprite(0)?.Destroy();
-        loopValue.SetSprite(0, empty ? null : postFull.ThumbnailSprite);
+        loopValue.SetSprite(0, postFull.ThumbnailSprite);
         loopValue.SetText(1, postFull.Title);
 
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {PostHelper.GetFeedDelay(utcNow - postFull.PublicationDateTime)}");
         loopValue.SetText(3, (postFull.Description != null && postFull.Description.Length > 84) ? postFull.Description[0..83] + "..." : postFull.Description);
-        loopValue.GetSprite(4)?.Destroy();
-        loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
-        loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
+
+        if (loopValue.ItemIdx == 2)
+        {
+            loopValue.GetSprite(4)?.Destroy();
+            loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
+            loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
+        }
 
         //int r = URandom.Range(0, 10);
         loopValue.SetCheck(0, postFull.Favorite != 0);
