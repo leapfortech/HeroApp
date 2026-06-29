@@ -32,7 +32,7 @@ public class PostFull
     public int Favorite { get; set; } = 0;
     public int Like { get; set; } = -1;
     public int LikeCount { get; set; } = 0;
-    public long ReactionPhraseId { get; set; } = -1;
+    public long ReactionPhraseId { get; set; } = -1L;
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
     public int PostStatus { get; set; } = -1;
 

@@ -83,10 +83,10 @@ public class FeedAction : MonoBehaviour
         GetPosts(0, new FeedUserData(-1, utcNow), 2);
     }
 
-    public LoopScrollerValue CreateValue(PostFull postFull, DateTime now)
+    public LoopScrollerValue CreateValue(PostFull postFull, DateTime utcNow)
     {
         LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-        UpdateValue(postFull, loopValue, now);
+        UpdateValue(postFull, loopValue, utcNow);
         return loopValue;
     }
 

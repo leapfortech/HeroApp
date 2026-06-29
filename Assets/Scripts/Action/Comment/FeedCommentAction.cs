@@ -42,7 +42,6 @@ public class FeedCommentAction : MonoBehaviour
     RectTransform trfOverlay = null;
 
     PostService postService;
-    //FeedState feedState;
     int feedCount = 0;
     long postId = -1;
 
@@ -72,27 +71,27 @@ public class FeedCommentAction : MonoBehaviour
         valueDates = new String[feedCount];
 
         loopFeed.ClearValues();
-        DateTime now = DateTime.UtcNow;
+        DateTime utcNow = DateTime.UtcNow;
         CommentFull emptyCommentFull = new CommentFull();
         for (int k = 0; k < feedCount; k++)
         {
-            loopFeed.AddValue(CreateValue(emptyCommentFull, now));
+            loopFeed.AddValue(CreateValue(emptyCommentFull, utcNow));
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
 
         UpdateOverlay(0);
 
-        goEmptyComments.SetActive(false);
+        goEmptyComments.SetActive(true);
         loopFeed.gameObject.SetActive(false);
 
-        GetComments(0, new FeedCommentUserData(-1, now), 2);
+        GetComments(0, new FeedCommentUserData(-1, utcNow), 2);
     }
 
-    public LoopScrollerValue CreateValue(CommentFull commentFull, DateTime now)
+    public LoopScrollerValue CreateValue(CommentFull commentFull, DateTime utcNow)
     {
         LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-        UpdateValue(commentFull, loopValue, now);
+        UpdateValue(commentFull, loopValue, utcNow);
         return loopValue;
     }
 
@@ -147,16 +146,15 @@ public class FeedCommentAction : MonoBehaviour
 
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
-        DateTime now = DateTime.Now;
+        DateTime utcNow = DateTime.UtcNow;
         if (direction == 1)
         {
             for (int i = 0; i < response.CommentFulls.Count; i++)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;  // - i - 1)
+                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 //if (k < 0)
                 //    break;
-                //feedState.PostFulls[k] = response.PostFulls[i];
-                UpdateValue(response.CommentFulls[i], loopFeed[k], now);
+                UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.CommentFulls[i]);
             }
         }
@@ -165,8 +163,7 @@ public class FeedCommentAction : MonoBehaviour
             for (int i = 0; i < response.CommentFulls.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                //feedState.PostFulls[k] = response.PostFulls[i];
-                UpdateValue(response.CommentFulls[i], loopFeed[k], now);
+                UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.CommentFulls[i]);
             }
         }
@@ -181,15 +178,16 @@ public class FeedCommentAction : MonoBehaviour
     public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime utcNow)
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
-        //loopValue.ItemType = empty ? 0 : commentFull.ImageCount == 0 ? 1 : 2;
+        loopValue.ItemIdx = empty ? 0 : 1;
         loopValue.ItemSize = 430;
-        loopValue.UserData = empty ? null : new FeedUserData(commentFull.PostId, commentFull.PublicationDateTime);
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedCommentUserData(commentFull.PostId, commentFull.PublicationDateTime));
+
+        if (empty)
+            return;
 
         loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, empty ? null : $"{PostHelper.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
+        loopValue.SetText(1, $"{PostHelper.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
         loopValue.SetText(2, commentFull.Message);
-
-        //int r = URandom.Range(0, 10);
     }
 
     // Register
