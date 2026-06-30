@@ -162,6 +162,10 @@ public class ProductDetailAction : MonoBehaviour
         //txtAnnotation.TextValue = String.IsNullOrEmpty(productFull.Annotation) ? "-" : productFull.Annotation;
         txtContactName.TextValue = String.IsNullOrEmpty(productFull.ContactFull.Name) ? "-" : productFull.ContactFull.Name;
 
+        txtPhone.TextValue = "-";
+        txtWhatsApp.TextValue = "-";
+        txtEmail.TextValue = "-";
+
         for (int i = 0; i < productFull.LinkFulls.Count; i++)
         {
             String url = productFull.LinkFulls[i].Url;
