@@ -176,13 +176,13 @@ public class FeedAction : MonoBehaviour
 
         ScreenDialog.Instance.Hide();
 
-        if (response.Direction == 3 && response.PostFulls.Count > 0)
-        {
-            loopFeed.SelectedIndex++;
-            int dataIndex = (loopFeed.SelectedIndex - response.PostFulls.Count) % loopFeed.ValuesCount;
-            Debug.Log($"{loopFeed.SelectedIndex} | {response.PostFulls.Count} | {loopFeed.SelectedIndex + loopFeed.ValuesCount - response.PostFulls.Count} | {dataIndex}");
-            loopFeed.TweenTo(dataIndex);
-        }
+        //if (response.Direction == 3 && response.PostFulls.Count > 0)
+        //{
+        //    loopFeed.SelectedIndex++;
+        //    int dataIndex = (loopFeed.SelectedIndex - response.PostFulls.Count) % loopFeed.ValuesCount;
+        //    Debug.Log($"{loopFeed.SelectedIndex} | {response.PostFulls.Count} | {loopFeed.SelectedIndex + loopFeed.ValuesCount - response.PostFulls.Count} | {dataIndex}");
+        //    loopFeed.TweenTo(dataIndex);
+        //}
     }
 
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime utcNow)
