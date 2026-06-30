@@ -1,7 +1,19 @@
 ﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 public static class PostHelper
 {
+    public static Post post = null;
+    public static Sprite titleSprite = null;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetPostHelper()
+    {
+        post = null;
+        titleSprite = null;
+    }
+
     public static String GetFeedDelay(TimeSpan timeSpan)
     {
         String sDelay = "hace ";
@@ -41,3 +53,6 @@ public static class PostHelper
         return sDelay;
     }
 }
+
+[Serializable]
+public class PostSpriteEvent : UnityEvent<Post, Sprite> { }

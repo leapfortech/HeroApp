@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -13,9 +12,6 @@ using Sirenix.OdinInspector;
 
 public class TaleUpdateAction : MonoBehaviour
 {
-    [Serializable]
-    public class PostSpriteEvent : UnityEvent<Post, Sprite> { }
-
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -40,9 +36,7 @@ public class TaleUpdateAction : MonoBehaviour
 
     TaleService taleService = null;
 
-    Post post = null;
     Tale tale = null;
-    Sprite titleSprite = null;
 
     private void Awake()
     {
@@ -62,8 +56,8 @@ public class TaleUpdateAction : MonoBehaviour
 
     public void ApplyFull(TaleFull taleFull)
     {
-        post = new Post(taleFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(taleFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         tale = new Tale(taleFull);
 
@@ -77,15 +71,17 @@ public class TaleUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Description = dtmPost.BuildClass<Post>().Description;
         
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        titleSprite = images.Count == 0 ? null : images[0];
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        taleService.UpdateTale(new RegisterTaleRequest(post, strImages, tale));
+        taleService.UpdateTale(new RegisterTaleRequest(PostHelper.post, strImages, tale));
     }
 
     public void ApplyUpdate(bool updated)
@@ -96,7 +92,7 @@ public class TaleUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(post, titleSprite);
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

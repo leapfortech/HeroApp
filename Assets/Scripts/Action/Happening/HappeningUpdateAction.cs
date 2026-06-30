@@ -37,9 +37,12 @@ public class HappeningUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Event")]
+    [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     HappeningService happeningService = null;
 
-    Post post = null;
     Happening happening = null;
 
     private void Awake()
@@ -63,8 +66,8 @@ public class HappeningUpdateAction : MonoBehaviour
 
     public void ApplyFull(HappeningFull happeningFull)
     {
-        post = new Post(happeningFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(happeningFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         happening = new Happening(happeningFull);
         dtmHappening.PopulateClass<Happening>(happening);
@@ -84,7 +87,7 @@ public class HappeningUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         happening.Update(dtmHappening.BuildClass<Happening>());
 
@@ -106,11 +109,14 @@ public class HappeningUpdateAction : MonoBehaviour
         }
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        happeningService.UpdateHappening(new RegisterHappeningRequest(post, strImages, happening));
+        happeningService.UpdateHappening(new RegisterHappeningRequest(PostHelper.post, strImages, happening));
     }
 
     public void ApplyHappening(bool updated)
@@ -120,6 +126,8 @@ public class HappeningUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

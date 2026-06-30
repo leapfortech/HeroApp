@@ -37,9 +37,12 @@ public class NewsUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Event")]
+    [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     NewsService newsService = null;
 
-    Post post = null;
     News news = null;
 
     private void Awake()
@@ -62,8 +65,8 @@ public class NewsUpdateAction : MonoBehaviour
 
     public void ApplyFull(NewsFull newsFull)
     {
-        post = new Post(newsFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(newsFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         dtmLink.PopulateClass<Link>(new Link(newsFull.LinkFulls[0]));
 
@@ -83,7 +86,7 @@ public class NewsUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         Link link = dtmLink.BuildClass<Link>();
         link.LinkTypeId = (long)LinkType.Url;
@@ -99,11 +102,14 @@ public class NewsUpdateAction : MonoBehaviour
         }
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.UpdateNews(new RegisterNewsRequest(post, link, strImages, news));
+        newsService.UpdateNews(new RegisterNewsRequest(PostHelper.post, link, strImages, news));
     }
 
     public void ApplyUpdate(bool updated)
@@ -113,6 +119,8 @@ public class NewsUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

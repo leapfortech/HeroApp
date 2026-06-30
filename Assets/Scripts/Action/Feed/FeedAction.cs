@@ -227,7 +227,6 @@ public class FeedAction : MonoBehaviour
         if (itemIdx != loopValue.ItemIdx)
             loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
-        //loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, thumbnailSprite);
         loopValue.SetText(1, post.Title);
         loopValue.SetText(2, alias);
@@ -235,7 +234,7 @@ public class FeedAction : MonoBehaviour
 
         if (loopValue.ItemIdx == 2)
         {
-            //loopValue.GetSprite(4)?.Destroy();
+            loopValue.GetSprite(4)?.Destroy();
             loopValue.SetSprite(4, titleSprite);
             loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
         }

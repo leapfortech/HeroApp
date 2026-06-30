@@ -32,17 +32,18 @@ public class TreatmentUpdateAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
 
-    [Title("Event")]
-    [SerializeField]
-    UnityLongsEvent OnPopulated = null;
-
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Events")]
+    [SerializeField]
+    UnityLongsEvent OnPopulated = null;
+    [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     TreatmentService treatmentService = null;
 
-    Post post = null;
     Treatment treatment = null;
 
     private void Awake()
@@ -64,8 +65,8 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     public void ApplyFull(TreatmentFull treatmentFull)
     {
-        post = new Post(treatmentFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(treatmentFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         treatment = new Treatment(treatmentFull);
         dtmTreatment.PopulateClass<Treatment>(treatment);
@@ -85,18 +86,21 @@ public class TreatmentUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Description = dtmPost.BuildClass<Post>().Description;
 
         treatment.Update(dtmTreatment.BuildClass<Treatment>());
 
         List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(post, strImages, treatment, diseases));
+        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(PostHelper.post, strImages, treatment, diseases));
     }
 
     public void ApplyUpdate(bool updated)
@@ -106,6 +110,8 @@ public class TreatmentUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

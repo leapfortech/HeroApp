@@ -33,19 +33,19 @@ public class RadioUpdateAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
 
-    [Title("Event")]
-    [SerializeField]
-    UnityLongsEvent OnRadioTypePopulated = null;
-    [SerializeField]
-    UnityLongsEvent OnRadioLanguagePopulated = null;
-
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Events")]
+    [SerializeField]
+    UnityLongsEvent OnRadioTypePopulated = null;
+    [SerializeField]
+    UnityLongsEvent OnRadioLanguagePopulated = null; [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     RadioService radioService = null;
 
-    Post post = null;
     Radio radio = null;
 
     private void Awake()
@@ -69,8 +69,8 @@ public class RadioUpdateAction : MonoBehaviour
 
     public void ApplyFull(RadioFull radioFull)
     {
-        post = new Post(radioFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(radioFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         dtmLink.PopulateClass<Link>(new Link(radioFull.LinkFulls[0]));
 
@@ -97,7 +97,7 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         Link link = dtmLink.BuildClass<Link>();
         link.LinkTypeId = (long)LinkType.Url;
@@ -106,11 +106,14 @@ public class RadioUpdateAction : MonoBehaviour
         List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.UpdateRadio(new RegisterRadioRequest(post, new List<Link> { link }, strImages, radio, radioTypes, radioLanguages));
+        radioService.UpdateRadio(new RegisterRadioRequest(PostHelper.post, new List<Link> { link }, strImages, radio, radioTypes, radioLanguages));
     }
 
     public void ApplyUpdate(bool updated)
@@ -120,6 +123,8 @@ public class RadioUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

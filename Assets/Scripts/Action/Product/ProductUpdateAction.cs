@@ -46,9 +46,12 @@ public class ProductUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Event")]
+    [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     ProductService productService = null;
 
-    Post post = null;
     Contact contact = null;
     Product product = null;
 
@@ -75,8 +78,8 @@ public class ProductUpdateAction : MonoBehaviour
 
     public void ApplyFull(ProductFull productFull)
     {
-        post = new Post(productFull);
-        dtmPost.PopulateClass<Post>(post);
+        PostHelper.post = new Post(productFull);
+        dtmPost.PopulateClass<Post>(PostHelper.post);
 
         contact = new Contact(productFull.ContactFull);
         dtmContact.PopulateClass<Contact>(contact);
@@ -144,7 +147,7 @@ public class ProductUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         contact.Update(dtmContact.BuildClass<Contact>());
 
@@ -180,11 +183,14 @@ public class ProductUpdateAction : MonoBehaviour
         product.Update(dtmProduct.BuildClass<Product>());
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        PostHelper.post.ImageCount = images.Count;
+        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        productService.UpdateProduct(new RegisterProductRequest(post, contact, links, strImages, product));
+        productService.UpdateProduct(new RegisterProductRequest(PostHelper.post, contact, links, strImages, product));
     }
 
     public void ApplyUpdate(bool updated)
@@ -194,6 +200,8 @@ public class ProductUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);
