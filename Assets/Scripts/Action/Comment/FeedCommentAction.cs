@@ -134,7 +134,7 @@ public class FeedCommentAction : MonoBehaviour
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
         DateTime utcNow = DateTime.UtcNow;
-        if (response.Direction == 1)
+        if (response.Direction < 3)
         {
             for (int i = 0; i < response.CommentFulls.Count; i++)
             {
@@ -152,18 +152,19 @@ public class FeedCommentAction : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < response.CommentFulls.Count; i++)
-            {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.CommentFulls[i]);
-            }
-
-            for (int i = response.CommentFulls.Count; i < chunkCount; i++)
+            int n = chunkCount - response.CommentFulls.Count;
+            for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
                 UpdateDebug(k, emptyCommentFull);
+            }
+
+            for (int i = 0; i < response.CommentFulls.Count; i++)
+            {
+                int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
+                UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
+                UpdateDebug(k, response.CommentFulls[i]);
             }
         }
         loopFeed.RefreshVisibleValues();

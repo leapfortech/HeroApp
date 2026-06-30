@@ -136,13 +136,11 @@ public class FeedAction : MonoBehaviour
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
         DateTime utcNow = DateTime.UtcNow;
-        if (response.Direction == 1)
+        if (response.Direction < 3)
         {
             for (int i = 0; i < response.PostFulls.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                //if (k < 0)
-                //    break;
                 UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
                 UpdateDebug(k, response.PostFulls[i]);
             }
@@ -156,18 +154,19 @@ public class FeedAction : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < response.PostFulls.Count; i++)
-            {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.PostFulls[i]);
-            }
-
-            for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+            int n = feedState.Count - response.PostFulls.Count;
+            for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(emptyPostFull, loopFeed[k], utcNow);
                 UpdateDebug(k, emptyPostFull);
+            }
+
+            for (int i = 0; i < response.PostFulls.Count; i++)
+            {
+                int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
+                UpdateValue(response.PostFulls[i], loopFeed[k], utcNow);
+                UpdateDebug(k, response.PostFulls[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
