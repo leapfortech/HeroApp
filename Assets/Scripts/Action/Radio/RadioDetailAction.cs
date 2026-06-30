@@ -121,6 +121,12 @@ public class RadioDetailAction : MonoBehaviour
 
     private void OpenRadio()
     {
+        if (String.IsNullOrWhiteSpace(url) || !Uri.TryCreate(url, UriKind.Absolute, out Uri uri) || (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
+        {
+            ChoiceDialog.Instance.Error("Enlace no disponible", "La URL de la radio no es válida o no está disponible.");
+            return;
+        }
+
         Application.OpenURL(url);
     }
 
