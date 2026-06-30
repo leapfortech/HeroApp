@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -12,6 +13,9 @@ using Sirenix.OdinInspector;
 
 public class TaleUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    public class PostSpriteEvent : UnityEvent<Post, Sprite> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -30,10 +34,15 @@ public class TaleUpdateAction : MonoBehaviour
     [SerializeField]
     Page pagNext = null;
 
+    [Title("Event")]
+    [SerializeField]
+    PostSpriteEvent onPostChanged = null;
+
     TaleService taleService = null;
 
     Post post = null;
     Tale tale = null;
+    Sprite titleSprite = null;
 
     private void Awake()
     {
@@ -71,6 +80,7 @@ public class TaleUpdateAction : MonoBehaviour
         post.Update(dtmPost.BuildClass<Post>());
         
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+        titleSprite = images.Count == 0 ? null : images[0];
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
@@ -85,6 +95,8 @@ public class TaleUpdateAction : MonoBehaviour
             ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
             return;
         }
+
+        onPostChanged.Invoke(post, titleSprite);
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

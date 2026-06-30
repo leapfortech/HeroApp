@@ -197,11 +197,10 @@ public class FeedAction : MonoBehaviour
         if (loopValue.ItemIdx == 2)
         {
             loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, postFull.ImageCount == 0 ? null : postFull.TitleSprite);
+            loopValue.SetSprite(4, postFull.TitleSprite);
             loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
         }
 
-        //int r = URandom.Range(0, 10);
         loopValue.SetCheck(0, postFull.Favorite != 0);
         loopValue.SetCheck(1, postFull.Like == 5);
         loopValue.SetCheck(2, postFull.Like == 1);
@@ -212,6 +211,41 @@ public class FeedAction : MonoBehaviour
     {
         selectedIdx = idx % loopFeed.ValuesCount;
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
+    }
+
+    public void ApplyDetailPost(Post post, Sprite titleSprite)
+    {
+        LoopScrollerValue loopValue = loopFeed[selectedIdx];
+
+        Sprite thumbnailSprite = loopValue.GetSprite(0);
+        String alias = loopValue.GetText(2);
+        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
+
+        int itemIdx = loopValue.ItemIdx;
+        loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
+        loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
+        if (itemIdx != loopValue.ItemIdx)
+            loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
+
+        //loopValue.GetSprite(0)?.Destroy();
+        loopValue.SetSprite(0, thumbnailSprite);
+        loopValue.SetText(1, post.Title);
+        loopValue.SetText(2, alias);
+        loopValue.SetText(3, (post.Description != null && post.Description.Length > 84) ? post.Description[0..83] + "..." : post.Description);
+
+        if (loopValue.ItemIdx == 2)
+        {
+            //loopValue.GetSprite(4)?.Destroy();
+            loopValue.SetSprite(4, titleSprite);
+            loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
+        }
+
+        loopValue.SetCheck(0, toggles[0]);
+        loopValue.SetCheck(1, toggles[1]);
+        loopValue.SetCheck(2, toggles[2]);
+        loopValue.SetCheck(3, toggles[3]);
+
+        loopFeed.RefreshVisibleValues();
     }
 
     // Favorite

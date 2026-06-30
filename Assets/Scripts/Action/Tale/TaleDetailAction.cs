@@ -72,7 +72,7 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
-    [Title("Event")]
+    [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]

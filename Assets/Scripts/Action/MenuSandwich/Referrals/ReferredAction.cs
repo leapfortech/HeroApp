@@ -1,11 +1,8 @@
 ﻿using System;
-
 using UnityEngine;
-
-using Leap.Graphics.Tools;
-using Leap.UI.Elements;
-using Leap.UI.Dialog;
 using UnityEngine.Networking;
+
+using Leap.UI.Elements;
 
 public class ReferredAction : MonoBehaviour
 {
@@ -30,18 +27,20 @@ public class ReferredAction : MonoBehaviour
 
     private void CopyLink()
     {
-        String referringMessage = AppManager.Instance.GetParamValue("ReferringMessage");
-        GUIUtility.systemCopyBuffer = referringMessage;
+        GUIUtility.systemCopyBuffer = GetMessage();
     }
-    
+
     private void ShareLink()
     {
-        String referringMessage = AppManager.Instance.GetParamValue("ReferringMessage");
+        String url = "https://wa.me/?text=" + UnityWebRequest.EscapeURL(GetMessage());
+        Application.OpenURL(url);
+    }
 
+    private String GetMessage()
+    {
+        String referringMessage = AppManager.Instance.GetParamValue("ReferringMessage");
         referringMessage = referringMessage.Replace("{REFERRING_CODE}", StateManager.Instance.AppUser.ReferringCode);
 
-        String url = "https://wa.me/?text=" + UnityWebRequest.EscapeURL(referringMessage);
-
-        Application.OpenURL(url);
+        return referringMessage;
     }
 }
