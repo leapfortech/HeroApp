@@ -161,6 +161,7 @@ public class RadioDetailAction : MonoBehaviour
 
             lstRadioType.AddValue(value);
         }
+        lstRadioType.ApplyValues();
 
         // Radio Language
         lstRadioLanguage.Clear();
@@ -171,6 +172,7 @@ public class RadioDetailAction : MonoBehaviour
 
             lstRadioLanguage.AddValue(value);
         }
+        lstRadioLanguage.ApplyValues();
 
         // Images
         goEmptyImages.SetActive(radioFull.ImageSprites.Count == 0);
