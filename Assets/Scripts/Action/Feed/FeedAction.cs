@@ -232,10 +232,10 @@ public class FeedAction : MonoBehaviour
 
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, postFull.ThumbnailSprite);
-        loopValue.SetText(1, postFull.Title);
+        loopValue.SetText(1, $"<line-height=70%>{postFull.Title}");
 
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {PostHelper.GetFeedDelay(utcNow - postFull.PublicationDateTime)}");
-        loopValue.SetText(3, (postFull.Description != null && postFull.Description.Length > 84) ? postFull.Description[0..83] + "..." : postFull.Description);
+        loopValue.SetText(3, $"<line-height=70%>{((postFull.Description != null && postFull.Description.Length > 180) ? postFull.Description[0..179] + "..." : postFull.Description)}");
 
         if (loopValue.ItemIdx == 2)
         {
@@ -271,9 +271,9 @@ public class FeedAction : MonoBehaviour
             loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
         loopValue.SetSprite(0, thumbnailSprite);
-        loopValue.SetText(1, post.Title);
+        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
         loopValue.SetText(2, alias);
-        loopValue.SetText(3, (post.Description != null && post.Description.Length > 84) ? post.Description[0..83] + "..." : post.Description);
+        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
 
         if (loopValue.ItemIdx == 2)
         {

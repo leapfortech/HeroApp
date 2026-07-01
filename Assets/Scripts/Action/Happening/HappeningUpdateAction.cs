@@ -66,6 +66,8 @@ public class HappeningUpdateAction : MonoBehaviour
 
     public void ApplyFull(HappeningFull happeningFull)
     {
+        Clear();
+
         PostHelper.post = new Post(happeningFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 

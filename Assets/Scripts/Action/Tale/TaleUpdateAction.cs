@@ -56,6 +56,8 @@ public class TaleUpdateAction : MonoBehaviour
 
     public void ApplyFull(TaleFull taleFull)
     {
+        Clear();
+
         PostHelper.post = new Post(taleFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 

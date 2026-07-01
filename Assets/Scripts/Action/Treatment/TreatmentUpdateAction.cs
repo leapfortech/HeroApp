@@ -65,6 +65,8 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     public void ApplyFull(TreatmentFull treatmentFull)
     {
+        Clear();
+
         PostHelper.post = new Post(treatmentFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 

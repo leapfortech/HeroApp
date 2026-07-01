@@ -65,6 +65,8 @@ public class NewsUpdateAction : MonoBehaviour
 
     public void ApplyFull(NewsFull newsFull)
     {
+        Clear();
+
         PostHelper.post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 

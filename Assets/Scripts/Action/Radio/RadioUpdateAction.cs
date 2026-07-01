@@ -69,6 +69,8 @@ public class RadioUpdateAction : MonoBehaviour
 
     public void ApplyFull(RadioFull radioFull)
     {
+        Clear();
+
         PostHelper.post = new Post(radioFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 

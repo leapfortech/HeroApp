@@ -60,6 +60,8 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     public void Display(PuzzleFull puzzleFull)
     {
+        Clear();
+
         post = new Post(puzzleFull);
         dtmPost.PopulateClass<Post>(post);
 

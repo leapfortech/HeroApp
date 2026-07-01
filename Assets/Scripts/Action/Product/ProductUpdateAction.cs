@@ -78,6 +78,8 @@ public class ProductUpdateAction : MonoBehaviour
 
     public void ApplyFull(ProductFull productFull)
     {
+        Clear();
+
         PostHelper.post = new Post(productFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 
