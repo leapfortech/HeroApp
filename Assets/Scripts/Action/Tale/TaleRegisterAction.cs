@@ -117,8 +117,8 @@ public class TaleRegisterAction : MonoBehaviour
         Post post = dtmPost.BuildClass<Post>();
 
         post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         String[] strImages = testCounter % srcImages.Count == 3 ? new String[] { srcImages[((testCounter - 3) / srcImages.Count) % srcImages.Count] } : null;
 
@@ -140,5 +140,14 @@ public class TaleRegisterAction : MonoBehaviour
         }
         else
             RegisterTest();
+    }
+
+    // Locality
+
+    bool interestLocality = true;
+
+    public void ApplyLocality(bool interestLocality)
+    {
+        this.interestLocality = interestLocality;
     }
 }

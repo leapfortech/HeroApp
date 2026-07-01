@@ -75,10 +75,9 @@ public class TreatmentRegisterAction : MonoBehaviour
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
-        //RM REVIEW
         post.Title = "Remedio";
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
         List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();
@@ -95,5 +94,14 @@ public class TreatmentRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+    }
+
+    // Locality
+
+    bool interestLocality = true;
+
+    public void ApplyLocality(bool interestLocality)
+    {
+        this.interestLocality = interestLocality;
     }
 }

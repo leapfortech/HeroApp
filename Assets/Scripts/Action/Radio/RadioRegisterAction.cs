@@ -67,9 +67,8 @@ public class RadioRegisterAction : MonoBehaviour
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
 
-        //RM REVIEW
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         Link link = dtmLink.BuildClass<Link>();
         link.LinkTypeId = (long)LinkType.Url;
@@ -89,5 +88,14 @@ public class RadioRegisterAction : MonoBehaviour
     {
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+    }
+
+    // Locality
+
+    bool interestLocality = true;
+
+    public void ApplyLocality(bool interestLocality)
+    {
+        this.interestLocality = interestLocality;
     }
 }

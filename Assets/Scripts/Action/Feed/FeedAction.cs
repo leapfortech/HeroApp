@@ -303,7 +303,7 @@ public class FeedAction : MonoBehaviour
 
     // Locality
 
-    bool interestLocality = false;
+    bool interestLocality = true;
 
     public void ApplyLocality(bool interestLocality)
     {

@@ -50,16 +50,13 @@ public class SwitchLocationAction : MonoBehaviour
         xButton = posButton.x;
         posIcon = rectIcon.anchoredPosition;
         xIcon = posIcon.x;
-    }
 
-    public void Init(bool startWithInterest)
-    {
         interestLocality = StateManager.Instance.InterestLocality;
         currentLocality = StateManager.Instance.CurrentLocality;
 
-        showingInterest = startWithInterest;
+        showingInterest = true;
 
-        Refresh();
+        Refresh(false);
     }
 
     public void Switch()
@@ -72,7 +69,7 @@ public class SwitchLocationAction : MonoBehaviour
         Refresh();
     }
 
-    private void Refresh()
+    private void Refresh(bool launchEvent = true)
     {
         Locality locality = showingInterest ? interestLocality : currentLocality;
 
@@ -80,7 +77,8 @@ public class SwitchLocationAction : MonoBehaviour
 
         MoveSwitch(showingInterest);
 
-        onLocalityChanged?.Invoke(showingInterest ? true : false);
+        if (launchEvent)
+            onLocalityChanged?.Invoke(showingInterest ? true : false);
     }
 
     private void MoveSwitch(bool interest)
