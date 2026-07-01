@@ -16,8 +16,6 @@ public class FeedAction : MonoBehaviour
     [Title("Feed")]
     [SerializeField]
     FeedState feedConfig = null;
-    //[SerializeField]
-    //bool filterAppUser = false;
 
     [Title("Loop")]
     [SerializeField]
@@ -99,7 +97,7 @@ public class FeedAction : MonoBehaviour
 
     //public void ReloadPosts(bool force)
     //{
-    //    GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 3);
+    //    GetPosts(firstPostIdx, new FeedUserData(firstPostId, DateTime.UtcNow), 3);
     //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
@@ -123,9 +121,9 @@ public class FeedAction : MonoBehaviour
             LikeAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = feedState.PostTypeId,
-            AppUserId = -1, //filterAppUser ? StateManager.Instance.AppUser.Id : -1,
-            //CountryId = countryId,
-            //StateId = stateId,
+            AppUserId = appUserId,
+            CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
+            StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = feedState.Status
         };
 
@@ -290,6 +288,28 @@ public class FeedAction : MonoBehaviour
         loopValue.SetCheck(3, toggles[3]);
 
         loopFeed.RefreshVisibleValues();
+    }
+
+    // AppUser
+
+    long appUserId = -1;
+
+    public void ApplyAppUser(bool appUser)
+    {
+        appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
+
+        ResetPosts(true);
+    }
+
+    // Locality
+
+    bool interestLocality = false;
+
+    public void ApplyLocality(bool interestLocality)
+    {
+        this.interestLocality = interestLocality;
+
+        ResetPosts(true);
     }
 
     // Favorite

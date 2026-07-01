@@ -30,7 +30,7 @@ public class SwitchLocationAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    private UnityIntEvent onLocationChanged = null;
+    private UnityBoolEvent onLocalityChanged = null;
 
     private Locality interestLocality = null;
     private Locality currentLocality = null;
@@ -52,7 +52,7 @@ public class SwitchLocationAction : MonoBehaviour
         xIcon = posIcon.x;
     }
 
-    public void Init(bool startWithInterest = true)
+    public void Init(bool startWithInterest)
     {
         interestLocality = StateManager.Instance.InterestLocality;
         currentLocality = StateManager.Instance.CurrentLocality;
@@ -80,7 +80,7 @@ public class SwitchLocationAction : MonoBehaviour
 
         MoveSwitch(showingInterest);
 
-        onLocationChanged?.Invoke(showingInterest ? 1 : 0);
+        onLocalityChanged?.Invoke(showingInterest ? true : false);
     }
 
     private void MoveSwitch(bool interest)
