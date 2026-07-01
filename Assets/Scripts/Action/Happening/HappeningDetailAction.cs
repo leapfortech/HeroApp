@@ -79,6 +79,8 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
+    Button btnUpdate = null;
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     Toggle tglLike = null;
@@ -91,7 +93,11 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
-    [Space, Title("Event")]
+    [Space, Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
+    [Space, Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
@@ -102,10 +108,6 @@ public class HappeningDetailAction : MonoBehaviour
     UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
-
-    [Space, Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     HappeningService happeningService;
     PostService postService;
@@ -168,6 +170,8 @@ public class HappeningDetailAction : MonoBehaviour
         SetToggle(tglReaction, happeningFull.ReactionPhraseId != -1);
 
         RefreshContents();
+
+        btnUpdate.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
     }

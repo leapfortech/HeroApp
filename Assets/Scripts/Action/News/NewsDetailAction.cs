@@ -59,6 +59,8 @@ public class NewsDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
+    Button btnUpdate = null;
+    [SerializeField]
     Button btnLink = null;
     [SerializeField]
     Toggle tglFavorite = null;
@@ -83,7 +85,11 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     ValueList vllNewsType = null;
 
-    [Space, Title("Event")]
+    [Space, Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
+    [Space, Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
@@ -94,10 +100,6 @@ public class NewsDetailAction : MonoBehaviour
     UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
-
-    [Space, Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     NewsService newsService;
     PostService postService;
@@ -178,6 +180,8 @@ public class NewsDetailAction : MonoBehaviour
         SetToggle(tglReaction, newsFull.ReactionPhraseId != -1);
 
         RefreshContents();
+
+        btnUpdate.gameObject.SetActive(newsFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
     }

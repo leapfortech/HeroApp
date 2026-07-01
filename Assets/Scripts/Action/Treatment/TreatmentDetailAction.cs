@@ -75,6 +75,8 @@ public class TreatmentDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
+    Button btnUpdate = null;
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     Toggle tglLike = null;
@@ -87,7 +89,11 @@ public class TreatmentDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
-    [Space, Title("Event")]
+    [Space, Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
+    [Space, Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
@@ -98,10 +104,6 @@ public class TreatmentDetailAction : MonoBehaviour
     UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
-
-    [Space, Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     TreatmentService treatmentService;
     PostService postService;
@@ -171,6 +173,8 @@ public class TreatmentDetailAction : MonoBehaviour
         SetToggle(tglReaction, treatmentFull.ReactionPhraseId != -1);
 
         RefreshContents();
+
+        btnUpdate.gameObject.SetActive(treatmentFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
     }

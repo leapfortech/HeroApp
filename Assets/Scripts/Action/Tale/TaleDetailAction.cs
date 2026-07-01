@@ -60,6 +60,8 @@ public class TaleDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
+    Button btnUpdate = null;
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     Toggle tglLike = null;
@@ -72,6 +74,10 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
+    [Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
     [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
@@ -83,10 +89,6 @@ public class TaleDetailAction : MonoBehaviour
     UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
-
-    [Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     TaleService taleService;
     PostService postService;
@@ -139,6 +141,8 @@ public class TaleDetailAction : MonoBehaviour
         SetToggle(tglReaction, taleFull.ReactionPhraseId != -1);
 
         RefreshContents();
+
+        btnUpdate.gameObject.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
     }

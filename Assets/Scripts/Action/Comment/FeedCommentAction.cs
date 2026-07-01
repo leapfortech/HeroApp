@@ -61,7 +61,6 @@ public class FeedCommentAction : MonoBehaviour
         this.postId = postId;
     }
 
-
     public void CreateFeeds(bool force)
     {
         if (feedCount != 0 && !force)
@@ -75,24 +74,31 @@ public class FeedCommentAction : MonoBehaviour
         DateTime utcNow = DateTime.UtcNow;
         for (int k = 0; k < feedCount; k++)
         {
-            loopFeed.AddValue(CreateEmptyValue(emptyCommentFull, utcNow));
+            LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
+            UpdateValue(emptyCommentFull, loopValue, utcNow);
+            loopFeed.AddValue(loopValue);
+
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
+
+        ResetPosts(true);
+    }
+
+    public void ResetPosts(bool force)
+    {
+        //if (!MustReset && !force)
+        //    return;
 
         UpdateOverlay(0);
 
         goEmptyComments.SetActive(true);
         loopFeed.gameObject.SetActive(false);
 
-        GetComments(0, new FeedCommentUserData(-1, utcNow), 2);
-    }
+        //resetting = true;
+        GetComments(0, new FeedCommentUserData(-1, DateTime.UtcNow), 2);
 
-    public LoopScrollerValue CreateEmptyValue(CommentFull commentFull, DateTime utcNow)
-    {
-        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-        UpdateValue(commentFull, loopValue, utcNow);
-        return loopValue;
+        //MustReset = false;
     }
 
     public void GetComments(int startLoopIdx, object commentUserData, int direction)

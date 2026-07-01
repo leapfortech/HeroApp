@@ -97,6 +97,11 @@ public class FeedAction : MonoBehaviour
         MustReset = false;
     }
 
+    //public void ReloadPosts(bool force)
+    //{
+    //    GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 3);
+    //}
+
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {
         if (userData == null)

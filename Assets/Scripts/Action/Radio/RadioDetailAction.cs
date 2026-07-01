@@ -56,10 +56,6 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ListScroller lstRadioLanguage = null;
 
-    [Space, Title("Action")]
-    [SerializeField]
-    Button btnRadio = null;
-
     [Space, Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -74,6 +70,10 @@ public class RadioDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
+    Button btnRadio = null;
+    [SerializeField]
+    Button btnUpdate = null;
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     Toggle tglLike = null;
@@ -86,7 +86,11 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
-    [Space, Title("Event")]
+    [Space, Title("Page")]
+    [SerializeField]
+    Page pagDetail;
+
+    [Space, Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
@@ -97,10 +101,6 @@ public class RadioDetailAction : MonoBehaviour
     UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
-
-    [Space, Title("Page")]
-    [SerializeField]
-    Page pagDetail;
 
     RadioService radioService;
     PostService postService;
@@ -193,6 +193,8 @@ public class RadioDetailAction : MonoBehaviour
         SetToggle(tglReaction, radioFull.ReactionPhraseId != -1);
 
         RefreshContents();
+
+        btnUpdate.gameObject.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
     }
