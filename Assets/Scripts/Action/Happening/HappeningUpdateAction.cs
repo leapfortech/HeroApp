@@ -98,7 +98,7 @@ public class HappeningUpdateAction : MonoBehaviour
                                                    Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
 
             String[] endTime = dtmEndTime.BuildBuiltIn<String>().Split('|');
-            happening.EndDateTime = new DateTime(happening.StartDateTime.Value.Year, happening.StartDateTime.Value.Month, happening.StartDateTime.Value.Day,
+            happening.EndDateTime = new DateTime(happening.EndDateTime.Value.Year, happening.EndDateTime.Value.Month, happening.EndDateTime.Value.Day,
                                                  Convert.ToInt32(endTime[0]), Convert.ToInt32(endTime[1]), 0);
 
             if (happening.EndDateTime.Value <= happening.StartDateTime.Value)
