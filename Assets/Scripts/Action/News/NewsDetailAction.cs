@@ -144,7 +144,11 @@ public class NewsDetailAction : MonoBehaviour
     public void ApplyFull(NewsFull newsFull)
     {
         postId = newsFull.PostId;
-        url = newsFull.LinkFulls[0].Url;
+
+        btnLink.gameObject.SetActive(newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0);
+
+        if (newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0)
+            url = newsFull.LinkFulls[0].Url;
 
         // Post
         imgThumbnail.Sprite = newsFull.ThumbnailSprite;

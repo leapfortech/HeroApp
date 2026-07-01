@@ -83,7 +83,11 @@ public class NewsRegisterAction : MonoBehaviour
         post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         Link link = dtmLink.BuildClass<Link>();
-        link.LinkTypeId = (long)LinkType.Url;
+
+        if (String.IsNullOrWhiteSpace(link.Url))
+            link = null;
+        else
+            link.LinkTypeId = (long)LinkType.Url;
 
         News news = dtmNews.BuildClass<News>();
 

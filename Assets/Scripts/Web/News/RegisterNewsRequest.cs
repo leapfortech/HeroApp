@@ -17,7 +17,7 @@ public class RegisterNewsRequest : RegisterPostRequest
     public RegisterNewsRequest(Post post, Link link, String[] images, News news)
     {
         Post = post;
-        Links = new List<Link>() { link };
+        Links = link != null ? new List<Link>() { link } : null;
         Images = images;
 
         News = news;
