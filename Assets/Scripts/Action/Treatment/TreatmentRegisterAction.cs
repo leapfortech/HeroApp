@@ -73,9 +73,8 @@ public class TreatmentRegisterAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-
         post.Title = "Remedio";
+        post.AppUserId = StateManager.Instance.AppUser.Id;
         post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 

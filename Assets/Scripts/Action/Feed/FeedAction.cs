@@ -312,6 +312,12 @@ public class FeedAction : MonoBehaviour
         ResetPosts(true);
     }
 
+    public void ChangeLocality(bool isInterest)
+    {
+        if (isInterest == interestLocality)
+            MustReset = true;
+    }
+
     // Favorite
 
     public void ApplyFavorite(int dataIndex, bool check)

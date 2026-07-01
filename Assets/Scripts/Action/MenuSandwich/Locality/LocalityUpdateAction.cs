@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
+using Leap.Core.Tools;
+using Leap.Data.Mapper;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.Data.Mapper;
 
 using Sirenix.OdinInspector;
 
@@ -31,9 +32,12 @@ public class LocalityUpdateAction : MonoBehaviour
     Page pagNext = null;
 
     [Title("Message")]
-    [Space]
     [SerializeField, TextArea(2, 4)]
     String updatedMessage = "La información fue guardada exitosamente.";
+
+    [Title("Event")]
+    [SerializeField]
+    UnityBoolEvent onLocalityChanged = null;
 
     AppUserService appUserService = null;
 
@@ -107,6 +111,8 @@ public class LocalityUpdateAction : MonoBehaviour
             StateManager.Instance.InterestLocality = localityNew;
         else
             StateManager.Instance.CurrentLocality = localityNew;
+
+        onLocalityChanged.Invoke(isInterest);
 
         Clear();
         ChangeNextPage();
