@@ -8,6 +8,7 @@ using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Core.Tools;
+using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -33,6 +34,8 @@ public class ClueAction : MonoBehaviour
     Text txtWinPoints = null;
     [SerializeField]
     Text txtCorrectAnswer = null;
+    [SerializeField]
+    ComboAdapter cmbDifficulty = null;
 
     [Title("Action")]
     [SerializeField]
@@ -108,7 +111,7 @@ public class ClueAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        int difficulty = 1;
+        int difficulty = (int)cmbDifficulty.GetSelectedId();
         exit = false;
 
         puzzleService.GetNextPuzzle(new PuzzleNextRequest(StateManager.Instance.Player.Id, 2, StateManager.Instance.InterestLocality.CountryId, difficulty));
@@ -118,7 +121,8 @@ public class ClueAction : MonoBehaviour
     {
         if (puzzleFull == null || puzzleFull.Id == 0 || puzzleFull.Id == -1)
         {
-            ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit), null);
+            //ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit), null);
+            ChoiceDialog.Instance.Info("Retos", "Por el momento no hay nuevos retos.");
             return;
         }
 
