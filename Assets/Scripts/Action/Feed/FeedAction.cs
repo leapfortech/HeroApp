@@ -176,13 +176,13 @@ public class FeedAction : MonoBehaviour
 
         ScreenDialog.Instance.Hide();
 
-        //if (response.Direction == 3 && response.PostFulls.Count > 0)
-        //{
-        //    loopFeed.SelectedIndex++;
-        //    int dataIndex = (loopFeed.SelectedIndex - response.PostFulls.Count) % loopFeed.ValuesCount;
-        //    Debug.Log($"{loopFeed.SelectedIndex} | {response.PostFulls.Count} | {loopFeed.SelectedIndex + loopFeed.ValuesCount - response.PostFulls.Count} | {dataIndex}");
-        //    loopFeed.TweenTo(dataIndex);
-        //}
+        if (response.Direction == 3 && response.PostFulls.Count > 0)
+        {
+            loopFeed.SelectedIndex = (startLoopIdx + feedState.Count) % loopFeed.ValuesCount;
+            int dataIndex = (startLoopIdx + feedState.Count - response.PostFulls.Count) % loopFeed.ValuesCount;
+            //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedState.Count} | {response.PostFulls.Count} | {dataIndex}");
+            loopFeed.SelectSmooth(dataIndex);
+        }
     }
 
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime utcNow)
@@ -243,7 +243,7 @@ public class FeedAction : MonoBehaviour
         if (loopValue.ItemIdx == 2)
         {
             //loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, titleSprite.Clone("UPD_" + titleSprite.name, true));
+            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
             loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
         }
 
