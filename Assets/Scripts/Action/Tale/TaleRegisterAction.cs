@@ -72,8 +72,8 @@ public class TaleRegisterAction : MonoBehaviour
 
         //RM REVIEW
         post.Title = "Historia";
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
