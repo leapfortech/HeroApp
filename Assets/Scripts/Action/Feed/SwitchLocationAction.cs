@@ -52,7 +52,6 @@ public class SwitchLocationAction : MonoBehaviour
         xIcon = posIcon.x;
     }
 
-
     public void Init(bool startWithInterest = true)
     {
         interestLocality = StateManager.Instance.InterestLocality;

@@ -54,7 +54,7 @@ public class FeedAction : MonoBehaviour
     int selectedIdx = -1;
     readonly PostFull emptyPostFull = new PostFull();
 
-    public bool MustReset { get; private set; } = true;
+    public bool MustReset { get; set; } = true;
     public bool resetting = false;
 
     private void Awake()
@@ -73,7 +73,10 @@ public class FeedAction : MonoBehaviour
         DateTime utcNow = DateTime.UtcNow;
         for (int k = 0; k < feedCount; k++)
         {
-            loopFeed.AddValue(CreateEmptyValue(emptyPostFull, utcNow));
+            LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
+            UpdateValue(emptyPostFull, loopValue, utcNow);
+            loopFeed.AddValue(loopValue);
+
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
@@ -92,13 +95,6 @@ public class FeedAction : MonoBehaviour
         GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
-    }
-
-    public LoopScrollerValue CreateEmptyValue(PostFull postFull, DateTime utcNow)
-    {
-        LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-        UpdateValue(postFull, loopValue, utcNow);
-        return loopValue;
     }
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
