@@ -24,6 +24,8 @@ public class FeedAction : MonoBehaviour
     LoopScroller loopFeed = null;
     [SerializeField]
     GameObject txtEmpty;
+    [SerializeField]
+    float smoothReload = 1f;
 
     [Title("Reaction")]
     [SerializeField]
@@ -50,18 +52,18 @@ public class FeedAction : MonoBehaviour
     FeedState feedState;
     int feedCount = 0;
     int selectedIdx = -1;
-    PostFull emptyPostFull = new PostFull();
+    readonly PostFull emptyPostFull = new PostFull();
+
+    public bool MustReset { get; private set; } = true;
+    public bool resetting = false;
 
     private void Awake()
     {
         postService = GetComponent<PostService>();
     }
 
-    public void CreateFeeds(bool force)
+    public void CreateLoopFeed()
     {
-        if (feedState != null && !force)
-            return;
-
         feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
         feedCount = feedState.Count * 4;
 
@@ -75,12 +77,21 @@ public class FeedAction : MonoBehaviour
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
+    }
+
+    public void ResetPosts(bool force)
+    {
+        if (!MustReset && !force)
+            return;
 
         UpdateOverlay(0);
 
         txtEmpty.SetActive(false);
 
-        GetPosts(0, new FeedUserData(-1, utcNow), 2);
+        resetting = true;
+        GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 2);
+
+        MustReset = false;
     }
 
     public LoopScrollerValue CreateEmptyValue(PostFull postFull, DateTime utcNow)
@@ -145,11 +156,25 @@ public class FeedAction : MonoBehaviour
                 UpdateDebug(k, response.PostFulls[i]);
             }
 
-            for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+            if (resetting)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyPostFull, loopFeed[k], utcNow);
-                UpdateDebug(k, emptyPostFull);
+                for (int i = response.PostFulls.Count; i < loopFeed.ValuesCount; i++)
+                {
+                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    UpdateValue(emptyPostFull, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyPostFull);
+                }
+                Invoke(nameof(ResetSelectedIndex), 0.2f);
+                resetting = false;
+            }
+            else
+            {
+                for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+                {
+                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    UpdateValue(emptyPostFull, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyPostFull);
+                }
             }
         }
         else
@@ -178,11 +203,22 @@ public class FeedAction : MonoBehaviour
 
         if (response.Direction == 3 && response.PostFulls.Count > 0)
         {
-            loopFeed.SelectedIndex = (startLoopIdx + feedState.Count) % loopFeed.ValuesCount;
             int dataIndex = (startLoopIdx + feedState.Count - response.PostFulls.Count) % loopFeed.ValuesCount;
-            //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedState.Count} | {response.PostFulls.Count} | {dataIndex}");
-            loopFeed.SelectSmooth(dataIndex);
+
+            if (smoothReload > 0f)
+            {
+                loopFeed.SelectedIndex = (startLoopIdx + feedState.Count) % loopFeed.ValuesCount;
+                loopFeed.SelectSmooth(dataIndex);
+                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedState.Count} | {response.PostFulls.Count} | {dataIndex}");
+            }
+            else
+                loopFeed.SelectedIndex = dataIndex;
         }
+    }
+
+    private void ResetSelectedIndex()
+    {
+        loopFeed.SelectedIndex = 0;
     }
 
     public void UpdateValue(PostFull postFull, LoopScrollerValue loopValue, DateTime utcNow)
