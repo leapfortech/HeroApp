@@ -40,6 +40,14 @@ public class SwitchLocationAction : MonoBehaviour
 
     private void Start()
     {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
+        if (rectButton != null)
+            return;
+
         rectButton = btnSwitch.GetComponent<RectTransform>();
         btnSwitch?.AddAction(Switch);
 
@@ -47,17 +55,10 @@ public class SwitchLocationAction : MonoBehaviour
         xButton = posButton.x;
         posIcon = rectIcon.anchoredPosition;
         xIcon = posIcon.x;
-
-        showingInterest = true;
-
-        Refresh();
     }
 
     public void Switch()
     {
-        if (StateManager.Instance.InterestLocality == null || StateManager.Instance.CurrentLocality == null)
-            return;
-
         showingInterest = !showingInterest;
 
         Refresh();
@@ -67,6 +68,8 @@ public class SwitchLocationAction : MonoBehaviour
 
     public void Refresh()
     {
+        Initialize();
+        
         Locality locality = showingInterest ? StateManager.Instance.InterestLocality : StateManager.Instance.CurrentLocality;
 
         DisplayNames(locality.CountryId, locality.StateId);

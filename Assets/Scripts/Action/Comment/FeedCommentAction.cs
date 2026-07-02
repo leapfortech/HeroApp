@@ -10,11 +10,6 @@ using Sirenix.OdinInspector;
 public class FeedCommentAction : MonoBehaviour
 {
     [Space]
-    //[Title("Feed")]
-    //[SerializeField]
-    //FeedState feedConfig = null;
-    //[SerializeField]
-    //bool filterAppUser = false;
     [Title("Config")]
     [SerializeField]
     public int chunkCount = 10;
@@ -81,11 +76,12 @@ public class FeedCommentAction : MonoBehaviour
         loopFeed.ApplyValues();
     }
 
-    public void ResetPosts()
+    public void ResetComments()
     {
         UpdateOverlay(0);
 
-        goEmptyComments.SetActive(true);
+        ifdComment.Clear();
+        goEmptyComments.SetActive(false);
         loopFeed.gameObject.SetActive(false);
 
         resetting = true;
@@ -144,7 +140,7 @@ public class FeedCommentAction : MonoBehaviour
                     UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
                     UpdateDebug(k, emptyCommentFull);
                 }
-                Invoke(nameof(ResetSelectedIndex), 0.2f);
+                Invoke(nameof(ResetSelectedIndex), 1f);
                 resetting = false;
             }
             else
@@ -181,13 +177,13 @@ public class FeedCommentAction : MonoBehaviour
 
         if (response.Direction == 3 && response.CommentFulls.Count > 0)
             loopFeed.SelectedIndex = (startLoopIdx + chunkCount - response.CommentFulls.Count) % loopFeed.ValuesCount;
-
-        ScreenDialog.Instance.Hide();
     }
 
     private void ResetSelectedIndex()
     {
         loopFeed.SelectedIndex = 0;
+
+        ScreenDialog.Instance.Hide();
     }
 
     public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime utcNow)
@@ -208,6 +204,12 @@ public class FeedCommentAction : MonoBehaviour
     // Register
     public void RegisterComment()
     {
+        if (String.IsNullOrWhiteSpace(ifdComment.Text))
+        {
+            ChoiceDialog.Instance.Error("Tu comentario tiene que incluir caracteres.");
+            return;
+        }
+
         if (!ifdComment.IsValid())
         {
             ChoiceDialog.Instance.Error(ifdComment.GetValidError());
@@ -223,7 +225,7 @@ public class FeedCommentAction : MonoBehaviour
     {
         ifdComment.Clear();
 
-        Invoke(nameof(ResetPosts), 1f);
+        Invoke(nameof(ResetComments), 1f);
     }
 
     // Debug
