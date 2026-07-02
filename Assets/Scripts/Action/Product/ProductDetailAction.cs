@@ -62,7 +62,7 @@ public class ProductDetailAction : MonoBehaviour
 
     [Space, Title("Contents")]
     [SerializeField]
-    float contentPadding = 40f;
+    float contentPadding = 160f;
 
     [Space, Title("Values")]
     [SerializeField]

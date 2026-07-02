@@ -49,7 +49,9 @@ public class TreatmentDetailAction : MonoBehaviour
 
     [Title("Contents")]
     [SerializeField]
-    float contentPadding = 40f;
+    float contentPadding = 160f;
+    [SerializeField]
+    float preparationPadding = 60f;
 
     [Title("List")]
     [SerializeField]
@@ -292,7 +294,7 @@ public class TreatmentDetailAction : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, txtIngredients.TextHeight + contentPadding);
 
         content = txtPreparation.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtPreparation.TextHeight + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, txtPreparation.TextHeight + preparationPadding);
 
         content = txtUsage.transform.parent.GetComponent<RectTransform>();
         content.sizeDelta = new Vector2(content.sizeDelta.x, txtUsage.TextHeight + contentPadding);

@@ -49,7 +49,7 @@ public class NewsDetailAction : MonoBehaviour
 
     [Title("Contents")]
     [SerializeField]
-    float contentPadding = 40f;
+    float contentPadding = 160f;
 
     [Title("Actions")]
     [SerializeField]
