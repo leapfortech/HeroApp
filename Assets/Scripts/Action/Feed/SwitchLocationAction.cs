@@ -32,9 +32,6 @@ public class SwitchLocationAction : MonoBehaviour
     [SerializeField]
     private UnityBoolEvent onLocalityChanged = null;
 
-    private Locality interestLocality = null;
-    private Locality currentLocality = null;
-
     private bool showingInterest = true;
 
     private RectTransform rectButton = null;
@@ -51,34 +48,30 @@ public class SwitchLocationAction : MonoBehaviour
         posIcon = rectIcon.anchoredPosition;
         xIcon = posIcon.x;
 
-        interestLocality = StateManager.Instance.InterestLocality;
-        currentLocality = StateManager.Instance.CurrentLocality;
-
         showingInterest = true;
 
-        Refresh(false);
+        Refresh();
     }
 
     public void Switch()
     {
-        if (currentLocality == null || interestLocality == null)
+        if (StateManager.Instance.InterestLocality == null || StateManager.Instance.CurrentLocality == null)
             return;
 
         showingInterest = !showingInterest;
 
         Refresh();
+
+        onLocalityChanged?.Invoke(showingInterest);
     }
 
-    private void Refresh(bool launchEvent = true)
+    public void Refresh()
     {
-        Locality locality = showingInterest ? interestLocality : currentLocality;
+        Locality locality = showingInterest ? StateManager.Instance.InterestLocality : StateManager.Instance.CurrentLocality;
 
-        Display(locality.CountryId, locality.StateId);
+        DisplayNames(locality.CountryId, locality.StateId);
 
         MoveSwitch(showingInterest);
-
-        if (launchEvent)
-            onLocalityChanged?.Invoke(showingInterest ? true : false);
     }
 
     private void MoveSwitch(bool interest)
@@ -93,7 +86,7 @@ public class SwitchLocationAction : MonoBehaviour
         rectIcon.anchoredPosition = posIcon;
     }
 
-    private void Display(long countryId, long stateId)
+    private void DisplayNames(long countryId, long stateId)
     {
         if (txtCountry != null)
         {
