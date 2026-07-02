@@ -57,7 +57,9 @@ public class PlaceDependencyAction : MonoBehaviour
 
         cmbCountry.gameObject.SetActive(true);
         cmbState.gameObject.SetActive(false);
-        cmbCity.gameObject.SetActive(false);
+
+        if (cmbCity != null)
+            cmbCity.gameObject.SetActive(false);
 
         initialized = true;
     }
@@ -91,7 +93,9 @@ public class PlaceDependencyAction : MonoBehaviour
         Initialize();
         
         dtmState.ClearRecords();
-        dtmCity.ClearRecords();
+
+        if (dtmCity != null)
+            dtmCity.ClearRecords();
 
         long countryId = cmbCountry.GetSelectedId();
 
@@ -99,7 +103,9 @@ public class PlaceDependencyAction : MonoBehaviour
         bool hasCity = countriesWithCity.Contains(countryId);
 
         cmbState.gameObject.SetActive(hasState);
-        cmbCity.gameObject.SetActive(hasCity);
+        
+        if (cmbCity != null)
+            cmbCity.gameObject.SetActive(hasCity);
     }
 
     public void RefreshState()
