@@ -61,7 +61,7 @@ public class FeedCommentAction : MonoBehaviour
         this.postId = postId;
     }
 
-    public void CreateFeeds(bool force)
+    public void CreateLoopFeeds(bool force)
     {
         if (feedCount != 0 && !force)
             return;
