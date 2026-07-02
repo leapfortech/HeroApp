@@ -139,9 +139,9 @@ public class ProductDetailAction : MonoBehaviour
         txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         
         if (txtSummary != null)
-            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary)}";
+            txtSummary.TextValue = String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary;
         
-        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description)}";
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description;
 
         // Product
         txtProductSubtype.TextValue = vllProductSubtype.FindRecordCellString(productFull.ProductSubtypeId, "Name");

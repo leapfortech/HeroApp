@@ -148,9 +148,9 @@ public class RadioDetailAction : MonoBehaviour
         txtDateTime.TextValue = radioFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary)}";
+            txtSummary.TextValue = String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary;
         
-        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description)}";
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
 
         // Radio Type
         lstRadioType.Clear();

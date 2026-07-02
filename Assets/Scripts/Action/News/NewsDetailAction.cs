@@ -152,9 +152,9 @@ public class NewsDetailAction : MonoBehaviour
         txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary)}";
+            txtSummary.TextValue = String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary;
 
-        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description)}";
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
 
         String country = newsFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");
         String state = newsFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(newsFull.PostStateId, "Name");

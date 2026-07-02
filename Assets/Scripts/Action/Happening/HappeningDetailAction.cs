@@ -131,9 +131,9 @@ public class HappeningDetailAction : MonoBehaviour
         txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary)}";
+            txtSummary.TextValue = String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary;
 
-        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description)}";
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
 
         // Happening
         txtHappeningType.TextValue = happeningFull.HappeningTypeId == -1 ? "-" : vllHappeningType.FindRecordCellString(happeningFull.HappeningTypeId, "Name");

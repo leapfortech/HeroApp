@@ -118,9 +118,9 @@ public class TaleDetailAction : MonoBehaviour
         txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary)}";
+            txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
 
-        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description)}";
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
 
         // Images
         goEmptyImages.SetActive(taleFull.ImageSprites.Count == 0);
