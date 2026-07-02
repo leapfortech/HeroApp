@@ -139,7 +139,7 @@ public class RadioDetailAction : MonoBehaviour
         imgThumbnail.Sprite = radioFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{radioFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title)}";
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");
         String state = radioFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(radioFull.PostStateId, "Name");
@@ -148,9 +148,9 @@ public class RadioDetailAction : MonoBehaviour
         txtDateTime.TextValue = radioFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary)}";
         
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description)}";
 
         // Radio Type
         lstRadioType.Clear();

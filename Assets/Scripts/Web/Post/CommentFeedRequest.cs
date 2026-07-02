@@ -10,7 +10,7 @@ public class CommentFeedRequest
     public int Count { get; set; }
 
     // FILTERS
-    public long PostId { get; set; }
-    public long AppUserId { get; set; }
-    public int Status { get; set; }
+    public long PostId { get; set; } = -1L;
+    public long AppUserId { get; set; } = -1L;
+    public int Status { get; set; } = 1;
 }

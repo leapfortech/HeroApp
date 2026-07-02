@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
-using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -128,13 +127,13 @@ public class HappeningDetailAction : MonoBehaviour
         imgThumbnail.Sprite = happeningFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title)}";
         txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary)}";
 
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description)}";
 
         // Happening
         txtHappeningType.TextValue = happeningFull.HappeningTypeId == -1 ? "-" : vllHappeningType.FindRecordCellString(happeningFull.HappeningTypeId, "Name");

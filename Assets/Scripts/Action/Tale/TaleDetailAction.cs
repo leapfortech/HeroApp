@@ -109,7 +109,7 @@ public class TaleDetailAction : MonoBehaviour
         imgThumbnail.Sprite = taleFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
 
         String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
         String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");
@@ -118,9 +118,9 @@ public class TaleDetailAction : MonoBehaviour
         txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary)}";
 
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description)}";
 
         // Images
         goEmptyImages.SetActive(taleFull.ImageSprites.Count == 0);

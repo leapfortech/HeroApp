@@ -148,13 +148,13 @@ public class NewsDetailAction : MonoBehaviour
         imgThumbnail.Sprite = newsFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
         txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary)}";
 
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description)}";
 
         String country = newsFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");
         String state = newsFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(newsFull.PostStateId, "Name");

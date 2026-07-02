@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
-using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -123,23 +122,23 @@ public class TreatmentDetailAction : MonoBehaviour
         imgThumbnail.Sprite = treatmentFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title)}";
         txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Summary) ? "-" : treatmentFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Summary) ? "-" : treatmentFull.Summary)}";
         
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Description) ? "-" : treatmentFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Description) ? "-" : treatmentFull.Description)}";
 
         String country = treatmentFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(treatmentFull.PostCountryId, "Name");
         String state = treatmentFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(treatmentFull.PostStateId, "Name");
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         // Treatment
-        txtIngredients.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Ingredients) ? "-" : treatmentFull.Ingredients;
-        txtPreparation.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Preparation) ? "-" : treatmentFull.Preparation;
-        txtUsage.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Usage) ? "-" : treatmentFull.Usage;
-        //txtAnnotation.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Annotation) ? "-" : treatmentFull.Annotation;
+        txtIngredients.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Ingredients) ? "-" : treatmentFull.Ingredients)}";
+        txtPreparation.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Preparation) ? "-" : treatmentFull.Preparation)}";
+        txtUsage.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Usage) ? "-" : treatmentFull.Usage)}";
+        //txtAnnotation.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Annotation) ? "-" : treatmentFull.Annotation)}";
 
         // Disease
         lstDisease.Clear();

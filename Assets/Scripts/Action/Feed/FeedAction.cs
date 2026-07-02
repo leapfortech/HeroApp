@@ -48,12 +48,11 @@ public class FeedAction : MonoBehaviour
 
     PostService postService;
     FeedState feedState;
-    int feedCount = 0;
     int selectedIdx = -1;
     readonly PostFull emptyPostFull = new PostFull();
 
     public bool MustReset { get; set; } = true;
-    public bool resetting = false;
+    private bool resetting = false;
 
     private void Awake()
     {
@@ -63,7 +62,7 @@ public class FeedAction : MonoBehaviour
     public void CreateLoopFeed()
     {
         feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
-        feedCount = feedState.Count * 4;
+        int feedCount = feedState.Count * 4;
 
         valueDates = new String[feedCount];
 

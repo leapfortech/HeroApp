@@ -135,13 +135,13 @@ public class ProductDetailAction : MonoBehaviour
         imgThumbnail.Sprite = productFull.ThumbnailSprite;
 
         txtAlias.TextValue = $"@{productFull.AppUserAlias}";
-        txtTitle.TextValue = String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title;
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
         txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         
         if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary;
+            txtSummary.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary)}";
         
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description;
+        txtDescription.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description)}";
 
         // Product
         txtProductSubtype.TextValue = vllProductSubtype.FindRecordCellString(productFull.ProductSubtypeId, "Name");

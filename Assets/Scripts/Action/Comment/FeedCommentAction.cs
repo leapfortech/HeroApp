@@ -42,9 +42,10 @@ public class FeedCommentAction : MonoBehaviour
     RectTransform trfOverlay = null;
 
     PostService postService;
-    int feedCount = 0;
     long postId = -1;
-    CommentFull emptyCommentFull = new CommentFull();
+    readonly CommentFull emptyCommentFull = new CommentFull();
+
+    private bool resetting = false;
 
     private void Awake()
     {
@@ -61,12 +62,9 @@ public class FeedCommentAction : MonoBehaviour
         this.postId = postId;
     }
 
-    public void CreateLoopFeeds(bool force)
+    public void CreateLoopFeed()
     {
-        if (feedCount != 0 && !force)
-            return;
-
-        feedCount = chunkCount * 4;
+        int feedCount = chunkCount * 4;
 
         valueDates = new String[feedCount];
 
@@ -81,24 +79,17 @@ public class FeedCommentAction : MonoBehaviour
             valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
-
-        ResetPosts(true);
     }
 
-    public void ResetPosts(bool force)
+    public void ResetPosts()
     {
-        //if (!MustReset && !force)
-        //    return;
-
         UpdateOverlay(0);
 
         goEmptyComments.SetActive(true);
         loopFeed.gameObject.SetActive(false);
 
-        //resetting = true;
+        resetting = true;
         GetComments(0, new FeedCommentUserData(-1, DateTime.UtcNow), 2);
-
-        //MustReset = false;
     }
 
     public void GetComments(int startLoopIdx, object commentUserData, int direction)
@@ -107,9 +98,6 @@ public class FeedCommentAction : MonoBehaviour
             return;
 
         FeedCommentUserData feedCommentUserData = (FeedCommentUserData)commentUserData;
-
-        //if (feedCommentUserData.PostId == -1)
-        //    ScreenDialog.Instance.Display();
 
         CommentFeedRequest request = new CommentFeedRequest
         {
@@ -120,7 +108,6 @@ public class FeedCommentAction : MonoBehaviour
             Count = feedCommentUserData.PostId == -1 ? chunkCount + chunkCount : chunkCount,
 
             PostId = postId,
-            AppUserId = -1, //filterAppUser ? StateManager.Instance.AppUser.Id : -1,
             Status = chunkStatus
         };
 
@@ -149,11 +136,25 @@ public class FeedCommentAction : MonoBehaviour
                 UpdateDebug(k, response.CommentFulls[i]);
             }
 
-            for (int i = response.CommentFulls.Count; i < chunkCount; i++)
+            if (resetting)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
-                UpdateDebug(k, emptyCommentFull);
+                for (int i = response.CommentFulls.Count; i < loopFeed.ValuesCount; i++)
+                {
+                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyCommentFull);
+                }
+                Invoke(nameof(ResetSelectedIndex), 0.2f);
+                resetting = false;
+            }
+            else
+            {
+                for (int i = response.CommentFulls.Count; i < chunkCount; i++)
+                {
+                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyCommentFull);
+                }
             }
         }
         else
@@ -177,6 +178,16 @@ public class FeedCommentAction : MonoBehaviour
 
         if (txtDebug != null)
             txtDebug.TextValue = String.Join('\n', valueDates);
+
+        if (response.Direction == 3 && response.CommentFulls.Count > 0)
+            loopFeed.SelectedIndex = (startLoopIdx + chunkCount - response.CommentFulls.Count) % loopFeed.ValuesCount;
+
+        ScreenDialog.Instance.Hide();
+    }
+
+    private void ResetSelectedIndex()
+    {
+        loopFeed.SelectedIndex = 0;
     }
 
     public void UpdateValue(CommentFull commentFull, LoopScrollerValue loopValue, DateTime utcNow)
@@ -211,8 +222,8 @@ public class FeedCommentAction : MonoBehaviour
     public void ApplyComment(long commentId)
     {
         ifdComment.Clear();
-        ScreenDialog.Instance.Hide();
-        // RM REFRESH LOOP
+
+        Invoke(nameof(ResetPosts), 1f);
     }
 
     // Debug
@@ -224,7 +235,7 @@ public class FeedCommentAction : MonoBehaviour
         if (commentFull.PublicationDateTime.Year == 1753)
             valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
         else
-            valueDates[k] = $"<color=red>{commentFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {commentFull.Message}</color>";
+            valueDates[k] = $"<color=red>{commentFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {(commentFull.Message.Length > 12 ? commentFull.Message[0..12] : commentFull.Message)}</color>";
 
     }
 
