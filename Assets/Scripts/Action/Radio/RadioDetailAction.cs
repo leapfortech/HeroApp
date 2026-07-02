@@ -34,29 +34,23 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
 
-    [Space, Title("Images")]
+    [Title("Images")]
     [SerializeField]
     GameObject goEmptyImages = null;
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Contents")]
-    [SerializeField]
-    int charsPerLine = 40;
-    [SerializeField]
-    int lineHeight = 15;
+    [Title("Contents")]
     [SerializeField]
     float contentPadding = 40f;
-    [Space, SerializeField]
-    RectTransform[] contents = null;
 
-    [Space, Title("List")]
+    [Title("List")]
     [SerializeField]
     ListScroller lstRadioType = null;
     [SerializeField]
     ListScroller lstRadioLanguage = null;
 
-    [Space, Title("Values")]
+    [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
     [SerializeField]
@@ -68,7 +62,7 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ValueList vllRadioLanguage = null;
 
-    [Space, Title("Actions")]
+    [Title("Actions")]
     [SerializeField]
     Button btnRadio = null;
     [SerializeField]
@@ -86,11 +80,11 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
-    [Space, Title("Page")]
+    [Title("Page")]
     [SerializeField]
     Page pagDetail;
 
-    [Space, Title("Events")]
+    [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
@@ -313,13 +307,7 @@ public class RadioDetailAction : MonoBehaviour
 
     private void RefreshContents()
     {
-        for (int i = 0; i < contents.Length; i++)
-        {
-            Text txtScroll = contents[i].GetComponentInChildren<Text>();
-            int lineCount = Mathf.CeilToInt((float)txtScroll.TextValue.Length / charsPerLine);
-            float height = lineCount * lineHeight;
-
-            contents[i].sizeDelta = new Vector2(contents[i].sizeDelta.x, height + contentPadding);
-        }
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
     }
 }

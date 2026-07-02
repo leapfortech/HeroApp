@@ -34,7 +34,7 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
 
-    [Space, Title("Images")]
+    [Title("Images")]
     [SerializeField]
     GameObject goEmptyImages = null;
     [SerializeField]
@@ -42,13 +42,7 @@ public class TaleDetailAction : MonoBehaviour
 
     [Title("Contents")]
     [SerializeField]
-    int charsPerLine = 40;
-    [SerializeField]
-    int lineHeight = 15;
-    [SerializeField]
     float contentPadding = 40f;
-    [Space, SerializeField]
-    RectTransform[] contents = null;
 
     [Title("Values")]
     [SerializeField]
@@ -58,7 +52,7 @@ public class TaleDetailAction : MonoBehaviour
     //[SerializeField]
     //ValueList vllCity = null;
 
-    [Space, Title("Actions")]
+    [Title("Actions")]
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
@@ -261,13 +255,7 @@ public class TaleDetailAction : MonoBehaviour
 
     private void RefreshContents()
     {
-        for (int i = 0; i < contents.Length; i++)
-        {
-            Text txtScroll = contents[i].GetComponentInChildren<Text>();
-            int lineCount = Mathf.CeilToInt((float)txtScroll.TextValue.Length / charsPerLine);
-            float height = lineCount * lineHeight;
-
-            contents[i].sizeDelta = new Vector2(contents[i].sizeDelta.x, height + contentPadding);
-        }
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
     }
 }
