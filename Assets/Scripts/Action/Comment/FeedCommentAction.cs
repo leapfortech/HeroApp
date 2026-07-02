@@ -82,7 +82,6 @@ public class FeedCommentAction : MonoBehaviour
 
         ifdComment.Clear();
         goEmptyComments.SetActive(false);
-        loopFeed.gameObject.SetActive(false);
 
         resetting = true;
         GetComments(0, new FeedCommentUserData(-1, DateTime.UtcNow), 2);
@@ -118,7 +117,6 @@ public class FeedCommentAction : MonoBehaviour
 
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
-        loopFeed.gameObject.SetActive(response.Total != 0);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
