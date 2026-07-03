@@ -65,7 +65,7 @@ public class HappeningRegisterAction : MonoBehaviour
 
     private void Register()
     {
-        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(), null, "De acuerdo", "Regresar");
+        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, DoRegister, null, "De acuerdo", "Regresar");
     }
 
     private void DoRegister()

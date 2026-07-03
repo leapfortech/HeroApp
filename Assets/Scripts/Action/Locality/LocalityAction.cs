@@ -64,7 +64,7 @@ public class LocalityAction : MonoBehaviour
 
     public bool Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Estas seguro?", exitMessage, () => ChangeExitPage(), null, "Si, deseo salir", "Continuar con configuración");
+        ChoiceDialog.Instance.Warning("¿Estas seguro?", exitMessage, ChangeExitPage, null, "Si, deseo salir", "Continuar con configuración");
 
         return false;
     }

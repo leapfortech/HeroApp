@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 using hg.ApiWebKit.core.http;
 
-using System.Collections.Generic;
 using Leap.Core.Tools;
 using Leap.Data.Web;
 
@@ -18,7 +16,6 @@ public class ServiceWishService : MonoBehaviour
     [Title("Error")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
-
 
     // REGISTER
     public void Register(ServiceWish serviceWish)

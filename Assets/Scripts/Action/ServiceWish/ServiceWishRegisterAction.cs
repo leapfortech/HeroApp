@@ -11,7 +11,7 @@ public class ServiceWishRegisterAction : MonoBehaviour
 {
     [Title("Data")]
     [SerializeField]
-    InputField ifdComment = null;
+    InputField ifdServiceWish = null;
     [SerializeField]
     int serviceTypeId = -1;
 
@@ -33,7 +33,6 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
     ServiceWishService serviceWishService = null;
 
-
     private void Awake()
     {
         serviceWishService = GetComponent<ServiceWishService>();
@@ -47,28 +46,28 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        ifdComment.Clear();
+        ifdServiceWish.Clear();
     }
 
     public void Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, () => ChangeNextPage(), null, "Si, deseo salir", "Continuar con solicitud");
+        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, ChangeNextPage, null, "Si, deseo salir", "Continuar con solicitud");
     }
 
     private void Register()
     {
-        if (!ElementHelper.Validate(ifdComment))
+        if (!ElementHelper.Validate(ifdServiceWish))
             return;
 
         ScreenDialog.Instance.Display();
 
-        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceTypeId, ifdComment.Text, -1));
+        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceTypeId, ifdServiceWish.Text, -1));
     }
 
     public void ApplyServiceWish(long serviceWishId)
     {
         Clear();
-        ChoiceDialog.Instance.Info("Solicitud completada", doneMessage, () => ChangeNextPage(), null);
+        ChoiceDialog.Instance.Info("Solicitud completada", doneMessage, ChangeNextPage, null);
     }
 
     public void ChangeNextPage()

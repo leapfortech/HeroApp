@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -87,9 +88,20 @@ public class OnboardingAction : MonoBehaviour
         dtmAddress.ClearElements();
     }
 
+    private void Method7(bool param7)
+    {
+    }
+
+    private void Want(UnityAction<bool> method)
+    {
+    }
+
     public void Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Lo quieres hacer luego?", exitMessage, () => ChangeExitPage(), null, "Si, deseo salir", "Continuar con perfil");
+        Want(Method7);
+        Want((r) => { bool a = r; });
+
+        ChoiceDialog.Instance.Warning("¿Lo quieres hacer luego?", exitMessage, ChangeExitPage, null, "Si, deseo salir", "Continuar con perfil");
     }
 
     public void DisplayAlias()
@@ -140,7 +152,7 @@ public class OnboardingAction : MonoBehaviour
 
         if (isPersonalEmpty && isAddressEmpty)
         {
-            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emptyMessage, () => ChangeExitPage(), () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
+            ChoiceDialog.Instance.Error("¿Lo quieres hacer luego?", emptyMessage, ChangeExitPage, () => PageManager.Instance.ChangePage(pagStart), "Sí, deseo salir", "Continuar con perfil");
             return;
         }
 

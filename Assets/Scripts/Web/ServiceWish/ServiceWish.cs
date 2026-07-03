@@ -5,19 +5,19 @@ public class ServiceWish
     public long Id { get; set; }
     public long AppUserId { get; set; }
     public long ServiceTypeId { get; set; }
-    public String Comment { get; set; }
+    public String Wish { get; set; }
     public int Status { get; set; }
 
     public ServiceWish()
     { 
     }
 
-    public ServiceWish(long id, long appUserId, long serviceTypeId, String comment, int status)
+    public ServiceWish(long id, long appUserId, long serviceTypeId, String wish, int status)
     {
         Id = id;
         AppUserId = appUserId;
         ServiceTypeId = serviceTypeId;
-        Comment = comment;
+        Wish = wish;
         Status = status;
     }
 }

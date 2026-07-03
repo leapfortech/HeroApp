@@ -51,7 +51,7 @@ public class StepNavegationAction : MonoBehaviour
 
     public void ShowChoiceDialog()
     {
-        ChoiceDialog.Instance.Warning(title, message, () => { onExit.Invoke(); }, null, btnTitleOK, btnTitleKO);
+        ChoiceDialog.Instance.Warning(title, message, onExit.Invoke, null, btnTitleOK, btnTitleKO);
     }
 }
 

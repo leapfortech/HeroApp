@@ -179,7 +179,8 @@ public class FeedCommentAction : MonoBehaviour
 
     private void ResetSelectedIndex()
     {
-        loopFeed.SelectedIndex = 0;
+        if (loopFeed.gameObject.activeInHierarchy)
+            loopFeed.SelectedIndex = 0;
 
         ScreenDialog.Instance.Hide();
     }
