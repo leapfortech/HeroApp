@@ -16,6 +16,12 @@ using Sirenix.OdinInspector;
 
 public class AppManager : SingletonBehaviour<AppManager>
 {
+    [Title("Loaing")]
+    [SerializeField]
+    private Page pagLoading = null;
+    [SerializeField]
+    private Animator loadingAnimator = null;
+
     [Title("ValueLists Filtered")]
     [SerializeField, LabelText(" ")]
     private ValueList[] vllFiltered = null;
@@ -35,6 +41,8 @@ public class AppManager : SingletonBehaviour<AppManager>
     StartService startService = null;
     StartResponse startResponse = null;
 
+    bool firstFocus = true;
+
     private void Awake()
     {
         startService = GetComponent<StartService>();
@@ -51,6 +59,19 @@ public class AppManager : SingletonBehaviour<AppManager>
     public void StartApp(String publicKey)
     {
         startService.StartApp(new StartRequest(publicKey, Application.version));
+    }
+
+    private void OnApplicationFocus(bool focus)
+    {
+        if (!focus)
+            return;
+        if (firstFocus)
+        {
+            firstFocus = false;
+            return;
+        }
+
+        startService.StartApp(new StartRequest(null, Application.version));
     }
 
     public void ApplyStart(StartResponse response)
@@ -74,6 +95,13 @@ public class AppManager : SingletonBehaviour<AppManager>
     }
 
     private void GoToLink()
+    {
+        loadingAnimator.enabled = false;
+        PageManager.Instance.ChangePage(pagLoading);
+        LaunchLink();
+    }
+
+    private void LaunchLink()
     {
         if (startResponse.Link == null)
             return;
@@ -102,12 +130,15 @@ public class AppManager : SingletonBehaviour<AppManager>
 
     private void StartLink()
     {
-        GoToLink();
+        LaunchLink();
         ContinueStart();
     }
 
     private void ContinueStart()
     {
+        if (startResponse.Certificates == null)
+            return;
+
         CertificateManager.Instance.SetCertificate(startResponse.Certificates);
     }
 
