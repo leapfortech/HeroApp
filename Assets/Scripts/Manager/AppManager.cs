@@ -41,8 +41,6 @@ public class AppManager : SingletonBehaviour<AppManager>
     StartService startService = null;
     StartResponse startResponse = null;
 
-    bool firstFocus = true;
-
     private void Awake()
     {
         startService = GetComponent<StartService>();
@@ -61,16 +59,8 @@ public class AppManager : SingletonBehaviour<AppManager>
         startService.StartApp(new StartRequest(publicKey, Application.version));
     }
 
-    private void OnApplicationFocus(bool focus)
+    public void CheckVersion()
     {
-        if (!focus)
-            return;
-        if (firstFocus)
-        {
-            firstFocus = false;
-            return;
-        }
-
         startService.StartApp(new StartRequest(null, Application.version));
     }
 
