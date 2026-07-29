@@ -13,20 +13,20 @@ public class DisplayGameProfile : MonoBehaviour
     [Title("Element")]
     [SerializeField]
     Text txtName = null;
-    [SerializeField]
-    Text txtLevel= null;
+    //[SerializeField]
+    //Text txtLevel= null;
     [SerializeField]
     Text txtTotalPoints = null;
     [SerializeField]
     Text txtTotalMedals = null;
     [SerializeField]
     Text txtTotalCups = null;
-    [SerializeField]
-    Image imgCountry = null;
+    //[SerializeField]
+    //Image imgCountry = null;
 
-    [Title("Values")]
-    [SerializeField]
-    ValueList vllCountryFlag = null;
+    //[Title("Values")]
+    //[SerializeField]
+    //ValueList vllCountryFlag = null;
 
 
     public void Clear()
@@ -40,11 +40,11 @@ public class DisplayGameProfile : MonoBehaviour
 
         txtName.TextValue = !String.IsNullOrWhiteSpace(fullName) ? fullName : StateManager.Instance.AppUser.Alias;
 
-        txtLevel.TextValue = "Nivel 1";
+        //txtLevel.TextValue = "Nivel 1";
         txtTotalPoints.TextValue = StateManager.Instance.GetTotalPuzzlePoints().ToString();
         txtTotalMedals.TextValue = StateManager.Instance.GetTotalPuzzleMedals().ToString();
         txtTotalCups.TextValue = StateManager.Instance.GetTotalPuzzleCups().ToString();
 
-        imgCountry.Sprite = vllCountryFlag.FindRecordCellSprite(StateManager.Instance.InterestLocality.CountryId, "Flag");
+        //imgCountry.Sprite = vllCountryFlag.FindRecordCellSprite(StateManager.Instance.InterestLocality.CountryId, "Flag");
     }
 }
