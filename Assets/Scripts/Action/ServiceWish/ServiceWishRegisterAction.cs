@@ -27,7 +27,7 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
     [Title("Messages")]
     [SerializeField, TextArea(2, 4)]
-    String exitMessage = "Si sales ahora y no habías enviado otra solicitud no te enterarás cuando la sección este disponible.";
+    String exitMessage = "¿Estás seguro de que deseas salir?";
     [SerializeField, TextArea(2, 4)]
     String doneMessage = "En cuánto la sección este lista o existan noticias acerca de ella te las haremos saber.";
 
