@@ -69,6 +69,9 @@ public class SwitchLocationAction : MonoBehaviour
     public void Refresh()
     {
         Initialize();
+
+        if (StateManager.Instance.InterestLocality == null)
+            return;
         
         Locality locality = showingInterest ? StateManager.Instance.InterestLocality : StateManager.Instance.CurrentLocality;
 
