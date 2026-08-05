@@ -18,33 +18,9 @@ public class NotificationReceiver: MonoBehaviour
     [SerializeField]
     UnityEvent onAppUserLocked = null;
 
-    [Title("Onboarding")]
-    [SerializeField]
-    UnityIntEvent onObdRequest = null;
-
-    [SerializeField]
-    UnityIntEvent onObdFinalize = null;
-
-    [Title("InvestmentPayment")]
-    [SerializeField]
-    UnityIntEvent onPaymentAccepted = null;
-
-    [SerializeField]
-    UnityIntEvent onPaymentRejected = null;
-
-    [SerializeField]
-    UnityIntEvent onPaymentReceiptRejected = null;
-
-    [Title("Investment")]
-    [SerializeField]
-    UnityIntEvent onInvRequest = null;
-
-    [SerializeField]
-    UnityIntEvent onInvFinalize = null;
-
     [Title("Notification")]
     [SerializeField]
-    UnityIntEvent onNotification = null;
+    UnityLongEvent onNotification = null;
 
     public void SetLastNotification(LoginAppInfo loginData)
     {
@@ -64,7 +40,7 @@ public class NotificationReceiver: MonoBehaviour
             Debug.Log("-------------------------------------------------------");
         }
 
-        int webSysUserId = int.Parse(data.WebSysUserId);
+        long webSysUserId = long.Parse(data.WebSysUserId);
 
         bool bValid = data.DisplayMode == "1";
 
@@ -78,43 +54,6 @@ public class NotificationReceiver: MonoBehaviour
                 onAppUserLocked.Invoke();
             //else
             //    onPersonUnblocked.Invoke();
-        }
-        else if (data.Action == "Onboarding")
-        {
-            if (data.Information == "Request")
-            {
-                onObdRequest.Invoke(Convert.ToInt32(data.Parameter));
-            }
-            else if (data.Information == "Finalize")
-            {
-                onObdFinalize.Invoke(Convert.ToInt32(data.Parameter));    // 2:OK    4:NOK
-            }
-        }
-        else if (data.Action == "InvestmentPayment")
-        {
-            if (data.Information == "Accept")
-            {
-                onPaymentAccepted.Invoke(Convert.ToInt32(data.Parameter));
-            }
-            else if (data.Information == "Reject")
-            {
-                onPaymentRejected.Invoke(Convert.ToInt32(data.Parameter));
-            }
-            else if (data.Information == "RejectReceipt")
-            {
-                onPaymentReceiptRejected.Invoke(Convert.ToInt32(data.Parameter));
-            }
-        }
-        else if (data.Action == "Investment")
-        {
-            if (data.Information == "Request")
-            {
-                onInvRequest.Invoke(Convert.ToInt32(data.Parameter)); //{investmentId}
-            }
-            else if (data.Information == "Finalize")
-            {
-                onInvFinalize.Invoke(Convert.ToInt32(data.Parameter)); // {investmentId}
-            }
         }
 
         onNotification.Invoke(webSysUserId);
