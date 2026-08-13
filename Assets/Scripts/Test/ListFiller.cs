@@ -31,7 +31,7 @@ public class ListFiller : MonoBehaviour
 
     public void Fill()
     {
-        String month = months[0];
+        String month = months[1];
 
         listScroller.ClearValues();
 
