@@ -6,6 +6,7 @@ using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -13,6 +14,10 @@ using Sirenix.OdinInspector;
 public class PhraseAction : MonoBehaviour
 {
     [Title("Element")]
+    [SerializeField]
+    Image imgCountryFlag = null;
+    [SerializeField]
+    Text txtCountry = null;
     [SerializeField]
     Text txtPoints = null;
     [SerializeField]
@@ -33,6 +38,10 @@ public class PhraseAction : MonoBehaviour
     Text txtCorrectAnswer = null;
     [SerializeField]
     ComboAdapter cmbDifficulty = null;
+
+    [Title("Values")]
+    [SerializeField]
+    public ValueList vllCountry = null;
 
     [Title("Action")]
     [SerializeField]
@@ -104,7 +113,7 @@ public class PhraseAction : MonoBehaviour
         int difficulty = (int)cmbDifficulty.GetSelectedId();
         exit = false;
 
-        puzzleService.GetNextPuzzle(new PuzzleNextRequest(StateManager.Instance.Player.Id, 3, StateManager.Instance.InterestLocality.CountryId, difficulty));
+        puzzleService.GetNextPuzzle(new PuzzleNextRequest(StateManager.Instance.Player.Id, 3, difficulty));
     }
 
     public void ApplyFull(PuzzleFull puzzleFull)
@@ -117,6 +126,12 @@ public class PhraseAction : MonoBehaviour
         }
 
         this.puzzleFull = puzzleFull;
+
+        if (puzzleFull.CountryId != -1)
+        {
+            txtCountry.TextValue = vllCountry.FindRecordCellString(puzzleFull.CountryId, "Name");
+            imgCountryFlag.Sprite = vllCountry.FindRecordCellSprite(puzzleFull.CountryId, "Flag");
+        }
 
         txtPoints.TextValue = "Puntos: " + puzzleFull.Points.ToString();
         txtQuestion.TextValue = puzzleFull.Question;
