@@ -91,7 +91,7 @@ public class ProfileDisplayAction : MonoBehaviour
         }
 
         txtName.TextValue = isNameEmpty ? "Sin nombre" : identity.FirstName1 + " " + identity.LastName1;
-        txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimineto" : identity.BirthDate.ToString("dd/MM/yyyy");
+        txtBirthDate.TextValue = isBirthDateEmpty ? "Sin fecha de nacimiento" : identity.BirthDate.ToString("dd/MM/yyyy");
         txtBirthPlace.TextValue = isBirthPlaceEmpty ? "Sin lugar de nacimiento" : "De " + vllCountry.FindRecordCellString(identity.BirthCountryId, "Name");
 
         // Address
