@@ -12,8 +12,6 @@ public class ImageEditorAction : MonoBehaviour
     [Space, Title("Display")]
     [SerializeField]
     Image imgDisplay = null;
-    [SerializeField]
-    Sprite sprEmpty = null;
 
     [Space, Title("Images")]
     [SerializeField]
@@ -41,8 +39,6 @@ public class ImageEditorAction : MonoBehaviour
 
     public void Clear()
     {
-        if (imgDisplay != null)
-            imgDisplay.Sprite = sprEmpty;
         lstImage.Clear();
         for (int i = 0; i < vllImages.RecordCount; i++)
             vllImages.GetRecordCellSprite(i, "Image").Destroy();
@@ -63,7 +59,6 @@ public class ImageEditorAction : MonoBehaviour
         bool hasImages = vllImages.RecordCount > 0;
         btnDelete.gameObject.SetActive(hasImages);
         imgDisplay.gameObject.SetActive(hasImages);
-        btnAddFirst.Sprite = sprEmpty;
         btnAddFirst.gameObject.SetActive(!hasImages);
 
         btnAdd.gameObject.SetActive(vllImages.RecordCount < maxCount);
