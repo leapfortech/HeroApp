@@ -44,7 +44,7 @@ public class ClueAction : MonoBehaviour
 
     [Title("Values")]
     [SerializeField]
-    public ValueList vllCountry = null;
+    ValueList vllCountry = null;
 
     [Title("Action")]
     [SerializeField]
