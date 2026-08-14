@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
@@ -32,6 +31,8 @@ public class ImageEditorAction : MonoBehaviour
 
     [Title("Action")]
     [SerializeField]
+    Button btnAddFirst = null;
+    [SerializeField]
     Button btnAdd = null;
     [SerializeField]
     Button btnDelete = null;
@@ -59,18 +60,13 @@ public class ImageEditorAction : MonoBehaviour
             lstImage.ApplyAddValue(scrollerValue);
         }
 
-        if (vllImages.RecordCount > 0)
-            btnDelete.gameObject.SetActive(true);
-        else
-        {
-            imgDisplay.Sprite = sprEmpty;
-            btnDelete.gameObject.SetActive(false);
-        }
+        bool hasImages = vllImages.RecordCount > 0;
+        btnDelete.gameObject.SetActive(hasImages);
+        imgDisplay.gameObject.SetActive(hasImages);
+        btnAddFirst.Sprite = sprEmpty;
+        btnAddFirst.gameObject.SetActive(!hasImages);
 
-        if (vllImages.RecordCount < maxCount)
-            btnAdd.gameObject.SetActive(true);
-        else
-            btnAdd.gameObject.SetActive(false);
+        btnAdd.gameObject.SetActive(vllImages.RecordCount < maxCount);
 
         if (vllImages.RecordCount > 0)
             SelectImage(vllImages.RecordCount - 1);
