@@ -45,6 +45,8 @@ public class ClueAction : MonoBehaviour
     [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllDifficulty = null;
 
     [Title("Action")]
     [SerializeField]
@@ -99,7 +101,7 @@ public class ClueAction : MonoBehaviour
     private void Exit()
     {
         ChoiceDialog.Instance.Warning("Salir del reto", "¿Estás seguro que deseas salir?\n\nSi abandonas el reto, se marcará como incorrecto y perderás la oportunidad de ganar puntos.\n\n",
-                                      () => DoExit(), null, "Sí", "No");
+                                      DoExit, null, "Sí", "No");
     }
 
     private void DoExit()
@@ -128,14 +130,30 @@ public class ClueAction : MonoBehaviour
 
     public void ApplyFull(PuzzleFull puzzleFull)
     {
-        if (puzzleFull == null || puzzleFull.Id == 0 || puzzleFull.Id == -1)
+        if (puzzleFull == null || puzzleFull.Id == 0)
         {
-            //ChoiceDialog.Instance.Info("Retos" , "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit), null);
-            ChoiceDialog.Instance.Info("Retos", "Por el momento no hay nuevos retos.");
+            ChoiceDialog.Instance.Info("Retos", "Por el momento no hay nuevos retos.", () => PageManager.Instance.ChangePage(pagExit));
             return;
         }
 
         this.puzzleFull = puzzleFull;
+
+        int difficulty = (int)cmbDifficulty.GetSelectedId();
+
+        if (difficulty != this.puzzleFull.Difficulty)
+        {
+            ChoiceDialog.Instance.Info("Retos", $"El reto siguiente es de dificultad {vllDifficulty.FindRecordCellString(this.puzzleFull.Difficulty, "Name")}, ¿deseas seguir jugando?",
+                                       () => StartPuzzle(this.puzzleFull.Difficulty), () => PageManager.Instance.ChangePage(pagExit), "Sí", "No");
+            return;
+        }
+
+        StartPuzzle(-1);
+    }
+
+    public void StartPuzzle(int difficultyChanged)
+    {
+        if (difficultyChanged != -1)
+            cmbDifficulty.Select(difficultyChanged);
 
         if (puzzleFull.CountryId != -1)
         {
