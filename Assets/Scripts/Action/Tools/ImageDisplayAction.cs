@@ -19,7 +19,7 @@ public class ImageDisplayAction : MonoBehaviour
     [SerializeField]
     ListScroller lstImage = null;
 
-    [Header("Indicator")]
+    [Title("Indicator")]
     [SerializeField]
     private GameObject indicatorPrefab;
     [SerializeField]
@@ -50,7 +50,7 @@ public class ImageDisplayAction : MonoBehaviour
 
     public void Display(List<Sprite> imgs)
     {
-        this.images = imgs;
+        images = imgs;
 
         if (images == null || images.Count == 0)
             return;
@@ -61,7 +61,7 @@ public class ImageDisplayAction : MonoBehaviour
 
         for (int i = 0; i < images.Count; i++)
         {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
+            ListScrollerValue scrollerValue = new ListScrollerValue(lstImage.ListItem, true);
             scrollerValue.SetSprite(0, images[i]);
             lstImage.ApplyAddValue(scrollerValue);
         }

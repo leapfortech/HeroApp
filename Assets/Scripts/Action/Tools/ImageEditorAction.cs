@@ -51,7 +51,7 @@ public class ImageEditorAction : MonoBehaviour
 
         for (int i = 0; i < vllImages.RecordCount; i++)
         {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
+            ListScrollerValue scrollerValue = new ListScrollerValue(lstImage.ListItem, true);
             scrollerValue.SetSprite(0, vllImages.GetRecordCellSprite(i, "Image"));
             lstImage.ApplyAddValue(scrollerValue);
         }

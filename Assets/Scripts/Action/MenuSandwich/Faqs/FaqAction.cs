@@ -85,7 +85,7 @@ public class FaqAction : MonoBehaviour
 
         for (int i = 0; i < vllFaqType.RecordCount; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(1, true);
+            ListScrollerValue value = new ListScrollerValue(lstFaqType.ListItem, true);
 
             value.SetText(0, vllFaqType.FindRecordCellString(i + 1, "Name"));
 
@@ -129,7 +129,7 @@ public class FaqAction : MonoBehaviour
 
         for (int i = 0; i < faqsType.Count; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(1, true);
+            ListScrollerValue value = new ListScrollerValue(lstFaq.ListItem, true);
 
             value.SetText(0, faqsType[i].Question);
 

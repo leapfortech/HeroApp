@@ -38,12 +38,10 @@ public class ListFiller : MonoBehaviour
         ListScrollerValue listValue;
         if (fillType == ListFiller.FillType.Base)
         {
-            int elementCount;
             for (int i = 0; i < itemCount; i++)
             {
-                elementCount = listScroller.ListItem.ElementCount;
-                listValue = new ListScrollerValue(elementCount, hasToggle);
-                for (int k = 0; k < elementCount; k++)
+                listValue = new ListScrollerValue(listScroller.ListItem, hasToggle);
+                for (int k = 0; k < listScroller.ListItem.ElementCount; k++)
                     if (listScroller.ListItem.IsText(k))
                         listValue.SetText(k, "Itm " + i + " - Txt " + k);
                     else
@@ -56,7 +54,7 @@ public class ListFiller : MonoBehaviour
         {
             for (int i = 0; i < months.Length; i++)
             {
-                listValue = new ListScrollerValue(1, hasToggle);
+                listValue = new ListScrollerValue(listScroller.ListItem, hasToggle);
                 listValue.SetText(0, months[i]);
 
                 listScroller.AddValue(listValue);
