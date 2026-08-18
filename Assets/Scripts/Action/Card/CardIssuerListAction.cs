@@ -27,7 +27,7 @@ public class CardIssuerListAction : MonoBehaviour
         ListScrollerValue scrollerValue;
         for (int i = 0; i < vllCardBrand.RecordCount; i++)
         {
-            scrollerValue = new ListScrollerValue(2, true);
+            scrollerValue = new ListScrollerValue(lstCardIssuers.ListItem, true);
             scrollerValue.SetText(0, (String)vllCardBrand[i]["Name"]);
             scrollerValue.SetSprite(1, (Sprite)vllCardBrand[i]["Brand"]);
 

@@ -100,7 +100,7 @@ public class ListOptionAction : MonoBehaviour
 
         for (int i = 0; i < vllOption.RecordCount; i++)
         {
-            ListScrollerValue scrollerValue = new ListScrollerValue(1, true);
+            ListScrollerValue scrollerValue = new ListScrollerValue(lstOption.ListItem, true);
             scrollerValue.SetText(0, vllOption.GetRecordCellString(i, "Name"));
 
             lstOption.AddValue(scrollerValue);

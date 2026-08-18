@@ -156,7 +156,7 @@ public class RadioDetailAction : MonoBehaviour
         lstRadioType.Clear();
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(1, true);
+            ListScrollerValue value = new ListScrollerValue(lstRadioType.ListItem, true);
             value.SetText(0, vllRadioType.FindRecordCellString(radioFull.RadioTypeFulls[i].RadioTypeId, "Name"));
 
             lstRadioType.AddValue(value);
@@ -167,7 +167,7 @@ public class RadioDetailAction : MonoBehaviour
         lstRadioLanguage.Clear();
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(1, true);
+            ListScrollerValue value = new ListScrollerValue(lstRadioLanguage.ListItem, true);
             value.SetText(0, vllRadioLanguage.FindRecordCellString(radioFull.RadioLanguageFulls[i].LanguageId, "Name"));
 
             lstRadioLanguage.AddValue(value);

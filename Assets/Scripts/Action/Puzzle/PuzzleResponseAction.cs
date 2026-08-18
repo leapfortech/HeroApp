@@ -104,7 +104,7 @@ public class PuzzleAnswerAction : MonoBehaviour
 
         for (int i = 0; i < vllAnswer.RecordCount; i++)
         {
-            ListScrollerValue scrollerValue = new ListScrollerValue(2, true);
+            ListScrollerValue scrollerValue = new ListScrollerValue(lstAnswer.ListItem, true);
             scrollerValue.SetText(0, vllAnswer.GetRecordCellString(i, "Description"));
             scrollerValue.SetText(1, vllAnswer.GetRecordCellString(i, "IsCorrect") == "1" ? "Correcta" : "Incorrecta");
 

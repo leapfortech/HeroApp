@@ -98,7 +98,7 @@ public class ReferredDisplayAction : MonoBehaviour
 
         for (int i = 0; i < referredFulls.Count; i++)
         {
-            ListScrollerValue scrollerValue = new ListScrollerValue(3, true);
+            ListScrollerValue scrollerValue = new ListScrollerValue(lstReferred.ListItem, true);
             scrollerValue.SetText(0, referredFulls[i].Code);
             scrollerValue.SetText(1, $"{referredFulls[i].FirstName1} {referredFulls[i].LastName1}");
             scrollerValue.SetText(2, referredFulls[i].CreateDateTime.ToString("dd/MM/yyyy HH:mm"));
