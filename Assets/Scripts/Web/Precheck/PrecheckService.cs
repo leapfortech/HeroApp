@@ -31,9 +31,12 @@ public class PrecheckService : MonoBehaviour
     [SerializeField]
     private UnityStringEvent onEmailCodeValidated = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // SMS
     public void RegisterPhoneSms(long phoneCountryId, String phoneNumber)
@@ -49,7 +52,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPhoneSmsRegistered.Invoke(registerPhoneSmsPostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             registerPhoneSmsPostOp.Send();
         }
@@ -70,7 +73,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPhoneSmsCodeValidated.Invoke(validatePhoneSmsCodePostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             validatePhoneSmsCodePostOp.Send();
         }
@@ -94,7 +97,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPhoneWARegistered.Invoke(registerPhoneWAPostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             registerPhoneWAPostOp.Send();
         }
@@ -115,7 +118,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPhoneWACodeValidated.Invoke(validatePhoneWACodePostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             validatePhoneWACodePostOp.Send();
         }
@@ -137,7 +140,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onEmailRegistered.Invoke(registerEmailPostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             registerEmailPostOp.Send();
         }
@@ -158,7 +161,7 @@ public class PrecheckService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onEmailCodeValidated.Invoke(validateEmailCodePostOp.result[1..^1]);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             validateEmailCodePostOp.Send();
         }

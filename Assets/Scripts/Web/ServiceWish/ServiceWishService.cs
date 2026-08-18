@@ -13,9 +13,12 @@ public class ServiceWishService : MonoBehaviour
     [SerializeField]
     private UnityLongEvent onRegistered = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // REGISTER
     public void Register(ServiceWish serviceWish)
@@ -29,7 +32,7 @@ public class ServiceWishService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             serviceWishRegisterOp.Send();
         }

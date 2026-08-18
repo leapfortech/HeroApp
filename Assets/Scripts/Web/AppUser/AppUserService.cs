@@ -56,9 +56,12 @@ public class AppUserService : MonoBehaviour
     [SerializeField]
     private UnityEvent onPortraitDeleted = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // GET
     public void GetAppUser(long appUserId)
@@ -72,7 +75,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onAppUserRetreived.Invoke(op.appUser);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             appUserGetOp.Send();
         }
@@ -93,7 +96,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPortraitRetreived.Invoke(op.portrait);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             portraitAppUserGetOp.Send();
         }
@@ -115,7 +118,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onAliasValidated.Invoke(op.aliasResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             validateAliasPostOp.Send();
         }
@@ -136,7 +139,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLocalityRegistered.Invoke(op.localityResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             localityPostOp.Send();
         }
@@ -158,7 +161,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             updateAppUserPutOp.Send();
         }
@@ -180,7 +183,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onOptionsUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             optionsPutOp.Send();
         }
@@ -202,7 +205,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onStatusUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             statusPutOp.Send();
         }
@@ -224,7 +227,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onReferredUpdated.Invoke(Convert.ToInt64(op.referredAppUserId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredPutOp.Send();
         }
@@ -246,7 +249,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPortraitUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             portraitPutOp.Send();
         }
@@ -267,7 +270,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLocalityUpdated.Invoke(Convert.ToInt64(op.localityId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             localityPutOp.Send();
         }
@@ -288,7 +291,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onAliasUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             aliasPutOp.Send();
         }
@@ -310,7 +313,7 @@ public class AppUserService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPortraitDeleted.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             portraitDeleteOp.Send();
         }

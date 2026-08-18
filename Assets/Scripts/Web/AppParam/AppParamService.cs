@@ -18,9 +18,12 @@ public class AppParamService : MonoBehaviour
     [SerializeField]
     private UnityAppParamsEvent onAppParams = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // Get
     public void GetParams()
@@ -33,7 +36,7 @@ public class AppParamService : MonoBehaviour
                 if (response != null && response.StatusCode == HttpStatusCode.OK)
                     onAppParams.Invoke(op.appParams);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             appParamOp.Send();
         }

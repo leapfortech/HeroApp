@@ -32,9 +32,12 @@ public class FaqService : MonoBehaviour
     [SerializeField]
     private UnityBoolEvent onStatusUpdated = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     public void GetById(long id)
     {
@@ -47,7 +50,7 @@ public class FaqService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRetreived.Invoke(op.faq);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             faqGetOp.Send();
         }
@@ -68,7 +71,7 @@ public class FaqService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onAllRetreived.Invoke(op.faqs);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             AllByTypeGetOp.Send();
         }
@@ -90,7 +93,7 @@ public class FaqService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             faqRegisterOp.Send();
         }
@@ -112,7 +115,7 @@ public class FaqService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             faqPutOp.Send();
         }
@@ -134,7 +137,7 @@ public class FaqService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onStatusUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             updateStatusPutOp.Send();
         }

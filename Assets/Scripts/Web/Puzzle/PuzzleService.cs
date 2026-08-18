@@ -39,9 +39,12 @@ public class PuzzleService : MonoBehaviour
     private PuzzleResultEvent onResultUpdated = null;
 
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
 
     // GET
@@ -57,7 +60,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullRetreived.Invoke(op.puzzleFull);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             puzzleFullGetOp.Send();
         }
@@ -79,7 +82,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullRetreived.Invoke(op.puzzleFull);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             puzzleFullByPostIdGetOp.Send();
         }
@@ -100,7 +103,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullsRetreived.Invoke(op.puzzleFulls);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             puzzleFullsGetOp.Send();
         }
@@ -121,7 +124,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onNextFullRetreived.Invoke(op.puzzleFull);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             nextPuzzlePostOp.Send();
         }
@@ -143,7 +146,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredRegisterOp.Send();
         }
@@ -165,7 +168,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredPutOp.Send();
         }
@@ -186,7 +189,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onResultUpdated.Invoke(op.puzzleResultResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             saveResultPutOp.Send();
         }
@@ -207,7 +210,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             acceptPutOp.Send();
         }
@@ -228,7 +231,7 @@ public class PuzzleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             rejectPutOp.Send();
         }
