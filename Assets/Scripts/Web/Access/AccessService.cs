@@ -46,9 +46,12 @@ public class AccessService : MonoBehaviour
     [SerializeField]
     private UnityEvent onAccountUpdated = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // Login
     public void LoginApp(String email, String version)
@@ -62,7 +65,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLogged.Invoke(op.loginResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             loginAppPostOp.Send();
         }
@@ -84,7 +87,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLoginAppInfoRetreived.Invoke(op.loginAppInfo);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             loginAppInfoGetOp.Send();
         }
@@ -106,7 +109,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegisteredApp.Invoke(op.registerResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             registerAppPostOp.Send();
         }
@@ -127,7 +130,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onOnboardingRegistered.Invoke(op.onboardingResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             onboardingPostOp.Send();
         }
@@ -148,7 +151,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onResetPasswordSent.Invoke(Convert.ToInt64(op.webSysUserId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             resetPasswordPostOp.Send();
         }
@@ -169,7 +172,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPasswordUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             updatePasswordPutOp.Send();
         }
@@ -190,7 +193,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onResetAccountSent.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             resetAccountPostOp.Send();
         }
@@ -211,7 +214,7 @@ public class AccessService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onAccountUpdated.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             updateAccountPutOp.Send();
         }

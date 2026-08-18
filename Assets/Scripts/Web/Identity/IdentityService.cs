@@ -23,9 +23,12 @@ public class IdentityService : MonoBehaviour
     [SerializeField]
     private UnityLongEvent onUpdated = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // GET
     public void GetIdentity(long id)
@@ -39,7 +42,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onIdentityRetreived.Invoke(op.identity);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             identityGetOp.Send();
         }
@@ -61,7 +64,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onIdentityRetreived.Invoke(op.identity);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             identityAppUserGetOp.Send();
         }
@@ -83,7 +86,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt32(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             identityRegisterPostOp.Send();
         }
@@ -105,7 +108,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             personalPutOp.Send();
         }
@@ -126,7 +129,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             placePutOp.Send();
         }
@@ -148,7 +151,7 @@ public class IdentityService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             identityPutOp.Send();
         }

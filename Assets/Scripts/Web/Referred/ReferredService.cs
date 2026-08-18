@@ -29,9 +29,12 @@ public class ReferredService : MonoBehaviour
     private UnityBoolEvent onUpdated = null;
 
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
 
     // GET
@@ -47,7 +50,7 @@ public class ReferredService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRetreived.Invoke(op.referredFulls);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             byPeriodGetOp.Send();
         }
@@ -69,7 +72,7 @@ public class ReferredService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onValidated.Invoke(Convert.ToInt32(op.response));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             validateGetOp.Send();
         }
@@ -91,7 +94,7 @@ public class ReferredService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(op.referredIds);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredRegisterOp.Send();
         }
@@ -113,7 +116,7 @@ public class ReferredService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredPutOp.Send();
         }

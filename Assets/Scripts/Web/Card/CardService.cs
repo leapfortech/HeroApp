@@ -38,9 +38,12 @@ public class CardService : MonoBehaviour
     [SerializeField]
     private UnityEvent onCardStatusChanged = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     [SerializeField]
     private CSErrorsEvent onCybersourceError = null;
@@ -57,7 +60,7 @@ public class CardService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onBillToRetreived.Invoke(new CSBillTo(op.billToCreate));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             billToOp.Send();
         }
@@ -79,7 +82,7 @@ public class CardService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onCardRetreived.Invoke(op.card);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             cardCustomerOp.Send();
         }
@@ -117,7 +120,7 @@ public class CardService : MonoBehaviour
                 }
                 else
                 {
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
                 }
             });
             cardRegisterOp.Send();
@@ -141,7 +144,7 @@ public class CardService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onCardStatusChanged.Invoke();
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             cardStatusOp.Send();
         }

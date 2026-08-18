@@ -31,9 +31,12 @@ public class TaleService : MonoBehaviour
     private UnityBoolEvent onUpdated = null;
 
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
+
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
 
     // GET
@@ -49,7 +52,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullRetreived.Invoke(op.taleFull);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             taleFullGetOp.Send();
         }
@@ -71,7 +74,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullRetreived.Invoke(op.taleFull);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             taleFullByPostIdGetOp.Send();
         }
@@ -92,7 +95,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFullsRetreived.Invoke(op.taleFulls);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             taleFullsGetOp.Send();
         }
@@ -114,7 +117,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             taleRegisterOp.Send();
         }
@@ -136,7 +139,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             talePutOp.Send();
         }
@@ -157,7 +160,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             acceptPutOp.Send();
         }
@@ -178,7 +181,7 @@ public class TaleService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(op.response);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             rejectPutOp.Send();
         }
