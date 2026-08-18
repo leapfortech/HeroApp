@@ -44,10 +44,12 @@ public class PostService : MonoBehaviour
     //[SerializeField]
     //private UnityBoolEvent onDeleted = null;
 
-    [Title("Error")]
+    [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
+    [SerializeField]
+    private UnityStringEvent onTimeoutError = null;
 
     // GET
     public void GetImagesById(long id, String first = "true")
@@ -62,7 +64,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onImagesRetreived.Invoke(op.projectImages);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             imagesGetOp.Send();
         }
@@ -84,7 +86,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFeedRetreived.Invoke(op.postFeedResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             postFeedOp.Send();
         }
@@ -105,7 +107,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onCommentFeedRetreived.Invoke(op.commentFeedResponse);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             commentFeedOp.Send();
         }
@@ -127,7 +129,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.shareId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             shareRegisterOp.Send();
         }
@@ -148,7 +150,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             favoriteRegisterOp.Send();
         }
@@ -169,7 +171,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             favoriteDeleteOp.Send();
         }
@@ -190,7 +192,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             likeRegisterOp.Send();
         }
@@ -211,7 +213,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             likeUpdateOp.Send();
         }
@@ -232,7 +234,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             likeDeleteOp.Send();
         }
@@ -253,7 +255,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onReactionChanged.Invoke(Convert.ToInt64(op.reactionId) != -1);
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             reactionRegisterOp.Send();
         }
@@ -274,7 +276,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onReactionChanged.Invoke(Convert.ToBoolean(op.done));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             reactionDeleteOp.Send();
         }
@@ -295,7 +297,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.commentId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             commentRegisterOp.Send();
         }
@@ -316,7 +318,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.commentPlaintId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             commentPlaintRegisterOp.Send();
         }
@@ -337,7 +339,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onPlaintRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             postPlaintRegisterOp.Send();
         }
@@ -358,7 +360,7 @@ public class PostService : MonoBehaviour
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.postReadId));
                 else
-                    onResponseError.Invoke(response.Text.Length == 0 ? response.Error : response.Text);
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             postReadRegisterOp.Send();
         }
