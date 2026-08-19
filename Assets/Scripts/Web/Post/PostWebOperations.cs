@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using hg.ApiWebKit.core.http;
 using hg.ApiWebKit.core.attributes;
