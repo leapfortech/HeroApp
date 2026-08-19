@@ -46,8 +46,9 @@ public class PostService : MonoBehaviour
 
     [Title("Errors")]
     [SerializeField]
+    private UnityStringEvent onSendError = null;
+    [SerializeField]
     private UnityStringEvent onResponseError = null;
-
     [SerializeField]
     private UnityStringEvent onTimeoutError = null;
 
@@ -70,7 +71,7 @@ public class PostService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -92,7 +93,7 @@ public class PostService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -113,7 +114,7 @@ public class PostService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 

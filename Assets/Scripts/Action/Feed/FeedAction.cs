@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
-//using URandom = UnityEngine.Random;
+using UnityEngine.Events;
 
 using Leap.Core.Tools;
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
+using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.UI.Extensions;
 
@@ -35,6 +36,13 @@ public class FeedAction : MonoBehaviour
     [PropertySpace(6f)]
     [SerializeField]
     ChoiceOption[] options = null;
+
+    [Title("Errors")]
+    [SerializeField]
+    Page pagMenu = null;
+    [SerializeField]
+    [TextArea(2, 5)]
+    String timeoutError = "La petición excedió el tiempo de espera.\nRevisa tu conexión a Internet.\n¿Deseas intentar cargar de nuevo?";
 
     [Title("Debug")]
     [SerializeField]
@@ -454,6 +462,29 @@ public class FeedAction : MonoBehaviour
     public void PlaintRegistered()
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    }
+
+    // Errors
+
+    public void OnSendError(String error)
+    {
+        ChoiceDialog.Instance.Message(1, new String[] { $"{error}\n¿Deseas intentar de nuevo ahora?" }, new UnityAction[] { () => ResetPosts(true), ChangePageOnError }, new String[] { "Sí", "No" });
+    }
+
+    public void OnResponseError(String error)
+    {
+        ChoiceDialog.Instance.Message(2, new String[] { $"{error}\n¿Deseas cargar de nuevo ahora?" }, new UnityAction[] { () => ResetPosts(true), ChangePageOnError }, new String[] { "Sí", "No" });
+    }
+
+    public void OnTimeoutError(String error)
+    {
+        ChoiceDialog.Instance.Message(0, new String[] { timeoutError }, new UnityAction[] { () => ResetPosts(true) , ChangePageOnError }, new String[] { "Sí", "No" });
+    }
+
+    private void ChangePageOnError()
+    {
+        MustReset = true;
+        PageManager.Instance.ChangePage(pagMenu);
     }
 
     // Debug
