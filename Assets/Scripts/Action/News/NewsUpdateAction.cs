@@ -92,7 +92,10 @@ public class NewsUpdateAction : MonoBehaviour
         PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         Link link = dtmLink.BuildClass<Link>();
-        link.LinkTypeId = (long)LinkType.Url;
+        if (String.IsNullOrWhiteSpace(link.Url))
+            link = null;
+        else
+            link.LinkTypeId = (long)LinkType.Url;
 
         news.Update(dtmNews.BuildClass<News>());
 

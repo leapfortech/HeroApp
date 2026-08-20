@@ -137,7 +137,7 @@ public class NewsService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<NewsPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -158,7 +158,7 @@ public class NewsService : MonoBehaviour
             acceptPutOp["on-complete"] = (Action<NewsAcceptPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -179,7 +179,7 @@ public class NewsService : MonoBehaviour
             rejectPutOp["on-complete"] = (Action<NewsRejectPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });

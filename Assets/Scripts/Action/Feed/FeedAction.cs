@@ -242,7 +242,7 @@ public class FeedAction : MonoBehaviour
         loopValue.SetText(1, $"<line-height=70%>{postFull.Title}");
 
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {PostHelper.GetFeedDelay(utcNow - postFull.PublicationDateTime)}");
-        loopValue.SetText(3, $"<line-height=70%>{(postFull.Description.Length > 180 ? postFull.Description[0..179] + "..." : postFull.Description).Replace("\n\n", " ").Replace('\n', ' ')}");
+        loopValue.SetText(3, $"<line-height=70%>{(postFull.Description.Length > 180 ? postFull.Description[0..179] + "..." : postFull.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
 
         if (loopValue.ItemIdx == 2)
         {

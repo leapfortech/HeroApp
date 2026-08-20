@@ -158,7 +158,7 @@ public class ProductService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<ProductPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -179,7 +179,7 @@ public class ProductService : MonoBehaviour
             acceptPutOp["on-complete"] = (Action<ProductAcceptPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -200,7 +200,7 @@ public class ProductService : MonoBehaviour
             rejectPutOp["on-complete"] = (Action<ProductRejectPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });

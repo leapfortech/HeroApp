@@ -135,7 +135,7 @@ public class FaqService : MonoBehaviour
             updateStatusPutOp["on-complete"] = (Action<UpdateStatusPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onStatusUpdated.Invoke(op.response);
+                    onStatusUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
