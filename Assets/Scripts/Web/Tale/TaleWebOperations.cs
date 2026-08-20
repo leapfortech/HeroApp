@@ -85,7 +85,7 @@ public class TalePutOperation : HttpOperation
     public RegisterTaleRequest registerTaleRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -100,7 +100,7 @@ public class TaleAcceptPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -115,5 +115,5 @@ public class TaleRejectPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }

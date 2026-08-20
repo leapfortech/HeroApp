@@ -84,5 +84,5 @@ public class UpdateStatusPutOperation : HttpOperation
     public int status;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }

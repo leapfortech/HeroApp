@@ -100,7 +100,7 @@ public class PuzzlePutOperation : HttpOperation
     public RegisterPuzzleRequest registerPuzzleRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -130,7 +130,7 @@ public class PuzzleAcceptPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -145,6 +145,6 @@ public class PuzzleRejectPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 

@@ -137,7 +137,7 @@ public class TaleService : MonoBehaviour
             talePutOp["on-complete"] = (Action<TalePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -158,7 +158,7 @@ public class TaleService : MonoBehaviour
             acceptPutOp["on-complete"] = (Action<TaleAcceptPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -179,7 +179,7 @@ public class TaleService : MonoBehaviour
             rejectPutOp["on-complete"] = (Action<TaleRejectPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });

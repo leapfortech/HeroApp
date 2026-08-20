@@ -85,7 +85,7 @@ public class TreatmentPutOperation : HttpOperation
     public RegisterTreatmentRequest registerTreatmentRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -100,7 +100,7 @@ public class TreatmentAcceptPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -115,6 +115,5 @@ public class TreatmentRejectPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
-

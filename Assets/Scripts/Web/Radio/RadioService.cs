@@ -158,7 +158,7 @@ public class RadioService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<RadioPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -179,7 +179,7 @@ public class RadioService : MonoBehaviour
             acceptPutOp["on-complete"] = (Action<RadioAcceptPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -200,7 +200,7 @@ public class RadioService : MonoBehaviour
             rejectPutOp["on-complete"] = (Action<RadioRejectPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });

@@ -85,7 +85,7 @@ public class RecipePutOperation : HttpOperation
     public RegisterRecipeRequest registerRecipeRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -100,7 +100,7 @@ public class RecipeAcceptPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -115,5 +115,5 @@ public class RecipeRejectPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }

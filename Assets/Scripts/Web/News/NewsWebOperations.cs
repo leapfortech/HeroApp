@@ -85,7 +85,7 @@ public class NewsPutOperation : HttpOperation
     public RegisterNewsRequest registerNewsRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -100,7 +100,7 @@ public class NewsAcceptPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }
 
 [HttpPUT]
@@ -115,5 +115,5 @@ public class NewsRejectPutOperation : HttpOperation
     public PostModerationRequest postModerationRequest;
 
     [HttpResponseTextBody]
-    public bool response;
+    public String response;
 }

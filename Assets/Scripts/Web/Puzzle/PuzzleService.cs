@@ -166,7 +166,7 @@ public class PuzzleService : MonoBehaviour
             referredPutOp["on-complete"] = (Action<PuzzlePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -208,7 +208,7 @@ public class PuzzleService : MonoBehaviour
             acceptPutOp["on-complete"] = (Action<PuzzleAcceptPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
@@ -229,7 +229,7 @@ public class PuzzleService : MonoBehaviour
             rejectPutOp["on-complete"] = (Action<PuzzleRejectPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
-                    onUpdated.Invoke(op.response);
+                    onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
