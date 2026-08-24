@@ -46,16 +46,12 @@ public class AppManager : SingletonBehaviour<AppManager>
         startService = GetComponent<StartService>();
     }
 
-    void Start()
-    {
-        if (!EmulatorDetector.IsValid("Error", "No se pudo Iniciar la App.",         // IsEmulator
-                                               "No fue posible Iniciar la App.",     // HasFakeAcc
-                                               "No se puede Iniciar la App."))       // IsRooted
-            return;
-    }
-
     public void StartApp(String publicKey)
     {
+        if (!EmulatorDetector.IsValid("Error", "No se pudo Iniciar la App.",            // IsEmulator
+                                               "No se puede Iniciar la App."))          // IsRooted
+            return;
+
         startService.StartApp(new StartRequest(publicKey, Application.version));
     }
 
