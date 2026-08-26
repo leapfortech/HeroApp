@@ -18,6 +18,15 @@ public class DisplayScrollController : MonoBehaviour
     RectTransform pillPrefab;
     [SerializeField]
     Transform pillParent;
+    [SerializeField] 
+    Color indicatorOnColor = Color.white;
+    [SerializeField] 
+    Color indicatorOffColor = Color.gray;
+
+    [SerializeField] 
+    Vector2 indicatorOnSize = new Vector2(24, 24);
+    [SerializeField] 
+    Vector2 indicatorOffSize = new Vector2(24, 24);
 
     [Header("Nav")]
     [SerializeField]
@@ -57,6 +66,7 @@ public class DisplayScrollController : MonoBehaviour
         viewport = scrollRect.viewport;
         pageCount = content.childCount;
 
+        Canvas.ForceUpdateCanvases();
         spacing = content.GetComponent<UHorizontalLayoutGroup>().spacing;
         pageWidth = ((RectTransform)content.GetChild(0)).rect.width;
 
@@ -215,12 +225,12 @@ public class DisplayScrollController : MonoBehaviour
             RectTransform pill =
                 Instantiate(pillPrefab, pillParent).GetComponent<RectTransform>();
 
-            pill.sizeDelta = new Vector2(36, 16);
+            pill.sizeDelta = indicatorOffSize;//new Vector2(16, 16);
             pill.pivot = new Vector2(0.5f, 0.5f);
 
             var img = pill.GetComponent<MPImage>();
             if (img)
-                img.color = Hex("#D9D9D9");
+                img.color = indicatorOffColor;//Hex("#A0A0A0");
 
             pills.Add(pill);
         }
@@ -237,19 +247,19 @@ public class DisplayScrollController : MonoBehaviour
             {
                 float pivotX = newIndex > oldIndex ? 0f : 1f;
                 rt.pivot = new Vector2(pivotX, 0.5f);
-                rt.sizeDelta = new Vector2(60, 16);
-                if (img) img.color = Hex("#6A6A6A");
+                rt.sizeDelta = indicatorOnSize;//new Vector2(16, 16);
+                if (img) img.color = indicatorOnColor;//Hex("#FFFFFF");
             }
             else
             {
                 rt.pivot = new Vector2(0.5f, 0.5f);
-                rt.sizeDelta = new Vector2(36, 16);
-                if (img) img.color = Hex("#D9D9D9");
+                rt.sizeDelta = indicatorOffSize;// new Vector2(16, 16);
+                if (img) img.color = indicatorOffColor;//Hex("#A0A0A0");
             }
         }
     }
 
-    Color Hex(string hex)
+    Color Hex(String hex)
     {
         ColorUtility.TryParseHtmlString(hex, out Color c);
         return c;
