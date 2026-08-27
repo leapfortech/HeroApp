@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
-using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -20,12 +19,6 @@ public class RadioDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
-    Text txtAlias = null;
-    [SerializeField]
-    Text txtDateTime = null;
-    [SerializeField]
     Text txtTitle = null;
     [SerializeField]
     Text txtPlace = null;
@@ -40,7 +33,9 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Title("Contents")]
+    [Title("ScrollView")]
+    [SerializeField]
+    UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -101,6 +96,7 @@ public class RadioDetailAction : MonoBehaviour
 
     long postId = -1;
     String url = null;
+    float contentInitialHeight;
 
     private void Awake()
     {
@@ -111,6 +107,11 @@ public class RadioDetailAction : MonoBehaviour
     private void Start()
     {
         btnRadio?.AddAction(OpenRadio);
+
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
+                               - lstRadioType.GetComponent<RectTransform>().sizeDelta.y;
+                               //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
     }
 
     private void OpenRadio()
@@ -136,16 +137,11 @@ public class RadioDetailAction : MonoBehaviour
         url = radioFull.LinkFulls[0].Url;
 
         // Post
-        imgThumbnail.Sprite = radioFull.ThumbnailSprite;
-
-        txtAlias.TextValue = $"@{radioFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title)}";
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");
         String state = radioFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(radioFull.PostStateId, "Name");
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
-
-        txtDateTime.TextValue = radioFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary;
@@ -163,6 +159,9 @@ public class RadioDetailAction : MonoBehaviour
         }
         lstRadioType.ApplyValues();
 
+        float lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+        lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
+
         // Radio Language
         lstRadioLanguage.Clear();
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
@@ -173,6 +172,8 @@ public class RadioDetailAction : MonoBehaviour
             lstRadioLanguage.AddValue(value);
         }
         lstRadioLanguage.ApplyValues();
+
+        lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y);
 
         // Images
         goEmptyImages.SetActive(radioFull.ImageSprites.Count == 0);
@@ -186,7 +187,7 @@ public class RadioDetailAction : MonoBehaviour
         SetToggle(tglDislike, radioFull.Like == 1);
         SetToggle(tglReaction, radioFull.ReactionPhraseId != -1);
 
-        RefreshContents();
+        RefreshContents(lstHeight);
 
         btnUpdate.gameObject.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -305,9 +306,12 @@ public class RadioDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents()
+    private void RefreshContents(float lstHeight)
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + lstHeight + txtDescription.TextHeight + contentPadding);
+
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
