@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a735e9c028c6fcd49b89821ba510a4cf, type: 3}
+  m_Name: WheelItemDlgMapping
+  m_EditorClassIdentifier: 
+  dataMapType: 1
+  dataBuiltInTarget: System.String
+  dataClassTarget: {fileID: 0}
+  dataBuildInMap:
+    dataFieldValue:
+      FieldName: String
+      FieldTypeName: System.String
+      dataSourceType: 2
+      dataAssetSource:
+        id: 0
+      ItemIdx: 0
+  dataClassMap:
+    dataClass: {fileID: 0}
+    dataFieldValues: []
+  references:
+    version: 1
+    00000000:
+      type: {class: DataAssetWheelItem, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          id: 1
+        NeedsItem: 1
+        wheelItemPrefab: {fileID: 4517301539701428129, guid: f7e57cf7fd9cc824b8d4124e725a219b, type: 3}
+        wheelItem: {fileID: 3607487170039756648, guid: f7e57cf7fd9cc824b8d4124e725a219b, type: 3}
+        textValue: TxtElement
+    00000001:
+      type: {class: DataAssetFieldValue, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        FieldName: String
+        FieldTypeName: System.String
+        dataSourceType: 2
+        dataAssetSource:
+          id: 0
+        ItemIdx: 0
