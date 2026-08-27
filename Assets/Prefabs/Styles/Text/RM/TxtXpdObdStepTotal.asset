@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da39ce696ab95824ea9721acb2aff629, type: 3}
+  m_Name: TxtXpdObdStepTotal
+  m_EditorClassIdentifier: Leap.UI.Elements::Leap.UI.Elements.Style
+  type: 3
+  states:
+  - stateName: Normal
+    index: 0
+    style: {fileID: 11400000}
+    floats:
+    - rid: 7896456371525911004
+    - rid: 7896456371525911005
+    - rid: 7896456371525911006
+    DictFloats:
+      keys:
+      - Width
+      - Height
+      - 'F: Text'
+      values:
+      - rid: 7896456371525911004
+      - rid: 7896456371525911005
+      - rid: 7896456371525911006
+    colors:
+    - rid: 7896456371525911007
+    DictColors:
+      keys:
+      - Text
+      values:
+      - rid: 7896456371525911007
+    fonts:
+    - rid: 7896456371525911008
+    DictFonts:
+      keys:
+      - Text
+      values:
+      - rid: 7896456371525911008
+    sprites: []
+    DictSprites:
+      keys: []
+      values: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 7896456371525911004
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 
+    - rid: 7896456371525911005
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 
+    - rid: 7896456371525911006
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'F: Text'
+        ThemeProperty: 'Xpd: Onb: StepTotal'
+    - rid: 7896456371525911007
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Text
+        ThemeProperty: 'Xpd: Onb: StepTotal'
+    - rid: 7896456371525911008
+      type: {class: StylePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Text
+        ThemeProperty: 'Xpd: Onb: StepTotal'

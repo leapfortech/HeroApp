@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52cfd3374160a04b888c8353641d5e7, type: 3}
+  m_Name: ValuePuzzleAnswer
+  m_EditorClassIdentifier: Leap.Data.Collections::Leap.Data.Collections.ValueList
+  valueType: 20
+  tableName: 
+  valueSource: 20
+  recordType: 20
+  sourceList: {fileID: 0}
+  clientsList: []
+  columns:
+  - Name: Description
+    oldName: Description
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 0
+  - Name: IsCorrect
+    oldName: IsCorrect
+    ColumnType: 10
+    Indexed: 0
+    valueList: {fileID: 11400000}
+    Index: 1
+  columnNames:
+  - Description
+  - IsCorrect
+  columnIndexes:
+    keys:
+    - Description
+    - IsCorrect
+    values: 0000000001000000
+  statusName: Status
+  statusValue: 1
+  columnFilters: []
+  recordFilters: []
+  records:
+  - Id: 0
+    cells:
+    - rid: 7676932515701719916
+    - rid: 7676932515701719917
+    valueList: {fileID: 11400000}
+    index: 0
+  - Id: 1
+    cells:
+    - rid: 7676932515701719918
+    - rid: 7676932515701719919
+    valueList: {fileID: 11400000}
+    index: 1
+  idIndexer:
+    keys: 00000000000000000100000000000000
+    values:
+    - rid: 7676932515701719920
+    - rid: 7676932515701719921
+  cellIndexers:
+  - keys: []
+    values: []
+  - keys: []
+    values: []
+  MinValue: 0
+  MaxValue: 0
+  StepValue: 1
+  IntegerPrefix: 
+  IntegerPadCount: 0
+  IntegerPadChar: 48
+  MinYear: 0
+  RangeYear: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 7676932515701719916
+      type: {class: ValueCellString, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932515701719920
+        index: 0
+        _value: Respuesta 1
+        oldValue: Respuesta 1
+    - rid: 7676932515701719917
+      type: {class: ValueCellString, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932515701719920
+        index: 1
+        _value: 0
+        oldValue: 0
+    - rid: 7676932515701719918
+      type: {class: ValueCellString, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932515701719921
+        index: 0
+        _value: Respuesta 2
+        oldValue: Respuesta 2
+    - rid: 7676932515701719919
+      type: {class: ValueCellString, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        valueRecord:
+          rid: 7676932515701719921
+        index: 1
+        _value: 1
+        oldValue: 1
+    - rid: 7676932515701719920
+      type: {class: ValueRecord, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        Id: 0
+        cells:
+        - rid: 7676932515701719916
+        - rid: 7676932515701719917
+        valueList: {fileID: 11400000}
+        index: 0
+    - rid: 7676932515701719921
+      type: {class: ValueRecord, ns: Leap.Data.Collections, asm: Leap.Data.Collections}
+      data:
+        Id: 1
+        cells:
+        - rid: 7676932515701719918
+        - rid: 7676932515701719919
+        valueList: {fileID: 11400000}
+        index: 1
