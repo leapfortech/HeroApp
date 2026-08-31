@@ -102,7 +102,7 @@ public class NewsDetailAction : MonoBehaviour
 
     long postId = -1;
     String url = null;
-    float contentInitialHeight;
+    float contentInitialHeight = 0.0f;
 
     private void Awake()
     {

@@ -23,8 +23,8 @@ public class TaleDetailAction : MonoBehaviour
     Image imgThumbnail = null;
     [SerializeField]
     Text txtAlias = null;
-    [SerializeField]
-    Text txtDateTime = null;
+    //[SerializeField]
+    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -40,7 +40,9 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Title("Contents")]
+    [Title("ScrollView")]
+    [SerializeField]
+    UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -88,11 +90,18 @@ public class TaleDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
+    float contentInitialHeight = 0.0f;
 
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
         postService = GetComponent<PostService>();
+    }
+
+    private void Start()
+    {
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
 
     public void Display(long postId)
@@ -115,7 +124,7 @@ public class TaleDetailAction : MonoBehaviour
         String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
-        txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        //txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
@@ -256,6 +265,9 @@ public class TaleDetailAction : MonoBehaviour
     private void RefreshContents()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
