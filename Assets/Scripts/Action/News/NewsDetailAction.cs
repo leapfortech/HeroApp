@@ -23,8 +23,8 @@ public class NewsDetailAction : MonoBehaviour
     Image imgThumbnail = null;
     [SerializeField]
     Text txtAlias = null;
-    [SerializeField]
-    Text txtDateTime = null;
+    //[SerializeField]
+    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -34,8 +34,8 @@ public class NewsDetailAction : MonoBehaviour
 
     [SerializeField]
     Text txtNewsType = null;
-    [SerializeField]
-    Text txtPlace = null;
+    //[SerializeField]
+    //Text txtPlace = null;
     [SerializeField]
     Text txtSource = null;
     [SerializeField]
@@ -47,7 +47,9 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Title("Contents")]
+    [Title("ScrollView")]
+    [SerializeField]
+    UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -100,6 +102,7 @@ public class NewsDetailAction : MonoBehaviour
 
     long postId = -1;
     String url = null;
+    float contentInitialHeight;
 
     private void Awake()
     {
@@ -110,6 +113,9 @@ public class NewsDetailAction : MonoBehaviour
     private void Start()
     {
         btnLink?.AddAction(OpenLink);
+
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
 
     private void OpenLink()
@@ -149,7 +155,7 @@ public class NewsDetailAction : MonoBehaviour
 
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
-        txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        //txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary;
@@ -158,10 +164,10 @@ public class NewsDetailAction : MonoBehaviour
 
         String country = newsFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");
         String state = newsFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(newsFull.PostStateId, "Name");
-        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+        //txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+        //txtPlace.TextValue = String.IsNullOrWhiteSpace(newsFull.Place) ? "-" : newsFull.Place;
 
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
-        txtPlace.TextValue = String.IsNullOrWhiteSpace(newsFull.Place) ? "-" : newsFull.Place;
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
         txtNewsDateTime.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
@@ -297,6 +303,9 @@ public class NewsDetailAction : MonoBehaviour
     private void RefreshContents()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
