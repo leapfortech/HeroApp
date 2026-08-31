@@ -18,12 +18,12 @@ public class HappeningDetailAction : MonoBehaviour
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
 
     [Space, Title("Details")]
-    [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
-    Text txtAlias = null;
-    [SerializeField]
-    Text txtDateTime = null;
+    //[SerializeField]
+    //Image imgThumbnail = null;
+    //[SerializeField]
+    //Text txtAlias = null;
+    //[SerializeField]
+    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -56,7 +56,9 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Title("Contents")]
+    [Title("ScrollView")]
+    [SerializeField]
+    UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -106,11 +108,19 @@ public class HappeningDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
+    float contentInitialHeight = 0.0f;
 
     private void Awake()
     {
         happeningService = GetComponent<HappeningService>();
         postService = GetComponent<PostService>();
+    }
+
+    private void Start()
+    {
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
+                               - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
     }
 
     public void Display(long postId)
@@ -124,11 +134,11 @@ public class HappeningDetailAction : MonoBehaviour
         postId = happeningFull.PostId;
 
         // Post
-        imgThumbnail.Sprite = happeningFull.ThumbnailSprite;
+        //imgThumbnail.Sprite = happeningFull.ThumbnailSprite;
 
-        txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
+        //txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title)}";
-        txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        //txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary;
@@ -284,6 +294,11 @@ public class HappeningDetailAction : MonoBehaviour
     private void RefreshContents()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
+
+        float txtHeights = txtDescription.TextHeight + txtLocation.TextHeight + txtPaymentDetails.TextHeight;
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtHeights + contentPadding);
+
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
