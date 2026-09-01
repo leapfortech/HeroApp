@@ -19,12 +19,12 @@ public class ProductDetailAction : MonoBehaviour
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
 
     [Space, Title("Details")]
-    [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
-    Text txtAlias = null;
-    [SerializeField]
-    Text txtDateTime = null;
+    //[SerializeField]
+    //Image imgThumbnail = null;
+    //[SerializeField]
+    //Text txtAlias = null;
+    //[SerializeField]
+    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -40,8 +40,8 @@ public class ProductDetailAction : MonoBehaviour
     Text txtPrice = null;
     [SerializeField]
     Text txtDiscountPrice = null;
-    [SerializeField]
-    Text txtDeliveryType = null;
+    //[SerializeField]
+    //Text txtDeliveryType = null;
     //[SerializeField]
     //Text txtAnnotation = null;
 
@@ -60,7 +60,9 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     GameObject goImages = null;
 
-    [Space, Title("Contents")]
+    [Title("ScrollView")]
+    [SerializeField]
+    UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -114,11 +116,18 @@ public class ProductDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
+    float contentInitialHeight = 0.0f;
 
     private void Awake()
     {
         productService = GetComponent<ProductService>();
         postService = GetComponent<PostService>();
+    }
+
+    private void Start()
+    {
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
 
     public void Display(long postId)
@@ -132,11 +141,11 @@ public class ProductDetailAction : MonoBehaviour
         postId = productFull.PostId;
 
         // Post
-        imgThumbnail.Sprite = productFull.ThumbnailSprite;
+        //imgThumbnail.Sprite = productFull.ThumbnailSprite;
 
-        txtAlias.TextValue = $"@{productFull.AppUserAlias}";
-        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
-        txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        //txtAlias.TextValue = $"@{productFull.AppUserAlias}";
+        //txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
+        //txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary;
@@ -154,7 +163,7 @@ public class ProductDetailAction : MonoBehaviour
         txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
         txtDiscountPrice.TextValue = productFull.DiscountPrice <= 0d ? "-" : currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
 
-        txtDeliveryType.TextValue = productFull.DeliveryTypeId == -1 ? "-" : vllDeliveryType.FindRecordCellString(productFull.DeliveryTypeId, "Name");
+        //txtDeliveryType.TextValue = productFull.DeliveryTypeId == -1 ? "-" : vllDeliveryType.FindRecordCellString(productFull.DeliveryTypeId, "Name");
         //txtAnnotation.TextValue = String.IsNullOrEmpty(productFull.Annotation) ? "-" : productFull.Annotation;
         txtContactName.TextValue = String.IsNullOrEmpty(productFull.ContactFull.Name) ? "-" : productFull.ContactFull.Name;
 
@@ -324,6 +333,9 @@ public class ProductDetailAction : MonoBehaviour
     private void RefreshContents()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        content.sizeDelta = new Vector2(content.sizeDelta.x, txtDescription.TextHeight + contentPadding);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }
