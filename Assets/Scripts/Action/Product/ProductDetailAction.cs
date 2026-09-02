@@ -25,8 +25,8 @@ public class ProductDetailAction : MonoBehaviour
     //Text txtAlias = null;
     //[SerializeField]
     //Text txtDateTime = null;
-    [SerializeField]
-    Text txtTitle = null;
+    //[SerializeField]
+    //Text txtTitle = null;
     [SerializeField]
     Text txtSummary = null;
     [SerializeField]
@@ -77,8 +77,8 @@ public class ProductDetailAction : MonoBehaviour
     //ValueList vllCity = null;
     [SerializeField]
     ValueList vllCurrency = null;
-    [SerializeField]
-    ValueList vllDeliveryType = null;
+    //[SerializeField]
+    //ValueList vllDeliveryType = null;
 
     [Space, Title("Actions")]
     [SerializeField]
