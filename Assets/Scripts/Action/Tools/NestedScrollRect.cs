@@ -7,6 +7,9 @@ public class NestedScrollRect : MonoBehaviour, IBeginDragHandler, IDragHandler, 
     public ScrollRect parentScrollRect;
     public ScrollRect currentScrollRect;
 
+    [SerializeField]
+    bool parentIsVertical = false;
+
     private bool routeToParent = false;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -14,7 +17,10 @@ public class NestedScrollRect : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         float x = Mathf.Abs(eventData.delta.x);
         float y = Mathf.Abs(eventData.delta.y);
 
-        routeToParent = x > y;
+        if (parentIsVertical)
+            routeToParent = y > x;
+        else
+            routeToParent = x > y;
 
         if (routeToParent)
             parentScrollRect.OnBeginDrag(eventData);
