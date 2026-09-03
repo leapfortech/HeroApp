@@ -108,7 +108,7 @@ public class RadioDetailAction : MonoBehaviour
     {
         btnRadio?.AddAction(OpenRadio);
 
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = lstRadioType.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
                                - lstRadioType.GetComponent<RectTransform>().sizeDelta.y;
                                //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
@@ -145,8 +145,11 @@ public class RadioDetailAction : MonoBehaviour
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(radioFull.Summary) ? "-" : radioFull.Summary;
-        
+
         txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
+        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+
+        float deltaY = txtDescription.TextHeight;
 
         // Radio Type
         lstRadioType.Clear();
@@ -159,9 +162,6 @@ public class RadioDetailAction : MonoBehaviour
         }
         lstRadioType.ApplyValues();
 
-        float lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
-        lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
-
         // Radio Language
         lstRadioLanguage.Clear();
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
@@ -173,7 +173,16 @@ public class RadioDetailAction : MonoBehaviour
         }
         lstRadioLanguage.ApplyValues();
 
-        lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y);
+        float lstHeight = 0.0f;
+        if (radioFull.RadioTypeFulls.Count > radioFull.RadioLanguageFulls.Count)
+            lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+        else
+            lstHeight = radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+        
+        deltaY += lstHeight;
+
+        lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
+        lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
 
         // Images
         goEmptyImages.SetActive(radioFull.ImageSprites.Count == 0);
@@ -187,7 +196,7 @@ public class RadioDetailAction : MonoBehaviour
         SetToggle(tglDislike, radioFull.Like == 1);
         SetToggle(tglReaction, radioFull.ReactionPhraseId != -1);
 
-        RefreshContents(lstHeight);
+        RefreshContents(deltaY);
 
         btnUpdate.gameObject.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -306,11 +315,11 @@ public class RadioDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents(float lstHeight)
+    private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = lstRadioType.transform.parent.GetComponent<RectTransform>();
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + lstHeight + txtDescription.TextHeight + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
         scrollRect.verticalNormalizedPosition = 1f;
     }
