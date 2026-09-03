@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -39,10 +40,13 @@ public class RadioUpdateAction : MonoBehaviour
 
     [Title("Events")]
     [SerializeField]
-    UnityLongsEvent OnRadioTypePopulated = null;
+    UnityLongsEvent onRadioTypePopulated = null;
     [SerializeField]
-    UnityLongsEvent OnRadioLanguagePopulated = null; [SerializeField]
+    UnityLongsEvent onRadioLanguagePopulated = null;
+    [SerializeField]
     PostSpriteEvent onPostChanged = null;
+    [SerializeField]
+    UnityEvent onPopulated = null;
 
     RadioService radioService = null;
 
@@ -81,15 +85,17 @@ public class RadioUpdateAction : MonoBehaviour
         long[] radioTypesIds = new long[radioFull.RadioTypeFulls.Count];
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
             radioTypesIds[i] = radioFull.RadioTypeFulls[i].RadioTypeId;
-        OnRadioTypePopulated?.Invoke(radioTypesIds);
+        onRadioTypePopulated?.Invoke(radioTypesIds);
 
 
         long[] radioLanguageIds = new long[radioFull.RadioLanguageFulls.Count];
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
             radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
-        OnRadioLanguagePopulated?.Invoke(radioLanguageIds);
+        onRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(radioFull.ImageSprites);
+
+        onPopulated.Invoke();
     }
 
     private void DoUpdate()
