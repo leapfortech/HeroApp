@@ -16,6 +16,10 @@ public class ProductUpdateAction : MonoBehaviour
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
+    [Space, SerializeField]
+    InputField ifdPrice = null;
+    [SerializeField]
+    InputField ifdDiscountPrice = null;
 
     [Title("Data")]
     [SerializeField]
@@ -152,6 +156,12 @@ public class ProductUpdateAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
+        if (!ValidatePrice())
+        {
+            ChoiceDialog.Instance.Error("Precio de descuento", "El precio de descuento es mayor al precio regular.");
+            return;
+        }
+
         ScreenDialog.Instance.Display();
 
         PostHelper.post.Update(dtmPost.BuildClass<Post>());
@@ -212,5 +222,16 @@ public class ProductUpdateAction : MonoBehaviour
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);
+    }
+
+    public bool ValidatePrice()
+    {
+        double.TryParse(ifdPrice.Text, out double price);
+        double.TryParse(ifdDiscountPrice.Text, out double discountPrice);
+
+        if (discountPrice > 0 && discountPrice > price)
+            return false;
+
+        return true;
     }
 }
