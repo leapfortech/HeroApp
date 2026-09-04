@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -33,6 +34,8 @@ public class TaleUpdateAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     PostSpriteEvent onPostChanged = null;
+    [SerializeField]
+    UnityEvent onPopulated = null;
 
     TaleService taleService = null;
 
@@ -64,6 +67,8 @@ public class TaleUpdateAction : MonoBehaviour
         tale = new Tale(taleFull);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(taleFull.ImageSprites);
+
+        onPopulated.Invoke();
     }
 
     private void DoUpdate()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -40,6 +41,8 @@ public class HappeningUpdateAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     PostSpriteEvent onPostChanged = null;
+    [SerializeField]
+    UnityEvent onPopulated = null;
 
     HappeningService happeningService = null;
 
@@ -80,6 +83,8 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(happeningFull.ImageSprites);
+
+        onPopulated.Invoke();
     }
 
     private void DoUpdate()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -49,6 +50,8 @@ public class ProductUpdateAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     PostSpriteEvent onPostChanged = null;
+    [SerializeField]
+    UnityEvent onPopulated = null;
 
     ProductService productService = null;
 
@@ -140,6 +143,8 @@ public class ProductUpdateAction : MonoBehaviour
         dtmProduct.PopulateClass<Product>(product);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(productFull.ImageSprites);
+
+        onPopulated.Invoke();
     }
 
     private void DoUpdate()
