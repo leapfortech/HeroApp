@@ -27,10 +27,16 @@ public class FlowControlAction : MonoBehaviour
     [SerializeField]
     Page pagUpdateBack = null;
 
+    [Title("Event")]
+    [SerializeField]
+    UnityEvent onClear = null;
+
     void ClearAll()
     {
         for (int i = 0; i < dtms.Length; i++)
             dtms[i].ClearElements();
+
+        onClear.Invoke();
     }
 
     public void ActivateRegister()
