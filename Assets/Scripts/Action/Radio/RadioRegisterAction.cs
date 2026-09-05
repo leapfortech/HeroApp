@@ -15,6 +15,8 @@ public class RadioRegisterAction : MonoBehaviour
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
+    [SerializeField]
+    InputMultiline inputMultiline = null;
 
     [Title("Data")]
     [SerializeField]
@@ -55,11 +57,14 @@ public class RadioRegisterAction : MonoBehaviour
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
         dtmImagesVLL.ClearElements();
+        inputMultiline.Clear();
     }
 
     private void Register()
     {
         if (!ElementHelper.Validate(elementValues))
+            return;
+        if (!inputMultiline.Validate())
             return;
 
         ScreenDialog.Instance.Display();
