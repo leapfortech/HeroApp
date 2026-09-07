@@ -50,6 +50,15 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     Text txtLocation = null;
 
+    [SerializeField]
+    Text txtContactName = null;
+    [SerializeField]
+    Text txtPhone = null;
+    [SerializeField]
+    Text txtWhatsApp = null;
+    [SerializeField]
+    Text txtEmail = null;
+
     [Title("Images")]
     [SerializeField]
     GameObject goEmptyImages = null;
@@ -159,6 +168,40 @@ public class HappeningDetailAction : MonoBehaviour
         txtStartDateTime.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         txtEndDateTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
+
+        txtContactName.TextValue = String.IsNullOrEmpty(happeningFull.ContactFull.Name) ? "-" : happeningFull.ContactFull.Name;
+
+        txtPhone.TextValue = "-";
+        txtWhatsApp.TextValue = "-";
+        txtEmail.TextValue = "-";
+
+        for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
+        {
+            String url = happeningFull.LinkFulls[i].Url;
+
+            if (String.IsNullOrWhiteSpace(url))
+                continue;
+
+            String[] split = url.Split('|');
+
+            String fullPhone = null;
+            if (split.Length > 1)
+            {
+                long phoneCountryId = Convert.ToInt64(split[0]);
+                String phone = split[1];
+                String phonePrefix = vllCountry.FindRecordCellString(phoneCountryId, "PhonePrefix");
+                fullPhone = phonePrefix + " " + phone;
+            }
+
+            if (happeningFull.LinkFulls[i].LinkTypeId == 2)
+                txtPhone.TextValue = fullPhone;
+
+            else if (happeningFull.LinkFulls[i].LinkTypeId == 3)
+                txtWhatsApp.TextValue = fullPhone;
+
+            else if (happeningFull.LinkFulls[i].LinkTypeId == 4)
+                txtEmail.TextValue = happeningFull.LinkFulls[i].Url;
+        }
 
         // Images
         goEmptyImages.SetActive(happeningFull.ImageSprites.Count == 0);
