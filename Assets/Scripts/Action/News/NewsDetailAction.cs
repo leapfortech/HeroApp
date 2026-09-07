@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
-using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -23,8 +22,6 @@ public class NewsDetailAction : MonoBehaviour
     Image imgThumbnail = null;
     [SerializeField]
     Text txtAlias = null;
-    //[SerializeField]
-    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -34,12 +31,10 @@ public class NewsDetailAction : MonoBehaviour
 
     [SerializeField]
     Text txtNewsType = null;
-    //[SerializeField]
-    //Text txtPlace = null;
     [SerializeField]
     Text txtSource = null;
     [SerializeField]
-    Text txtNewsDateTime = null;
+    Text txtNewsDate = null;
 
     [Title("Images")]
     [SerializeField]
@@ -57,8 +52,6 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
-    Button btnLink = null;
-    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     Toggle tglLike = null;
@@ -72,12 +65,6 @@ public class NewsDetailAction : MonoBehaviour
     ComboAdapter cmbPlaintType = null;
 
     [Title("Values")]
-    [SerializeField]
-    ValueList vllCountry = null;
-    [SerializeField]
-    ValueList vllState = null;
-    //[SerializeField]
-    //ValueList vllCity = null;
     [SerializeField]
     ValueList vllNewsType = null;
 
@@ -112,8 +99,6 @@ public class NewsDetailAction : MonoBehaviour
 
     private void Start()
     {
-        btnLink?.AddAction(OpenLink);
-
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
@@ -145,8 +130,6 @@ public class NewsDetailAction : MonoBehaviour
     {
         postId = newsFull.PostId;
 
-        btnLink.gameObject.SetActive(newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0);
-
         if (newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0)
             url = newsFull.LinkFulls[0].Url;
 
@@ -155,21 +138,15 @@ public class NewsDetailAction : MonoBehaviour
 
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
-        //txtDateTime.TextValue = newsFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
 
-        String country = newsFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");
-        String state = newsFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(newsFull.PostStateId, "Name");
-        //txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
-        //txtPlace.TextValue = String.IsNullOrWhiteSpace(newsFull.Place) ? "-" : newsFull.Place;
-
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
-        txtNewsDateTime.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
 
         // Images
         goEmptyImages.SetActive(newsFull.ImageSprites.Count == 0);

@@ -25,8 +25,6 @@ public class NewsRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmPost = null;
     [SerializeField]
-    DataMapper dtmLink = null;
-    [SerializeField]
     DataMapper dtmNews = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
@@ -61,7 +59,6 @@ public class NewsRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
-        dtmLink.ClearElements();
         dtmNews.ClearElements();
         dtmImagesVLL.ClearElements();
     }
@@ -80,13 +77,6 @@ public class NewsRegisterAction : MonoBehaviour
         post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
-        Link link = dtmLink.BuildClass<Link>();
-
-        if (String.IsNullOrWhiteSpace(link.Url))
-            link = null;
-        else
-            link.LinkTypeId = (long)LinkType.Url;
-
         News news = dtmNews.BuildClass<News>();
 
         //if (news.DateTime.HasValue)
@@ -102,7 +92,7 @@ public class NewsRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.Register(new RegisterNewsRequest(post, link, strImages, news));
+        newsService.Register(new RegisterNewsRequest(post, (Link)null, strImages, news));
     }
 
     List<String> srcImages = new List<String>();
@@ -149,9 +139,6 @@ public class NewsRegisterAction : MonoBehaviour
         post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
 
-        Link link = dtmLink.BuildClass<Link>();
-        link.LinkTypeId = (long)LinkType.Url;
-
         News news = dtmNews.BuildClass<News>();
 
         //if (news.DateTime.HasValue)
@@ -162,7 +149,7 @@ public class NewsRegisterAction : MonoBehaviour
         //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
         //}
 
-        newsService.Register(new RegisterNewsRequest(post, new List<Link> { link }, strImages, news));
+        newsService.Register(new RegisterNewsRequest(post, (Link)null, strImages, news));
     }
 
     public void ApplyNews(long newsId)

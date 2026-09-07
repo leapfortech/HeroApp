@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -21,8 +20,6 @@ public class NewsUpdateAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmLink = null;
     [SerializeField]
     DataMapper dtmNews = null;
     [SerializeField]
@@ -59,7 +56,6 @@ public class NewsUpdateAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
-        dtmLink.ClearElements();
         dtmNews.ClearElements();
         dtmImagesVLL.ClearElements();
     }
@@ -70,9 +66,6 @@ public class NewsUpdateAction : MonoBehaviour
 
         PostHelper.post = new Post(newsFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
-
-        if (newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0)
-            dtmLink.PopulateClass<Link>(new Link(newsFull.LinkFulls[0]));
 
         news = new News(newsFull);
         dtmNews.PopulateClass<News>(news);
@@ -94,12 +87,6 @@ public class NewsUpdateAction : MonoBehaviour
 
         PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
-        Link link = dtmLink.BuildClass<Link>();
-        if (String.IsNullOrWhiteSpace(link.Url))
-            link = null;
-        else
-            link.LinkTypeId = (long)LinkType.Url;
-
         news.Update(dtmNews.BuildClass<News>());
 
         //if (news.DateTime.HasValue && news.DateTime.HasValue)
@@ -118,7 +105,7 @@ public class NewsUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.UpdateNews(new RegisterNewsRequest(PostHelper.post, link, strImages, news));
+        newsService.UpdateNews(new RegisterNewsRequest(PostHelper.post, (Link)null, strImages, news));
     }
 
     public void ApplyUpdate(bool updated)
