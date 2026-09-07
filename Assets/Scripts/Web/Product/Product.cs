@@ -10,7 +10,7 @@ public class Product
     public long CurrencyId { get; set; }
     public double Price { get; set; }
     public double DiscountPrice { get; set; }
-    public long DeliveryTypeId { get; set; }
+    public long DeliveryTypeId { get; set; } = -1;
     public String Annotation { get; set; }
     public int Status { get; set; }
 

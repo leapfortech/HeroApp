@@ -26,8 +26,6 @@ public class NewsUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmNews = null;
     [SerializeField]
-    DataMapper dtmTime = null;
-    [SerializeField]
     DataMapper dtmImagesVLL = null;
 
     [Title("Action")]
@@ -79,8 +77,8 @@ public class NewsUpdateAction : MonoBehaviour
         news = new News(newsFull);
         dtmNews.PopulateClass<News>(news);
 
-        String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
-        dtmTime.PopulateBuiltIn<String>(dateTimeStr);
+        //String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
+        //dtmTime.PopulateBuiltIn<String>(dateTimeStr);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(newsFull.ImageSprites);
 
@@ -104,13 +102,13 @@ public class NewsUpdateAction : MonoBehaviour
 
         news.Update(dtmNews.BuildClass<News>());
 
-        if (news.DateTime.HasValue && news.DateTime.HasValue)
-        {
-            String startTimeStr = dtmTime.BuildBuiltIn<String>();
-            String[] startTime = startTimeStr.Split('|');
-            news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
-                                         Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-        }
+        //if (news.DateTime.HasValue && news.DateTime.HasValue)
+        //{
+        //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
+        //    String[] startTime = startTimeStr.Split('|');
+        //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
+        //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+        //}
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         PostHelper.post.ImageCount = images.Count;

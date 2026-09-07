@@ -29,8 +29,6 @@ public class NewsRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmNews = null;
     [SerializeField]
-    DataMapper dtmTime = null;
-    [SerializeField]
     DataMapper dtmImagesVLL = null;
 
     [Title("Action")]
@@ -91,13 +89,13 @@ public class NewsRegisterAction : MonoBehaviour
 
         News news = dtmNews.BuildClass<News>();
 
-        if (news.DateTime.HasValue)
-        {
-            String startTimeStr = dtmTime.BuildBuiltIn<String>();
-            String[] startTime = startTimeStr.Split('|');
-            news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
-                                         Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-        }
+        //if (news.DateTime.HasValue)
+        //{
+        //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
+        //    String[] startTime = startTimeStr.Split('|');
+        //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
+        //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+        //}
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
@@ -156,13 +154,13 @@ public class NewsRegisterAction : MonoBehaviour
 
         News news = dtmNews.BuildClass<News>();
 
-        if (news.DateTime.HasValue)
-        {
-            String startTimeStr = dtmTime.BuildBuiltIn<String>();
-            String[] startTime = startTimeStr.Split('|');
-            news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
-                                         Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-        }
+        //if (news.DateTime.HasValue)
+        //{
+        //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
+        //    String[] startTime = startTimeStr.Split('|');
+        //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
+        //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+        //}
 
         newsService.Register(new RegisterNewsRequest(post, new List<Link> { link }, strImages, news));
     }
