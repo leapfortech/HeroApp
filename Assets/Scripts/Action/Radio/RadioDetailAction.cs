@@ -65,14 +65,6 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
-    Toggle tglLike = null;
-    [SerializeField]
-    Toggle tglDislike = null;
-    [SerializeField]
-    Toggle tglReaction = null;
-    [SerializeField]
-    ComboAdapter cmbReaction = null;
-    [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
     [Title("Page")]
@@ -84,12 +76,6 @@ public class RadioDetailAction : MonoBehaviour
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
-    [SerializeField]
-    UnityBoolEvent onLikeChanged = null;
-    [SerializeField]
-    UnityBoolEvent onDislikeChanged = null;
-    [SerializeField]
-    UnityBoolEvent onReactionChanged = null;
 
     RadioService radioService;
     PostService postService;
@@ -192,9 +178,6 @@ public class RadioDetailAction : MonoBehaviour
 
         // Actions
         SetToggle(tglFavorite, radioFull.Favorite != 0);
-        SetToggle(tglLike, radioFull.Like == 5);
-        SetToggle(tglDislike, radioFull.Like == 1);
-        SetToggle(tglReaction, radioFull.ReactionPhraseId != -1);
 
         RefreshContents(deltaY);
 
@@ -219,70 +202,6 @@ public class RadioDetailAction : MonoBehaviour
         onFavoriteChanged.Invoke(tglFavorite.Checked);
     }
 
-    // Like
-
-    public void ApplyLike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
-        if (check)
-        {
-            tglDislike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-            postService.DeleteLike(like);
-    }
-
-    public void ApplyDislike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
-        if (check)
-        {
-            tglLike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-        {
-            like.Rank = -1;
-            postService.DeleteLike(like);
-        }
-    }
-
-    public void ApplyDetailLike()
-    {
-        onLikeChanged.Invoke(tglLike.Checked);
-        onDislikeChanged.Invoke(tglDislike.Checked);
-    }
-
-    // Reaction
-
-    public void ApplyReaction(bool check)
-    {
-        tglReaction.Uncheck();
-
-        if (!check)
-        {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
-            return;
-        }
-
-        cmbReaction.Combo.Click();
-    }
-
-    public void RegisterReaction()
-    {
-        long reactionPhraseId = cmbReaction.GetSelectedId();
-
-        Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterReaction(reaction);
-        tglReaction.Check();
-    }
-
-    public void ApplyDetailReaction()
-    {
-        onReactionChanged.Invoke(tglReaction.Checked);
-    }
-
     // Plaint
 
     public void DisplayPlaintTypes()
@@ -304,8 +223,6 @@ public class RadioDetailAction : MonoBehaviour
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
-
-    //
 
     private void SetToggle(Toggle toggle, bool value)
     {
