@@ -52,15 +52,13 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
-    Toggle tglFavorite = null;
+    Toggle tglReaction1 = null;
     [SerializeField]
-    Toggle tglLike = null;
+    Toggle tglReaction2 = null;
     [SerializeField]
-    Toggle tglDislike = null;
+    Toggle tglReaction3 = null;
     [SerializeField]
-    Toggle tglReaction = null;
-    [SerializeField]
-    ComboAdapter cmbReaction = null;
+    Toggle tglReaction4 = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
@@ -76,13 +74,13 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityBoolEvent onFavoriteChanged = null;
+    UnityBoolEvent onReaction1Changed = null;
     [SerializeField]
-    UnityBoolEvent onLikeChanged = null;
+    UnityBoolEvent onReaction2Changed = null;
     [SerializeField]
-    UnityBoolEvent onDislikeChanged = null;
+    UnityBoolEvent onReaction3Changed = null;
     [SerializeField]
-    UnityBoolEvent onReactionChanged = null;
+    UnityBoolEvent onReaction4Changed = null;
 
     NewsService newsService;
     PostService postService;
@@ -90,6 +88,7 @@ public class NewsDetailAction : MonoBehaviour
     long postId = -1;
     String url = null;
     float contentInitialHeight = 0.0f;
+    long reactionPhraseId = -1;
 
     private void Awake()
     {
@@ -138,10 +137,10 @@ public class NewsDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(newsFull.ImageSprites);
 
         // Actions
-        SetToggle(tglFavorite, newsFull.Favorite != 0);
-        SetToggle(tglLike, newsFull.Like == 5);
-        SetToggle(tglDislike, newsFull.Like == 1);
-        SetToggle(tglReaction, newsFull.ReactionPhraseId != -1);
+        SetToggle(tglReaction1, newsFull.ReactionPhraseId == 1);
+        SetToggle(tglReaction2, newsFull.ReactionPhraseId == 2);
+        SetToggle(tglReaction3, newsFull.ReactionPhraseId == 3);
+        SetToggle(tglReaction4, newsFull.ReactionPhraseId == 4);
 
         RefreshContents();
 
@@ -150,84 +149,77 @@ public class NewsDetailAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagDetail);
     }
 
-    // Favorite
-
-    public void ApplyFavorite(bool check)
-    {
-        Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
-        if (check)
-            postService.RegisterFavorite(favorite);
-        else
-            postService.DeleteFavorite(favorite);
-    }
-
-    public void ApplyDetailFavorite()
-    {
-        onFavoriteChanged.Invoke(tglFavorite.Checked);
-    }
-
-    // Like
-
-    public void ApplyLike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
-        if (check)
-        {
-            tglDislike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-            postService.DeleteLike(like);
-    }
-
-    public void ApplyDislike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
-        if (check)
-        {
-            tglLike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-        {
-            like.Rank = -1;
-            postService.DeleteLike(like);
-        }
-    }
-
-    public void ApplyDetailLike()
-    {
-        onLikeChanged.Invoke(tglLike.Checked);
-        onDislikeChanged.Invoke(tglDislike.Checked);
-    }
-
     // Reaction
-
-    public void ApplyReaction(bool check)
+    public void ApplyReaction1(bool check)
     {
-        tglReaction.Uncheck();
+        reactionPhraseId = 1;
+        ApplyReaction(check, reactionPhraseId);
+    }
+
+    public void ApplyReaction2(bool check)
+    {
+        reactionPhraseId = 2;
+        ApplyReaction(check, reactionPhraseId);
+    }
+
+    public void ApplyReaction3(bool check)
+    {
+        reactionPhraseId = 3;
+        ApplyReaction(check, reactionPhraseId);
+    }
+
+    public void ApplyReaction4(bool check)
+    {
+        reactionPhraseId = 4;
+        ApplyReaction(check, reactionPhraseId);
+    }
+
+    public void ApplyReaction(bool check, long reactionPhraseId)
+    {
+        postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
 
         if (!check)
-        {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
             return;
-        }
 
-        cmbReaction.Combo.Click();
-    }
-
-    public void RegisterReaction()
-    {
-        long reactionPhraseId = cmbReaction.GetSelectedId();
-
-        Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterReaction(reaction);
-        tglReaction.Check();
+        UncheckOtherReactions(reactionPhraseId);
+        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
     }
 
     public void ApplyDetailReaction()
     {
-        onReactionChanged.Invoke(tglReaction.Checked);
+        switch (reactionPhraseId)
+        {
+            case 1:
+                onReaction1Changed.Invoke(tglReaction1.Checked);
+                break;
+
+            case 2:
+                onReaction2Changed.Invoke(tglReaction2);
+                break;
+
+            case 3:
+                onReaction3Changed.Invoke(tglReaction3);
+                break;
+
+            case 4:
+                onReaction4Changed.Invoke(tglReaction4);
+                break;
+        }
+    }
+
+    private void UncheckOtherReactions(long reactionPhraseId)
+    {
+        if (reactionPhraseId != 1)
+            tglReaction1.Uncheck();
+
+        if (reactionPhraseId != 2)
+            tglReaction2.Uncheck();
+
+        if (reactionPhraseId != 3)
+            tglReaction3.Uncheck();
+
+        if (reactionPhraseId != 4)
+            tglReaction4.Uncheck();
     }
 
     // Plaint
