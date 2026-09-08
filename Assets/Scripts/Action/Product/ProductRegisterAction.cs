@@ -25,6 +25,7 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmProduct = null;
+
     [SerializeField]
     DataMapper dtmContact = null;
     [SerializeField]
@@ -39,6 +40,7 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmWhatsApp = null;
     [SerializeField]
     DataMapper dtmEmail = null;
+
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -65,11 +67,13 @@ public class ProductRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+
         dtmProduct.ClearElements();
         dtmContact.ClearElements();
         dtmPhone.ClearElements();
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
+
         dtmImagesVLL.ClearElements();
     }
 

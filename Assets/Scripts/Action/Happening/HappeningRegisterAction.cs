@@ -25,6 +25,22 @@ public class HappeningRegisterAction : MonoBehaviour
     DataMapper dtmStartTime = null;
     [SerializeField]
     DataMapper dtmEndTime = null;
+
+    [SerializeField]
+    DataMapper dtmContact = null;
+    [SerializeField]
+    DataMapper dtmHasPhone = null;
+    [SerializeField]
+    DataMapper dtmHasWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmHasEmail = null;
+    [SerializeField]
+    DataMapper dtmPhone = null;
+    [SerializeField]
+    DataMapper dtmWhatsApp = null;
+    [SerializeField]
+    DataMapper dtmEmail = null;
+
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -57,9 +73,16 @@ public class HappeningRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+
         dtmHappening.ClearElements();
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
+
+        dtmContact.ClearElements();
+        dtmPhone.ClearElements();
+        dtmWhatsApp.ClearElements();
+        dtmEmail.ClearElements();
+
         dtmImagesVLL.ClearElements();
     }
 
@@ -101,12 +124,44 @@ public class HappeningRegisterAction : MonoBehaviour
             }
         }
 
+        Contact contact = dtmContact.BuildClass<Contact>();
+
+        List<Link> links = new();
+
+        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
+        if (hasPhone == "1")
+        {
+            Phone phone = dtmPhone.BuildClass<Phone>();
+            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+                links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+        }
+
+        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
+
+        if (hasWhatsApp == "1")
+        {
+            Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
+            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+                links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+        }
+
+        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
+        if (hasEmail == "1")
+        {
+            Link email = dtmEmail.BuildClass<Link>();
+            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            {
+                email.LinkTypeId = (long)LinkType.Email;
+                links.Add(email);
+            }
+        }
+
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        happeningService.Register(new RegisterHappeningRequest(post, strImages, happening));
+        happeningService.Register(new RegisterHappeningRequest(post, contact, links, strImages, happening));
     }
 
     public void ApplyHappening(long happeningId)

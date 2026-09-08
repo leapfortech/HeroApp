@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class RegisterHappeningRequest : RegisterPostRequest
 {
@@ -13,9 +14,25 @@ public class RegisterHappeningRequest : RegisterPostRequest
         Happening = happening;
     }
 
-    public RegisterHappeningRequest(Post post, String[] images, Happening happening)
+    public RegisterHappeningRequest(Post post, Contact contact, Link link, String[] images, Happening happening)
     {
         Post = post;
+
+        Contact = contact;
+        Links = new List<Link>() { link };
+
+        Images = images;
+
+        Happening = happening;
+    }
+
+    public RegisterHappeningRequest(Post post, Contact contact, List<Link> links, String[] images, Happening happening)
+    {
+        Post = post;
+
+        Contact = contact;
+        Links = links;
+
         Images = images;
 
         Happening = happening;

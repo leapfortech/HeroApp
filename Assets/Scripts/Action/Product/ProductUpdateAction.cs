@@ -26,6 +26,7 @@ public class ProductUpdateAction : MonoBehaviour
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmProduct = null;
+
     [SerializeField]
     DataMapper dtmContact = null;
     [SerializeField]
@@ -40,6 +41,7 @@ public class ProductUpdateAction : MonoBehaviour
     DataMapper dtmWhatsApp = null;
     [SerializeField]
     DataMapper dtmEmail = null;
+
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -75,11 +77,14 @@ public class ProductUpdateAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
+
         dtmProduct.ClearElements();
+
         dtmContact.ClearElements();
         dtmPhone.ClearElements();
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
+
         dtmImagesVLL.ClearElements();
     }
 
@@ -113,10 +118,7 @@ public class ProductUpdateAction : MonoBehaviour
 
                 String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                 if (phoneStr.Length >= 2)
-                    dtmPhone.PopulateClass<Phone>(
-                        new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1])
-                    );
-
+                    dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
                 continue;
             }
 
@@ -127,10 +129,7 @@ public class ProductUpdateAction : MonoBehaviour
 
                 String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                 if (whatsAppStr.Length >= 2)
-                    dtmWhatsApp.PopulateClass<Phone>(
-                        new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1])
-                    );
-
+                    dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
                 continue;
             }
 
