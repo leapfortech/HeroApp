@@ -224,6 +224,8 @@ public class RadioDetailAction : MonoBehaviour
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     }
 
+    //
+
     private void SetToggle(Toggle toggle, bool value)
     {
         if (value)

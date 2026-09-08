@@ -19,14 +19,8 @@ public class ProductDetailAction : MonoBehaviour
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
 
     [Space, Title("Details")]
-    //[SerializeField]
-    //Image imgThumbnail = null;
-    //[SerializeField]
-    //Text txtAlias = null;
-    //[SerializeField]
-    //Text txtDateTime = null;
-    //[SerializeField]
-    //Text txtTitle = null;
+    [SerializeField]
+    Text txtTitle = null;
     [SerializeField]
     Text txtSummary = null;
     [SerializeField]
@@ -40,10 +34,6 @@ public class ProductDetailAction : MonoBehaviour
     Text txtPrice = null;
     [SerializeField]
     Text txtDiscountPrice = null;
-    //[SerializeField]
-    //Text txtDeliveryType = null;
-    //[SerializeField]
-    //Text txtAnnotation = null;
 
     [SerializeField]
     Text txtContactName = null;
@@ -77,22 +67,12 @@ public class ProductDetailAction : MonoBehaviour
     //ValueList vllCity = null;
     [SerializeField]
     ValueList vllCurrency = null;
-    //[SerializeField]
-    //ValueList vllDeliveryType = null;
 
     [Space, Title("Actions")]
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
     Toggle tglFavorite = null;
-    [SerializeField]
-    Toggle tglLike = null;
-    [SerializeField]
-    Toggle tglDislike = null;
-    [SerializeField]
-    Toggle tglReaction = null;
-    [SerializeField]
-    ComboAdapter cmbReaction = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
@@ -105,12 +85,6 @@ public class ProductDetailAction : MonoBehaviour
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
-    [SerializeField]
-    UnityBoolEvent onLikeChanged = null;
-    [SerializeField]
-    UnityBoolEvent onDislikeChanged = null;
-    [SerializeField]
-    UnityBoolEvent onReactionChanged = null;
 
     ProductService productService;
     PostService postService;
@@ -141,11 +115,7 @@ public class ProductDetailAction : MonoBehaviour
         postId = productFull.PostId;
 
         // Post
-        //imgThumbnail.Sprite = productFull.ThumbnailSprite;
-
-        //txtAlias.TextValue = $"@{productFull.AppUserAlias}";
-        //txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
-        //txtDateTime.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
         
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary;
@@ -205,9 +175,6 @@ public class ProductDetailAction : MonoBehaviour
 
         // Actions
         SetToggle(tglFavorite, productFull.Favorite != 0);
-        SetToggle(tglLike, productFull.Like == 5);
-        SetToggle(tglDislike, productFull.Like == 1);
-        SetToggle(tglReaction, productFull.ReactionPhraseId != -1);
 
         RefreshContents();
 
@@ -230,70 +197,6 @@ public class ProductDetailAction : MonoBehaviour
     public void ApplyDetailFavorite()
     {
         onFavoriteChanged.Invoke(tglFavorite.Checked);
-    }
-
-    // Like
-
-    public void ApplyLike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
-        if (check)
-        {
-            tglDislike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-            postService.DeleteLike(like);
-    }
-
-    public void ApplyDislike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
-        if (check)
-        {
-            tglLike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-        {
-            like.Rank = -1;
-            postService.DeleteLike(like);
-        }
-    }
-
-    public void ApplyDetailLike()
-    {
-        onLikeChanged.Invoke(tglLike.Checked);
-        onDislikeChanged.Invoke(tglDislike.Checked);
-    }
-
-    // Reaction
-
-    public void ApplyReaction(bool check)
-    {
-        tglReaction.Uncheck();
-
-        if (!check)
-        {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
-            return;
-        }
-
-        cmbReaction.Combo.Click();
-    }
-
-    public void RegisterReaction()
-    {
-        long reactionPhraseId = cmbReaction.GetSelectedId();
-
-        Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterReaction(reaction);
-        tglReaction.Check();
-    }
-
-    public void ApplyDetailReaction()
-    {
-        onReactionChanged.Invoke(tglReaction.Checked);
     }
 
     // Plaint
