@@ -103,23 +103,6 @@ public class NewsDetailAction : MonoBehaviour
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
 
-    private void OpenLink()
-    {
-        if (String.IsNullOrWhiteSpace(url))
-        {
-            ChoiceDialog.Instance.Info("Link de noticia", "No se registró ninguna fuente externa.");
-            return;
-        }
-
-        if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
-        {
-            ChoiceDialog.Instance.Info("Link de noticia", "La URL no es válida.");
-            return;
-        }
-
-        Application.OpenURL(url);
-    }
-
     public void Display(long postId)
     {
         ScreenDialog.Instance.Display();

@@ -1,8 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-using Leap.UI.Elements;
+using Leap.Core.Tools;
 using Leap.Data.Mapper;
+using Leap.UI.Elements;
 using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
@@ -37,6 +38,10 @@ public class ElmDependencyAction : MonoBehaviour
     [SerializeField]
     bool[] interactable = null;
 
+    [Title("Events")]
+    [SerializeField]
+    UnityBoolEvent[] onVisibilityChanged = null;
+
     bool[] required = null;
 
     void Initialize()
@@ -61,7 +66,7 @@ public class ElmDependencyAction : MonoBehaviour
 
                 if (selectedId != Convert.ToInt64(values[i]))
                 {
-                    Activate(false);
+                    ApplyActive(false);
                     return;
                 }
             }
@@ -73,15 +78,15 @@ public class ElmDependencyAction : MonoBehaviour
                 
                 if (value != values[i])
                 {
-                    Activate(false);
+                    ApplyActive(false);
                     return;
                 }
             }
         }
-        Activate(true);
+        ApplyActive(true);
     }
 
-    private void Activate(bool on)
+    private void ApplyActive(bool on)
     {
         Initialize();
 
@@ -94,7 +99,8 @@ public class ElmDependencyAction : MonoBehaviour
                 if (!bOn)
                     outputs[i].Clear();
                 outputs[i].Required = bOn && required[i];
-                outputs[i].gameObject.SetActive(bOn);
+
+                Activate(i, bOn);
             }
             return;
         }
@@ -102,7 +108,7 @@ public class ElmDependencyAction : MonoBehaviour
         if (enable != null && enable.Length > 0)
         {
             for (int i = 0; i < outputs.Length; i++)
-                outputs[i].enabled = on == enable[i];
+                Enable(i, on == enable[i]);
             return;
         }
 
@@ -119,8 +125,37 @@ public class ElmDependencyAction : MonoBehaviour
                     ((InputField)outputs[i]).Interactable = on == interactable[i];
 
                 outputs[i].Required = on == interactable[i];
+                Interact(i, on);
             }
             return;
         }
+    }
+
+    private void Activate(int idx, bool active)
+    {
+        outputs[idx].gameObject.SetActive(active);
+
+        if (idx >= onVisibilityChanged.Length)
+            return;
+        
+        onVisibilityChanged[idx]?.Invoke(active);
+    }
+
+    private void Enable(int idx, bool enabled)
+    {
+        outputs[idx].enabled = enabled;
+
+        if (idx >= onVisibilityChanged.Length)
+            return;
+
+        onVisibilityChanged[idx]?.Invoke(enabled);
+    }
+
+    private void Interact(int idx, bool interactable)
+    {
+        if (idx >= onVisibilityChanged.Length)
+            return;
+
+        onVisibilityChanged[idx]?.Invoke(interactable);
     }
 }

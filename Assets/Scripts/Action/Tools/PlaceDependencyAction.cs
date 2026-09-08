@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.Core.Tools;
 using Leap.Data.Mapper;
 using Leap.UI.Extensions;
 
@@ -24,6 +25,12 @@ public class PlaceDependencyAction : MonoBehaviour
     DataMapper dtmState = null;
     [SerializeField]
     DataMapper dtmCity = null;
+
+    [Title("Events")]
+    [SerializeField]
+    UnityBoolEvent onStateActivated = null;
+    [SerializeField]
+    UnityBoolEvent onCityActivated = null;
 
     private bool initialized = false;
     HashSet<long> countriesWithState;
@@ -102,10 +109,10 @@ public class PlaceDependencyAction : MonoBehaviour
         bool hasState = countriesWithState.Contains(countryId);
         bool hasCity = countriesWithCity.Contains(countryId);
 
-        cmbState.gameObject.SetActive(hasState);
+        ActivateState(hasState);
         
         if (cmbCity != null)
-            cmbCity.gameObject.SetActive(hasCity);
+            ActivateCity(hasCity);
     }
 
     public void RefreshState()
@@ -115,8 +122,22 @@ public class PlaceDependencyAction : MonoBehaviour
         long countryId = cmbCountry.GetSelectedId();
 
         if (countriesWithCity.Contains(countryId) && cmbState.GetSelectedId() != -1)
-            cmbCity.gameObject.SetActive(true);
+            ActivateCity(true);
         else
-            cmbCity.gameObject.SetActive(false);
+            ActivateCity(false);
+    }
+
+    private void ActivateState(bool active)
+    {
+        cmbState.gameObject.SetActive(active);
+
+        onStateActivated.Invoke(active);
+    }
+
+    private void ActivateCity(bool active)
+    {
+        cmbCity.gameObject.SetActive(active);
+
+        onCityActivated.Invoke(active);
     }
 }
