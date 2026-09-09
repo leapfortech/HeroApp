@@ -33,17 +33,17 @@ public class NewsFull : PostFull
                     long postSubtypeId,
                     long postCountryId, long postStateId,
                     String title, String titleImage, String summary, String description,
-                    int imageCount, int favorite, int like, int likeCount, long reactionPhraseId,
+                    int imageCount, int[] reactionCounts, int commentCount, int favorite, int like, int likeCount, long reactionPhraseId,
                     DateTime publicationDateTime, int postStatus,
-                    ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
+                    AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
                     long newsTypeId, String place,
                     String source, DateTime? dateTime,
                     int status,
                     String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
-                postCountryId, postStateId, title, titleImage, summary, description,
-                imageCount, favorite, like, likeCount, reactionPhraseId, publicationDateTime, postStatus,
-                contactFull, linkFulls, commentFulls)
+               postCountryId, postStateId, title, titleImage, summary, description,
+               imageCount, reactionCounts, commentCount, favorite, like, likeCount, reactionPhraseId, publicationDateTime, postStatus,
+               appUserInfo, contactFull, linkFulls, commentFulls)
     {
         Id = id;
         NewsTypeId = newsTypeId;

@@ -36,6 +36,15 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     Text txtNewsDate = null;
 
+    [Space, SerializeField]
+    Text[] txtReactionCounts = null;
+
+    [Space, SerializeField]
+    Text txtCommentCount = null;
+
+    [Space, SerializeField]
+    Text txtComment1 = null;
+
     [Title("Images")]
     [SerializeField]
     GameObject goEmptyImages = null;
@@ -88,7 +97,8 @@ public class NewsDetailAction : MonoBehaviour
     long postId = -1;
     String url = null;
     float contentInitialHeight = 0.0f;
-    long reactionPhraseId = -1;
+    long reactionPhraseId = -1, currentReactionPhraseId = -1;
+    int[] reactionCounts;
 
     private void Awake()
     {
@@ -112,6 +122,9 @@ public class NewsDetailAction : MonoBehaviour
     {
         postId = newsFull.PostId;
 
+        reactionCounts = (int[])newsFull.ReactionCounts.Clone();
+        currentReactionPhraseId = newsFull.ReactionPhraseId;
+
         if (newsFull.LinkFulls != null && newsFull.LinkFulls.Count > 0)
             url = newsFull.LinkFulls[0].Url;
 
@@ -129,6 +142,12 @@ public class NewsDetailAction : MonoBehaviour
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
         txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
+
+        for (int i = 0; i < reactionCounts.Length; i++)
+            txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+
+        txtCommentCount.TextValue = newsFull.CommentCount.ToString();
+        txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
 
         // Images
         goEmptyImages.SetActive(newsFull.ImageSprites.Count == 0);
@@ -176,13 +195,31 @@ public class NewsDetailAction : MonoBehaviour
 
     public void ApplyReaction(bool check, long reactionPhraseId)
     {
-        postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+        long previousReactionPhraseId = currentReactionPhraseId;
 
         if (!check)
+        {
+            postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+            ChangeReactionCount(reactionPhraseId, -1);
+            currentReactionPhraseId = -1;
+
             return;
+        }
+
+        if (previousReactionPhraseId != -1 && previousReactionPhraseId != reactionPhraseId)
+        {
+            postService.DeleteReaction(new Reaction(previousReactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+            ChangeReactionCount(previousReactionPhraseId, -1);
+        }
+
+        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+        ChangeReactionCount(reactionPhraseId, 1);
+        currentReactionPhraseId = reactionPhraseId;
 
         UncheckOtherReactions(reactionPhraseId);
-        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
     }
 
     public void ApplyDetailReaction()
@@ -220,6 +257,18 @@ public class NewsDetailAction : MonoBehaviour
 
         if (reactionPhraseId != 4)
             tglReaction4.Uncheck();
+    }
+
+    private void ChangeReactionCount(long reactionPhraseId, int amount)
+    {
+        int index = (int)reactionPhraseId - 1;
+
+        reactionCounts[index] += amount;
+
+        if (reactionCounts[index] < 0)
+            reactionCounts[index] = 0;
+
+        txtReactionCounts[index].TextValue = reactionCounts[index] > 9999 ? "+9999" : reactionCounts[index].ToString();
     }
 
     // Plaint
