@@ -78,6 +78,8 @@ public class FeedCommentAction : MonoBehaviour
 
     public void ResetComments()
     {
+        ScreenDialog.Instance.Display();
+
         UpdateOverlay(0);
 
         ifdComment.Clear();

@@ -42,8 +42,12 @@ public class NewsDetailAction : MonoBehaviour
     [Space, SerializeField]
     Text txtCommentCount = null;
 
-    [Space, SerializeField]
+    [SerializeField]
     Text txtComment1 = null;
+    [SerializeField]
+    Text txtComment2 = null;
+    [SerializeField]
+    Text txtComment3 = null;
 
     [Title("Images")]
     [SerializeField]
@@ -56,6 +60,14 @@ public class NewsDetailAction : MonoBehaviour
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
+
+    [Title("Comments")]
+    [SerializeField]
+    float commentItemPadding = 80f;
+    [SerializeField]
+    float commentPadding = 220;
+    [SerializeField]
+    RectTransform rtfImgComments = null;
 
     [Title("Actions")]
     [SerializeField]
@@ -99,6 +111,7 @@ public class NewsDetailAction : MonoBehaviour
     float contentInitialHeight = 0.0f;
     long reactionPhraseId = -1, currentReactionPhraseId = -1;
     int[] reactionCounts;
+    bool isRefresh = false;
 
     private void Awake()
     {
@@ -109,13 +122,24 @@ public class NewsDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
+
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
     }
 
     public void Display(long postId)
     {
+        isRefresh = false;
         ScreenDialog.Instance.Display();
         newsService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+    }
+
+    public bool Refresh()
+    {
+        isRefresh = true;
+        ScreenDialog.Instance.Display();
+        newsService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+
+        return false;
     }
 
     public void ApplyFull(NewsFull newsFull)
@@ -146,8 +170,10 @@ public class NewsDetailAction : MonoBehaviour
         for (int i = 0; i < reactionCounts.Length; i++)
             txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
 
-        txtCommentCount.TextValue = newsFull.CommentCount.ToString();
+        txtCommentCount.TextValue = $"({newsFull.CommentCount.ToString()})";
         txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
+        txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";
+        txtComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].Message : "";
 
         // Images
         goEmptyImages.SetActive(newsFull.ImageSprites.Count == 0);
@@ -161,7 +187,7 @@ public class NewsDetailAction : MonoBehaviour
         SetToggle(tglReaction3, newsFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, newsFull.ReactionPhraseId == 4);
 
-        RefreshContents();
+        RefreshContents(newsFull.CommentFulls.Count);
 
         btnUpdate.gameObject.SetActive(newsFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -301,12 +327,78 @@ public class NewsDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents()
+    //private void RefreshContents()
+    //{
+    //    RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+
+    //    content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+
+    //    if (!isRefresh)
+    //        scrollRect.verticalNormalizedPosition = 1f;
+    //}
+
+    private void RefreshContents(int commentCount)
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
 
-        scrollRect.verticalNormalizedPosition = 1f;
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x,txtDescription.TextHeight);
+
+        float commentsHeight = 0f;
+
+        if (commentCount > 0)
+        {
+            rtfComment1.gameObject.SetActive(true);
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, txtComment1.TextHeight + commentItemPadding);
+            commentsHeight += rtfComment1.sizeDelta.y + 40f;
+        }
+        else
+        {
+            rtfComment1.gameObject.SetActive(false);
+        }
+
+        if (commentCount > 1)
+        {
+            rtfComment2.gameObject.SetActive(true);
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, txtComment2.TextHeight + commentItemPadding);
+            commentsHeight += rtfComment2.sizeDelta.y + 40f;
+        }
+        else
+        {
+            rtfComment2.gameObject.SetActive(false);
+        }
+
+        if (commentCount > 2)
+        {
+            rtfComment3.gameObject.SetActive(true);
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, txtComment3.TextHeight + commentItemPadding);
+            commentsHeight += rtfComment3.sizeDelta.y + 40f;
+        }
+        else
+        {
+            rtfComment3.gameObject.SetActive(false);
+        }
+
+        if (commentCount > 0)
+        {
+            rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, commentsHeight + commentPadding);
+        }
+        else
+        {
+            rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, commentPadding);
+        }
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x,
+                                        contentInitialHeight +
+                                        txtDescription.TextHeight +
+                                        rtfImgComments.sizeDelta.y +
+                                        contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
     }
 }
