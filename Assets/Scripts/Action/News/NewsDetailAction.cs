@@ -65,6 +65,8 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     float commentItemPadding = 80f;
     [SerializeField]
+    float commentItemSpacing = 40f;
+    [SerializeField]
     float commentPadding = 220;
     [SerializeField]
     RectTransform rtfImgComments = null;
@@ -354,7 +356,7 @@ public class NewsDetailAction : MonoBehaviour
         {
             rtfComment1.gameObject.SetActive(true);
             rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, txtComment1.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment1.sizeDelta.y + 40f;
+            commentsHeight += rtfComment1.sizeDelta.y + commentItemSpacing;
         }
         else
         {
@@ -365,7 +367,7 @@ public class NewsDetailAction : MonoBehaviour
         {
             rtfComment2.gameObject.SetActive(true);
             rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, txtComment2.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment2.sizeDelta.y + 40f;
+            commentsHeight += rtfComment2.sizeDelta.y + commentItemSpacing;
         }
         else
         {
@@ -376,7 +378,7 @@ public class NewsDetailAction : MonoBehaviour
         {
             rtfComment3.gameObject.SetActive(true);
             rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, txtComment3.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment3.sizeDelta.y + 40f;
+            commentsHeight += rtfComment3.sizeDelta.y + commentItemSpacing;
         }
         else
         {
