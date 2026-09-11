@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
-using Leap.Graphics.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -29,14 +28,16 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtProductSubtype = null;
     [SerializeField]
-    Text txtPlace = null;
-    [SerializeField]
     Text txtPrice = null;
     [SerializeField]
     Text txtDiscountPrice = null;
 
     [SerializeField]
     Text txtContactName = null;
+    [SerializeField]
+    Text txtCurrentLocation = null;
+    [SerializeField]
+    Text txtInterestLocation = null;
     [SerializeField]
     Text txtPhone = null;
     [SerializeField]
@@ -63,8 +64,8 @@ public class ProductDetailAction : MonoBehaviour
     ValueList vllCountry = null;
     [SerializeField]
     ValueList vllState = null;
-    //[SerializeField]
-    //ValueList vllCity = null;
+    [SerializeField]
+    ValueList vllCity = null;
     [SerializeField]
     ValueList vllCurrency = null;
 
@@ -127,13 +128,26 @@ public class ProductDetailAction : MonoBehaviour
 
         String country = productFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(productFull.PostCountryId, "Name");
         String state = productFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(productFull.PostStateId, "Name");
-        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         String currencySymbol = vllCurrency.FindRecordCellString(productFull.CurrencyId, "Symbol");
         txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
         txtDiscountPrice.TextValue = productFull.DiscountPrice <= 0d ? "-" : currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
 
         txtContactName.TextValue = String.IsNullOrEmpty(productFull.ContactFull.Name) ? "-" : productFull.ContactFull.Name;
+
+        String currCountry = productFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(productFull.AppUserInfo.CurrentLocality.CountryId, "Name");
+        String currState = productFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(productFull.AppUserInfo.CurrentLocality.StateId, "Name");
+        String currCity = productFull.AppUserInfo.CurrentLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(productFull.AppUserInfo.CurrentLocality.CityId, "Name");
+
+        String intCountry = productFull.AppUserInfo.InterestLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(productFull.AppUserInfo.InterestLocality.CountryId, "Name");
+        String intState = productFull.AppUserInfo.InterestLocality.StateId == -1 ? "" : vllState.FindRecordCellString(productFull.AppUserInfo.InterestLocality.StateId, "Name");
+        String intCity = productFull.AppUserInfo.InterestLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(productFull.AppUserInfo.InterestLocality.CityId, "Name");
+
+        String currentLocation = currCountry + (String.IsNullOrWhiteSpace(currState) ? "" : ", " + currState) + (String.IsNullOrWhiteSpace(currCity) ? "" : ", " + currCity);
+        String interestLocation = intCountry + (String.IsNullOrWhiteSpace(intState) ? "" : ", " + intState) + (String.IsNullOrWhiteSpace(intCity) ? "" : ", " + intCity);
+
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en: " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
 
         txtPhone.TextValue = "-";
         txtWhatsApp.TextValue = "-";
