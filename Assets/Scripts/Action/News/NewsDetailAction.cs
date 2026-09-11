@@ -329,78 +329,54 @@ public class NewsDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    //private void RefreshContents()
-    //{
-    //    RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-
-    //    content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
-
-    //    if (!isRefresh)
-    //        scrollRect.verticalNormalizedPosition = 1f;
-    //}
-
     private void RefreshContents(int commentCount)
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-
         RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
+
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x,txtDescription.TextHeight);
+
+        DisplayComments(commentCount);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void DisplayComments(int commentCount)
+    {
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
         RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
 
-        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x,txtDescription.TextHeight);
+        rtfComment1.gameObject.SetActive(commentCount > 0);
+        rtfComment2.gameObject.SetActive(commentCount > 1);
+        rtfComment3.gameObject.SetActive(commentCount > 2);
 
-        float commentsHeight = 0f;
+        float totalHeight = 0f;
 
         if (commentCount > 0)
         {
-            rtfComment1.gameObject.SetActive(true);
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, txtComment1.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment1.sizeDelta.y + commentItemSpacing;
-        }
-        else
-        {
-            rtfComment1.gameObject.SetActive(false);
+            float height = txtComment1.TextHeight + commentItemPadding;
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 1)
         {
-            rtfComment2.gameObject.SetActive(true);
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, txtComment2.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment2.sizeDelta.y + commentItemSpacing;
-        }
-        else
-        {
-            rtfComment2.gameObject.SetActive(false);
+            float height = txtComment2.TextHeight + commentItemPadding;
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 2)
         {
-            rtfComment3.gameObject.SetActive(true);
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, txtComment3.TextHeight + commentItemPadding);
-            commentsHeight += rtfComment3.sizeDelta.y + commentItemSpacing;
-        }
-        else
-        {
-            rtfComment3.gameObject.SetActive(false);
+            float height = txtComment3.TextHeight + commentItemPadding;
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
         }
 
-        if (commentCount > 0)
-        {
-            rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, commentsHeight + commentPadding);
-        }
-        else
-        {
-            rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, commentPadding);
-        }
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x,
-                                        contentInitialHeight +
-                                        txtDescription.TextHeight +
-                                        rtfImgComments.sizeDelta.y +
-                                        contentPadding);
-
-        if (!isRefresh)
-            scrollRect.verticalNormalizedPosition = 1f;
+        rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, totalHeight + commentPadding);
     }
 }
