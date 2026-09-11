@@ -33,6 +33,19 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
 
+    [Space, SerializeField]
+    Text[] txtReactionCounts = null;
+
+    [Space, SerializeField]
+    Text txtCommentCount = null;
+
+    [SerializeField]
+    Text txtComment1 = null;
+    [SerializeField]
+    Text txtComment2 = null;
+    [SerializeField]
+    Text txtComment3 = null;
+
     [Title("Images")]
     [SerializeField]
     GameObject goEmptyImages = null;
@@ -44,6 +57,16 @@ public class TaleDetailAction : MonoBehaviour
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
     float contentPadding = 160f;
+
+    [Title("Comments")]
+    [SerializeField]
+    float commentItemPadding = 80f;
+    [SerializeField]
+    float commentItemSpacing = 40f;
+    [SerializeField]
+    float commentPadding = 220;
+    [SerializeField]
+    RectTransform rtfImgComments = null;
 
     [Title("Values")]
     [SerializeField]
@@ -88,7 +111,9 @@ public class TaleDetailAction : MonoBehaviour
 
     long postId = -1;
     float contentInitialHeight = 0.0f;
-    long reactionPhraseId = -1;
+    long reactionPhraseId = -1, currentReactionPhraseId = -1;
+    int[] reactionCounts;
+    bool isRefresh = false;
 
     private void Awake()
     {
@@ -99,18 +124,32 @@ public class TaleDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
+        
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
     }
 
     public void Display(long postId)
     {
+        isRefresh = false;
         ScreenDialog.Instance.Display();
         taleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+    }
+
+    public bool Refresh()
+    {
+        isRefresh = true;
+        ScreenDialog.Instance.Display();
+        taleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+
+        return false;
     }
 
     public void ApplyFull(TaleFull taleFull)
     {
         postId = taleFull.PostId;
+
+        reactionCounts = (int[])taleFull.ReactionCounts.Clone();
+        currentReactionPhraseId = taleFull.ReactionPhraseId;
 
         // Post
         imgThumbnail.Sprite = taleFull.ThumbnailSprite;
@@ -129,6 +168,14 @@ public class TaleDetailAction : MonoBehaviour
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
 
+        for(int i = 0; i < reactionCounts.Length; i++)
+            txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+
+        txtCommentCount.TextValue = $"({taleFull.CommentCount.ToString()})";
+        txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
+        txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
+        txtComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].Message : "";
+
         // Images
         goEmptyImages.SetActive(taleFull.ImageSprites.Count == 0);
         goImages.SetActive(taleFull.ImageSprites.Count != 0);
@@ -141,7 +188,7 @@ public class TaleDetailAction : MonoBehaviour
         SetToggle(tglReaction3, taleFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, taleFull.ReactionPhraseId == 4);
 
-        RefreshContents();
+        RefreshContents(taleFull.CommentFulls.Count);
 
         btnUpdate.gameObject.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -175,13 +222,31 @@ public class TaleDetailAction : MonoBehaviour
 
     public void ApplyReaction(bool check, long reactionPhraseId)
     {
-        postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+        long previousReactionPhraseId = currentReactionPhraseId;
 
         if (!check)
+        {
+            postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+            ChangeReactionCount(reactionPhraseId, -1);
+            currentReactionPhraseId = -1;
+
             return;
+        }
+
+        if (previousReactionPhraseId != -1 && previousReactionPhraseId != reactionPhraseId)
+        {
+            postService.DeleteReaction(new Reaction(previousReactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+            ChangeReactionCount(previousReactionPhraseId, -1);
+        }
+
+        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+
+        ChangeReactionCount(reactionPhraseId, 1);
+        currentReactionPhraseId = reactionPhraseId;
 
         UncheckOtherReactions(reactionPhraseId);
-        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
     }
 
     public void ApplyDetailReaction()
@@ -221,6 +286,18 @@ public class TaleDetailAction : MonoBehaviour
             tglReaction4.Uncheck();
     }
 
+    private void ChangeReactionCount(long reactionPhraseId, int amount)
+    {
+        int index = (int)reactionPhraseId - 1;
+
+        reactionCounts[index] += amount;
+
+        if (reactionCounts[index] < 0)
+            reactionCounts[index] = 0;
+
+        txtReactionCounts[index].TextValue = reactionCounts[index] > 9999 ? "+9999" : reactionCounts[index].ToString();
+    }
+
     // Plaint
 
     public void DisplayPlaintTypes()
@@ -253,12 +330,54 @@ public class TaleDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents()
+    private void RefreshContents(int commentCount)
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
 
-        scrollRect.verticalNormalizedPosition = 1f;
+        DisplayComments(commentCount);
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void DisplayComments(int commentCount)
+    {
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
+
+        rtfComment1.gameObject.SetActive(commentCount > 0);
+        rtfComment2.gameObject.SetActive(commentCount > 1);
+        rtfComment3.gameObject.SetActive(commentCount > 2);
+
+        float totalHeight = 0f;
+
+        if (commentCount > 0)
+        {
+            float height = txtComment1.TextHeight + commentItemPadding;
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
+        }
+
+        if (commentCount > 1)
+        {
+            float height = txtComment2.TextHeight + commentItemPadding;
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
+        }
+
+        if (commentCount > 2)
+        {
+            float height = txtComment3.TextHeight + commentItemPadding;
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            totalHeight += height + commentItemSpacing;
+        }
+
+        rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, totalHeight + commentPadding);
     }
 }
