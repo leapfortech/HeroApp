@@ -99,8 +99,11 @@ public class HappeningUpdateAction : MonoBehaviour
         PostHelper.post = new Post(happeningFull);
         dtmPost.PopulateClass<Post>(PostHelper.post);
 
-        contact = new Contact(happeningFull.ContactFull);
-        dtmContact.PopulateClass<Contact>(contact);
+        if (happeningFull.ContactFull != null)
+        {
+            contact = new Contact(happeningFull.ContactFull);
+            dtmContact.PopulateClass<Contact>(contact);
+        }
 
         dtmHasPhone.PopulateBuiltIn<string>("0");
         dtmHasWhatsApp.PopulateBuiltIn<string>("0");

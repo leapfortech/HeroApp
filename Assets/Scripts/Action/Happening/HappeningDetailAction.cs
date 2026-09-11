@@ -52,12 +52,6 @@ public class HappeningDetailAction : MonoBehaviour
 
     [SerializeField]
     Text txtContactName = null;
-    [SerializeField]
-    Text txtPhone = null;
-    [SerializeField]
-    Text txtWhatsApp = null;
-    [SerializeField]
-    Text txtEmail = null;
 
     [Title("Images")]
     [SerializeField]
@@ -85,6 +79,12 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
+    Button btnPhone = null;
+    [SerializeField]
+    Button btnWhatsApp = null;
+    [SerializeField]
+    Button btnEmail = null;
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
@@ -104,6 +104,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     long postId = -1;
     float contentInitialHeight = 0.0f;
+    String phone = "", whatsapp = "", email = "";
 
     private void Awake()
     {
@@ -113,6 +114,10 @@ public class HappeningDetailAction : MonoBehaviour
 
     private void Start()
     {
+        btnPhone?.AddAction(OpenPhone);
+        btnWhatsApp?.AddAction(OpenWhatsApp);
+        btnEmail?.AddAction(OpenEmail);
+
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
                                - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
@@ -155,11 +160,11 @@ public class HappeningDetailAction : MonoBehaviour
         txtEndDateTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
 
-        txtContactName.TextValue = String.IsNullOrEmpty(happeningFull.ContactFull.Name) ? "-" : happeningFull.ContactFull.Name;
+        txtContactName.TextValue = happeningFull.ContactFull == null || String.IsNullOrEmpty(happeningFull.ContactFull.Name) ? "-" : happeningFull.ContactFull.Name;
 
-        txtPhone.TextValue = "-";
-        txtWhatsApp.TextValue = "-";
-        txtEmail.TextValue = "-";
+        phone = "";
+        whatsapp = "";
+        email = "";
 
         for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
         {
@@ -170,24 +175,17 @@ public class HappeningDetailAction : MonoBehaviour
 
             String[] split = url.Split('|');
 
-            String fullPhone = null;
-            if (split.Length > 1)
-            {
-                long phoneCountryId = Convert.ToInt64(split[0]);
-                String phone = split[1];
-                String phonePrefix = vllCountry.FindRecordCellString(phoneCountryId, "PhonePrefix");
-                fullPhone = phonePrefix + " " + phone;
-            }
-
-            if (happeningFull.LinkFulls[i].LinkTypeId == 2)
-                txtPhone.TextValue = fullPhone;
-
-            else if (happeningFull.LinkFulls[i].LinkTypeId == 3)
-                txtWhatsApp.TextValue = fullPhone;
-
+            if (happeningFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+                phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+            else if (happeningFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
+                whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
             else if (happeningFull.LinkFulls[i].LinkTypeId == 4)
-                txtEmail.TextValue = happeningFull.LinkFulls[i].Url;
+                email = url;
         }
+
+        btnPhone.Interactable = phone.Length != 0;
+        btnWhatsApp.Interactable = whatsapp.Length != 0;
+        btnEmail.Interactable = email.Length != 0;
 
         // Images
         goEmptyImages.SetActive(happeningFull.ImageSprites.Count == 0);
@@ -262,5 +260,20 @@ public class HappeningDetailAction : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtHeights + contentPadding);
 
         scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void OpenPhone()
+    {
+        Application.OpenURL("tel://" + phone);
+    }
+
+    private void OpenWhatsApp()
+    {
+        Application.OpenURL("https://wa.me/" + whatsapp.Replace(" ", ""));
+    }
+
+    private void OpenEmail()
+    {
+        Application.OpenURL("mailto:" + email);
     }
 }
