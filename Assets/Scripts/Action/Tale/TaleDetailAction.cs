@@ -22,12 +22,12 @@ public class TaleDetailAction : MonoBehaviour
     Image imgThumbnail = null;
     [SerializeField]
     Text txtAlias = null;
-    //[SerializeField]
-    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
-    Text txtPlace = null;
+    Text txtCurrentLocation = null;
+    [SerializeField]
+    Text txtInterestLocation = null;
     [SerializeField]
     Text txtSummary = null;
     [SerializeField]
@@ -73,8 +73,8 @@ public class TaleDetailAction : MonoBehaviour
     ValueList vllCountry = null;
     [SerializeField]
     ValueList vllState = null;
-    //[SerializeField]
-    //ValueList vllCity = null;
+    [SerializeField]
+    ValueList vllCity = null;
 
     [Title("Actions")]
     [SerializeField]
@@ -157,12 +157,20 @@ public class TaleDetailAction : MonoBehaviour
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
 
-        String country = taleFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
-        String state = taleFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(taleFull.PostStateId, "Name");
-        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+        String currCountry = taleFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CountryId, "Name");
+        String currState = taleFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.StateId, "Name");
+        String currCity = taleFull.AppUserInfo.CurrentLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CityId, "Name");
 
-        //txtDateTime.TextValue = taleFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
+        String intCountry = taleFull.AppUserInfo.InterestLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CountryId, "Name");
+        String intState = taleFull.AppUserInfo.InterestLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.StateId, "Name");
+        String intCity = taleFull.AppUserInfo.InterestLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CityId, "Name");
 
+        String currentLocation = currCountry + (String.IsNullOrWhiteSpace(currState) ? "" : ", " + currState) + (String.IsNullOrWhiteSpace(currCity) ? "" : ", " + currCity);
+        String interestLocation = intCountry + (String.IsNullOrWhiteSpace(intState) ? "" : ", " + intState) + (String.IsNullOrWhiteSpace(intCity) ? "" : ", " + intCity);
+
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en: " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
+        
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
 
