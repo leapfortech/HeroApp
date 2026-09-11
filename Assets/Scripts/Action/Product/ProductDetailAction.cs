@@ -38,12 +38,6 @@ public class ProductDetailAction : MonoBehaviour
     Text txtCurrentLocation = null;
     [SerializeField]
     Text txtInterestLocation = null;
-    [SerializeField]
-    Text txtPhone = null;
-    [SerializeField]
-    Text txtWhatsApp = null;
-    [SerializeField]
-    Text txtEmail = null;
 
     [Space, Title("Images")]
     [SerializeField]
@@ -73,6 +67,13 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Button btnUpdate = null;
     [SerializeField]
+    Button btnPhone = null;
+    [SerializeField]
+    Button btnWhatsApp = null;
+    [SerializeField]
+    Button btnEmail = null;
+
+    [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
@@ -91,6 +92,7 @@ public class ProductDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
+    String phone = "", whatsapp = "", email = "";
     float contentInitialHeight = 0.0f;
 
     private void Awake()
@@ -101,6 +103,10 @@ public class ProductDetailAction : MonoBehaviour
 
     private void Start()
     {
+        btnPhone?.AddAction(OpenPhone);
+        btnWhatsApp?.AddAction(OpenWhatsApp);
+        btnEmail?.AddAction(OpenEmail);
+
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
     }
@@ -149,9 +155,9 @@ public class ProductDetailAction : MonoBehaviour
         txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en: " + currentLocation;
         txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
 
-        txtPhone.TextValue = "-";
-        txtWhatsApp.TextValue = "-";
-        txtEmail.TextValue = "-";
+        phone = "";
+        whatsapp = "";
+        email = "";
 
         for (int i = 0; i < productFull.LinkFulls.Count; i++)
         {
@@ -162,24 +168,17 @@ public class ProductDetailAction : MonoBehaviour
 
             String[] split = url.Split('|');
 
-            String fullPhone = null;
-            if (split.Length > 1)
-            {
-                long phoneCountryId = Convert.ToInt64(split[0]);
-                String phone = split[1];
-                String phonePrefix = vllCountry.FindRecordCellString(phoneCountryId, "PhonePrefix");
-                fullPhone = phonePrefix + " " + phone;
-            }
-
-            if (productFull.LinkFulls[i].LinkTypeId == 2)
-                txtPhone.TextValue = fullPhone;
-
-            else if (productFull.LinkFulls[i].LinkTypeId == 3)
-                txtWhatsApp.TextValue = fullPhone;
-
+            if (productFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+                phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+            else if (productFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
+                whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
             else if (productFull.LinkFulls[i].LinkTypeId == 4)
-                txtEmail.TextValue = productFull.LinkFulls[i].Url;
+                email = url;
         }
+
+        btnPhone.Interactable = phone.Length != 0;
+        btnWhatsApp.Interactable = whatsapp.Length != 0;
+        btnEmail.Interactable = email.Length != 0;
 
         // Images
         goEmptyImages.SetActive(productFull.ImageSprites.Count == 0);
@@ -252,5 +251,20 @@ public class ProductDetailAction : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
 
         scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void OpenPhone()
+    {
+        Application.OpenURL("tel://" + phone);
+    }
+
+    private void OpenWhatsApp()
+    {
+        Application.OpenURL("https://wa.me/" + whatsapp.Replace(" ", ""));
+    }
+
+    private void OpenEmail()
+    {
+        Application.OpenURL("mailto:" + email);
     }
 }
