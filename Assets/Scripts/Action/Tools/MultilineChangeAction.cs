@@ -2,40 +2,41 @@
 
 using Leap.Core.Tools;
 using Leap.UI.Elements;
+using Leap.UI.Dialog;
 
 using Sirenix.OdinInspector;
 
-public class TextChangeAction : MonoBehaviour
+public class MultilineChangeAction : MonoBehaviour
 {
     [Title("Parameters")]
     [SerializeField]
-    RectTransform imgRect = null;
-    [SerializeField]
-    Text txtText = null;
+    InputMultiline imlText = null;
 
     [Title("Events")]
     [SerializeField]
-    UnityFloatEvent onTxtChanged = null;
+    UnityFloatEvent onImlChanged = null;
 
+    RectTransform imgRect = null;
     RectTransform txtRect = null;
     float initHeight = 0f;
 
     private void Awake()
     {
-        txtRect = txtText.GetComponent<RectTransform>();
+        imgRect = imlText.GetComponent<RectTransform>();
+        txtRect = imgRect.GetChild(0).GetChild(3).GetComponent<RectTransform>();
         initHeight = imgRect.sizeDelta.y;
     }
 
     public void Display()
     {
         float deltaY = 0f;
-        if (txtText.TextHeight == 0f)
+        if (imlText.TextHeight == 0f)
             deltaY = initHeight - imgRect.sizeDelta.y;
         else
-            deltaY = txtText.TextHeight - (imgRect.sizeDelta.y + txtRect.sizeDelta.y);
+            deltaY = imlText.TextHeight - (imgRect.sizeDelta.y + txtRect.sizeDelta.y);
         
         imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, imgRect.sizeDelta.y + deltaY);
 
-        onTxtChanged?.Invoke(deltaY);
+        onImlChanged?.Invoke(deltaY);
     }
 }

@@ -105,8 +105,6 @@ public class RadioUpdateAction : MonoBehaviour
     {
         if (!ElementHelper.Validate(elementValues))
             return;
-        if (!inputMultiline.Validate())
-            return;
 
         ScreenDialog.Instance.Display();
 
