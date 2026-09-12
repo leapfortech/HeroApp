@@ -10,7 +10,7 @@ public class VisibilityChangeAction : MonoBehaviour
     [Title("Parameters")]
     [SerializeField]
     RectTransform trfRect = null;
-    [SerializeField]
+    [Space, SerializeField]
     GameObject[] elements = null;
 
     [Title("Events")]
