@@ -78,8 +78,8 @@ public class TaleUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Description = dtmPost.BuildClass<Post>().Description;
-        
+        PostHelper.post.Update(dtmPost.BuildClass<Post>());
+
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         PostHelper.post.ImageCount = images.Count;
         PostHelper.titleSprite = images.Count == 0 ? null : images[0];
