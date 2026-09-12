@@ -17,8 +17,6 @@ public class RadioUpdateAction : MonoBehaviour
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
-    [SerializeField]
-    InputMultiline inputMultiline = null;
 
     [Title("Data")]
     [SerializeField]
@@ -71,7 +69,6 @@ public class RadioUpdateAction : MonoBehaviour
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
         dtmImagesVLL.ClearElements();
-        inputMultiline.Clear();
     }
 
     public void ApplyFull(RadioFull radioFull)
