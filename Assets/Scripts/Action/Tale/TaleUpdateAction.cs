@@ -8,6 +8,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -21,7 +22,9 @@ public class TaleUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmPost = null;
     [SerializeField]
-    DataMapper dtmImagesVLL = null;
+    ValueList vllImages = null;
+    [SerializeField]
+    String spriteName = "Tale";
 
     [Title("Action")]
     [SerializeField]
@@ -54,7 +57,7 @@ public class TaleUpdateAction : MonoBehaviour
     public void Clear()
     {
         dtmPost.ClearElements();
-        dtmImagesVLL.ClearElements();
+        vllImages.ClearRecords();
     }
 
     public void ApplyFull(TaleFull taleFull)
@@ -66,7 +69,8 @@ public class TaleUpdateAction : MonoBehaviour
 
         tale = new Tale(taleFull);
 
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(taleFull.ImageSprites);
+        for (int i = 0; i < taleFull.ImageSprites.Count; i++)
+            vllImages.AddRecord(taleFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -80,13 +84,12 @@ public class TaleUpdateAction : MonoBehaviour
 
         PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        String[] strImages = new String[vllImages.RecordCount];
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        PostHelper.post.ImageCount = vllImages.RecordCount;
+        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
         taleService.UpdateTale(new RegisterTaleRequest(PostHelper.post, strImages, tale));
     }

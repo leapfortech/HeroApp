@@ -16,6 +16,8 @@ public class TaleDetailAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
+    [Serializable]
+    public class TaleFullEvent : UnityEvent<TaleFull> { }
 
     [Space, Title("Details")]
     [SerializeField]
@@ -106,6 +108,9 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     UnityBoolEvent onReaction4Changed = null;
 
+    [SerializeField]
+    TaleFullEvent onApplyUpdate = null;
+
     TaleService taleService;
     PostService postService;
 
@@ -114,6 +119,7 @@ public class TaleDetailAction : MonoBehaviour
     long reactionPhraseId = -1, currentReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
+    TaleFull taleFull = null;
 
     private void Awake()
     {
@@ -146,6 +152,8 @@ public class TaleDetailAction : MonoBehaviour
 
     public void ApplyFull(TaleFull taleFull)
     {
+        this.taleFull = taleFull;
+
         postId = taleFull.PostId;
 
         reactionCounts = (int[])taleFull.ReactionCounts.Clone();
@@ -201,6 +209,11 @@ public class TaleDetailAction : MonoBehaviour
         btnUpdate.gameObject.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyUpdate()
+    {
+        onApplyUpdate.Invoke(taleFull);
     }
 
     // Reaction

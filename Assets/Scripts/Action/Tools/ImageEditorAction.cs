@@ -37,14 +37,6 @@ public class ImageEditorAction : MonoBehaviour
 
     private int currentIdx = 0;
 
-    public void Clear()
-    {
-        lstImage.Clear();
-        for (int i = 0; i < vllImages.RecordCount; i++)
-            vllImages.GetRecordCellSprite(i, "Image").Destroy();
-        vllImages.ClearRecords();
-    }
-
     public void RefreshImages()
     {
         lstImage.Clear();
@@ -76,7 +68,7 @@ public class ImageEditorAction : MonoBehaviour
 
     public void AddImage(Texture2D image)
     {
-        Sprite newSprite = image.CreateSprite($"{spriteName}_{vllImages.RecordCount + 1}");
+        Sprite newSprite = image.CreateSprite($"Edt_{spriteName}_{vllImages.RecordCount + 1}");
 
         vllImages.AddRecord(newSprite);
 
