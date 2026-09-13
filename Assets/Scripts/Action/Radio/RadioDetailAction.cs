@@ -16,6 +16,8 @@ public class RadioDetailAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
+    [Serializable]
+    public class RadioFullEvent : UnityEvent<RadioFull> { }
 
     [Space, Title("Details")]
     [SerializeField]
@@ -77,12 +79,16 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
 
+    [SerializeField]
+    RadioFullEvent onApplyUpdate = null;
+
     RadioService radioService;
     PostService postService;
 
     long postId = -1;
     String url = null;
     float contentInitialHeight = 0.0f;
+    RadioFull radioFull = null;
 
     private void Awake()
     {
@@ -119,6 +125,8 @@ public class RadioDetailAction : MonoBehaviour
 
     public void ApplyFull(RadioFull radioFull)
     {
+        this.radioFull = radioFull;
+
         postId = radioFull.PostId;
         url = radioFull.LinkFulls[0].Url;
 
@@ -184,6 +192,11 @@ public class RadioDetailAction : MonoBehaviour
         btnUpdate.gameObject.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyUpdate()
+    {
+        onApplyUpdate.Invoke(radioFull);
     }
 
     // Favorite

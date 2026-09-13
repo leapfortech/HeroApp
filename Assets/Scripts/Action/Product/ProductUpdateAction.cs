@@ -8,6 +8,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -26,6 +27,8 @@ public class ProductUpdateAction : MonoBehaviour
     DataMapper dtmPost = null;
     [SerializeField]
     DataMapper dtmProduct = null;
+    [SerializeField]
+    DataMapper dtmHasDiscountPrice = null;
 
     [SerializeField]
     DataMapper dtmContact = null;
@@ -43,7 +46,9 @@ public class ProductUpdateAction : MonoBehaviour
     DataMapper dtmEmail = null;
 
     [SerializeField]
-    DataMapper dtmImagesVLL = null;
+    ValueList vllImages = null;
+    [SerializeField]
+    String spriteName = "Product";
 
     [Title("Action")]
     [SerializeField]
@@ -85,7 +90,7 @@ public class ProductUpdateAction : MonoBehaviour
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
 
-        dtmImagesVLL.ClearElements();
+        vllImages.ClearRecords();
     }
 
     public void ApplyFull(ProductFull productFull)
@@ -98,9 +103,9 @@ public class ProductUpdateAction : MonoBehaviour
         contact = new Contact(productFull.ContactFull);
         dtmContact.PopulateClass<Contact>(contact);
 
-        dtmHasPhone.PopulateBuiltIn<string>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<string>("0");
-        dtmHasEmail.PopulateBuiltIn<string>("0");
+        dtmHasPhone.PopulateBuiltIn<String>("0");
+        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+        dtmHasEmail.PopulateBuiltIn<String>("0");
 
         if (productFull.LinkFulls == null)
             return;
@@ -143,9 +148,11 @@ public class ProductUpdateAction : MonoBehaviour
         }
 
         product = new Product(productFull);
+        dtmHasDiscountPrice.PopulateBuiltIn<String>(product.DiscountPrice == 0.0f ? "0" : "1");
         dtmProduct.PopulateClass<Product>(product);
 
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(productFull.ImageSprites);
+        for (int i = 0; i < productFull.ImageSprites.Count; i++)
+            vllImages.AddRecord(productFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -198,13 +205,12 @@ public class ProductUpdateAction : MonoBehaviour
 
         product.Update(dtmProduct.BuildClass<Product>());
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        String[] strImages = new String[vllImages.RecordCount];
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        PostHelper.post.ImageCount = vllImages.RecordCount;
+        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
         productService.UpdateProduct(new RegisterProductRequest(PostHelper.post, contact, links, strImages, product));
     }

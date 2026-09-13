@@ -8,6 +8,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -23,7 +24,9 @@ public class NewsUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmNews = null;
     [SerializeField]
-    DataMapper dtmImagesVLL = null;
+    ValueList vllImages = null;
+    [SerializeField]
+    String spriteName = "News";
 
     [Title("Action")]
     [SerializeField]
@@ -57,7 +60,7 @@ public class NewsUpdateAction : MonoBehaviour
     {
         dtmPost.ClearElements();
         dtmNews.ClearElements();
-        dtmImagesVLL.ClearElements();
+        vllImages.ClearRecords();
     }
 
     public void ApplyFull(NewsFull newsFull)
@@ -73,7 +76,8 @@ public class NewsUpdateAction : MonoBehaviour
         //String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         //dtmTime.PopulateBuiltIn<String>(dateTimeStr);
 
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(newsFull.ImageSprites);
+        for (int i = 0; i < newsFull.ImageSprites.Count; i++)
+            vllImages.AddRecord(newsFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -97,13 +101,12 @@ public class NewsUpdateAction : MonoBehaviour
         //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
         //}
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        String[] strImages = new String[vllImages.RecordCount];
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        PostHelper.post.ImageCount = vllImages.RecordCount;
+        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
         newsService.UpdateNews(new RegisterNewsRequest(PostHelper.post, (Link)null, strImages, news));
     }

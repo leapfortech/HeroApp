@@ -16,6 +16,8 @@ public class HappeningDetailAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
+    [Serializable]
+    public class HappeningFullEvent : UnityEvent<HappeningFull> { }
 
     [Space, Title("Details")]
     //[SerializeField]
@@ -99,12 +101,16 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
 
+    [SerializeField]
+    HappeningFullEvent onApplyUpdate = null;
+
     HappeningService happeningService;
     PostService postService;
 
     long postId = -1;
     float contentInitialHeight = 0.0f;
     String phone = "", whatsapp = "", email = "";
+    HappeningFull happeningFull = null;
 
     private void Awake()
     {
@@ -131,6 +137,8 @@ public class HappeningDetailAction : MonoBehaviour
 
     public void ApplyFull(HappeningFull happeningFull)
     {
+        this.happeningFull = happeningFull;
+
         postId = happeningFull.PostId;
 
         // Post
@@ -201,6 +209,11 @@ public class HappeningDetailAction : MonoBehaviour
         btnUpdate.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyUpdate()
+    {
+        onApplyUpdate.Invoke(happeningFull);
     }
 
     // Favorite

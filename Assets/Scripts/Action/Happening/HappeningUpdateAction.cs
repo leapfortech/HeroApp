@@ -9,6 +9,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -45,7 +46,9 @@ public class HappeningUpdateAction : MonoBehaviour
     DataMapper dtmEmail = null;
 
     [SerializeField]
-    DataMapper dtmImagesVLL = null;
+    ValueList vllImages = null;
+    [SerializeField]
+    String spriteName = "Happening";
 
     [Title("Action")]
     [SerializeField]
@@ -89,7 +92,7 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmWhatsApp.ClearElements();
         dtmEmail.ClearElements();
 
-        dtmImagesVLL.ClearElements();
+        vllImages.ClearRecords();
     }
 
     public void ApplyFull(HappeningFull happeningFull)
@@ -157,7 +160,8 @@ public class HappeningUpdateAction : MonoBehaviour
         String endTimeStr = happening.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
 
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(happeningFull.ImageSprites);
+        for (int i = 0; i < happeningFull.ImageSprites.Count; i++)
+            vllImages.AddRecord(happeningFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -221,13 +225,12 @@ public class HappeningUpdateAction : MonoBehaviour
             }
         }
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        String[] strImages = new String[vllImages.RecordCount];
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        PostHelper.post.ImageCount = vllImages.RecordCount;
+        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
         happeningService.UpdateHappening(new RegisterHappeningRequest(PostHelper.post, contact, links, strImages, happening));
     }

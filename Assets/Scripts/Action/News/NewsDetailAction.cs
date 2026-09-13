@@ -16,6 +16,8 @@ public class NewsDetailAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
+    [Serializable]
+    public class NewsFullEvent : UnityEvent<NewsFull> { }
 
     [Space, Title("Details")]
     [SerializeField]
@@ -105,6 +107,9 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     UnityBoolEvent onReaction4Changed = null;
 
+    [SerializeField]
+    NewsFullEvent onApplyUpdate = null;
+
     NewsService newsService;
     PostService postService;
 
@@ -114,6 +119,7 @@ public class NewsDetailAction : MonoBehaviour
     long reactionPhraseId = -1, currentReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
+    NewsFull newsFull = null;
 
     private void Awake()
     {
@@ -146,6 +152,8 @@ public class NewsDetailAction : MonoBehaviour
 
     public void ApplyFull(NewsFull newsFull)
     {
+        this.newsFull = newsFull;
+
         postId = newsFull.PostId;
 
         reactionCounts = (int[])newsFull.ReactionCounts.Clone();
@@ -194,6 +202,11 @@ public class NewsDetailAction : MonoBehaviour
         btnUpdate.gameObject.SetActive(newsFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyUpdate()
+    {
+        onApplyUpdate.Invoke(newsFull);
     }
 
     // Reaction

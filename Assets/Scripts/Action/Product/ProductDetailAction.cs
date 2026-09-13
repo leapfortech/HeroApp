@@ -16,6 +16,8 @@ public class ProductDetailAction : MonoBehaviour
 {
     [Serializable]
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
+    [Serializable]
+    public class ProductFullEvent : UnityEvent<ProductFull> { }
 
     [Space, Title("Details")]
     [SerializeField]
@@ -88,12 +90,16 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
 
+    [SerializeField]
+    ProductFullEvent onApplyUpdate = null;
+
     ProductService productService;
     PostService postService;
 
     long postId = -1;
     String phone = "", whatsapp = "", email = "";
     float contentInitialHeight = 0.0f;
+    ProductFull productFull = null;
 
     private void Awake()
     {
@@ -119,6 +125,8 @@ public class ProductDetailAction : MonoBehaviour
 
     public void ApplyFull(ProductFull productFull)
     {
+        this.productFull = productFull;
+
         postId = productFull.PostId;
 
         // Post
@@ -194,6 +202,11 @@ public class ProductDetailAction : MonoBehaviour
         btnUpdate.gameObject.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         PageManager.Instance.ChangePage(pagDetail);
+    }
+
+    public void ApplyUpdate()
+    {
+        onApplyUpdate.Invoke(productFull);
     }
 
     // Favorite

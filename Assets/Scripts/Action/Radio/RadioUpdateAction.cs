@@ -9,6 +9,7 @@ using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -28,7 +29,9 @@ public class RadioUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmLink = null;
     [SerializeField]
-    DataMapper dtmImagesVLL = null;
+    ValueList vllImages = null;
+    [SerializeField]
+    String spriteName = "Radio";
 
     [Title("Action")]
     [SerializeField]
@@ -68,7 +71,7 @@ public class RadioUpdateAction : MonoBehaviour
         dtmRadioTypeVLL.ClearElements();
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
-        dtmImagesVLL.ClearElements();
+        vllImages.ClearRecords();
     }
 
     public void ApplyFull(RadioFull radioFull)
@@ -93,7 +96,8 @@ public class RadioUpdateAction : MonoBehaviour
             radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
         onRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
-        dtmImagesVLL.PopulateBuiltInList<Sprite>(radioFull.ImageSprites);
+        for (int i = 0; i < radioFull.ImageSprites.Count; i++)
+            vllImages.AddRecord(radioFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -113,13 +117,12 @@ public class RadioUpdateAction : MonoBehaviour
         List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
         List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        String[] strImages = new String[vllImages.RecordCount];
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        PostHelper.post.ImageCount = vllImages.RecordCount;
+        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
         radioService.UpdateRadio(new RegisterRadioRequest(PostHelper.post, new List<Link> { link }, strImages, radio, radioTypes, radioLanguages));
     }
