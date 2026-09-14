@@ -36,6 +36,9 @@ public class AppUserService : MonoBehaviour
     private UnityEvent onOptionsUpdated = null;
 
     [SerializeField]
+    private UnityLongEvent onOptionUpdated = null;
+
+    [SerializeField]
     private UnityEvent onStatusUpdated = null;
 
     [SerializeField]
@@ -186,6 +189,29 @@ public class AppUserService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             optionsPutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void UpdateOption(long id, int index, int newStatus)
+    {
+        AppUserOptionPutOperation optionPutOp = new AppUserOptionPutOperation();
+        try
+        {
+            optionPutOp.id = StateManager.Instance.AppUser.Id;
+            optionPutOp.index = index;
+            optionPutOp.newStatus = newStatus;
+            optionPutOp["on-complete"] = (Action<AppUserOptionPutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onOptionUpdated.Invoke(Convert.ToInt64(op.options));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            optionPutOp.Send();
         }
         catch (Exception ex)
         {

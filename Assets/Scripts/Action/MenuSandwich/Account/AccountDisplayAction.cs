@@ -32,6 +32,9 @@ public class AccountDisplayAction : MonoBehaviour
     [Space]
     [SerializeField]
     InputField[] ifdPhoneNumbers = null;
+    [Space]
+    [SerializeField]
+    Toggle tglNotifications = null;
 
     [Title("Actions")]
     [SerializeField]
@@ -93,10 +96,16 @@ public class AccountDisplayAction : MonoBehaviour
 
         for (int i = 0; i < cmbPhoneCountrys.Length; i++)
             cmbPhoneCountrys[i].Select(WebManager.Instance.WebSysUser.PhoneCountryId);
-        
+
         for (int i = 0; i < ifdPhoneNumbers.Length; i++)
             ifdPhoneNumbers[i].Text = isPhone ? WebManager.Instance.WebSysUser.Phone : "Teléfono no ingresado";
 
+
+        if (StateManager.Instance.GetOption(1) == 0)
+            tglNotifications.Uncheck();
+        else
+            tglNotifications.Check();
+        
         btnUpdatePhone.Interactable = isPhone;
     }
 }

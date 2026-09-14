@@ -108,9 +108,9 @@ public class HappeningUpdateAction : MonoBehaviour
             dtmContact.PopulateClass<Contact>(contact);
         }
 
-        dtmHasPhone.PopulateBuiltIn<string>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<string>("0");
-        dtmHasEmail.PopulateBuiltIn<string>("0");
+        dtmHasPhone.PopulateBuiltIn<String>("0");
+        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+        dtmHasEmail.PopulateBuiltIn<String>("0");
 
         if (happeningFull.LinkFulls == null)
             return;

@@ -94,6 +94,27 @@ public class AppUserOptionsPutOperation : HttpOperation
 }
 
 [HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/appUser/UpdateOption")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class AppUserOptionPutOperation : HttpOperation
+{
+    [HttpQueryString]
+    public long id;
+
+    [HttpQueryString]
+    public int index;
+
+    [HttpQueryString]
+    public int newStatus;
+
+    [HttpResponseTextBody]
+    public String options;
+}
+
+[HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/appUser/UpdateStatus")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpAccept("text/plain")]
