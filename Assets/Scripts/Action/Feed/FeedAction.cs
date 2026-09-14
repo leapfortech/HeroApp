@@ -505,6 +505,9 @@ public class FeedAction : MonoBehaviour
         if (trfOverlay == null)
             return;
 
+        if (loopFeed.ValuesCount == 0)
+            return;
+
         trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }

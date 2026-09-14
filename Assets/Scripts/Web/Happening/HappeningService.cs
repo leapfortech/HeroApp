@@ -108,18 +108,18 @@ public class HappeningService : MonoBehaviour
     // REGISTER
     public void Register(RegisterHappeningRequest registerHappeningRequest)
     {
-        HappeningRegisterOperation referredRegisterOp = new HappeningRegisterOperation();
+        HappeningRegisterOperation happeningRegisterOp = new HappeningRegisterOperation();
         try
         {
-            referredRegisterOp.registerHappeningRequest = registerHappeningRequest;
-            referredRegisterOp["on-complete"] = (Action<HappeningRegisterOperation, HttpResponse>)((op, response) =>
+            happeningRegisterOp.registerHappeningRequest = registerHappeningRequest;
+            happeningRegisterOp["on-complete"] = (Action<HappeningRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
-            referredRegisterOp.Send();
+            happeningRegisterOp.Send();
         }
         catch (Exception ex)
         {
@@ -130,18 +130,18 @@ public class HappeningService : MonoBehaviour
     // UPDATE
     public void UpdateHappening(RegisterHappeningRequest registerHappeningRequest)
     {
-        HappeningPutOperation referredPutOp = new HappeningPutOperation();
+        HappeningPutOperation happeningPutOp = new HappeningPutOperation();
         try
         {
-            referredPutOp.registerHappeningRequest = registerHappeningRequest;
-            referredPutOp["on-complete"] = (Action<HappeningPutOperation, HttpResponse>)((op, response) =>
+            happeningPutOp.registerHappeningRequest = registerHappeningRequest;
+            happeningPutOp["on-complete"] = (Action<HappeningPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onUpdated.Invoke(bool.Parse(op.response));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
-            referredPutOp.Send();
+            happeningPutOp.Send();
         }
         catch (Exception ex)
         {

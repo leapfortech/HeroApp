@@ -184,6 +184,24 @@ public class Post
         Status = puzzleFull.PostStatus;
     }
 
+    public Post(MemoryFull memoryFull)
+    {
+        Id = memoryFull.PostId;
+        AppUserId = memoryFull.AppUserId;
+        PostTypeId = memoryFull.PostTypeId;
+        CountryId = memoryFull.PostCountryId;
+        StateId = memoryFull.PostStateId;
+        Title = memoryFull.Title;
+        Summary = memoryFull.Summary;
+        Description = memoryFull.Description;
+        ImageCount = memoryFull.ImageCount;
+        LikeCount = memoryFull.LikeCount;
+        PublicationDateTime = memoryFull.PublicationDateTime;
+        ApprovalDateTime = null;
+        ExpirationDateTime = null;
+        Status = memoryFull.PostStatus;
+    }
+
     public void Update(Post post)
     {
         Title = post.Title;
