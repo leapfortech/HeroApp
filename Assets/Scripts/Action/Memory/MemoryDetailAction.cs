@@ -39,8 +39,6 @@ public class MemoryDetailAction : MonoBehaviour
     Text txtPlace = null;
     [SerializeField]
     Text txtDateTime = null;
-    [SerializeField]
-    Text txtLocation = null;
 
     [Space, SerializeField]
     Text[] txtReactionCounts = null;
@@ -139,7 +137,7 @@ public class MemoryDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtLocation.TextHeight - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
     }
 
     public void Display(long postId)
@@ -168,11 +166,7 @@ public class MemoryDetailAction : MonoBehaviour
         currentReactionPhraseId = memoryFull.ReactionPhraseId;
 
         // Post
-        //imgThumbnail.Sprite = memoryFull.ThumbnailSprite;
-
-        //txtAlias.TextValue = $"@{memoryFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(memoryFull.Title) ? "Evento" : memoryFull.Title)}";
-        //txtDateTime.TextValue = memoryFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
 
         if (txtSummary != null)
             txtSummary.TextValue = String.IsNullOrWhiteSpace(memoryFull.Summary) ? "-" : memoryFull.Summary;
@@ -187,7 +181,6 @@ public class MemoryDetailAction : MonoBehaviour
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-        txtLocation.TextValue = String.IsNullOrWhiteSpace(memoryFull.Location) ? "-" : memoryFull.Location;
 
         for (int i = 0; i < reactionCounts.Length; i++)
             txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
@@ -359,15 +352,13 @@ public class MemoryDetailAction : MonoBehaviour
     private void RefreshContents(int commentCount)
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfLocation = txtLocation.transform.GetComponent<RectTransform>();
         RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
 
-        rtfLocation.sizeDelta = new Vector2(rtfLocation.sizeDelta.x, txtLocation.TextHeight);
         rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
 
         DisplayComments(commentCount);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtLocation.TextHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
