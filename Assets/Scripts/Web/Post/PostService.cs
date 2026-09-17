@@ -31,6 +31,8 @@ public class PostService : MonoBehaviour
 
     [SerializeField]
     private UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    private UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
     private UnityLongEvent onLikeChanged = null;
@@ -175,6 +177,48 @@ public class PostService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterSelected(Selected selected)
+    {
+        SelectedRegisterOperation selectedRegisterOp = new SelectedRegisterOperation();
+        try
+        {
+            selectedRegisterOp.selected = selected;
+            selectedRegisterOp["on-complete"] = (Action<SelectedRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onSelectedChanged.Invoke(Convert.ToInt64(op.selectedId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            selectedRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteSelected(Selected selected)
+    {
+        SelectedDeleteOperation selectedDeleteOp = new SelectedDeleteOperation();
+        try
+        {
+            selectedDeleteOp.selected = selected;
+            selectedDeleteOp["on-complete"] = (Action<SelectedDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onSelectedChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            selectedDeleteOp.Send();
         }
         catch (Exception ex)
         {

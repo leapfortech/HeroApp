@@ -108,6 +108,36 @@ public class FavoriteDeleteOperation : HttpOperation
 }
 
 [HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/post/RegisterSelected")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class SelectedRegisterOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Selected selected;
+
+    [HttpResponseTextBody]
+    public String selectedId;
+}
+
+[HttpDELETE]
+[HttpPathExt(WebServiceType.Main, "/post/DeleteSelected")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("text/plain")]
+[HttpFirebaseAuthorization]
+public class SelectedDeleteOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public Selected selected;
+
+    [HttpResponseTextBody]
+    public String done;
+}
+
+[HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/RegisterLike")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
