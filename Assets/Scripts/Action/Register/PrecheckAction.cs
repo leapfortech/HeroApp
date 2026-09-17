@@ -126,6 +126,9 @@ public class PrecheckAction : MonoBehaviour
     {
         pnlPhone.SetActive(tggMethod.Value == "P");
         pnlEmail.SetActive(tggMethod.Value != "P");
+
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+        tggPhoneChannel.gameObject.SetActive(whatsAppEnabled == "1");
     }
 
     public void SelectCountryId(int countryId)
@@ -143,18 +146,27 @@ public class PrecheckAction : MonoBehaviour
     {
         Initialize();
 
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+
         switch (tggMethod.Value)
         {
             case "P":
-                switch (tggPhoneChannel.Value)
+                if (whatsAppEnabled == "0")
                 {
-                    case "S":
-                        RegisterPhoneSms();
-                        break;
+                    RegisterPhoneSms();
+                }
+                else
+                {
+                    switch (tggPhoneChannel.Value)
+                    {
+                        case "S":
+                            RegisterPhoneSms();
+                            break;
 
-                    case "W":
-                        RegisterPhoneWA();
-                        break;
+                        case "W":
+                            RegisterPhoneWA();
+                            break;
+                    }
                 }
                 break;
 
@@ -282,18 +294,27 @@ public class PrecheckAction : MonoBehaviour
         ScreenDialog.Instance.Display();
         isResend = true;
 
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+
         switch (tggMethod.Value)
         {
             case "P":
-                switch (tggPhoneChannel.Value)
+                if (whatsAppEnabled == "0")
                 {
-                    case "S":
-                        DoRegisterPhoneSms(null);
-                        break;
+                    DoRegisterPhoneSms(null);
+                }
+                else
+                {
+                    switch (tggPhoneChannel.Value)
+                    {
+                        case "S":
+                            DoRegisterPhoneSms(null);
+                            break;
 
-                    case "W":
-                        DoRegisterPhoneWA(null);
-                        break;
+                        case "W":
+                            DoRegisterPhoneWA(null);
+                            break;
+                    }
                 }
                 break;
 
@@ -310,20 +331,29 @@ public class PrecheckAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+
         switch (tggMethod.Value)
         {
             case "P":
                 PhoneCodeRequest phoneCodeRequest = new PhoneCodeRequest(cmbPhoneCountry.GetSelectedId(),ifdPhoneNumber.Text, ifdCode.Text);
-                
-                switch (tggPhoneChannel.Value)
-                {
-                    case "S":
-                        precheckService.ValidatePhoneSmsCode(phoneCodeRequest);
-                        break;
 
-                    case "W":
-                        precheckService.ValidatePhoneWACode(phoneCodeRequest);
-                        break;
+                if (whatsAppEnabled == "0")
+                {
+                    precheckService.ValidatePhoneSmsCode(phoneCodeRequest);
+                }
+                else
+                {
+                    switch (tggPhoneChannel.Value)
+                    {
+                        case "S":
+                            precheckService.ValidatePhoneSmsCode(phoneCodeRequest);
+                            break;
+
+                        case "W":
+                            precheckService.ValidatePhoneWACode(phoneCodeRequest);
+                            break;
+                    }
                 }
                 break;
 
