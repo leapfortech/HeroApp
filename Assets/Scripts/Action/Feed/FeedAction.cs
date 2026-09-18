@@ -33,6 +33,7 @@ public class FeedAction : MonoBehaviour
     [Title("Plaint")]
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
+
     [PropertySpace(6f)]
     [SerializeField]
     ChoiceOption[] options = null;
@@ -114,7 +115,7 @@ public class FeedAction : MonoBehaviour
 
         FeedUserData feedUserData = (FeedUserData)userData;
 
-        if (feedUserData.PostId == -1 || direction == 3)
+        if (feedUserData.PostId == -1L || direction == 3)
             ScreenDialog.Instance.Display();
 
         PostFeedRequest request = new PostFeedRequest
@@ -123,15 +124,18 @@ public class FeedAction : MonoBehaviour
 
             StartDateTime = feedUserData.PublicationDateTime,
             Direction = direction,
-            Count = feedUserData.PostId == -1 ? feedState.Count + feedState.Count : feedState.Count,
+            Count = feedUserData.PostId == -1L ? feedState.Count + feedState.Count : feedState.Count,
 
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = feedState.PostTypeId,
-            AppUserId = appUserId,
+            AppUserId = -1L, // appUserId,
             CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
             StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
-            Status = feedState.Status
+            Status = feedState.Status,
+
+            FavoriteAppUserId = appUserId,
+            SelectedAppUserId = -1L
         };
 
         //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
