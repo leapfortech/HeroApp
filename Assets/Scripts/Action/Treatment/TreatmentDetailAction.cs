@@ -161,9 +161,9 @@ public class TreatmentDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(treatmentFull.ImageSprites);
 
         // Actions
-        SetToggle(tglFavorite, treatmentFull.Favorite != 0);
-        SetToggle(tglLike, treatmentFull.Like == 5);
-        SetToggle(tglDislike, treatmentFull.Like == 1);
+        //SetToggle(tglFavorite, treatmentFull.Favorite != 0);
+        //SetToggle(tglLike, treatmentFull.Like == 5);
+        //SetToggle(tglDislike, treatmentFull.Like == 1);
         SetToggle(tglReaction, treatmentFull.ReactionPhraseId != -1);
 
         RefreshContents();

@@ -51,7 +51,7 @@ public class Post
         Summary = taleFull.Summary;
         Description = taleFull.Description;
         ImageCount = taleFull.ImageCount;
-        LikeCount = taleFull.LikeCount;
+        //LikeCount = taleFull.LikeCount;
         PublicationDateTime = taleFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -69,7 +69,7 @@ public class Post
         Summary = recipeFull.Summary;
         Description = recipeFull.Description;
         ImageCount = recipeFull.ImageCount;
-        LikeCount = recipeFull.LikeCount;
+        //LikeCount = recipeFull.LikeCount;
         PublicationDateTime = recipeFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -87,7 +87,7 @@ public class Post
         Summary = treatmentFull.Summary;
         Description = treatmentFull.Description;
         ImageCount = treatmentFull.ImageCount;
-        LikeCount = treatmentFull.LikeCount;
+        //LikeCount = treatmentFull.LikeCount;
         PublicationDateTime = treatmentFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -105,7 +105,7 @@ public class Post
         Summary = radioFull.Summary;
         Description = radioFull.Description;
         ImageCount = radioFull.ImageCount;
-        LikeCount = radioFull.LikeCount;
+        //LikeCount = radioFull.LikeCount;
         PublicationDateTime = radioFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -123,7 +123,7 @@ public class Post
         Summary = productFull.Summary;
         Description = productFull.Description;
         ImageCount = productFull.ImageCount;
-        LikeCount = productFull.LikeCount;
+        //LikeCount = productFull.LikeCount;
         PublicationDateTime = productFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -141,7 +141,7 @@ public class Post
         Summary = happeningFull.Summary;
         Description = happeningFull.Description;
         ImageCount = happeningFull.ImageCount;
-        LikeCount = happeningFull.LikeCount;
+        //LikeCount = happeningFull.LikeCount;
         PublicationDateTime = happeningFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -159,7 +159,7 @@ public class Post
         Summary = newsFull.Summary;
         Description = newsFull.Description;
         ImageCount = newsFull.ImageCount;
-        LikeCount = newsFull.LikeCount;
+        //LikeCount = newsFull.LikeCount;
         PublicationDateTime = newsFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -177,7 +177,7 @@ public class Post
         Summary = puzzleFull.Summary;
         Description = puzzleFull.Description;
         ImageCount = puzzleFull.ImageCount;
-        LikeCount = puzzleFull.LikeCount;
+        //LikeCount = puzzleFull.LikeCount;
         PublicationDateTime = puzzleFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -195,7 +195,7 @@ public class Post
         Summary = memoryFull.Summary;
         Description = memoryFull.Description;
         ImageCount = memoryFull.ImageCount;
-        LikeCount = memoryFull.LikeCount;
+        //LikeCount = memoryFull.LikeCount;
         PublicationDateTime = memoryFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;

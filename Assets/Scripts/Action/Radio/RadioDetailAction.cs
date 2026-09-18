@@ -185,7 +185,7 @@ public class RadioDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(radioFull.ImageSprites);
 
         // Actions
-        SetToggle(tglFavorite, radioFull.Favorite != 0);
+        //SetToggle(tglFavorite, radioFull.Favorite != 0);
 
         RefreshContents(deltaY);
 

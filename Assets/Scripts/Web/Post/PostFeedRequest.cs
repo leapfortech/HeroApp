@@ -10,7 +10,7 @@ public class PostFeedRequest
     public int Count { get; set; } = 20;
 
     // LIKE
-    public long LikeAppUserId { get; set; } = -1;
+    public long ReactionAppUserId { get; set; } = -1;
 
     // FILTERS
     public long PostTypeId { get; set; } = -1;
@@ -23,13 +23,13 @@ public class PostFeedRequest
     {
     }
 
-    public PostFeedRequest(int chunk, DateTime startDateTime, int direction, int count, long likeAppUserId, long postTypeId, long appUserId, long countryId, long stateId, int status)
+    public PostFeedRequest(int chunk, DateTime startDateTime, int direction, int count, long reactionAppUserId, long postTypeId, long appUserId, long countryId, long stateId, int status)
     {
         Chunk = chunk;
         StartDateTime = startDateTime;
         Direction = direction;
         Count = count;
-        LikeAppUserId = likeAppUserId;
+        ReactionAppUserId = reactionAppUserId;
 
         PostTypeId = postTypeId;
         AppUserId = appUserId;

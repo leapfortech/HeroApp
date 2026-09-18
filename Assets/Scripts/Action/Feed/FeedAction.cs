@@ -125,7 +125,7 @@ public class FeedAction : MonoBehaviour
             Direction = direction,
             Count = feedUserData.PostId == -1 ? feedState.Count + feedState.Count : feedState.Count,
 
-            LikeAppUserId = StateManager.Instance.AppUser.Id,
+            ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = feedState.PostTypeId,
             AppUserId = appUserId,
@@ -251,9 +251,6 @@ public class FeedAction : MonoBehaviour
             loopValue.SetText(5, postFull.ImageCount < 2 ? null : $"+{(postFull.ImageCount - 1).ToString()}");
         }
 
-        loopValue.SetCheck(0, postFull.Favorite != 0);
-        loopValue.SetCheck(1, postFull.Like == 5);
-        loopValue.SetCheck(2, postFull.Like == 1);
         loopValue.SetCheck(3, postFull.ReactionPhraseId != -1);
     }
 

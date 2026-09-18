@@ -202,7 +202,7 @@ public class HappeningDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
         // Actions
-        SetToggle(tglFavorite, happeningFull.Favorite != 0);
+        //SetToggle(tglFavorite, happeningFull.Favorite != 0);
 
         RefreshContents();
 

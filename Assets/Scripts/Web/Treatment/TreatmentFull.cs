@@ -34,7 +34,7 @@ public class TreatmentFull : PostFull
     public TreatmentFull(long id, long postId, long appUserId, String appUserAlias,
                             long postSubtypeId, long postCountryId, long postStateId,
                             String title, String titleImage, String summary, String description,
-                            int imageCount, int[] reactionCounts, int commentCount, int favorite, int like, int likeCount, long reactionPhraseId,
+                            int imageCount, int[] reactionCounts, long reactionPhraseId, int commentCount, 
                             DateTime publicationDateTime, int postStatus,
                             AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
                             String ingredients, String preparation, String usage, String annotation,
@@ -42,7 +42,7 @@ public class TreatmentFull : PostFull
                             String[] images)
         : base(postId, appUserId, appUserAlias, postSubtypeId,
                postCountryId, postStateId, title, titleImage, summary, description,
-               imageCount, reactionCounts, commentCount, favorite, like, likeCount, reactionPhraseId, publicationDateTime, postStatus,
+               imageCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls)
     {
         Id = id;
