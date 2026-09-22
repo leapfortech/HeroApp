@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class RadioService : MonoBehaviour
 {
     [Serializable]
+    public class RadioFeedResponseEvent : UnityEvent<RadioFeedResponse> { }
+
+    [Serializable]
     public class RadioFullEvent : UnityEvent<RadioFull> { }
 
     [Serializable]
     public class RadioFullsEvent : UnityEvent<List<RadioFull>> { }
+
+    [SerializeField]
+    private RadioFeedResponseEvent onFeedRetreived = null;
 
     [SerializeField]
     private RadioFullEvent onFullRetreived = null;
@@ -28,10 +34,15 @@ public class RadioService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
+    private UnityBoolEvent onFavoriteChanged = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
     [Title("Errors")]
+    [SerializeField]
+    private UnityStringEvent onSendError = null;
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
@@ -40,6 +51,27 @@ public class RadioService : MonoBehaviour
 
 
     // GET
+    public void GetFeed(RadioFeedRequest request)
+    {
+        RadioGetFeedOperation radioFeedGetOp = new RadioGetFeedOperation();
+        try
+        {
+            radioFeedGetOp.request = request;
+            radioFeedGetOp["on-complete"] = (Action<RadioGetFeedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFeedRetreived.Invoke(op.response);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            radioFeedGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
     public void GetFull(long id, long likeAppUserId)
     {
         RadioGetFullOperation radioFullGetOp = new RadioGetFullOperation();
@@ -141,6 +173,48 @@ public class RadioService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             radioListenRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterFavorite(Favorite favorite)
+    {
+        FavoriteRegisterOperation favoriteRegisterOp = new FavoriteRegisterOperation();
+        try
+        {
+            favoriteRegisterOp.favorite = favorite;
+            favoriteRegisterOp["on-complete"] = (Action<FavoriteRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteFavorite(Favorite favorite)
+    {
+        FavoriteDeleteOperation favoriteDeleteOp = new FavoriteDeleteOperation();
+        try
+        {
+            favoriteDeleteOp.favorite = favorite;
+            favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteDeleteOp.Send();
         }
         catch (Exception ex)
         {

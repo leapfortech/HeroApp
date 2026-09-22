@@ -56,6 +56,21 @@ public class RadioGetFullsOperation : HttpOperation
     public List<RadioFull> radioFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/radio/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public RadioFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public RadioFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/radio/register")]

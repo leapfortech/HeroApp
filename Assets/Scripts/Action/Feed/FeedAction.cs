@@ -42,7 +42,7 @@ public class FeedAction : MonoBehaviour
     [SerializeField]
     Page pagMenu = null;
     [SerializeField]
-    [TextArea(2, 5)]
+    [PropertySpace(4f, 0f), TextArea(2, 5)]
     String timeoutError = "La petición excedió el tiempo de espera.\nRevisa tu conexión a Internet.\n¿Deseas intentar cargar de nuevo?";
 
     [Title("Debug")]
