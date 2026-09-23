@@ -100,7 +100,7 @@ public class RadioFeedAction : MonoBehaviour
         txtEmpty.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new NewsUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new RadioUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
@@ -238,7 +238,7 @@ public class RadioFeedAction : MonoBehaviour
         bool empty = radioFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
         loopValue.ItemSize = empty ? 2000 : 270;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new NewsUserData(radioFeed.PostId, radioFeed.PublicationDateTime, radioFeed.Url));
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new RadioUserData(radioFeed.PostId, radioFeed.PublicationDateTime, radioFeed.Url));
 
         if (empty)
             return;
@@ -308,7 +308,7 @@ public class RadioFeedAction : MonoBehaviour
 
     public void Play(int idx)
     {
-        Application.OpenURL(((NewsUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Url);
+        Application.OpenURL(((RadioUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Url);
     }
 
     // Favorite

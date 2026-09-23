@@ -56,6 +56,21 @@ public class NewsGetFullsOperation : HttpOperation
     public List<NewsFull> newsFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/news/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class NewsGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public NewsFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public NewsFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/news/register")]

@@ -13,10 +13,15 @@ using Sirenix.OdinInspector;
 public class NewsService : MonoBehaviour
 {
     [Serializable]
+    public class NewsFeedResponseEvent : UnityEvent<NewsFeedResponse> { }
+    [Serializable]
     public class NewsFullEvent : UnityEvent<NewsFull> { }
 
     [Serializable]
     public class NewsFullsEvent : UnityEvent<List<NewsFull>> { }
+
+    [SerializeField]
+    private NewsFeedResponseEvent onFeedRetreived = null;
 
     [SerializeField]
     private NewsFullEvent onFullRetreived = null;
@@ -36,6 +41,8 @@ public class NewsService : MonoBehaviour
 
     [Title("Errors")]
     [SerializeField]
+    private UnityStringEvent onSendError = null;
+    [SerializeField]
     private UnityStringEvent onResponseError = null;
 
     [SerializeField]
@@ -43,6 +50,27 @@ public class NewsService : MonoBehaviour
 
 
     // GET
+    public void GetFeed(NewsFeedRequest request)
+    {
+        NewsGetFeedOperation newsFeedGetOp = new NewsGetFeedOperation();
+        try
+        {
+            newsFeedGetOp.request = request;
+            newsFeedGetOp["on-complete"] = (Action<NewsGetFeedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFeedRetreived.Invoke(op.response);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            newsFeedGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
     public void GetFull(long id, long likeAppUserId)
     {
         NewsGetFullOperation newsFullGetOp = new NewsGetFullOperation();

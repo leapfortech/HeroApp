@@ -230,7 +230,7 @@ MonoBehaviour:
         Name: 'HM: O: Button: Alignment'
         Reference: 1
         Value: 0
-        Property: 'O: Alignment: Center'
+        Property: 'O: Alignment: Left'
     - rid: 749284608293994573
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -239,7 +239,7 @@ MonoBehaviour:
         Name: 'HM: O: Button: Icon: Place'
         Reference: 1
         Value: 0
-        Property: 'O: Icon: None'
+        Property: 'O: Icon: Right'
     - rid: 749284608293994574
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -11290,6 +11290,8 @@ MonoBehaviour:
         - rid: 4182706217894281499
         - rid: 4182706217894281500
         - rid: 8269303293662986437
+        - rid: 8819016162668446563
+        - rid: 8819016162668446564
         DictFloats:
           keys:
           - 'W: Button'
@@ -11629,6 +11631,8 @@ MonoBehaviour:
           - 'HM: B: Tab: Default'
           - 'HM: I: Tab'
           - 'HM: M: Main: Large: Title: Y'
+          - 'HM: FeedMain: Title: Y'
+          - 'M: FeedMain: Spacing'
           values:
           - rid: 7896456371522242341
           - rid: 7896456371522242342
@@ -11967,6 +11971,8 @@ MonoBehaviour:
           - rid: 4182706217894281499
           - rid: 4182706217894281500
           - rid: 8269303293662986437
+          - rid: 8819016162668446563
+          - rid: 8819016162668446564
         colors:
         - rid: 7896456371522242661
         - rid: 7896456371522242662
@@ -31724,7 +31730,7 @@ MonoBehaviour:
         Name: Bit
         Reference: 1
         Value: 0
-        Property: 'Font: Small'
+        Property: 'Font: Mini'
     - rid: 7896456371522241756
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -32498,7 +32504,7 @@ MonoBehaviour:
         Name: Bit
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'CmpD: Dark'
+        Property: 'GreyScale: C'
     - rid: 7896456371522241860
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -38383,7 +38389,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'M: Button: Title: X'
         Reference: 0
-        Value: 0
+        Value: 27
         Property: 
     - rid: 7896456371522242552
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -38870,7 +38876,7 @@ MonoBehaviour:
         Name: 'F: Button: On'
         Reference: 1
         Value: 0
-        Property: 'Font: Clear'
+        Property: 'Font: Fine'
     - rid: 7896456371522242606
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -42757,7 +42763,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'Dialog: Small: Title: On: Default'
         Reference: 0
-        Value: {r: 1, g: 0, b: 1, a: 1}
+        Value: {r: 0.2679245, g: 0.2679245, b: 0.2679245, a: 1}
         Property: 
     - rid: 7896456371522243046
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -50147,6 +50153,24 @@ MonoBehaviour:
         Name: 'H: Radio: Play'
         Reference: 0
         Value: 100
+        Property: 
+    - rid: 8819016162668446563
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedMain: Title: Y'
+        Reference: 0
+        Value: 27
+        Property: 
+    - rid: 8819016162668446564
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'M: FeedMain: Spacing'
+        Reference: 0
+        Value: 27
         Property: 
     - rid: 9045246306593013966
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
