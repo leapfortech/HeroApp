@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 using Leap.Core.Tools;
 using Leap.Graphics.Tools;
+using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
@@ -16,7 +17,9 @@ public class RadioFeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
-    FeedState feedConfig = null;
+    int feedCount = 20;
+    [SerializeField]
+    Text txtLocality = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -26,13 +29,15 @@ public class RadioFeedAction : MonoBehaviour
     [SerializeField]
     float smoothReload = 1f;
 
-    [Title("Reaction")]
-    [SerializeField]
-    ComboAdapter cmbReaction = null;
-
     [Title("Plaint")]
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
+
+    [Title("Data")]
+    [SerializeField]
+    ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllState = null;
 
     [Title("Errors")]
     [SerializeField]
@@ -52,7 +57,6 @@ public class RadioFeedAction : MonoBehaviour
     UnityLongEvent onValueSelected = null;
 
     RadioService radioService;
-    FeedState feedState;
     int selectedIdx = -1;
     readonly RadioFeed emptyRadioFeed = new RadioFeed();
 
@@ -66,14 +70,13 @@ public class RadioFeedAction : MonoBehaviour
 
     public void CreateLoopFeed()
     {
-        feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
-        int feedCount = feedState.Count * 4;
+        int valueCount = feedCount * 4;
 
-        valueDates = new String[feedCount];
+        valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
         DateTime utcNow = DateTime.UtcNow;
-        for (int k = 0; k < feedCount; k++)
+        for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
             UpdateValue(emptyRadioFeed, loopValue, utcNow);
@@ -86,6 +89,9 @@ public class RadioFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
+        txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
+                                                                                       vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
+
         if (!MustReset && !force)
             return;
 
@@ -94,14 +100,14 @@ public class RadioFeedAction : MonoBehaviour
         txtEmpty.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new NewsUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
 
     //public void ReloadPosts(bool force)
     //{
-    //    GetPosts(firstPostIdx, new FeedUserData(firstPostId, DateTime.UtcNow), 3);
+    //    GetPosts(firstPostIdx, new NewsUserData(firstPostId, DateTime.UtcNow), 3);
     //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
@@ -120,15 +126,15 @@ public class RadioFeedAction : MonoBehaviour
 
             StartDateTime = feedUserData.PublicationDateTime,
             Direction = direction,
-            Count = feedUserData.PostId == -1L ? feedState.Count + feedState.Count : feedState.Count,
+            Count = feedUserData.PostId == -1L ? feedCount + feedCount : feedCount,
 
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
-            PostTypeId = feedState.PostTypeId,
+            PostTypeId = PostType.Radio,
             AppUserId = -1L, // appUserId,
-            CountryId = -1L, // interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
-            StateId = -1L, // interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
-            Status = feedState.Status,
+            CountryId = StateManager.Instance.InterestLocality.CountryId,
+            StateId = StateManager.Instance.InterestLocality.StateId,
+            Status = 1,
 
             FavoriteAppUserId = appUserId,
             SelectedAppUserId = -1L
@@ -175,7 +181,7 @@ public class RadioFeedAction : MonoBehaviour
             }
             else
             {
-                for (int i = response.RadioFeeds.Count; i < feedState.Count; i++)
+                for (int i = response.RadioFeeds.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyRadioFeed, loopFeed[k], utcNow);
@@ -185,7 +191,7 @@ public class RadioFeedAction : MonoBehaviour
         }
         else
         {
-            int n = feedState.Count - response.RadioFeeds.Count;
+            int n = feedCount - response.RadioFeeds.Count;
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
@@ -209,13 +215,13 @@ public class RadioFeedAction : MonoBehaviour
 
         if (response.Direction == 3 && response.RadioFeeds.Count > 0)
         {
-            int dataIndex = (startLoopIdx + feedState.Count - response.RadioFeeds.Count) % loopFeed.ValuesCount;
+            int dataIndex = (startLoopIdx + feedCount - response.RadioFeeds.Count) % loopFeed.ValuesCount;
 
             if (smoothReload > 0f)
             {
-                loopFeed.SelectedIndex = (startLoopIdx + feedState.Count) % loopFeed.ValuesCount;
+                loopFeed.SelectedIndex = (startLoopIdx + feedCount) % loopFeed.ValuesCount;
                 loopFeed.SelectSmooth(dataIndex);
-                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedState.Count} | {response.PostFulls.Count} | {dataIndex}");
+                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedCount} | {response.PostFulls.Count} | {dataIndex}");
             }
             else
                 loopFeed.SelectedIndex = dataIndex;
@@ -232,7 +238,7 @@ public class RadioFeedAction : MonoBehaviour
         bool empty = radioFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
         loopValue.ItemSize = empty ? 2000 : 270;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedUserData(radioFeed.PostId, radioFeed.PublicationDateTime));
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new NewsUserData(radioFeed.PostId, radioFeed.PublicationDateTime, radioFeed.Url));
 
         if (empty)
             return;
@@ -298,11 +304,11 @@ public class RadioFeedAction : MonoBehaviour
         ResetPosts(true);
     }
 
-    // Locality
+    // Play
 
-    public void ApplyLocality()
+    public void Play(int idx)
     {
-        //String locality = StateManager.Instance.CurrentLocality.StateId;
+        Application.OpenURL(((NewsUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Url);
     }
 
     // Favorite
@@ -362,25 +368,25 @@ public class RadioFeedAction : MonoBehaviour
 
     // Plaint
 
-    //public void DisplayPlaintTypes()
-    //{
-    //    cmbPlaintType.Combo.Click();
-    //}
+    public void DisplayPlaintTypes()
+    {
+        cmbPlaintType.Combo.Click();
+    }
 
-    //public void ApplyPlaint()
-    //{
-    //    ScreenDialog.Instance.Display();
+    public void ApplyPlaint()
+    {
+        ScreenDialog.Instance.Display();
 
-    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
+        long plaintTypeId = cmbPlaintType.GetSelectedId();
 
-    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    radioService.RegisterPostPlaint(postPlaint);
-    //}
+        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+        //radioService.RegisterPostPlaint(postPlaint);
+    }
 
-    //public void PlaintRegistered()
-    //{
-    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    //}
+    public void PlaintRegistered()
+    {
+        ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    }
 
     // Errors
 

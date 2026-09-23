@@ -16,7 +16,10 @@ public class FeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
-    FeedState feedConfig = null;
+    EPostType feedType = EPostType.None;
+
+    [SerializeField]
+    int feedCount = 20;
 
     [Title("Loop")]
     [SerializeField]
@@ -56,7 +59,6 @@ public class FeedAction : MonoBehaviour
     UnityLongEvent onValueSelected = null;
 
     PostService postService;
-    FeedState feedState;
     int selectedIdx = -1;
     readonly PostFull emptyPostFull = new PostFull();
 
@@ -70,14 +72,13 @@ public class FeedAction : MonoBehaviour
 
     public void CreateLoopFeed()
     {
-        feedState = StateManager.Instance.GetFeedState(feedConfig.FeedKey);
-        int feedCount = feedState.Count * 4;
+        int valueCount = feedCount * 4;
 
-        valueDates = new String[feedCount];
+        valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
         DateTime utcNow = DateTime.UtcNow;
-        for (int k = 0; k < feedCount; k++)
+        for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
             UpdateValue(emptyPostFull, loopValue, utcNow);
@@ -124,15 +125,15 @@ public class FeedAction : MonoBehaviour
 
             StartDateTime = feedUserData.PublicationDateTime,
             Direction = direction,
-            Count = feedUserData.PostId == -1L ? feedState.Count + feedState.Count : feedState.Count,
+            Count = feedUserData.PostId == -1L ? feedCount + feedCount : feedCount,
 
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
-            PostTypeId = feedState.PostTypeId,
+            PostTypeId = (long)feedType,
             AppUserId = -1L, // appUserId,
             CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
             StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
-            Status = feedState.Status,
+            Status = 1,
 
             FavoriteAppUserId = appUserId,
             SelectedAppUserId = -1L
@@ -179,7 +180,7 @@ public class FeedAction : MonoBehaviour
             }
             else
             {
-                for (int i = response.PostFulls.Count; i < feedState.Count; i++)
+                for (int i = response.PostFulls.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyPostFull, loopFeed[k], utcNow);
@@ -189,7 +190,7 @@ public class FeedAction : MonoBehaviour
         }
         else
         {
-            int n = feedState.Count - response.PostFulls.Count;
+            int n = feedCount - response.PostFulls.Count;
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
@@ -213,13 +214,13 @@ public class FeedAction : MonoBehaviour
 
         if (response.Direction == 3 && response.PostFulls.Count > 0)
         {
-            int dataIndex = (startLoopIdx + feedState.Count - response.PostFulls.Count) % loopFeed.ValuesCount;
+            int dataIndex = (startLoopIdx + feedCount - response.PostFulls.Count) % loopFeed.ValuesCount;
 
             if (smoothReload > 0f)
             {
-                loopFeed.SelectedIndex = (startLoopIdx + feedState.Count) % loopFeed.ValuesCount;
+                loopFeed.SelectedIndex = (startLoopIdx + feedCount) % loopFeed.ValuesCount;
                 loopFeed.SelectSmooth(dataIndex);
-                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedState.Count} | {response.PostFulls.Count} | {dataIndex}");
+                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedCount} | {response.PostFulls.Count} | {dataIndex}");
             }
             else
                 loopFeed.SelectedIndex = dataIndex;

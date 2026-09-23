@@ -107,37 +107,6 @@ public class StateManager : SingletonBehaviour<StateManager>
         Address.CityId = addressCity.CityId;
     }
 
-    // FEEDS
-    [Space]
-    [Header("Feeds")]
-    [SerializeField]
-    private List<FeedState> feedStates = new();
-    private Dictionary<String, FeedState> feedMap;
-
-    private void FeedInitialize()
-    {
-        if (feedMap != null)
-            return;
-
-        feedMap = new Dictionary<String, FeedState>();
-
-        for (int i = 0; i < feedStates.Count; i++)
-            feedMap[feedStates[i].FeedKey] = Instantiate(feedStates[i]);
-    }
-
-    public FeedState GetFeedState(String feedKey)
-    {
-        FeedInitialize();
-
-        if (!feedMap.TryGetValue(feedKey, out FeedState state))
-        {
-            Debug.LogError($"Feed not found: {feedKey.ToString()}");
-            return null;
-        }
-
-        return state;
-    }
-
     // Puzzle
     public PuzzleFull PuzzleFull { get; set; }
 
@@ -232,9 +201,6 @@ public class StateManager : SingletonBehaviour<StateManager>
         // Locality
         InterestLocality = null;
         CurrentLocality = null;
-
-        // Feeds
-        FeedInitialize();
 
         // Clear
         ClearPuzzle();
