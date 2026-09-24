@@ -56,6 +56,21 @@ public class MemoryGetFullsOperation : HttpOperation
     public List<MemoryFull> memoryFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/memory/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class MemoryGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public MemoryFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public MemoryFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/memory/register")]

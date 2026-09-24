@@ -13,10 +13,16 @@ using Sirenix.OdinInspector;
 public class HappeningService : MonoBehaviour
 {
     [Serializable]
+    public class HappeningFeedResponseEvent : UnityEvent<HappeningFeedResponse> { }
+
+    [Serializable]
     public class HappeningFullEvent : UnityEvent<HappeningFull> { }
 
     [Serializable]
     public class HappeningFullsEvent : UnityEvent<List<HappeningFull>> { }
+
+    [SerializeField]
+    private HappeningFeedResponseEvent onFeedRetreived = null;
 
     [SerializeField]
     private HappeningFullEvent onFullRetreived = null;
@@ -28,10 +34,19 @@ public class HappeningService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
+    private UnityBoolEvent onFavoriteChanged = null;
+
+    [SerializeField]
+    private UnityBoolEvent onSelectedChanged = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
     [Title("Errors")]
+    [SerializeField]
+    private UnityStringEvent onSendError = null;
+
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
@@ -40,6 +55,27 @@ public class HappeningService : MonoBehaviour
 
 
     // GET
+    public void GetFeed(HappeningFeedRequest request)
+    {
+        HappeningGetFeedOperation happeningFeedGetOp = new HappeningGetFeedOperation();
+        try
+        {
+            happeningFeedGetOp.request = request;
+            happeningFeedGetOp["on-complete"] = (Action<HappeningGetFeedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFeedRetreived.Invoke(op.response);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            happeningFeedGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
     public void GetFull(long id, long likeAppUserId)
     {
         HappeningGetFullOperation happeningFullGetOp = new HappeningGetFullOperation();
@@ -120,6 +156,90 @@ public class HappeningService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             happeningRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterFavorite(Favorite favorite)
+    {
+        FavoriteRegisterOperation favoriteRegisterOp = new FavoriteRegisterOperation();
+        try
+        {
+            favoriteRegisterOp.favorite = favorite;
+            favoriteRegisterOp["on-complete"] = (Action<FavoriteRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteFavorite(Favorite favorite)
+    {
+        FavoriteDeleteOperation favoriteDeleteOp = new FavoriteDeleteOperation();
+        try
+        {
+            favoriteDeleteOp.favorite = favorite;
+            favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterSelected(Selected selected)
+    {
+        SelectedRegisterOperation selectedRegisterOp = new SelectedRegisterOperation();
+        try
+        {
+            selectedRegisterOp.selected = selected;
+            selectedRegisterOp["on-complete"] = (Action<SelectedRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onSelectedChanged.Invoke(Convert.ToInt64(op.selectedId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            selectedRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteSelected(Selected selected)
+    {
+        SelectedDeleteOperation selectedDeleteOp = new SelectedDeleteOperation();
+        try
+        {
+            selectedDeleteOp.selected = selected;
+            selectedDeleteOp["on-complete"] = (Action<SelectedDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onSelectedChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            selectedDeleteOp.Send();
         }
         catch (Exception ex)
         {

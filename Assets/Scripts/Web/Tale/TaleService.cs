@@ -13,10 +13,15 @@ using Sirenix.OdinInspector;
 public class TaleService : MonoBehaviour
 {
     [Serializable]
+    public class TaleFeedResponseEvent : UnityEvent<TaleFeedResponse> { }
+    [Serializable]
     public class TaleFullEvent : UnityEvent<TaleFull> { }
 
     [Serializable]
     public class TaleFullsEvent : UnityEvent<List<TaleFull>> { }
+
+    [SerializeField]
+    private TaleFeedResponseEvent onFeedRetreived = null;
 
     [SerializeField]
     private TaleFullEvent onFullRetreived = null;
@@ -28,10 +33,16 @@ public class TaleService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
+    private UnityBoolEvent onReactionChanged = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
     [Title("Errors")]
+    [SerializeField]
+    private UnityStringEvent onSendError = null;
+
     [SerializeField]
     private UnityStringEvent onResponseError = null;
 
@@ -40,6 +51,27 @@ public class TaleService : MonoBehaviour
 
 
     // GET
+    public void GetFeed(TaleFeedRequest request)
+    {
+        TaleGetFeedOperation taleFeedGetOp = new TaleGetFeedOperation();
+        try
+        {
+            taleFeedGetOp.request = request;
+            taleFeedGetOp["on-complete"] = (Action<TaleGetFeedOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFeedRetreived.Invoke(op.response);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            taleFeedGetOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
     public void GetFull(long id, long likeAppUserId)
     {
         TaleGetFullOperation taleFullGetOp = new TaleGetFullOperation();
@@ -120,6 +152,48 @@ public class TaleService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             taleRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterReaction(Reaction reaction)
+    {
+        ReactionRegisterOperation reactionRegisterOp = new ReactionRegisterOperation();
+        try
+        {
+            reactionRegisterOp.reaction = reaction;
+            reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToInt64(op.reactionId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteReaction(Reaction reaction)
+    {
+        ReactionDeleteOperation reactionDeleteOp = new ReactionDeleteOperation();
+        try
+        {
+            reactionDeleteOp.reaction = reaction;
+            reactionDeleteOp["on-complete"] = (Action<ReactionDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionDeleteOp.Send();
         }
         catch (Exception ex)
         {

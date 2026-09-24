@@ -56,6 +56,21 @@ public class TaleGetFullsOperation : HttpOperation
     public List<TaleFull> taleFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/tale/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TaleGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public TaleFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public TaleFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/tale/register")]

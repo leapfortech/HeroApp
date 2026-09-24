@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 using Leap.Graphics.Tools;
 
-public class HappeningFeed
+public class MemoryFeed
 {
     public long Id { get; set; }
     public long PostId { get; set; }
@@ -14,15 +14,11 @@ public class HappeningFeed
     }
     public Sprite TitleSprite { get; set; } = null;
     public String Title { get; set; }
-    public DateTime? StartDateTime { get; set; }
-    public DateTime? EndDateTime { get; set; }
-    public String HappeningType { get; set; }
     public String Country { get; set; }
     public String State { get; set; }
-    public String Location { get; set; }
-    public int Selected { get; set; }
-    public int Favorite { get; set; }
-    public int FavoriteCount { get; set; }
+    public DateTime? DateTime { get; set; }
+    public int[] ReactionCounts { get; set; }
+    public long ReactionPhraseId { get; set; }
 
-    public DateTime PublicationDateTime { get; set; }
+    public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
 }

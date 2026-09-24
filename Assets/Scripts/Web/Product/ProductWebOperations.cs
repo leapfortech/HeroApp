@@ -56,6 +56,21 @@ public class ProductGetFullsOperation : HttpOperation
     public List<ProductFull> productFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/product/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public ProductFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public ProductFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/product/register")]

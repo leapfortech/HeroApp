@@ -56,6 +56,21 @@ public class HappeningGetFullsOperation : HttpOperation
     public List<HappeningFull> happeningFulls;
 }
 
+[HttpPOST]
+[HttpPathExt(WebServiceType.Main, "/happening/Feed")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class HappeningGetFeedOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public HappeningFeedRequest request;
+
+    [HttpResponseJsonBody]
+    public HappeningFeedResponse response;
+}
+
 // REGISTER
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/happening/register")]

@@ -33,9 +33,6 @@ public class NewsService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
-    private UnityBoolEvent onFavoriteChanged = null;
-
-    [SerializeField]
     private UnityBoolEvent onReactionChanged = null;
 
     [SerializeField]
@@ -154,48 +151,6 @@ public class NewsService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             referredRegisterOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void RegisterFavorite(Favorite favorite)
-    {
-        FavoriteRegisterOperation favoriteRegisterOp = new FavoriteRegisterOperation();
-        try
-        {
-            favoriteRegisterOp.favorite = favorite;
-            favoriteRegisterOp["on-complete"] = (Action<FavoriteRegisterOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
-                else
-                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
-            });
-            favoriteRegisterOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void DeleteFavorite(Favorite favorite)
-    {
-        FavoriteDeleteOperation favoriteDeleteOp = new FavoriteDeleteOperation();
-        try
-        {
-            favoriteDeleteOp.favorite = favorite;
-            favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
-                else
-                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
-            });
-            favoriteDeleteOp.Send();
         }
         catch (Exception ex)
         {
