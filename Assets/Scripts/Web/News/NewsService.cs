@@ -36,6 +36,9 @@ public class NewsService : MonoBehaviour
     private UnityBoolEvent onFavoriteChanged = null;
 
     [SerializeField]
+    private UnityBoolEvent onReactionChanged = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
@@ -193,6 +196,48 @@ public class NewsService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterReaction(Reaction reaction)
+    {
+        ReactionRegisterOperation reactionRegisterOp = new ReactionRegisterOperation();
+        try
+        {
+            reactionRegisterOp.reaction = reaction;
+            reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToInt64(op.reactionId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void DeleteReaction(Reaction reaction)
+    {
+        ReactionDeleteOperation reactionDeleteOp = new ReactionDeleteOperation();
+        try
+        {
+            reactionDeleteOp.reaction = reaction;
+            reactionDeleteOp["on-complete"] = (Action<ReactionDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionDeleteOp.Send();
         }
         catch (Exception ex)
         {

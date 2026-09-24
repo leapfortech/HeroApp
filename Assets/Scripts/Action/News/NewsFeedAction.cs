@@ -228,28 +228,35 @@ public class NewsFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
+    readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
+
     public void UpdateValue(NewsFeed newsFeed, LoopScrollerValue loopValue, DateTime utcNow)
     {
         bool empty = newsFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
         loopValue.ItemSize = empty ? 2000 : 660;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedUserData(newsFeed.PostId, newsFeed.PublicationDateTime));
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new NewsUserData(newsFeed.PostId, newsFeed.PublicationDateTime, newsFeed.ReactionCounts));
 
         if (empty)
             return;
+
+        int width = 9;
+        int pad = (int)(((newsFeed.NewsType.Length > width ? 0 : (width - newsFeed.NewsType.Length) / 2f)) * 4);
 
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, newsFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{newsFeed.Title}");
         loopValue.SetText(2, $"<line-height=80%>{(newsFeed.Description.Length > 120 ? newsFeed.Description[0..119] + "..." : newsFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
-        loopValue.SetText(3, newsFeed.NewsType);
-        loopValue.SetText(4, newsFeed.DateTime.Value.ToString("dd de MMM, yyyy", CultureInfo.GetCultureInfo("es-GT")));
-        loopValue.SetText(5, $"<Size=150%><b>⌂</b><Size=100%>{newsFeed.Source}   @{newsFeed.Alias}");
+        loopValue.SetText(3, $"<Size=80%><Color=#025581>{newsFeed.NewsType.PadLeft(newsFeed.NewsType.Length + pad, ' ').PadRight(width + pad, ' ')}</Color>    { newsFeed.DateTime.Value.ToString(@"dd \de MMMM, yyyy", CultureInfo.GetCultureInfo("es-GT"))}");
+        loopValue.SetText(4, $"<Size=90%>📄  {newsFeed.Source}    @{newsFeed.Alias}");  // <Size=150%><b>⌂</b><Size=100%>
+        loopValue.SetText(5, $"<Size=80%>{newsFeed.ReactionCounts[0] + newsFeed.ReactionCounts[1] + newsFeed.ReactionCounts[2] + newsFeed.ReactionCounts[3]} reacciones");
+        loopValue.SetText(6, $"<Size=80%>💬  {newsFeed.CommentCount} comentarios");
 
-        loopValue.SetCheck(0, newsFeed.ReactionCounts[0] != 0);
-        loopValue.SetCheck(1, newsFeed.ReactionCounts[1] != 0);
-        loopValue.SetCheck(2, newsFeed.ReactionCounts[2] != 0);
-        loopValue.SetCheck(3, newsFeed.ReactionCounts[3] != 0);
+        for (int i = 0; i < 4; i++)
+        {
+            loopValue.SetText(7 + i, $"{icnReactions[i]}  {newsFeed.ReactionCounts[i]}");
+            loopValue.SetCheck(i, newsFeed.ReactionPhraseId == i + 1);
+        }
     }
 
     public void SelectValue(int idx)
@@ -264,7 +271,7 @@ public class NewsFeedAction : MonoBehaviour
 
         Sprite thumbnailSprite = loopValue.GetSprite(0);
         String alias = loopValue.GetText(2);
-        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
+        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(1), loopValue.GetCheck(2), loopValue.GetCheck(3) };
 
         int itemIdx = loopValue.ItemIdx;
         loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
@@ -305,38 +312,66 @@ public class NewsFeedAction : MonoBehaviour
 
     // Reaction
 
-    //public void ApplyReaction(int dataIndex, bool check)
-    //{
-    //    selectedIdx = dataIndex % loopFeed.ValuesCount;
+    public void ApplyReaction1(int dataIndex, bool check)
+    {
+        ApplyReaction(1, dataIndex, check);
+    }
 
-    //    loopFeed[selectedIdx].SetCheck(3, false);
-    //    loopFeed.RefreshVisibleValues();
+    public void ApplyReaction2(int dataIndex, bool check)
+    {
+        ApplyReaction(2, dataIndex, check);
+    }
 
-    //    if (!check)
-    //    {
-    //        radioService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
-    //        return;
-    //    }
+    public void ApplyReaction3(int dataIndex, bool check)
+    {
+        ApplyReaction(3, dataIndex, check);
+    }
 
-    //    cmbReaction.Combo.Click();
-    //}
+    public void ApplyReaction4(int dataIndex, bool check)
+    {
+        ApplyReaction(4, dataIndex, check);
+    }
 
-    //public void RegisterReaction()
-    //{
-    //    long reactionPhraseId = cmbReaction.GetSelectedId();
+    private void ApplyReaction(int reactionPhraseId, int dataIndex, bool check)
+    {
+        selectedIdx = dataIndex % loopFeed.ValuesCount;
+        LoopScrollerValue loopValue = loopFeed[selectedIdx];
+        NewsUserData userData;
 
-    //    Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    radioService.RegisterReaction(reaction);
+        for (int i = 0; i < 4; i++)
+            if (loopValue.GetCheck(i))
+            {
+                userData = (NewsUserData)loopValue.UserData;
+                newsService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
-    //    loopFeed[selectedIdx].SetCheck(3, true);
-    //    loopFeed.RefreshVisibleValues();
-    //}
+                userData.ReactionCounts[i]--;
+                loopValue.SetText(7 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
+                loopValue.SetCheck(i, false);
 
-    //public void ApplyDetailReaction(bool check)
-    //{
-    //    loopFeed[selectedIdx].SetCheck(3, check);
-    //    loopFeed.RefreshVisibleValues();
-    //}
+                loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+                loopFeed.RefreshVisibleValues();
+                //break;
+            }
+
+        if (!check)
+            return;
+
+        userData = (NewsUserData)loopValue.UserData;
+        newsService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
+
+        userData.ReactionCounts[reactionPhraseId - 1]++;
+        loopValue.SetText(7 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetCheck(reactionPhraseId - 1, true);
+
+        loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        loopFeed.RefreshVisibleValues();
+    }
+
+    public void ApplyDetailReaction(int reactionPhraseId, bool check)
+    {
+        loopFeed[selectedIdx].SetCheck(reactionPhraseId - 1, check);
+        loopFeed.RefreshVisibleValues();
+    }
 
     // Plaint
 
