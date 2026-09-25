@@ -9,18 +9,15 @@ using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
-public class NewsFeedAction : MonoBehaviour
+public class TaleFeedAction : MonoBehaviour
 {
     [Space]
     [Title("Feed")]
     [SerializeField]
     int feedCount = 20;
-    [SerializeField]
-    Text txtLocality = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -34,11 +31,11 @@ public class NewsFeedAction : MonoBehaviour
     //[SerializeField]
     //ComboAdapter cmbPlaintType = null;
 
-    [Title("Data")]
-    [SerializeField]
-    ValueList vllCountry = null;
-    [SerializeField]
-    ValueList vllState = null;
+    //[Title("Data")]
+    //[SerializeField]
+    //ValueList vllCountry = null;
+    //[SerializeField]
+    //ValueList vllState = null;
 
     [Title("Errors")]
     [SerializeField]
@@ -57,16 +54,16 @@ public class NewsFeedAction : MonoBehaviour
     [SerializeField]
     UnityLongEvent onValueSelected = null;
 
-    NewsService newsService;
+    TaleService taleService;
     int selectedIdx = -1;
-    readonly NewsFeed emptyNewsFeed = new NewsFeed();
+    readonly TaleFeed emptyTaleFeed = new TaleFeed();
 
     public bool MustReset { get; set; } = true;
     private bool resetting = false;
 
     private void Awake()
     {
-        newsService = GetComponent<NewsService>();
+        taleService = GetComponent<TaleService>();
     }
 
     public void CreateLoopFeed()
@@ -80,7 +77,7 @@ public class NewsFeedAction : MonoBehaviour
         for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-            UpdateValue(emptyNewsFeed, loopValue, utcNow);
+            UpdateValue(emptyTaleFeed, loopValue, utcNow);
             loopFeed.AddValue(loopValue);
 
             valueDates[k] = "--:--:--:---- : -1";
@@ -90,9 +87,6 @@ public class NewsFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
-                                                                                       vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
-
         if (!MustReset && !force)
             return;
 
@@ -101,14 +95,14 @@ public class NewsFeedAction : MonoBehaviour
         txtEmpty.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new NewsUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new TaleUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
 
     //public void ReloadPosts(bool force)
     //{
-    //    GetPosts(firstPostIdx, new NewsUserData(firstPostId, DateTime.UtcNow), 3);
+    //    GetPosts(firstPostIdx, new TaleUserData(firstPostId, DateTime.UtcNow), 3);
     //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
@@ -121,7 +115,7 @@ public class NewsFeedAction : MonoBehaviour
         if (feedUserData.PostId == -1L || direction == 3)
             ScreenDialog.Instance.Display();
 
-        NewsFeedRequest request = new NewsFeedRequest
+        TaleFeedRequest request = new TaleFeedRequest
         {
             Chunk = startLoopIdx,
 
@@ -131,20 +125,20 @@ public class NewsFeedAction : MonoBehaviour
 
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
-            PostTypeId = PostType.News,
+            PostTypeId = PostType.Tale,
             AppUserId = -1L, // appUserId,
-            CountryId = StateManager.Instance.InterestLocality.CountryId,
-            StateId = StateManager.Instance.InterestLocality.StateId,
+            CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
+            StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
             FavoriteAppUserId = appUserId,
             SelectedAppUserId = -1L
         };
 
-        newsService.GetFeed(request);
+        taleService.GetFeed(request);
     }
 
-    public void ApplyPosts(NewsFeedResponse response)
+    public void ApplyPosts(TaleFeedResponse response)
     {
         if (txtDebug != null)
             for (int i = 0; i < valueDates.Length; i++)
@@ -157,49 +151,49 @@ public class NewsFeedAction : MonoBehaviour
         DateTime utcNow = DateTime.UtcNow;
         if (response.Direction < 3)
         {
-            for (int i = 0; i < response.NewsFeeds.Count; i++)
+            for (int i = 0; i < response.TaleFeeds.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.NewsFeeds[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.NewsFeeds[i]);
+                UpdateValue(response.TaleFeeds[i], loopFeed[k], utcNow);
+                UpdateDebug(k, response.TaleFeeds[i]);
             }
 
             if (resetting)
             {
-                for (int i = response.NewsFeeds.Count; i < loopFeed.ValuesCount; i++)
+                for (int i = response.TaleFeeds.Count; i < loopFeed.ValuesCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyNewsFeed, loopFeed[k], utcNow);
-                    UpdateDebug(k, emptyNewsFeed);
+                    UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyTaleFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
                 resetting = false;
             }
             else
             {
-                for (int i = response.NewsFeeds.Count; i < feedCount; i++)
+                for (int i = response.TaleFeeds.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyNewsFeed, loopFeed[k], utcNow);
-                    UpdateDebug(k, emptyNewsFeed);
+                    UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                    UpdateDebug(k, emptyTaleFeed);
                 }
             }
         }
         else
         {
-            int n = feedCount - response.NewsFeeds.Count;
+            int n = feedCount - response.TaleFeeds.Count;
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyNewsFeed, loopFeed[k], utcNow);
-                UpdateDebug(k, emptyNewsFeed);
+                UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                UpdateDebug(k, emptyTaleFeed);
             }
 
-            for (int i = 0; i < response.NewsFeeds.Count; i++)
+            for (int i = 0; i < response.TaleFeeds.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
-                UpdateValue(response.NewsFeeds[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.NewsFeeds[i]);
+                UpdateValue(response.TaleFeeds[i], loopFeed[k], utcNow);
+                UpdateDebug(k, response.TaleFeeds[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
@@ -209,9 +203,9 @@ public class NewsFeedAction : MonoBehaviour
 
         ScreenDialog.Instance.Hide();
 
-        if (response.Direction == 3 && response.NewsFeeds.Count > 0)
+        if (response.Direction == 3 && response.TaleFeeds.Count > 0)
         {
-            int dataIndex = (startLoopIdx + feedCount - response.NewsFeeds.Count) % loopFeed.ValuesCount;
+            int dataIndex = (startLoopIdx + feedCount - response.TaleFeeds.Count) % loopFeed.ValuesCount;
 
             if (smoothReload > 0f)
             {
@@ -230,32 +224,31 @@ public class NewsFeedAction : MonoBehaviour
 
     readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
 
-    public void UpdateValue(NewsFeed newsFeed, LoopScrollerValue loopValue, DateTime utcNow)
+    public void UpdateValue(TaleFeed taleFeed, LoopScrollerValue loopValue, DateTime utcNow)
     {
-        bool empty = newsFeed.PublicationDateTime.Year == 1753;
+        bool empty = taleFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 660;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new NewsUserData(newsFeed.PostId, newsFeed.PublicationDateTime, newsFeed.ReactionCounts));
+        loopValue.ItemSize = empty ? 2000 : 900;
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new TaleUserData(taleFeed.PostId, taleFeed.PublicationDateTime, taleFeed.ReactionCounts));
 
         if (empty)
             return;
 
-        int width = 9;
-        int pad = (int)(((newsFeed.NewsType.Length > width ? 0 : (width - newsFeed.NewsType.Length) / 2f)) * 4);
 
         loopValue.GetSprite(0)?.Destroy();
-        loopValue.SetSprite(0, newsFeed.TitleSprite);
-        loopValue.SetText(1, $"<line-height=70%>{newsFeed.Title}");
-        loopValue.SetText(2, $"<line-height=80%>{(newsFeed.Description.Length > 120 ? newsFeed.Description[0..119] + "..." : newsFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
-        loopValue.SetText(3, $"<Size=80%><Color=#025581>{newsFeed.NewsType.PadLeft(newsFeed.NewsType.Length + pad, ' ').PadRight(width + pad, ' ')}</Color>    { newsFeed.DateTime.Value.ToString(@"dd \de MMMM, yyyy", CultureInfo.GetCultureInfo("es-GT"))}");
-        loopValue.SetText(4, $"<Size=90%>📄  {newsFeed.Source}    @{newsFeed.Alias}");  // <Size=150%><b>⌂</b><Size=100%>
-        loopValue.SetText(5, $"<Size=80%>{newsFeed.ReactionCounts[0] + newsFeed.ReactionCounts[1] + newsFeed.ReactionCounts[2] + newsFeed.ReactionCounts[3]} reacciones");
-        loopValue.SetText(6, $"<Size=80%>💬  {newsFeed.CommentCount} comentarios");
+        loopValue.SetSprite(0, taleFeed.TitleSprite);
+        loopValue.SetText(1, $"<line-height=70%>{taleFeed.Title}");
+        loopValue.SetText(2, $"<line-height=80%>{(taleFeed.Description.Length > 120 ? taleFeed.Description[0..119] + "..." : taleFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
+        loopValue.SetText(3, $"<Size=90%>{taleFeed.Alias}");  // <Size=150%><b>⌂</b><Size=100%>
+        loopValue.SetText(4, $"<Size=80%><Color=#025581>{taleFeed.InterestLocality}</Color>");
+        loopValue.SetText(5, $"<Size=80%><Color=#025581>{taleFeed.CurrentLocality}</Color>");
+        loopValue.SetText(6, $"<Size=80%>{taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3]} reacciones");
+        loopValue.SetText(7, $"<Size=80%>💬  {taleFeed.CommentCount} comentarios");
 
         for (int i = 0; i < 4; i++)
         {
-            loopValue.SetText(7 + i, $"{icnReactions[i]}  {newsFeed.ReactionCounts[i]}");
-            loopValue.SetCheck(i, newsFeed.ReactionPhraseId == i + 1);
+            loopValue.SetText(8 + i, $"{icnReactions[i]}  {taleFeed.ReactionCounts[i]}");
+            loopValue.SetCheck(i, taleFeed.ReactionPhraseId == i + 1);
         }
     }
 
@@ -269,8 +262,8 @@ public class NewsFeedAction : MonoBehaviour
     {
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
 
-        Sprite thumbnailSprite = loopValue.GetSprite(0);
-        String alias = loopValue.GetText(2);
+        //Sprite thumbnailSprite = loopValue.GetSprite(0);
+        //String alias = loopValue.GetText(2);
         bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(1), loopValue.GetCheck(2), loopValue.GetCheck(3) };
 
         int itemIdx = loopValue.ItemIdx;
@@ -279,10 +272,10 @@ public class NewsFeedAction : MonoBehaviour
         if (itemIdx != loopValue.ItemIdx)
             loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
-        loopValue.SetSprite(0, thumbnailSprite);
-        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        loopValue.SetText(2, alias);
-        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
+        //loopValue.SetSprite(0, thumbnailSprite);
+        //loopValue.SetText(1, $"<line-height=70%>{post.Title}");
+        //loopValue.SetText(2, alias);
+        //loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
 
         if (loopValue.ItemIdx == 2)
         {
@@ -308,6 +301,23 @@ public class NewsFeedAction : MonoBehaviour
         appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
+    }
+
+    // Locality
+
+    bool interestLocality = true;
+
+    public void ApplyLocality(bool interestLocality)
+    {
+        this.interestLocality = interestLocality;
+
+        ResetPosts(true);
+    }
+
+    public void ChangeLocality(bool isInterest)
+    {
+        if (isInterest == interestLocality)
+            MustReset = true;
     }
 
     // Reaction
@@ -336,19 +346,19 @@ public class NewsFeedAction : MonoBehaviour
     {
         selectedIdx = dataIndex % loopFeed.ValuesCount;
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
-        NewsUserData userData;
+        TaleUserData userData;
 
         for (int i = 0; i < 4; i++)
             if (loopValue.GetCheck(i))
             {
-                userData = (NewsUserData)loopValue.UserData;
-                newsService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
+                userData = (TaleUserData)loopValue.UserData;
+                taleService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(7 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
+                loopValue.SetText(8 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
-                loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+                loopValue.SetText(6, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
                 loopFeed.RefreshVisibleValues();
                 //break;
             }
@@ -356,14 +366,14 @@ public class NewsFeedAction : MonoBehaviour
         if (!check)
             return;
 
-        userData = (NewsUserData)loopValue.UserData;
-        newsService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
+        userData = (TaleUserData)loopValue.UserData;
+        taleService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(7 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(4 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
-        loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        loopValue.SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
         loopFeed.RefreshVisibleValues();
     }
 
@@ -422,12 +432,12 @@ public class NewsFeedAction : MonoBehaviour
 
     String[] valueDates;
 
-    public void UpdateDebug(int k, NewsFeed newsFeed)
+    public void UpdateDebug(int k, TaleFeed taleFeed)
     {
-        if (newsFeed.PublicationDateTime.Year == 1753)
+        if (taleFeed.PublicationDateTime.Year == 1753)
             valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
         else
-            valueDates[k] = $"<color=red>{newsFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {newsFeed.Title}</color>";
+            valueDates[k] = $"<color=red>{taleFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {taleFeed.Title}</color>";
 
     }
 

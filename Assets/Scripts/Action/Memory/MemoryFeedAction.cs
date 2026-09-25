@@ -100,7 +100,7 @@ public class MemoryFeedAction : MonoBehaviour
         txtEmpty.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new RadioUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new MemoryUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
