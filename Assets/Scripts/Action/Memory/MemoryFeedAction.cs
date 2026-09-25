@@ -107,7 +107,7 @@ public class MemoryFeedAction : MonoBehaviour
 
     //public void ReloadPosts(bool force)
     //{
-    //    GetPosts(firstPostIdx, new NewsUserData(firstPostId, DateTime.UtcNow), 3);
+    //    GetPosts(firstPostIdx, new MemoryUserData(firstPostId, DateTime.UtcNow), 3);
     //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
@@ -233,7 +233,7 @@ public class MemoryFeedAction : MonoBehaviour
     {
         bool empty = memoryFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 660;
+        loopValue.ItemSize = empty ? 2000 : 900;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new MemoryUserData(memoryFeed.PostId, memoryFeed.PublicationDateTime, memoryFeed.ReactionCounts));
 
         if (empty)
@@ -269,8 +269,8 @@ public class MemoryFeedAction : MonoBehaviour
     {
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
 
-        Sprite thumbnailSprite = loopValue.GetSprite(0);
-        String alias = loopValue.GetText(2);
+        //Sprite thumbnailSprite = loopValue.GetSprite(0);
+        //String alias = loopValue.GetText(2);
         bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(1), loopValue.GetCheck(2), loopValue.GetCheck(3) };
 
         int itemIdx = loopValue.ItemIdx;
@@ -279,10 +279,10 @@ public class MemoryFeedAction : MonoBehaviour
         if (itemIdx != loopValue.ItemIdx)
             loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
-        loopValue.SetSprite(0, thumbnailSprite);
-        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        loopValue.SetText(2, alias);
-        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
+        //loopValue.SetSprite(0, thumbnailSprite);
+        //loopValue.SetText(1, $"<line-height=70%>{post.Title}");
+        //loopValue.SetText(2, alias);
+        //loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
 
         if (loopValue.ItemIdx == 2)
         {
@@ -336,19 +336,19 @@ public class MemoryFeedAction : MonoBehaviour
     {
         selectedIdx = dataIndex % loopFeed.ValuesCount;
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
-        NewsUserData userData;
+        MemoryUserData userData;
 
         for (int i = 0; i < 4; i++)
             if (loopValue.GetCheck(i))
             {
-                userData = (NewsUserData)loopValue.UserData;
+                userData = (MemoryUserData)loopValue.UserData;
                 memoryService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(7 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
+                loopValue.SetText(4 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
-                loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+                loopValue.SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
                 loopFeed.RefreshVisibleValues();
                 //break;
             }
@@ -356,14 +356,14 @@ public class MemoryFeedAction : MonoBehaviour
         if (!check)
             return;
 
-        userData = (NewsUserData)loopValue.UserData;
+        userData = (MemoryUserData)loopValue.UserData;
         memoryService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(7 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(4 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
-        loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        loopValue.SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
         loopFeed.RefreshVisibleValues();
     }
 
