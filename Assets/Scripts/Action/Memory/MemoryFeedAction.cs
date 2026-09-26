@@ -287,8 +287,8 @@ public class MemoryFeedAction : MonoBehaviour
         if (loopValue.ItemIdx == 2)
         {
             //loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
-            loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
+            //loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
+            //loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
         }
 
         loopValue.SetCheck(0, toggles[0]);
