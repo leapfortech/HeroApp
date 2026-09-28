@@ -236,8 +236,8 @@ public class ProductFeedAction : MonoBehaviour
     {
         bool empty = productFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 270;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new ProductUserData(productFeed.PostId, productFeed.PublicationDateTime));
+        loopValue.ItemSize = empty ? 2000 : 1058;
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new ProductUserData(productFeed.PostId, productFeed.PublicationDateTime, productFeed.Link));
 
         if (empty)
             return;
