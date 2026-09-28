@@ -74,8 +74,8 @@ public class NewsRegisterAction : MonoBehaviour
 
         Post post = dtmPost.BuildClass<Post>();
         post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
+        post.CountryId =  StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         News news = dtmNews.BuildClass<News>();
 
@@ -128,8 +128,8 @@ public class NewsRegisterAction : MonoBehaviour
         Post post = dtmPost.BuildClass<Post>();
 
         post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
+        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        post.StateId = StateManager.Instance.InterestLocality.StateId;
 
         String[] strImages = new String[] { srcImages[testCounter % srcImages.Count] };
 
@@ -161,14 +161,5 @@ public class NewsRegisterAction : MonoBehaviour
         }
         else
             RegisterTest();
-    }
-
-    // Locality
-
-    bool interestLocality = true;
-
-    public void ApplyLocality(bool interestLocality)
-    {
-        this.interestLocality = interestLocality;
     }
 }
