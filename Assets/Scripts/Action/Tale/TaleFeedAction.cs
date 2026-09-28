@@ -384,7 +384,7 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ApplyDetailReaction(long reactionPhraseId, bool check)
     {
-        NewsUserData userData = (NewsUserData)loopFeed[selectedIdx].UserData;
+        TaleUserData userData = (TaleUserData)loopFeed[selectedIdx].UserData;
 
         if (check)
             userData.ReactionCounts[reactionPhraseId - 1]++;
