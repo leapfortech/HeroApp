@@ -248,7 +248,7 @@ public class HappeningFeedAction : MonoBehaviour
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, happeningFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{happeningFeed.Title}");
-        loopValue.SetText(2, $"<line-height=70%>{happeningFeed.StartDateTime.Value.ToString("ddd dd MMM · h:mm tt", CultureInfo.GetCultureInfo("es-GT"))}");
+        loopValue.SetText(2, $"<line-height=70%>{happeningFeed.StartDateTime?.ToString("ddd dd MMM · h:mm tt", CultureInfo.GetCultureInfo("es-GT"))}");
         loopValue.SetText(3, $"<line-height=70%>{happeningFeed.Location}");
         loopValue.SetText(4, $"<line-height=70%>{happeningFeed.HappeningType}");
         loopValue.SetText(5, $"<line-height=70%>Ya van {happeningFeed.FavoriteCount}");
