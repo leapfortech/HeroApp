@@ -238,7 +238,6 @@ public class TaleFeedAction : MonoBehaviour
         if (empty)
             return;
 
-
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, taleFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{taleFeed.Title}");
@@ -266,24 +265,24 @@ public class TaleFeedAction : MonoBehaviour
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
 
         //Sprite thumbnailSprite = loopValue.GetSprite(0);
-        //String alias = loopValue.GetText(2);
+        String alias = loopValue.GetText(2);
         bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(1), loopValue.GetCheck(2), loopValue.GetCheck(3) };
 
         int itemIdx = loopValue.ItemIdx;
         loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
+        loopValue.ItemSize = post.ImageCount == 0 ? 2000 : 1200;
         if (itemIdx != loopValue.ItemIdx)
             loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
         //loopValue.SetSprite(0, thumbnailSprite);
-        //loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        //loopValue.SetText(2, alias);
-        //loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
+        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
+        loopValue.SetText(2, alias);
+        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
 
         if (loopValue.ItemIdx == 2)
         {
-            //loopValue.GetSprite(4)?.Destroy();
-            //loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
+            loopValue.GetSprite(4)?.Destroy();
+            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
             //loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
         }
 
