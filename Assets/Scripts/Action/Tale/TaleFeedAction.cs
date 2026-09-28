@@ -18,9 +18,6 @@ public class TaleFeedAction : MonoBehaviour
     [Title("Feed")]
     [SerializeField]
     ToggleGroup tggLocality = null;
-
-    [Space]
-    [Title("Feed")]
     [SerializeField]
     int feedCount = 20;
 
