@@ -138,7 +138,7 @@ public class RadioFeedAction : MonoBehaviour
             StateId = StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
-            FavoriteAppUserId = appUserId,
+            FavoriteAppUserId = favoriteAppUserId,
             SelectedAppUserId = -1L
         };
 
@@ -297,11 +297,11 @@ public class RadioFeedAction : MonoBehaviour
 
     // AppUser
 
-    long appUserId = -1;
+    long favoriteAppUserId = -1;
 
-    public void ApplyAppUser()
+    public void ApplyAppUserFavorite()
     {
-        appUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
+        favoriteAppUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
@@ -327,7 +327,7 @@ public class RadioFeedAction : MonoBehaviour
         {
             radioService.DeleteFavorite(favorite);
 
-            if (appUserId != -1)
+            if (favoriteAppUserId != -1)
                 ResetPosts(true);
         }
     }

@@ -131,12 +131,12 @@ public class MemoryFeedAction : MonoBehaviour
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = PostType.Memory,
-            AppUserId = -1L, // appUserId,
+            AppUserId = appUserId,
             CountryId = StateManager.Instance.InterestLocality.CountryId,
             StateId = StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
-            FavoriteAppUserId = appUserId,
+            FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
         };
 

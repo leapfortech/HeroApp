@@ -130,12 +130,12 @@ public class TaleFeedAction : MonoBehaviour
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = PostType.Tale,
-            AppUserId = -1L, // appUserId,
+            AppUserId = appUserId,
             CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
             StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
-            FavoriteAppUserId = appUserId,
+            FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
         };
 

@@ -18,6 +18,8 @@ public class HappeningFeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
+    ToggleGroup tggSelected = null;
+    [SerializeField]
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
@@ -133,13 +135,13 @@ public class HappeningFeedAction : MonoBehaviour
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = PostType.Happening,
-            AppUserId = -1L, // appUserId,
+            AppUserId = appUserId,
             CountryId = StateManager.Instance.CurrentLocality.CountryId,
             StateId = StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
-            FavoriteAppUserId = appUserId,
-            SelectedAppUserId = -1L
+            FavoriteAppUserId = -1L,
+            SelectedAppUserId = selectedAppUserId
         };
 
         //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
@@ -304,6 +306,16 @@ public class HappeningFeedAction : MonoBehaviour
     public void ApplyAppUser(bool appUser)
     {
         appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
+
+        ResetPosts(true);
+    }
+
+
+    long selectedAppUserId = -1;
+
+    public void ApplyAppUserSelected()
+    {
+        selectedAppUserId = tggSelected.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }

@@ -132,12 +132,12 @@ public class ProductFeedAction : MonoBehaviour
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = PostType.Product,
-            AppUserId = -1L, // appUserId,
+            AppUserId = appUserId,
             CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
             StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
-            FavoriteAppUserId = appUserId,
+            FavoriteAppUserId = favoriteAppUserId,
             SelectedAppUserId = -1L
         };
 
@@ -300,12 +300,21 @@ public class ProductFeedAction : MonoBehaviour
     }
 
     // AppUser
-
     long appUserId = -1;
 
-    public void ApplyAppUser()
+    public void ApplyAppUser(bool appUser)
     {
-        appUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
+        appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
+
+        ResetPosts(true);
+    }
+
+
+    long favoriteAppUserId = -1;
+
+    public void ApplyAppUserFavorite()
+    {
+        favoriteAppUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }

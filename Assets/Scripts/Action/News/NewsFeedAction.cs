@@ -132,7 +132,7 @@ public class NewsFeedAction : MonoBehaviour
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
             PostTypeId = PostType.News,
-            AppUserId = -1L, // appUserId,
+            AppUserId = appUserId,
             CountryId = StateManager.Instance.InterestLocality.CountryId,
             StateId = StateManager.Instance.InterestLocality.StateId,
             Status = 1,
