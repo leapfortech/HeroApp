@@ -31,12 +31,24 @@ public class FlowControlAction : MonoBehaviour
     [SerializeField]
     UnityEvent onClear = null;
 
-    void ClearAll()
+    bool isRegister = true;
+
+    public void ClearAll()
     {
+        isRegister = true;
+
         for (int i = 0; i < dtms.Length; i++)
             dtms[i].ClearElements();
 
         onClear.Invoke();
+    }
+
+    public void ClearUpdate()
+    {
+        if (isRegister)
+            return;
+
+        ClearAll();
     }
 
     public void ActivateRegister()
@@ -51,6 +63,8 @@ public class FlowControlAction : MonoBehaviour
 
     public void ActivateUpdate()
     {
+        isRegister = false;
+
         btnRegister.gameObject.SetActive(false);
         btnUpdate.gameObject.SetActive(true);
 
