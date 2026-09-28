@@ -18,6 +18,8 @@ public class MemoryDetailAction : MonoBehaviour
     public class ImagesEvent : UnityEvent<List<Sprite>> { }
     [Serializable]
     public class MemoryFullEvent : UnityEvent<MemoryFull> { }
+    [Serializable]
+    public class ReactionEvent : UnityEvent<long, bool> { }
 
     [Space, Title("Details")]
     //[SerializeField]
@@ -107,13 +109,7 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    UnityBoolEvent onReaction1Changed = null;
-    [SerializeField]
-    UnityBoolEvent onReaction2Changed = null;
-    [SerializeField]
-    UnityBoolEvent onReaction3Changed = null;
-    [SerializeField]
-    UnityBoolEvent onReaction4Changed = null;
+    ReactionEvent onReactionChanged = null;
 
     [SerializeField]
     MemoryFullEvent onApplyUpdate = null;
@@ -270,24 +266,28 @@ public class MemoryDetailAction : MonoBehaviour
 
     public void ApplyDetailReaction()
     {
+        bool check = false;
+
         switch (reactionPhraseId)
         {
             case 1:
-                onReaction1Changed.Invoke(tglReaction1.Checked);
+                check = tglReaction1.Checked;
                 break;
 
             case 2:
-                onReaction2Changed.Invoke(tglReaction2);
+                check = tglReaction2.Checked;
                 break;
 
             case 3:
-                onReaction3Changed.Invoke(tglReaction3);
+                check = tglReaction3.Checked;
                 break;
 
             case 4:
-                onReaction4Changed.Invoke(tglReaction4);
+                check = tglReaction4.Checked;
                 break;
         }
+
+        onReactionChanged.Invoke(reactionPhraseId, check);
     }
 
     private void UncheckOtherReactions(long reactionPhraseId)

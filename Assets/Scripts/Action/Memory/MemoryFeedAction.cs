@@ -367,9 +367,18 @@ public class MemoryFeedAction : MonoBehaviour
         loopFeed.RefreshVisibleValues();
     }
 
-    public void ApplyDetailReaction(int reactionPhraseId, bool check)
+    public void ApplyDetailReaction(long reactionPhraseId, bool check)
     {
-        loopFeed[selectedIdx].SetCheck(reactionPhraseId - 1, check);
+        NewsUserData userData = (NewsUserData)loopFeed[selectedIdx].UserData;
+
+        if (check)
+            userData.ReactionCounts[reactionPhraseId - 1]++;
+        else
+            userData.ReactionCounts[reactionPhraseId - 1]--;
+
+        loopFeed[selectedIdx].SetText(7 + Convert.ToInt32(reactionPhraseId) - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+
+        loopFeed[selectedIdx].SetCheck(Convert.ToInt32(reactionPhraseId) - 1, check);
         loopFeed.RefreshVisibleValues();
     }
 
