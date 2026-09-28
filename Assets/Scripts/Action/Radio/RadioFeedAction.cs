@@ -17,6 +17,8 @@ public class RadioFeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
+    ToggleGroup tggFavorite = null;
+    [SerializeField]
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
@@ -297,9 +299,9 @@ public class RadioFeedAction : MonoBehaviour
 
     long appUserId = -1;
 
-    public void ApplyAppUser(bool appUser)
+    public void ApplyAppUser()
     {
-        appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
+        appUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
@@ -322,7 +324,12 @@ public class RadioFeedAction : MonoBehaviour
         if (check)
             radioService.RegisterFavorite(favorite);
         else
+        {
             radioService.DeleteFavorite(favorite);
+
+            if (appUserId != -1)
+                ResetPosts(true);
+        }
     }
 
     public void ApplyDetailFavorite(bool check)
