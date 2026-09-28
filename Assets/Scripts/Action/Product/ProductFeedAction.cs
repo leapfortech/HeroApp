@@ -19,6 +19,8 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     ToggleGroup tggLocality = null;
     [SerializeField]
+    ToggleGroup tggFavorite = null;
+    [SerializeField]
     int feedCount = 20;
 
     [Title("Loop")]
@@ -301,9 +303,9 @@ public class ProductFeedAction : MonoBehaviour
 
     long appUserId = -1;
 
-    public void ApplyAppUser(bool appUser)
+    public void ApplyAppUser()
     {
-        appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
+        appUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
@@ -390,7 +392,12 @@ public class ProductFeedAction : MonoBehaviour
         if (check)
             productService.RegisterFavorite(favorite);
         else
+        {
             productService.DeleteFavorite(favorite);
+
+            if (appUserId != -1)
+                ResetPosts(true);
+        }
     }
 
     public void ApplyDetailFavorite(bool check)
