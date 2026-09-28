@@ -24,5 +24,5 @@ public class HappeningFeed
     public int Favorite { get; set; }
     public int FavoriteCount { get; set; }
 
-    public DateTime PublicationDateTime { get; set; }
+    public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
 }
