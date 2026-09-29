@@ -10,7 +10,7 @@ public class HappeningFeed
     public String TitleImage
     {
         get => null;
-        set => TitleSprite = value?.CreateSprite("News_" + PostId.ToString("D02"));
+        set => TitleSprite = value?.CreateSprite("Happening_" + PostId.ToString("D02"));
     }
     public Sprite TitleSprite { get; set; } = null;
     public String Title { get; set; }

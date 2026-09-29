@@ -23,8 +23,6 @@ public class TaleDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtTitle = null;
@@ -32,8 +30,6 @@ public class TaleDetailAction : MonoBehaviour
     Text txtCurrentLocation = null;
     [SerializeField]
     Text txtInterestLocation = null;
-    [SerializeField]
-    Text txtSummary = null;
     [SerializeField]
     Text txtDescription = null;
 
@@ -156,8 +152,6 @@ public class TaleDetailAction : MonoBehaviour
         currentReactionPhraseId = taleFull.ReactionPhraseId;
 
         // Post
-        imgThumbnail.Sprite = taleFull.ThumbnailSprite;
-
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
 
@@ -174,9 +168,6 @@ public class TaleDetailAction : MonoBehaviour
 
         txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en: " + currentLocation;
         txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
-        
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(taleFull.Summary) ? "-" : taleFull.Summary;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
 

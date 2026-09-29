@@ -122,7 +122,6 @@ public class TaleRegisterAction : MonoBehaviour
         testCounter++;
 
         post.Title = $"{post.Title} {testCounter}";
-        post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
 
         taleService.Register(new RegisterTaleRequest(post, strImages));

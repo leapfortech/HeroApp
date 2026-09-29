@@ -31,8 +31,6 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
-    Text txtSummary = null;
-    [SerializeField]
     Text txtDescription = null;
 
     [SerializeField]
@@ -163,10 +161,6 @@ public class MemoryDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(memoryFull.Title) ? "Evento" : memoryFull.Title)}";
-
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(memoryFull.Summary) ? "-" : memoryFull.Summary;
-
         txtDescription.TextValue = String.IsNullOrWhiteSpace(memoryFull.Description) ? "-" : memoryFull.Description;
 
         // Memory

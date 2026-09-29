@@ -20,16 +20,8 @@ public class HappeningDetailAction : MonoBehaviour
     public class HappeningFullEvent : UnityEvent<HappeningFull> { }
 
     [Space, Title("Details")]
-    //[SerializeField]
-    //Image imgThumbnail = null;
-    //[SerializeField]
-    //Text txtAlias = null;
-    //[SerializeField]
-    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
-    [SerializeField]
-    Text txtSummary = null;
     [SerializeField]
     Text txtDescription = null;
 
@@ -142,15 +134,7 @@ public class HappeningDetailAction : MonoBehaviour
         postId = happeningFull.PostId;
 
         // Post
-        //imgThumbnail.Sprite = happeningFull.ThumbnailSprite;
-
-        //txtAlias.TextValue = $"@{happeningFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title)}";
-        //txtDateTime.TextValue = happeningFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(happeningFull.Summary) ? "-" : happeningFull.Summary;
-
         txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
 
         // Happening

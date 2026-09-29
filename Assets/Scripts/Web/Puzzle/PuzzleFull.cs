@@ -13,7 +13,6 @@ public class PuzzleFull : PostFull
     public int Points { get; set; }
     public int PlayCount { get; set; }
     public int Status { get; set; }
-    public String[] Images { get; set; }
 
     public List<PuzzleAnswerFull> PuzzleAnswerFulls { get; set; }
 
@@ -23,22 +22,17 @@ public class PuzzleFull : PostFull
     }
 
     public PuzzleFull(long id, long postId, long appUserId, String appUserAlias,
-                        long postTypeId,
-                        long postCountryId, long postStateId,
-                        String title, String titleImage, String summary, String description,
-                        int imageCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
+                        long postTypeId, long postCountryId, long postStateId,
+                        String title, String titleImage, String description,
+                        int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                         DateTime publicationDateTime, int postStatus,
-                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
-                        long puzzleGameId, long countryId,
-                        String question, String hint,
-                        int difficulty, int delay, int points, int playCount,
-                        int status,
-                        List<PuzzleAnswerFull> puzzleAnswerFulls,
-                        String[] images)
-        : base(postId, appUserId, appUserAlias, postTypeId,
-               postCountryId, postStateId, title, titleImage, summary, description,
-               imageCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
-               appUserInfo, contactFull, linkFulls, commentFulls)
+                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
+                        long puzzleGameId, long countryId, String question, String hint,
+                        int difficulty, int delay, int points, int playCount, int status,
+                        List<PuzzleAnswerFull> puzzleAnswerFulls)
+        : base(postId, appUserId, appUserAlias, postTypeId, postCountryId, postStateId, title, titleImage, description,
+               imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
+               appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
         Id = id;
         PuzzleGameId = puzzleGameId;
@@ -52,6 +46,5 @@ public class PuzzleFull : PostFull
         Status = status;
 
         PuzzleAnswerFulls = puzzleAnswerFulls ?? new List<PuzzleAnswerFull>();
-        Images = images;
     }
 }

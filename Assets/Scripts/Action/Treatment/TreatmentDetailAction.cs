@@ -19,8 +19,6 @@ public class TreatmentDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtDateTime = null;
@@ -28,8 +26,6 @@ public class TreatmentDetailAction : MonoBehaviour
     Text txtTitle = null;
     [SerializeField]
     Text txtPlace = null;
-    [SerializeField]
-    Text txtSummary = null;
     [SerializeField]
     Text txtDescription = null;
     [SerializeField]
@@ -121,15 +117,9 @@ public class TreatmentDetailAction : MonoBehaviour
         postId = treatmentFull.PostId;
 
         // Post
-        imgThumbnail.Sprite = treatmentFull.ThumbnailSprite;
-
         txtAlias.TextValue = $"@{treatmentFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(treatmentFull.Title) ? "Remedio" : treatmentFull.Title)}";
         txtDateTime.TextValue = treatmentFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Summary) ? "-" : treatmentFull.Summary;
-        
         txtDescription.TextValue = String.IsNullOrWhiteSpace(treatmentFull.Description) ? "-" : treatmentFull.Description;
 
         String country = treatmentFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(treatmentFull.PostCountryId, "Name");

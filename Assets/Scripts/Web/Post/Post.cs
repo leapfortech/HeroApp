@@ -8,7 +8,6 @@ public class Post
     public long CountryId { get; set; }
     public long StateId { get; set; }
     public String Title { get; set; }
-    public String Summary { get; set; }
     public String Description { get; set; }
     public int ImageCount { get; set; }
     public int FavoriteCount { get; set; }
@@ -30,7 +29,6 @@ public class Post
         CountryId = countryId;
         StateId = stateId;
         Title = title;
-        Summary = summary;
         Description = description;
         ImageCount = imageCount;
         FavoriteCount = favoriteCount;
@@ -48,10 +46,9 @@ public class Post
         CountryId = taleFull.PostCountryId;
         StateId = taleFull.PostStateId;
         Title = taleFull.Title;
-        Summary = taleFull.Summary;
         Description = taleFull.Description;
         ImageCount = taleFull.ImageCount;
-        //LikeCount = taleFull.LikeCount;
+        FavoriteCount = taleFull.FavoriteCount;
         PublicationDateTime = taleFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -66,10 +63,9 @@ public class Post
         CountryId = recipeFull.PostCountryId;
         StateId = recipeFull.PostStateId;
         Title = recipeFull.Title;
-        Summary = recipeFull.Summary;
         Description = recipeFull.Description;
         ImageCount = recipeFull.ImageCount;
-        //LikeCount = recipeFull.LikeCount;
+        FavoriteCount = recipeFull.FavoriteCount;
         PublicationDateTime = recipeFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -84,10 +80,9 @@ public class Post
         CountryId = treatmentFull.PostCountryId;
         StateId = treatmentFull.PostStateId;
         Title = treatmentFull.Title;
-        Summary = treatmentFull.Summary;
         Description = treatmentFull.Description;
         ImageCount = treatmentFull.ImageCount;
-        //LikeCount = treatmentFull.LikeCount;
+        FavoriteCount = treatmentFull.FavoriteCount;
         PublicationDateTime = treatmentFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -102,10 +97,9 @@ public class Post
         CountryId = radioFull.PostCountryId;
         StateId = radioFull.PostStateId;
         Title = radioFull.Title;
-        Summary = radioFull.Summary;
         Description = radioFull.Description;
         ImageCount = radioFull.ImageCount;
-        //LikeCount = radioFull.LikeCount;
+        FavoriteCount = radioFull.FavoriteCount;
         PublicationDateTime = radioFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -120,10 +114,9 @@ public class Post
         CountryId = productFull.PostCountryId;
         StateId = productFull.PostStateId;
         Title = productFull.Title;
-        Summary = productFull.Summary;
         Description = productFull.Description;
         ImageCount = productFull.ImageCount;
-        //LikeCount = productFull.LikeCount;
+        FavoriteCount = productFull.FavoriteCount;
         PublicationDateTime = productFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -138,10 +131,9 @@ public class Post
         CountryId = happeningFull.PostCountryId;
         StateId = happeningFull.PostStateId;
         Title = happeningFull.Title;
-        Summary = happeningFull.Summary;
         Description = happeningFull.Description;
         ImageCount = happeningFull.ImageCount;
-        //LikeCount = happeningFull.LikeCount;
+        FavoriteCount = happeningFull.FavoriteCount;
         PublicationDateTime = happeningFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -156,10 +148,9 @@ public class Post
         CountryId = newsFull.PostCountryId;
         StateId = newsFull.PostStateId;
         Title = newsFull.Title;
-        Summary = newsFull.Summary;
         Description = newsFull.Description;
         ImageCount = newsFull.ImageCount;
-        //LikeCount = newsFull.LikeCount;
+        FavoriteCount = newsFull.FavoriteCount;
         PublicationDateTime = newsFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -174,10 +165,9 @@ public class Post
         CountryId = puzzleFull.PostCountryId;
         StateId = puzzleFull.PostStateId;
         Title = puzzleFull.Title;
-        Summary = puzzleFull.Summary;
         Description = puzzleFull.Description;
         ImageCount = puzzleFull.ImageCount;
-        //LikeCount = puzzleFull.LikeCount;
+        FavoriteCount = puzzleFull.FavoriteCount;
         PublicationDateTime = puzzleFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -192,10 +182,9 @@ public class Post
         CountryId = memoryFull.PostCountryId;
         StateId = memoryFull.PostStateId;
         Title = memoryFull.Title;
-        Summary = memoryFull.Summary;
         Description = memoryFull.Description;
         ImageCount = memoryFull.ImageCount;
-        //LikeCount = memoryFull.LikeCount;
+        FavoriteCount = memoryFull.FavoriteCount;
         PublicationDateTime = memoryFull.PublicationDateTime;
         ApprovalDateTime = null;
         ExpirationDateTime = null;
@@ -205,7 +194,6 @@ public class Post
     public void Update(Post post)
     {
         Title = post.Title;
-        Summary = post.Summary;
         Description = post.Description;
     }
 }

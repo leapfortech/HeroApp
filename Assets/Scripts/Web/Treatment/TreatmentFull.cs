@@ -13,18 +13,6 @@ public class TreatmentFull : PostFull
     public String Annotation { get; set; }
     public int Status { get; set; }
     public List<DiseaseFull> DiseaseFulls { get; set; }
-    public String[] Images
-    {
-        get => null;
-        set
-        {
-            ImageSprites = new List<Sprite>();
-            for (int i = 0; i < value.Length; i++)
-                if (value[i] != null)
-                    ImageSprites.Add(value[i].CreateSprite("TreatmentImage_" + i.ToString("D02")));
-        }
-    }
-    public List<Sprite> ImageSprites { get; set; }
 
 
     public TreatmentFull()
@@ -33,17 +21,15 @@ public class TreatmentFull : PostFull
 
     public TreatmentFull(long id, long postId, long appUserId, String appUserAlias,
                             long postSubtypeId, long postCountryId, long postStateId,
-                            String title, String titleImage, String summary, String description,
-                            int imageCount, int[] reactionCounts, long reactionPhraseId, int commentCount, 
+                            String title, String titleImage, String description,
+                            int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount, 
                             DateTime publicationDateTime, int postStatus,
-                            AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
+                            AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
                             String ingredients, String preparation, String usage, String annotation,
-                            int status, List<DiseaseFull> diseaseFulls,
-                            String[] images)
-        : base(postId, appUserId, appUserAlias, postSubtypeId,
-               postCountryId, postStateId, title, titleImage, summary, description,
-               imageCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
-               appUserInfo, contactFull, linkFulls, commentFulls)
+                            int status, List<DiseaseFull> diseaseFulls)
+        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+               imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
+               appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
         Id = id;
         Ingredients = ingredients;
@@ -52,6 +38,5 @@ public class TreatmentFull : PostFull
         Annotation = annotation;
         Status = status;
         DiseaseFulls = diseaseFulls ?? new List<DiseaseFull>();
-        Images = images;
     }
 }

@@ -23,8 +23,6 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
-    Text txtSummary = null;
-    [SerializeField]
     Text txtDescription = null;
 
     [SerializeField]
@@ -131,10 +129,6 @@ public class ProductDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
-        
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(productFull.Summary) ? "-" : productFull.Summary;
-        
         txtDescription.TextValue = String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description;
 
         // Product

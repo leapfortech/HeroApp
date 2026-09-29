@@ -136,7 +136,6 @@ public class NewsRegisterAction : MonoBehaviour
         testCounter++;
 
         post.Title = $"{post.Title} {testCounter}";
-        post.Summary = $"{post.Summary} {testCounter}";
         post.Description = $"{post.Description} {testCounter}";
 
         News news = dtmNews.BuildClass<News>();

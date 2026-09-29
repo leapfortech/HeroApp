@@ -242,8 +242,6 @@ public class FeedAction : MonoBehaviour
         if (empty)
             return;
 
-        loopValue.GetSprite(0)?.Destroy();
-        loopValue.SetSprite(0, postFull.ThumbnailSprite);
         loopValue.SetText(1, $"<line-height=70%>{postFull.Title}");
 
         loopValue.SetText(2, empty ? null : $"@{postFull.AppUserAlias} - {PostHelper.GetFeedDelay(utcNow - postFull.PublicationDateTime)}");

@@ -23,13 +23,9 @@ public class NewsDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Image imgThumbnail = null;
-    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtTitle = null;
-    [SerializeField]
-    Text txtSummary = null;
     [SerializeField]
     Text txtDescription = null;
 
@@ -159,13 +155,8 @@ public class NewsDetailAction : MonoBehaviour
             url = newsFull.LinkFulls[0].Url;
 
         // Post
-        imgThumbnail.Sprite = newsFull.ThumbnailSprite;
-
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
-
-        if (txtSummary != null)
-            txtSummary.TextValue = String.IsNullOrWhiteSpace(newsFull.Summary) ? "-" : newsFull.Summary;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
 

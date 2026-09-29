@@ -1,5 +1,9 @@
+using System;
+
 public static class PostType
 {
+    public static readonly String[] Names = new String[] { "None", "Tale", "Recipe", "Treatment", "Radio", "Product", "Happening", "News", "Puzzle", "Memory" };
+
     public const long Tale = 1L;
     public const long Recipe = 2L;
     public const long Treatment = 3L;

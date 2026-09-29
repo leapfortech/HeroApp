@@ -10,7 +10,7 @@ public class RecipeFull : PostFull
     public int Portions { get; set; }
     public int CookingTime { get; set; }
     public int Status { get; set; }
-    public String[] Images { get; set; }
+
 
     public RecipeFull()
     {
@@ -18,17 +18,15 @@ public class RecipeFull : PostFull
 
     public RecipeFull(long id, long postId, long appUserId, String appUserAlias,
                         long postSubtypeId, long postCountryId, long postStateId,
-                        String title, String titleImage, String summary, String description,
-                        int imageCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
+                        String title, String titleImage, String description,
+                        int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                         DateTime publicationDateTime, int postStatus,
-                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
+                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
                         long recipeTypeId, String ingredients, String preparation,
-                        int portions, int cookingTime, int status,
-                        String[] images)
-        : base(postId, appUserId, appUserAlias, postSubtypeId,
-               postCountryId, postStateId, title, titleImage, summary, description,
-               imageCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
-               appUserInfo, contactFull, linkFulls, commentFulls)
+                        int portions, int cookingTime, int status)
+        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+               imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
+               appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
         Id = id;
         RecipeTypeId = recipeTypeId;
@@ -37,6 +35,5 @@ public class RecipeFull : PostFull
         Portions = portions;
         CookingTime = cookingTime;
         Status = status;
-        Images = images;
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using UnityEngine;
-using Leap.Graphics.Tools;
-
 public class RadioFull : PostFull
 {
     public long Id { get; set; }
@@ -12,18 +9,7 @@ public class RadioFull : PostFull
 
     public List<RadioTypeFull> RadioTypeFulls { get; set; }
     public List<RadioLanguageFull> RadioLanguageFulls { get; set; }
-    public String[] Images
-    {
-        get => null;
-        set
-        {
-            ImageSprites = new List<Sprite>();
-            for (int i = 0; i < value.Length; i++)
-                if (value[i] != null)
-                    ImageSprites.Add(value[i].CreateSprite("Radio_" + i.ToString("D02")));
-        }
-    }
-    public List<Sprite> ImageSprites { get; set; }
+
 
     public RadioFull()
     {
@@ -31,18 +17,16 @@ public class RadioFull : PostFull
 
     public RadioFull(long id, long postId, long appUserId, String appUserAlias,
                      long postSubtypeId, long postCountryId, long postStateId,
-                     String title, String titleImage, String summary, String description,
-                     int imageCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
+                     String title, String titleImage, String description,
+                     int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                      DateTime publicationDateTime, int postStatus,
-                     AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls,
+                     AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
                      int status,
                      List<RadioTypeFull> radioTypeFulls,
-                     List<RadioLanguageFull> radioLanguageFulls,
-                     String[] images)
-        : base(postId, appUserId, appUserAlias, postSubtypeId,
-               postCountryId, postStateId, title, titleImage, summary, description,
-               imageCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
-               appUserInfo, contactFull, linkFulls, commentFulls)
+                     List<RadioLanguageFull> radioLanguageFulls)
+        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+               imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
+               appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
         Id = id;
         CountryId = postCountryId;
@@ -50,6 +34,5 @@ public class RadioFull : PostFull
 
         RadioTypeFulls = radioTypeFulls ?? new List<RadioTypeFull>();
         RadioLanguageFulls = radioLanguageFulls ?? new List<RadioLanguageFull>();
-        Images = images;
     }
 }
