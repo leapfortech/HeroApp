@@ -72,13 +72,13 @@ public class TaleService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         TaleGetFullOperation taleFullGetOp = new TaleGetFullOperation();
         try
         {
             taleFullGetOp.id = id;
-            taleFullGetOp.likeAppUserId = likeAppUserId;
+            taleFullGetOp.reactionAppUserId = reactionAppUserId;
             taleFullGetOp["on-complete"] = (Action<TaleGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -94,13 +94,13 @@ public class TaleService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         TaleFullByPostIdGetFullOperation taleFullByPostIdGetOp = new TaleFullByPostIdGetFullOperation();
         try
         {
             taleFullByPostIdGetOp.postId = postId;
-            taleFullByPostIdGetOp.likeAppUserId = likeAppUserId;
+            taleFullByPostIdGetOp.reactionAppUserId = reactionAppUserId;
             taleFullByPostIdGetOp["on-complete"] = (Action<TaleFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -138,12 +138,12 @@ public class TaleService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterTaleRequest registerTaleRequest)
+    public void Register(TaleFull taleFull)
     {
         TaleRegisterOperation taleRegisterOp = new TaleRegisterOperation();
         try
         {
-            taleRegisterOp.registerTaleRequest = registerTaleRequest;
+            taleRegisterOp.taleFull = taleFull;
             taleRegisterOp["on-complete"] = (Action<TaleRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -202,12 +202,12 @@ public class TaleService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateTale(RegisterTaleRequest registerTaleRequest)
+    public void UpdateTale(TaleFull taleFull)
     {
         TalePutOperation talePutOp = new TalePutOperation();
         try
         {
-            talePutOp.registerTaleRequest = registerTaleRequest;
+            talePutOp.taleFull = taleFull;
             talePutOp["on-complete"] = (Action<TalePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

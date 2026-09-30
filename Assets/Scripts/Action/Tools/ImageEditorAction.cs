@@ -17,7 +17,7 @@ public class ImageEditorAction : MonoBehaviour
     [SerializeField]
     int maxCount = 4;
     [SerializeField]
-    String spriteName = "Tale";
+    String spriteName = "None";
     [SerializeField]
     ListScroller lstImage = null;
     //[SerializeField]

@@ -20,7 +20,7 @@ public class HappeningGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public HappeningFull happeningFull;
@@ -36,7 +36,7 @@ public class HappeningFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public HappeningFull happeningFull;
@@ -81,13 +81,13 @@ public class HappeningGetFeedOperation : HttpOperation
 public class HappeningRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterHappeningRequest registerHappeningRequest;
+    public HappeningFull happeningFull;
 
     [HttpResponseTextBody]
     public String id;
 }
 
-//UPDATE
+// UPDATE
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/happening")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -97,7 +97,7 @@ public class HappeningRegisterOperation : HttpOperation
 public class HappeningPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterHappeningRequest registerHappeningRequest;
+    public HappeningFull happeningFull;
 
     [HttpResponseTextBody]
     public String response;

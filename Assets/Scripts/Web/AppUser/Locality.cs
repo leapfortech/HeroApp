@@ -1,5 +1,3 @@
-using System;
-
 using Sirenix.OdinInspector;
 
 public class Locality

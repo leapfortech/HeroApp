@@ -20,7 +20,7 @@ public class TreatmentGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public TreatmentFull treatmentFull;
@@ -36,7 +36,7 @@ public class TreatmentFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public TreatmentFull treatmentFull;
@@ -66,7 +66,7 @@ public class TreatmentGetFullsOperation : HttpOperation
 public class TreatmentRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterTreatmentRequest registerTreatmentRequest;
+    public TreatmentFull treatmentFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -82,7 +82,7 @@ public class TreatmentRegisterOperation : HttpOperation
 public class TreatmentPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterTreatmentRequest registerTreatmentRequest;
+    public TreatmentFull treatmentFull;
 
     [HttpResponseTextBody]
     public String response;

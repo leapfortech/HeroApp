@@ -48,13 +48,13 @@ public class PuzzleService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         PuzzleGetFullOperation puzzleFullGetOp = new PuzzleGetFullOperation();
         try
         {
             puzzleFullGetOp.id = id;
-            puzzleFullGetOp.likeAppUserId = likeAppUserId;
+            puzzleFullGetOp.reactionAppUserId = reactionAppUserId;
             puzzleFullGetOp["on-complete"] = (Action<PuzzleGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -70,13 +70,13 @@ public class PuzzleService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         PuzzleFullByPostIdGetFullOperation puzzleFullByPostIdGetOp = new PuzzleFullByPostIdGetFullOperation();
         try
         {
             puzzleFullByPostIdGetOp.postId = postId;
-            puzzleFullByPostIdGetOp.likeAppUserId = likeAppUserId;
+            puzzleFullByPostIdGetOp.reactionAppUserId = reactionAppUserId;
             puzzleFullByPostIdGetOp["on-complete"] = (Action<PuzzleFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -135,12 +135,12 @@ public class PuzzleService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterPuzzleRequest registerPuzzleRequest)
+    public void Register(PuzzleFull puzzleFull)
     {
         PuzzleRegisterOperation referredRegisterOp = new PuzzleRegisterOperation();
         try
         {
-            referredRegisterOp.registerPuzzleRequest = registerPuzzleRequest;
+            referredRegisterOp.puzzleFull = puzzleFull;
             referredRegisterOp["on-complete"] = (Action<PuzzleRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -157,12 +157,12 @@ public class PuzzleService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdatePuzzle(RegisterPuzzleRequest registerPuzzleRequest)
+    public void UpdatePuzzle(PuzzleFull puzzleFull)
     {
         PuzzlePutOperation referredPutOp = new PuzzlePutOperation();
         try
         {
-            referredPutOp.registerPuzzleRequest = registerPuzzleRequest;
+            referredPutOp.puzzleFull = puzzleFull;
             referredPutOp["on-complete"] = (Action<PuzzlePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

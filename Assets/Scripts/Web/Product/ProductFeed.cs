@@ -24,4 +24,44 @@ public class ProductFeed
     public int Favorite { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
+
+    public ProductFeed()
+    {
+    }
+
+    public ProductFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string productSubtype, string saleCountry, string saleState,
+                       string currency, double price, double discountPrice, string link, int favorite, DateTime publicationDateTime)
+    {
+        Id = id;
+        PostId = postId;
+        TitleImage = titleImage;
+        TitleSprite = titleSprite;
+        Title = title;
+        ProductSubtype = productSubtype;
+        SaleCountry = saleCountry;
+        SaleState = saleState;
+        Currency = currency;
+        Price = price;
+        DiscountPrice = discountPrice;
+        Link = link;
+        Favorite = favorite;
+        PublicationDateTime = publicationDateTime;
+    }
+
+    public ProductFeed(ProductFull productFull)
+    {
+        Id = productFull.Id;
+        PostId = productFull.PostId;
+        TitleSprite = productFull.TitleSprite;
+        Title = productFull.Title;
+        ProductSubtype = productFull.ProductSubtypeId;
+        SaleCountry = productFull.SaleCountryId;
+        SaleState = productFull.SaleStateId;
+        Currency = productFull.CurrencyId;
+        Price = productFull.Price;
+        DiscountPrice = productFull.DiscountPrice;
+        Link = productFull.LinkFulls[0].Url;
+        Favorite = productFull.Favorite;
+        PublicationDateTime = productFull.PublicationDateTime;
+    }
 }

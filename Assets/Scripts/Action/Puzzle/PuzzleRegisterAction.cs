@@ -66,17 +66,17 @@ public class PuzzleRegisterAction : MonoBehaviour
             return;
         }
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
+        PuzzleFull puzzleFull = dtmPost.BuildClass<PuzzleFull>();
+        puzzleFull.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        puzzleFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
+        puzzleFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
         Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
         puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        puzzleService.Register(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
+        //puzzleService.Register(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
     }
 
     public void ApplyPuzzle(long puzzleId)

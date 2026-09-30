@@ -31,11 +31,9 @@ public class PostService : MonoBehaviour
 
     [SerializeField]
     private UnityBoolEvent onFavoriteChanged = null;
-    [SerializeField]
-    private UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
-    private UnityLongEvent onLikeChanged = null;
+    private UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
     private UnityBoolEvent onReactionChanged = null;
@@ -219,69 +217,6 @@ public class PostService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             selectedDeleteOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void RegisterLike(Like like)
-    {
-        LikeRegisterOperation likeRegisterOp = new LikeRegisterOperation();
-        try
-        {
-            likeRegisterOp.like = like;
-            likeRegisterOp["on-complete"] = (Action<LikeRegisterOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
-                else
-                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
-            });
-            likeRegisterOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void UpdateLike(Like like)
-    {
-        LikeUpdateOperation likeUpdateOp = new LikeUpdateOperation();
-        try
-        {
-            likeUpdateOp.like = like;
-            likeUpdateOp["on-complete"] = (Action<LikeUpdateOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
-                else
-                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
-            });
-            likeUpdateOp.Send();
-        }
-        catch (Exception ex)
-        {
-            WebManager.Instance.OnSendError(ex.Message);
-        }
-    }
-
-    public void DeleteLike(Like like)
-    {
-        LikeDeleteOperation likeDeleteOp = new LikeDeleteOperation();
-        try
-        {
-            likeDeleteOp.like = like;
-            likeDeleteOp["on-complete"] = (Action<LikeDeleteOperation, HttpResponse>)((op, response) =>
-            {
-                if (response != null && !response.HasError)
-                    onLikeChanged.Invoke(Convert.ToInt64(op.likeId));
-                else
-                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
-            });
-            likeDeleteOp.Send();
         }
         catch (Exception ex)
         {

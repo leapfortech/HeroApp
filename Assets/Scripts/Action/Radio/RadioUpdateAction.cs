@@ -15,13 +15,16 @@ using Sirenix.OdinInspector;
 
 public class RadioUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class RadioFeedEvent : UnityEvent<RadioFeed> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmRadio = null;
     [SerializeField]
     DataMapper dtmRadioTypeVLL = null;
     [SerializeField]
@@ -30,8 +33,6 @@ public class RadioUpdateAction : MonoBehaviour
     DataMapper dtmLink = null;
     [SerializeField]
     ValueList vllImages = null;
-    [SerializeField]
-    String spriteName = "Radio";
 
     [Title("Action")]
     [SerializeField]
@@ -47,13 +48,13 @@ public class RadioUpdateAction : MonoBehaviour
     [SerializeField]
     UnityLongsEvent onRadioLanguagePopulated = null;
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    RadioFeedEvent onRadioChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
     RadioService radioService = null;
 
-    Radio radio = null;
+    RadioFull radioFull = null;
 
     private void Awake()
     {
@@ -67,7 +68,7 @@ public class RadioUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        dtmRadio.ClearElements();
         dtmRadioTypeVLL.ClearElements();
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
@@ -78,18 +79,15 @@ public class RadioUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(radioFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
+        this.radioFull = radioFull;
 
-        dtmLink.PopulateClass<Link>(new Link(radioFull.LinkFulls[0]));
-
-        radio = new Radio(radioFull);
+        dtmRadio.PopulateClass<RadioFull>(this.radioFull);
+        dtmLink.PopulateClass<LinkFull>(radioFull.LinkFulls[0]);
 
         long[] radioTypesIds = new long[radioFull.RadioTypeFulls.Count];
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
             radioTypesIds[i] = radioFull.RadioTypeFulls[i].RadioTypeId;
         onRadioTypePopulated?.Invoke(radioTypesIds);
-
 
         long[] radioLanguageIds = new long[radioFull.RadioLanguageFulls.Count];
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
@@ -97,7 +95,7 @@ public class RadioUpdateAction : MonoBehaviour
         onRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
         for (int i = 0; i < radioFull.ImageSprites.Count; i++)
-            vllImages.AddRecord(radioFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
+            vllImages.AddRecord(radioFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Radio]}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -109,10 +107,10 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Update(dtmPost.BuildClass<Post>());
+        radioFull.Update(dtmRadio.BuildClass<RadioFull>());
 
-        Link link = dtmLink.BuildClass<Link>();
-        link.LinkTypeId = (long)LinkType.Url;
+        LinkFull linkFull = dtmLink.BuildClass<LinkFull>();
+        linkFull.LinkTypeId = (long)LinkType.Url;
 
         List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
         List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
@@ -121,10 +119,10 @@ public class RadioUpdateAction : MonoBehaviour
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        PostHelper.post.ImageCount = vllImages.RecordCount;
-        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
+        radioFull.ImageCount = vllImages.RecordCount;
+        radioFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
-        radioService.UpdateRadio(new RegisterRadioRequest(PostHelper.post, new List<Link> { link }, strImages, radio, radioTypes, radioLanguages));
+        radioService.UpdateRadio(radioFull);
     }
 
     public void ApplyUpdate(bool updated)
@@ -135,7 +133,7 @@ public class RadioUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onRadioChanged.Invoke(new RadioFeed(radioFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

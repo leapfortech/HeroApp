@@ -26,7 +26,8 @@ public class PostFeedRequest
     {
     }
 
-    public PostFeedRequest(int chunk, DateTime startDateTime, int direction, int count, long reactionAppUserId, long postTypeId, long appUserId, long countryId, long stateId, int status, long favoriteAppUserId, long selectedAppUserId)
+    public PostFeedRequest(int chunk, DateTime startDateTime, int direction, int count, long reactionAppUserId, long postTypeId,
+                           long appUserId, long countryId, long stateId, int status, long favoriteAppUserId, long selectedAppUserId)
     {
         Chunk = chunk;
         StartDateTime = startDateTime;

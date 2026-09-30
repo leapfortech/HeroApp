@@ -2,24 +2,24 @@
 
 public class RegisterPuzzleRequest : RegisterPostRequest
 {
-    public Puzzle Puzzle { get; set; }
-    public List<PuzzleAnswer> PuzzleAnswers { get; set; }
+    //public Puzzle Puzzle { get; set; }
+    //public List<PuzzleAnswer> PuzzleAnswers { get; set; }
 
-    public RegisterPuzzleRequest()
-    {
-    }
+    //public RegisterPuzzleRequest()
+    //{
+    //}
 
-    public RegisterPuzzleRequest(Puzzle puzzle, List<PuzzleAnswer> puzzleAnswers)
-    {
-        Puzzle = puzzle;
-        PuzzleAnswers = puzzleAnswers;
-    }
+    //public RegisterPuzzleRequest(Puzzle puzzle, List<PuzzleAnswer> puzzleAnswers)
+    //{
+    //    Puzzle = puzzle;
+    //    PuzzleAnswers = puzzleAnswers;
+    //}
 
-    public RegisterPuzzleRequest(Post post, Puzzle puzzle, List<PuzzleAnswer> puzzleAnswers)
-    {
-        Post = post;
+    //public RegisterPuzzleRequest(Post post, Puzzle puzzle, List<PuzzleAnswer> puzzleAnswers)
+    //{
+    //    Post = post;
 
-        Puzzle = puzzle;
-        PuzzleAnswers = puzzleAnswers;
-    }
+    //    Puzzle = puzzle;
+    //    PuzzleAnswers = puzzleAnswers;
+    //}
 }

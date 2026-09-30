@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using Leap.Core.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -22,12 +21,6 @@ public class MemoryDetailAction : MonoBehaviour
     public class ReactionEvent : UnityEvent<long, bool> { }
 
     [Space, Title("Details")]
-    //[SerializeField]
-    //Image imgThumbnail = null;
-    //[SerializeField]
-    //Text txtAlias = null;
-    //[SerializeField]
-    //Text txtDateTime = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]

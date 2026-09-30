@@ -78,4 +78,10 @@ public class PostFull
 
         Images = images;
     }
+
+    public void Update(PostFull postFull)
+    {
+        Title = postFull.Title;
+        Description = postFull.Description;
+    }
 }

@@ -20,7 +20,7 @@ public class RecipeGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public RecipeFull recipeFull;
@@ -36,7 +36,7 @@ public class RecipeFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public RecipeFull recipeFull;
@@ -66,13 +66,13 @@ public class RecipeGetFullsOperation : HttpOperation
 public class RecipeRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterRecipeRequest registerRecipeRequest;
+    public RecipeFull recipeFull;
 
     [HttpResponseTextBody]
     public String id;
 }
 
-//UPDATE
+// UPDATE
 [HttpPUT]
 [HttpPathExt(WebServiceType.Main, "/recipe")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
@@ -82,7 +82,7 @@ public class RecipeRegisterOperation : HttpOperation
 public class RecipePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterRecipeRequest registerRecipeRequest;
+    public RecipeFull recipeFull;
 
     [HttpResponseTextBody]
     public String response;

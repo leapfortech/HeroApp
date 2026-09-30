@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -13,6 +14,8 @@ using Sirenix.OdinInspector;
 
 public class TreatmentUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class TreatmentFeedEvent : UnityEvent<TreatmentFeed> { }
 
     [Title("Elements")]
     [SerializeField]
@@ -40,11 +43,10 @@ public class TreatmentUpdateAction : MonoBehaviour
     [SerializeField]
     UnityLongsEvent OnPopulated = null;
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    TreatmentFeedEvent onTreatmentChanged = null;
 
     TreatmentService treatmentService = null;
-
-    Treatment treatment = null;
+    TreatmentFull treatmentFull = null;
 
     private void Awake()
     {
@@ -67,11 +69,10 @@ public class TreatmentUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(treatmentFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
+        this.treatmentFull = treatmentFull;
 
-        treatment = new Treatment(treatmentFull);
-        dtmTreatment.PopulateClass<Treatment>(treatment);
+        dtmPost.PopulateClass<PostFull>(treatmentFull);
+        dtmTreatment.PopulateClass<TreatmentFull>(treatmentFull);
 
         long[] diseaseIds = new long[treatmentFull.DiseaseFulls.Count];
         for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
@@ -88,21 +89,19 @@ public class TreatmentUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Description = dtmPost.BuildClass<Post>().Description;
+        treatmentFull.Update(dtmTreatment.BuildClass<TreatmentFull>());
 
-        treatment.Update(dtmTreatment.BuildClass<Treatment>());
-
-        List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();
+        treatmentFull.DiseaseFulls = dtmDiseaseVLL.BuildClassList<DiseaseFull>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        PostHelper.post.ImageCount = images.Count;
-        PostHelper.titleSprite = images.Count == 0 ? null : images[0];
+        treatmentFull.ImageCount = images.Count;
+        treatmentFull.TitleSprite = images.Count == 0 ? null : images[0];
 
-        String[] strImages = new String[images.Count];
+        treatmentFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            treatmentFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        treatmentService.UpdateTreatment(new RegisterTreatmentRequest(PostHelper.post, strImages, treatment, diseases));
+        treatmentService.UpdateTreatment(treatmentFull);
     }
 
     public void ApplyUpdate(bool updated)
@@ -113,7 +112,7 @@ public class TreatmentUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onTreatmentChanged.Invoke(new TreatmentFeed());
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

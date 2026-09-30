@@ -25,4 +25,46 @@ public class HappeningFeed
     public int FavoriteCount { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
+
+    public HappeningFeed()
+    {
+    }
+
+    public HappeningFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, DateTime? startDateTime, DateTime? endDateTime,
+                         string happeningType, string country, string state, string location, int selected, int favorite, int favoriteCount, DateTime publicationDateTime)
+    {
+        Id = id;
+        PostId = postId;
+        TitleImage = titleImage;
+        TitleSprite = titleSprite;
+        Title = title;
+        StartDateTime = startDateTime;
+        EndDateTime = endDateTime;
+        HappeningType = happeningType;
+        Country = country;
+        State = state;
+        Location = location;
+        Selected = selected;
+        Favorite = favorite;
+        FavoriteCount = favoriteCount;
+        PublicationDateTime = publicationDateTime;
+    }
+
+    public HappeningFeed(HappeningFull happeningFull)
+    {
+        Id = happeningFull.Id;
+        PostId = happeningFull.PostId;
+        TitleSprite = happeningFull.TitleSprite;
+        Title = happeningFull.Title;
+        StartDateTime = happeningFull.StartDateTime;
+        EndDateTime = happeningFull.EndDateTime;
+        HappeningType = happeningFull.HappeningTypeId;
+        Country = happeningFull.CountryId;
+        State = happeningFull.StateId;
+        Location = happeningFull.Location;
+        Selected = happeningFull.Selected;
+        Favorite = happeningFull.Favorite;
+        FavoriteCount = happeningFull.FavoriteCount;
+        PublicationDateTime = happeningFull.PublicationDateTime;
+    }
 }

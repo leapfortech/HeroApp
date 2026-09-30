@@ -72,13 +72,13 @@ public class RadioService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         RadioGetFullOperation radioFullGetOp = new RadioGetFullOperation();
         try
         {
             radioFullGetOp.id = id;
-            radioFullGetOp.likeAppUserId = likeAppUserId;
+            radioFullGetOp.reactionAppUserId = reactionAppUserId;
             radioFullGetOp["on-complete"] = (Action<RadioGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -94,13 +94,13 @@ public class RadioService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         RadioFullByPostIdGetFullOperation radioFullByPostIdGetOp = new RadioFullByPostIdGetFullOperation();
         try
         {
             radioFullByPostIdGetOp.postId = postId;
-            radioFullByPostIdGetOp.likeAppUserId= likeAppUserId;
+            radioFullByPostIdGetOp.reactionAppUserId= reactionAppUserId;
             radioFullByPostIdGetOp["on-complete"] = (Action<RadioFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -138,12 +138,12 @@ public class RadioService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterRadioRequest registerRadioRequest)
+    public void Register(RadioFull radioFull)
     {
         RadioRegisterOperation referredRegisterOp = new RadioRegisterOperation();
         try
         {
-            referredRegisterOp.registerRadioRequest = registerRadioRequest;
+            referredRegisterOp.radioFull = radioFull;
             referredRegisterOp["on-complete"] = (Action<RadioRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -223,12 +223,12 @@ public class RadioService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateRadio(RegisterRadioRequest registerRadioRequest)
+    public void UpdateRadio(RadioFull radioFull)
     {
         RadioPutOperation referredPutOp = new RadioPutOperation();
         try
         {
-            referredPutOp.registerRadioRequest = registerRadioRequest;
+            referredPutOp.radioFull = radioFull;
             referredPutOp["on-complete"] = (Action<RadioPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

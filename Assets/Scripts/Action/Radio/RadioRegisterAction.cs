@@ -18,7 +18,7 @@ public class RadioRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmRadioFull = null;
     [SerializeField]
     DataMapper dtmRadioTypeVLL = null;
     [SerializeField]
@@ -50,7 +50,7 @@ public class RadioRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        dtmRadioFull.ClearElements();
         dtmRadioTypeVLL.ClearElements();
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
@@ -64,23 +64,23 @@ public class RadioRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        RadioFull radioFull = dtmRadioFull.BuildClass<RadioFull>();
+        radioFull.AppUserId = StateManager.Instance.AppUser.Id;
+        radioFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
+        radioFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
-        Link link = dtmLink.BuildClass<Link>();
-        link.LinkTypeId = (long)LinkType.Url;
+        radioFull.LinkFulls = new List<LinkFull>() { dtmLink.BuildClass<LinkFull>() };
+        radioFull.LinkFulls[0].LinkTypeId = (long)LinkType.Url;
 
-        List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
-        List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
+        radioFull.RadioTypeFulls = dtmRadioTypeVLL.BuildClassList<RadioTypeFull>();
+        radioFull.RadioLanguageFulls = dtmRadioLanguageVLL.BuildClassList<RadioLanguageFull>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
+        radioFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            radioFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        radioService.Register(new RegisterRadioRequest(post, new List<Link> { link }, strImages, null, radioTypes, radioLanguages));
+        radioService.Register(radioFull);
     }
 
     public void ApplyRadio(long radioId)

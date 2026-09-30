@@ -38,7 +38,7 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     PuzzleService puzzleService = null;
 
-    Post post = null;
+    //Post post = null;
     Puzzle puzzle = null;
 
     private void Awake()
@@ -62,8 +62,8 @@ public class PuzzleUpdateAction : MonoBehaviour
     {
         Clear();
 
-        post = new Post(puzzleFull);
-        dtmPost.PopulateClass<Post>(post);
+        //post = new Post(puzzleFull);
+        //dtmPost.PopulateClass<Post>(post);
 
         puzzle = new Puzzle(puzzleFull);
         dtmPuzzle.PopulateClass<Puzzle>(puzzle);
@@ -91,12 +91,12 @@ public class PuzzleUpdateAction : MonoBehaviour
             return;
         }
 
-        post.Update(dtmPost.BuildClass<Post>());
+        //post.Update(dtmPost.BuildClass<Post>());
 
         puzzle.Update(dtmPuzzle.BuildClass<Puzzle>());
         puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
+        //puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
     }
 
     public void ApplyUpdate(bool updated)

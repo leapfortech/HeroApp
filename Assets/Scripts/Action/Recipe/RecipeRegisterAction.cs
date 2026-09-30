@@ -58,21 +58,21 @@ public class RecipeRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
+        RecipeFull recipeFull = dtmPost.BuildClass<RecipeFull>();
+        recipeFull.AppUserId = StateManager.Instance.AppUser.Id;
 
         //RM REVIEW
-        post.CountryId = StateManager.Instance.Identity.BirthCountryId;
-        post.StateId = StateManager.Instance.Identity.BirthStateId;
+        recipeFull.PostCountryId = StateManager.Instance.Identity.BirthCountryId;
+        recipeFull.PostStateId = StateManager.Instance.Identity.BirthStateId;
 
         Recipe recipe = dtmRecipe.BuildClass<Recipe>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
+        recipeFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            recipeFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        recipeService.Register(new RegisterRecipeRequest(post, strImages, recipe));
+        //recipeService.Register(new RegisterRecipeRequest(post, strImages, recipe));
     }
 
     public void ApplyRecipe(long recipeId)

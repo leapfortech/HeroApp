@@ -71,13 +71,13 @@ public class NewsService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         NewsGetFullOperation newsFullGetOp = new NewsGetFullOperation();
         try
         {
             newsFullGetOp.id = id;
-            newsFullGetOp.likeAppUserId = likeAppUserId;
+            newsFullGetOp.reactionAppUserId = reactionAppUserId;
             newsFullGetOp["on-complete"] = (Action<NewsGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -93,13 +93,13 @@ public class NewsService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         NewsFullByPostIdGetFullOperation newsFullByPostIdGetOp = new NewsFullByPostIdGetFullOperation();
         try
         {
             newsFullByPostIdGetOp.postId = postId;
-            newsFullByPostIdGetOp.likeAppUserId = likeAppUserId;
+            newsFullByPostIdGetOp.reactionAppUserId = reactionAppUserId;
             newsFullByPostIdGetOp["on-complete"] = (Action<NewsFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -137,12 +137,12 @@ public class NewsService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterNewsRequest registerNewsRequest)
+    public void Register(NewsFull newsFull)
     {
         NewsRegisterOperation referredRegisterOp = new NewsRegisterOperation();
         try
         {
-            referredRegisterOp.registerNewsRequest = registerNewsRequest;
+            referredRegisterOp.newsFull = newsFull;
             referredRegisterOp["on-complete"] = (Action<NewsRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -201,12 +201,12 @@ public class NewsService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateNews(RegisterNewsRequest registerNewsRequest)
+    public void UpdateNews(NewsFull newsFull)
     {
         NewsPutOperation referredPutOp = new NewsPutOperation();
         try
         {
-            referredPutOp.registerNewsRequest = registerNewsRequest;
+            referredPutOp.newsFull = newsFull;
             referredPutOp["on-complete"] = (Action<NewsPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

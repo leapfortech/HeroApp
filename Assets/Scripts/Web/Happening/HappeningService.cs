@@ -76,13 +76,13 @@ public class HappeningService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         HappeningGetFullOperation happeningFullGetOp = new HappeningGetFullOperation();
         try
         {
             happeningFullGetOp.id = id;
-            happeningFullGetOp.likeAppUserId = likeAppUserId;
+            happeningFullGetOp.reactionAppUserId = reactionAppUserId;
             happeningFullGetOp["on-complete"] = (Action<HappeningGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -98,13 +98,13 @@ public class HappeningService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         HappeningFullByPostIdGetFullOperation happeningFullByPostIdGetOp = new HappeningFullByPostIdGetFullOperation();
         try
         {
             happeningFullByPostIdGetOp.postId = postId;
-            happeningFullByPostIdGetOp.likeAppUserId=likeAppUserId;
+            happeningFullByPostIdGetOp.reactionAppUserId=reactionAppUserId;
             happeningFullByPostIdGetOp["on-complete"] = (Action<HappeningFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -142,12 +142,12 @@ public class HappeningService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterHappeningRequest registerHappeningRequest)
+    public void Register(HappeningFull happeningFull)
     {
         HappeningRegisterOperation happeningRegisterOp = new HappeningRegisterOperation();
         try
         {
-            happeningRegisterOp.registerHappeningRequest = registerHappeningRequest;
+            happeningRegisterOp.happeningFull = happeningFull;
             happeningRegisterOp["on-complete"] = (Action<HappeningRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -248,12 +248,12 @@ public class HappeningService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateHappening(RegisterHappeningRequest registerHappeningRequest)
+    public void UpdateHappening(HappeningFull happeningFull)
     {
         HappeningPutOperation happeningPutOp = new HappeningPutOperation();
         try
         {
-            happeningPutOp.registerHappeningRequest = registerHappeningRequest;
+            happeningPutOp.happeningFull = happeningFull;
             happeningPutOp["on-complete"] = (Action<HappeningPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

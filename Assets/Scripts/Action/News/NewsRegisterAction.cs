@@ -32,9 +32,8 @@ public class NewsRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-    [SerializeField]
-    Button btnRegisterTest = null;
-
+    //[SerializeField]
+    //Button btnRegisterTest = null;
 
     [Title("Page")]
     [SerializeField]
@@ -42,8 +41,8 @@ public class NewsRegisterAction : MonoBehaviour
 
     NewsService newsService = null;
 
-    private int testCounter = 0;
-    private bool isTest = false;
+    //private int testCounter = 0;
+    //private bool isTest = false;
 
     private void Awake()
     {
@@ -53,7 +52,7 @@ public class NewsRegisterAction : MonoBehaviour
     private void Start()
     {
         btnRegister?.AddAction(Register);
-        btnRegisterTest?.AddAction(RegisterTest);
+        //btnRegisterTest?.AddAction(RegisterTest);
     }
 
     public void Clear()
@@ -68,14 +67,14 @@ public class NewsRegisterAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        isTest = false;
+        //isTest = false;
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId =  StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        NewsFull newsFull = dtmPost.BuildClass<NewsFull>();
+        newsFull.AppUserId = StateManager.Instance.AppUser.Id;
+        newsFull.PostCountryId =  StateManager.Instance.InterestLocality.CountryId;
+        newsFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
         News news = dtmNews.BuildClass<News>();
 
@@ -88,77 +87,78 @@ public class NewsRegisterAction : MonoBehaviour
         //}
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
+        newsFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            newsFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        newsService.Register(new RegisterNewsRequest(post, (Link)null, strImages, news));
+        newsService.Register(newsFull);
     }
 
-    List<String> srcImages = new List<String>();
-    private void RegisterTest()
-    {
-        //if (!ElementHelper.Validate(elementValues))
-        //    return;
-        if (testCounter == 600)
-        {
-            testCounter = 0;
-            ScreenDialog.Instance.Hide();
-            return;
-        }
+    //List<String> srcImages = new List<String>();
+    //private void RegisterTest()
+    //{
+    //    //if (!ElementHelper.Validate(elementValues))
+    //    //    return;
+    //    if (testCounter == 600)
+    //    {
+    //        testCounter = 0;
+    //        ScreenDialog.Instance.Hide();
+    //        return;
+    //    }
 
-        if (testCounter == 0)
-        {
-            ScreenDialog.Instance.Display();
+    //    if (testCounter == 0)
+    //    {
+    //        ScreenDialog.Instance.Display();
 
-            for (int i = 0; i < testImages.Count; i++)
-                srcImages.Add(testImages[i].ToStrBase64(ImageType.JPG, 50));
-        }
+    //        for (int i = 0; i < testImages.Count; i++)
+    //            srcImages.Add(testImages[i].ToStrBase64(ImageType.JPG, 50));
+    //    }
 
-        isTest = true;
+    //    isTest = true;
 
-        //List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
+    //    //List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
-        //if (images.Count == 0)
-        //{
-        //    ChoiceDialog.Instance.Error("Imágenes", "Debes agregar al menos una imagen.");
-        //    return;
-        //}
+    //    //if (images.Count == 0)
+    //    //{
+    //    //    ChoiceDialog.Instance.Error("Imágenes", "Debes agregar al menos una imagen.");
+    //    //    return;
+    //    //}
 
-        Post post = dtmPost.BuildClass<Post>();
+    //    Post post = dtmPost.BuildClass<Post>();
 
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+    //    post.AppUserId = StateManager.Instance.AppUser.Id;
+    //    post.CountryId = StateManager.Instance.InterestLocality.CountryId;
+    //    post.StateId = StateManager.Instance.InterestLocality.StateId;
 
-        String[] strImages = new String[] { srcImages[testCounter % srcImages.Count] };
+    //    String[] strImages = new String[] { srcImages[testCounter % srcImages.Count] };
 
-        testCounter++;
+    //    testCounter++;
 
-        post.Title = $"{post.Title} {testCounter}";
-        post.Description = $"{post.Description} {testCounter}";
+    //    post.Title = $"{post.Title} {testCounter}";
+    //    post.Description = $"{post.Description} {testCounter}";
 
-        News news = dtmNews.BuildClass<News>();
+    //    News news = dtmNews.BuildClass<News>();
 
-        //if (news.DateTime.HasValue)
-        //{
-        //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
-        //    String[] startTime = startTimeStr.Split('|');
-        //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
-        //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-        //}
+    //    //if (news.DateTime.HasValue)
+    //    //{
+    //    //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
+    //    //    String[] startTime = startTimeStr.Split('|');
+    //    //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
+    //    //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+    //    //}
 
-        newsService.Register(new RegisterNewsRequest(post, (Link)null, strImages, news));
-    }
+    //    //newsService.Register(new RegisterNewsRequest(post, (Link)null, strImages, news));
+    //}
 
     public void ApplyNews(long newsId)
     {
-        if (!isTest)
-        {
-            Clear();
-            PageManager.Instance.ChangePage(pagNext);
-        }
-        else
-            RegisterTest();
+        //if (isTest)
+        //{
+        //    RegisterTest();
+        //    return;
+        //}
+
+        Clear();
+        PageManager.Instance.ChangePage(pagNext);
     }
 }

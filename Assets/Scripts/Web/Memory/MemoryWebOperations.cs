@@ -20,7 +20,7 @@ public class MemoryGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public MemoryFull memoryFull;
@@ -36,7 +36,7 @@ public class MemoryFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public MemoryFull memoryFull;
@@ -81,7 +81,7 @@ public class MemoryGetFeedOperation : HttpOperation
 public class MemoryRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterMemoryRequest registerMemoryRequest;
+    public MemoryFull memoryFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -97,7 +97,7 @@ public class MemoryRegisterOperation : HttpOperation
 public class MemoryPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterMemoryRequest registerMemoryRequest;
+    public MemoryFull memoryFull;
 
     [HttpResponseTextBody]
     public String response;

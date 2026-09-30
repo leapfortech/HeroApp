@@ -234,14 +234,6 @@ public class RadioDetailAction : MonoBehaviour
 
     //
 
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
-
     private void RefreshContents(float deltaY)
     {
         RectTransform content = lstRadioType.transform.parent.GetComponent<RectTransform>();

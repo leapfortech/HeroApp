@@ -77,11 +77,10 @@ public class TaleFeedAction : MonoBehaviour
         valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
-        DateTime utcNow = DateTime.UtcNow;
         for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-            UpdateValue(emptyTaleFeed, loopValue, utcNow);
+            UpdateValue(emptyTaleFeed, loopValue);
             loopFeed.AddValue(loopValue);
 
             valueDates[k] = "--:--:--:---- : -1";
@@ -152,13 +151,12 @@ public class TaleFeedAction : MonoBehaviour
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
-        DateTime utcNow = DateTime.UtcNow;
         if (response.Direction < 3)
         {
             for (int i = 0; i < response.TaleFeeds.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.TaleFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.TaleFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.TaleFeeds[i]);
             }
 
@@ -167,7 +165,7 @@ public class TaleFeedAction : MonoBehaviour
                 for (int i = response.TaleFeeds.Count; i < loopFeed.ValuesCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyTaleFeed, loopFeed[k]);
                     UpdateDebug(k, emptyTaleFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
@@ -178,7 +176,7 @@ public class TaleFeedAction : MonoBehaviour
                 for (int i = response.TaleFeeds.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyTaleFeed, loopFeed[k]);
                     UpdateDebug(k, emptyTaleFeed);
                 }
             }
@@ -189,14 +187,14 @@ public class TaleFeedAction : MonoBehaviour
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyTaleFeed, loopFeed[k], utcNow);
+                UpdateValue(emptyTaleFeed, loopFeed[k]);
                 UpdateDebug(k, emptyTaleFeed);
             }
 
             for (int i = 0; i < response.TaleFeeds.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
-                UpdateValue(response.TaleFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.TaleFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.TaleFeeds[i]);
             }
         }
@@ -228,7 +226,7 @@ public class TaleFeedAction : MonoBehaviour
 
     readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
 
-    public void UpdateValue(TaleFeed taleFeed, LoopScrollerValue loopValue, DateTime utcNow)
+    public void UpdateValue(TaleFeed taleFeed, LoopScrollerValue loopValue)
     {
         bool empty = taleFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
@@ -260,36 +258,9 @@ public class TaleFeedAction : MonoBehaviour
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
-    public void ApplyDetailPost(Post post, Sprite titleSprite)
+    public void ApplyDetailPost(TaleFeed taleFeed)
     {
-        LoopScrollerValue loopValue = loopFeed[selectedIdx];
-
-        //Sprite thumbnailSprite = loopValue.GetSprite(0);
-        String alias = loopValue.GetText(2);
-        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(1), loopValue.GetCheck(2), loopValue.GetCheck(3) };
-
-        int itemIdx = loopValue.ItemIdx;
-        loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = post.ImageCount == 0 ? 2000 : 1200;
-        if (itemIdx != loopValue.ItemIdx)
-            loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
-
-        //loopValue.SetSprite(0, thumbnailSprite);
-        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        loopValue.SetText(2, alias);
-        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
-
-        if (loopValue.ItemIdx == 2)
-        {
-            loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
-            //loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
-        }
-
-        loopValue.SetCheck(0, toggles[0]);
-        loopValue.SetCheck(1, toggles[1]);
-        loopValue.SetCheck(2, toggles[2]);
-        loopValue.SetCheck(3, toggles[3]);
+        UpdateValue(taleFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
     }
@@ -395,28 +366,6 @@ public class TaleFeedAction : MonoBehaviour
         loopFeed[selectedIdx].SetCheck(Convert.ToInt32(reactionPhraseId) - 1, check);
         loopFeed.RefreshVisibleValues();
     }
-
-    // Plaint
-
-    //public void DisplayPlaintTypes()
-    //{
-    //    cmbPlaintType.Combo.Click();
-    //}
-
-    //public void ApplyPlaint()
-    //{
-    //    ScreenDialog.Instance.Display();
-
-    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
-
-    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    //radioService.RegisterPostPlaint(postPlaint);
-    //}
-
-    //public void PlaintRegistered()
-    //{
-    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    //}
 
     // Errors
 

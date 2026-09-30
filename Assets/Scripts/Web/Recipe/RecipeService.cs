@@ -40,13 +40,13 @@ public class RecipeService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         RecipeGetFullOperation recipeFullGetOp = new RecipeGetFullOperation();
         try
         {
             recipeFullGetOp.id = id;
-            recipeFullGetOp.likeAppUserId = likeAppUserId;
+            recipeFullGetOp.reactionAppUserId = reactionAppUserId;
             recipeFullGetOp["on-complete"] = (Action<RecipeGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -62,13 +62,13 @@ public class RecipeService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         RecipeFullByPostIdGetFullOperation recipeFullByPostIdGetOp = new RecipeFullByPostIdGetFullOperation();
         try
         {
             recipeFullByPostIdGetOp.postId = postId;
-            recipeFullByPostIdGetOp.likeAppUserId=likeAppUserId;
+            recipeFullByPostIdGetOp.reactionAppUserId=reactionAppUserId;
             recipeFullByPostIdGetOp["on-complete"] = (Action<RecipeFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -106,20 +106,20 @@ public class RecipeService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterRecipeRequest registerRecipeRequest)
+    public void Register(RecipeFull recipeFull)
     {
-        RecipeRegisterOperation referredRegisterOp = new RecipeRegisterOperation();
+        RecipeRegisterOperation recipeRegisterOp = new RecipeRegisterOperation();
         try
         {
-            referredRegisterOp.registerRecipeRequest = registerRecipeRequest;
-            referredRegisterOp["on-complete"] = (Action<RecipeRegisterOperation, HttpResponse>)((op, response) =>
+            recipeRegisterOp.recipeFull = recipeFull;
+            recipeRegisterOp["on-complete"] = (Action<RecipeRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
                     onRegistered.Invoke(Convert.ToInt64(op.id));
                 else
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
-            referredRegisterOp.Send();
+            recipeRegisterOp.Send();
         }
         catch (Exception ex)
         {
@@ -128,12 +128,12 @@ public class RecipeService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateRecipe(RegisterRecipeRequest registerRecipeRequest)
+    public void UpdateRecipe(RecipeFull recipeFull)
     {
         RecipePutOperation referredPutOp = new RecipePutOperation();
         try
         {
-            referredPutOp.registerRecipeRequest = registerRecipeRequest;
+            referredPutOp.recipeFull = recipeFull;
             referredPutOp["on-complete"] = (Action<RecipePutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

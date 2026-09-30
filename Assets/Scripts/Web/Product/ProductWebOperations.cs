@@ -20,7 +20,7 @@ public class ProductGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public ProductFull productFull;
@@ -36,7 +36,7 @@ public class ProductFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public ProductFull productFull;
@@ -81,7 +81,7 @@ public class ProductGetFeedOperation : HttpOperation
 public class ProductRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterProductRequest registerProductRequest;
+    public ProductFull productFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -112,7 +112,7 @@ public class ReviewRegisterOperation : HttpOperation
 public class ProductPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterProductRequest registerProductRequest;
+    public ProductFull productFull;
 
     [HttpResponseTextBody]
     public String response;

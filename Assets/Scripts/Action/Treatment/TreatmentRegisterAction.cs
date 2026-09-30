@@ -72,21 +72,21 @@ public class TreatmentRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.Title = "Remedio";
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
+        TreatmentFull treatmentFull = dtmPost.BuildClass<TreatmentFull>();
+        treatmentFull.Title = "Remedio";
+        treatmentFull.AppUserId = StateManager.Instance.AppUser.Id;
+        treatmentFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        treatmentFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         Treatment treatment = dtmTreatment.BuildClass<Treatment>();
-        List<Disease> diseases = dtmDiseaseVLL.BuildClassList<Disease>();
+        treatmentFull.DiseaseFulls = dtmDiseaseVLL.BuildClassList<DiseaseFull>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
+        treatmentFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            treatmentFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        treatmentService.Register(new RegisterTreatmentRequest(post, strImages, treatment, diseases));
+        //treatmentService.Register(new RegisterTreatmentRequest(post, strImages, treatment, diseases));
     }
 
     public void ApplyTreatment(long treatmentId)

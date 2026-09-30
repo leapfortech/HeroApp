@@ -8,7 +8,9 @@ public class PuzzleAnswer
     public int IsCorrect { get; set; }
     public int Status { get; set; }
 
-    public PuzzleAnswer() { }
+    public PuzzleAnswer()
+    {
+    }
 
     public PuzzleAnswer(long id, long puzzleId, String description, int isCorrect, int status)
     {

@@ -20,7 +20,7 @@ public class TaleGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public TaleFull taleFull;
@@ -36,7 +36,7 @@ public class TaleFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public TaleFull taleFull;
@@ -81,7 +81,7 @@ public class TaleGetFeedOperation : HttpOperation
 public class TaleRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterTaleRequest registerTaleRequest;
+    public TaleFull taleFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -97,7 +97,7 @@ public class TaleRegisterOperation : HttpOperation
 public class TalePutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterTaleRequest registerTaleRequest;
+    public TaleFull taleFull;
 
     [HttpResponseTextBody]
     public String response;

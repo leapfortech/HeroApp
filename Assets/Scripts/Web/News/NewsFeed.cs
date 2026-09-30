@@ -24,4 +24,44 @@ public class NewsFeed
     public int CommentCount { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
+
+    public NewsFeed()
+    {
+    }
+
+    public NewsFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string description, DateTime? dateTime,
+                    string newsType, string source, string alias, int[] reactionCounts, long reactionPhraseId, int commentCount, DateTime publicationDateTime)
+    {
+        Id = id;
+        PostId = postId;
+        TitleImage = titleImage;
+        TitleSprite = titleSprite;
+        Title = title;
+        Description = description;
+        DateTime = dateTime;
+        NewsType = newsType;
+        Source = source;
+        Alias = alias;
+        ReactionCounts = reactionCounts;
+        ReactionPhraseId = reactionPhraseId;
+        CommentCount = commentCount;
+        PublicationDateTime = publicationDateTime;
+    }
+
+    public NewsFeed(NewsFull newsFull)
+    {
+        Id = newsFull.Id;
+        PostId = newsFull.PostId;
+        TitleSprite = newsFull.TitleSprite;
+        Title = newsFull.Title;
+        Description = newsFull.Description;
+        DateTime = newsFull.DateTime;
+        NewsType = newsFull.NewsTypeId;
+        Source = newsFull.Source;
+        Alias = newsFull.AppUserAlias;
+        ReactionCounts = newsFull.ReactionCounts;
+        ReactionPhraseId = newsFull.ReactionPhraseId;
+        CommentCount = newsFull.CommentCount;
+        PublicationDateTime = newsFull.PublicationDateTime;
+    }
 }

@@ -72,13 +72,13 @@ public class MemoryService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         MemoryGetFullOperation memoryFullGetOp = new MemoryGetFullOperation();
         try
         {
             memoryFullGetOp.id = id;
-            memoryFullGetOp.likeAppUserId = likeAppUserId;
+            memoryFullGetOp.reactionAppUserId = reactionAppUserId;
             memoryFullGetOp["on-complete"] = (Action<MemoryGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -94,13 +94,13 @@ public class MemoryService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         MemoryFullByPostIdGetFullOperation memoryFullByPostIdGetOp = new MemoryFullByPostIdGetFullOperation();
         try
         {
             memoryFullByPostIdGetOp.postId = postId;
-            memoryFullByPostIdGetOp.likeAppUserId=likeAppUserId;
+            memoryFullByPostIdGetOp.reactionAppUserId=reactionAppUserId;
             memoryFullByPostIdGetOp["on-complete"] = (Action<MemoryFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -138,12 +138,12 @@ public class MemoryService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterMemoryRequest registerMemoryRequest)
+    public void Register(MemoryFull memoryFull)
     {
         MemoryRegisterOperation memoryRegisterOp = new MemoryRegisterOperation();
         try
         {
-            memoryRegisterOp.registerMemoryRequest = registerMemoryRequest;
+            memoryRegisterOp.memoryFull = memoryFull;
             memoryRegisterOp["on-complete"] = (Action<MemoryRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -202,12 +202,12 @@ public class MemoryService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateMemory(RegisterMemoryRequest registerMemoryRequest)
+    public void UpdateMemory(MemoryFull memoryFull)
     {
         MemoryPutOperation memoryPutOp = new MemoryPutOperation();
         try
         {
-            memoryPutOp.registerMemoryRequest = registerMemoryRequest;
+            memoryPutOp.memoryFull = memoryFull;
             memoryPutOp["on-complete"] = (Action<MemoryPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

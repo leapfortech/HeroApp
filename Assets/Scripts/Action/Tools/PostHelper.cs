@@ -4,15 +4,15 @@ using UnityEngine.Events;
 
 public static class PostHelper
 {
-    public static Post post = null;
-    public static Sprite titleSprite = null;
+    //public static Post post = null;
+    //public static Sprite titleSprite = null;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-    static void ResetPostHelper()
-    {
-        post = null;
-        titleSprite = null;
-    }
+    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    //static void ResetPostHelper()
+    //{
+    //    post = null;
+    //    titleSprite = null;
+    //}
 
     public static String GetFeedDelay(TimeSpan timeSpan)
     {
@@ -54,5 +54,5 @@ public static class PostHelper
     }
 }
 
-[Serializable]
-public class PostSpriteEvent : UnityEvent<Post, Sprite> { }
+//[Serializable]
+//public class PostSpriteEvent : UnityEvent<Post, Sprite> { }

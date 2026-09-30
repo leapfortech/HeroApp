@@ -78,11 +78,10 @@ public class HappeningFeedAction : MonoBehaviour
         valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
-        DateTime utcNow = DateTime.UtcNow;
         for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-            UpdateValue(emptyHappeningFeed, loopValue, utcNow);
+            UpdateValue(emptyHappeningFeed, loopValue);
             loopFeed.AddValue(loopValue);
 
             valueDates[k] = "--:--:--:---- : -1";
@@ -162,13 +161,12 @@ public class HappeningFeedAction : MonoBehaviour
         //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
-        DateTime utcNow = DateTime.UtcNow;
         if (response.Direction < 3)
         {
             for (int i = 0; i < response.HappeningFeeds.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.HappeningFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.HappeningFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.HappeningFeeds[i]);
             }
 
@@ -177,7 +175,7 @@ public class HappeningFeedAction : MonoBehaviour
                 for (int i = response.HappeningFeeds.Count; i < loopFeed.ValuesCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyHappeningFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyHappeningFeed, loopFeed[k]);
                     UpdateDebug(k, emptyHappeningFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
@@ -188,7 +186,7 @@ public class HappeningFeedAction : MonoBehaviour
                 for (int i = response.HappeningFeeds.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyHappeningFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyHappeningFeed, loopFeed[k]);
                     UpdateDebug(k, emptyHappeningFeed);
                 }
             }
@@ -199,14 +197,14 @@ public class HappeningFeedAction : MonoBehaviour
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyHappeningFeed, loopFeed[k], utcNow);
+                UpdateValue(emptyHappeningFeed, loopFeed[k]);
                 UpdateDebug(k, emptyHappeningFeed);
             }
 
             for (int i = 0; i < response.HappeningFeeds.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
-                UpdateValue(response.HappeningFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.HappeningFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.HappeningFeeds[i]);
             }
         }
@@ -237,7 +235,7 @@ public class HappeningFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    public void UpdateValue(HappeningFeed happeningFeed, LoopScrollerValue loopValue, DateTime utcNow)
+    public void UpdateValue(HappeningFeed happeningFeed, LoopScrollerValue loopValue)
     {
         bool empty = happeningFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
@@ -265,36 +263,9 @@ public class HappeningFeedAction : MonoBehaviour
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
-    public void ApplyDetailPost(Post post, Sprite titleSprite)
+    public void ApplyDetailPost(HappeningFeed happeningFeed)
     {
-        LoopScrollerValue loopValue = loopFeed[selectedIdx];
-
-        //Sprite thumbnailSprite = loopValue.GetSprite(0);
-        //String alias = loopValue.GetText(2);
-        //bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
-
-        int itemIdx = loopValue.ItemIdx;
-        loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
-        if (itemIdx != loopValue.ItemIdx)
-            loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
-
-        //loopValue.SetSprite(0, thumbnailSprite);
-        //loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        //loopValue.SetText(2, alias);
-        //loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
-
-        //if (loopValue.ItemIdx == 2)
-        //{
-        //    //loopValue.GetSprite(4)?.Destroy();
-        //    loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
-        //    loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
-        //}
-
-        //loopValue.SetCheck(0, toggles[0]);
-        //loopValue.SetCheck(1, toggles[1]);
-        //loopValue.SetCheck(2, toggles[2]);
-        //loopValue.SetCheck(3, toggles[3]);
+        UpdateValue(happeningFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
     }

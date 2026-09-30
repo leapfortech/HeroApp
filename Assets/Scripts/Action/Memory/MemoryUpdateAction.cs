@@ -15,6 +15,9 @@ using Sirenix.OdinInspector;
 
 public class MemoryUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class MemoryFeedEvent : UnityEvent<MemoryFeed> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -30,8 +33,6 @@ public class MemoryUpdateAction : MonoBehaviour
 
     [SerializeField]
     ValueList vllImages = null;
-    [SerializeField]
-    String spriteName = "Memory";
 
     [Title("Action")]
     [SerializeField]
@@ -43,13 +44,12 @@ public class MemoryUpdateAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    MemoryFeedEvent onMemoryChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
     MemoryService memoryService = null;
-
-    Memory memory = null;
+    MemoryFull memoryFull = null;
 
     private void Awake()
     {
@@ -75,17 +75,15 @@ public class MemoryUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(memoryFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
+        this.memoryFull = memoryFull;
 
+        dtmMemory.PopulateClass<MemoryFull>(memoryFull);
 
-        memory = new Memory(memoryFull);
-        dtmMemory.PopulateClass<Memory>(memory);
-        String timeStr = memory.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
+        String timeStr = memoryFull.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmTime.PopulateBuiltIn<String>(timeStr);
 
         for (int i = 0; i < memoryFull.ImageSprites.Count; i++)
-            vllImages.AddRecord(memoryFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
+            vllImages.AddRecord(memoryFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Memory]}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -97,25 +95,23 @@ public class MemoryUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Update(dtmPost.BuildClass<Post>());
+        memoryFull.Update(dtmMemory.BuildClass<MemoryFull>());
 
-        memory.Update(dtmMemory.BuildClass<Memory>());
-
-        if (memory.DateTime.HasValue)
+        if (memoryFull.DateTime.HasValue)
         {
             String[] time = dtmTime.BuildBuiltIn<String>().Split('|');
-            memory.DateTime = new DateTime(memory.DateTime.Value.Year, memory.DateTime.Value.Month, memory.DateTime.Value.Day,
-                                           Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
+            memoryFull.DateTime = new DateTime(memoryFull.DateTime.Value.Year, memoryFull.DateTime.Value.Month, memoryFull.DateTime.Value.Day,
+                                               Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
         }
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        PostHelper.post.ImageCount = vllImages.RecordCount;
-        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
+        memoryFull.ImageCount = vllImages.RecordCount;
+        memoryFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
-        memoryService.UpdateMemory(new RegisterMemoryRequest(PostHelper.post, strImages, memory));
+        memoryService.UpdateMemory(memoryFull);
     }
 
     public void ApplyMemory(bool updated)
@@ -126,7 +122,7 @@ public class MemoryUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onMemoryChanged.Invoke(new MemoryFeed(memoryFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

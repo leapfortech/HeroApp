@@ -73,13 +73,13 @@ public class ProductService : MonoBehaviour
         }
     }
 
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         ProductGetFullOperation productFullGetOp = new ProductGetFullOperation();
         try
         {
             productFullGetOp.id = id;
-            productFullGetOp.likeAppUserId = likeAppUserId;
+            productFullGetOp.reactionAppUserId = reactionAppUserId;
             productFullGetOp["on-complete"] = (Action<ProductGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -95,13 +95,13 @@ public class ProductService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         ProductFullByPostIdGetFullOperation productFullByPostIdGetOp = new ProductFullByPostIdGetFullOperation();
         try
         {
             productFullByPostIdGetOp.postId = postId;
-            productFullByPostIdGetOp.likeAppUserId= likeAppUserId;
+            productFullByPostIdGetOp.reactionAppUserId= reactionAppUserId;
             productFullByPostIdGetOp["on-complete"] = (Action<ProductFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -139,12 +139,12 @@ public class ProductService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterProductRequest registerProductRequest)
+    public void Register(ProductFull productFull)
     {
         ProductRegisterOperation productRegisterOp = new ProductRegisterOperation();
         try
         {
-            productRegisterOp.registerProductRequest = registerProductRequest;
+            productRegisterOp.productFull = productFull;
             productRegisterOp["on-complete"] = (Action<ProductRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -224,12 +224,12 @@ public class ProductService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateProduct(RegisterProductRequest registerProductRequest)
+    public void UpdateProduct(ProductFull productFull)
     {
         ProductPutOperation referredPutOp = new ProductPutOperation();
         try
         {
-            referredPutOp.registerProductRequest = registerProductRequest;
+            referredPutOp.productFull = productFull;
             referredPutOp["on-complete"] = (Action<ProductPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

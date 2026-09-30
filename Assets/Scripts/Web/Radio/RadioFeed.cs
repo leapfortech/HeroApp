@@ -21,4 +21,37 @@ public class RadioFeed
     public int Favorite { get; set; } = 0;
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
+
+    public RadioFeed()
+    {
+    }
+
+    public RadioFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string radioType, string postCountry, string postState, string url, int favorite, DateTime publicationDateTime)
+    {
+        Id = id;
+        PostId = postId;
+        TitleImage = titleImage;
+        TitleSprite = titleSprite;
+        Title = title;
+        RadioType = radioType;
+        PostCountry = postCountry;
+        PostState = postState;
+        Url = url;
+        Favorite = favorite;
+        PublicationDateTime = publicationDateTime;
+    }
+
+    public RadioFeed(RadioFull radioFull)
+    {
+        Id = radioFull.Id;
+        PostId = radioFull.PostId;
+        TitleSprite = radioFull.TitleSprite;
+        Title = radioFull.Title;
+        RadioType = radioFull.RadioTypeFulls[0].RadioTypeId;
+        PostCountry = radioFull.PostCountryId;
+        PostState = radioFull.PostStateId;
+        Url = radioFull.LinkFulls[0].Url;
+        Favorite = radioFull.Favorite;
+        PublicationDateTime = radioFull.PublicationDateTime;
+    }
 }

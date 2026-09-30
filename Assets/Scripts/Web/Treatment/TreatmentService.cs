@@ -40,13 +40,13 @@ public class TreatmentService : MonoBehaviour
 
 
     // GET
-    public void GetFull(long id, long likeAppUserId)
+    public void GetFull(long id, long reactionAppUserId)
     {
         TreatmentGetFullOperation treatmentFullGetOp = new TreatmentGetFullOperation();
         try
         {
             treatmentFullGetOp.id = id;
-            treatmentFullGetOp.likeAppUserId = likeAppUserId;
+            treatmentFullGetOp.reactionAppUserId = reactionAppUserId;
             treatmentFullGetOp["on-complete"] = (Action<TreatmentGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -62,13 +62,13 @@ public class TreatmentService : MonoBehaviour
         }
     }
 
-    public void GetFullByPostId(long postId, long likeAppUserId)
+    public void GetFullByPostId(long postId, long reactionAppUserId)
     {
         TreatmentFullByPostIdGetFullOperation treatmentFullByPostIdGetOp = new TreatmentFullByPostIdGetFullOperation();
         try
         {
             treatmentFullByPostIdGetOp.postId = postId;
-            treatmentFullByPostIdGetOp.likeAppUserId=likeAppUserId;
+            treatmentFullByPostIdGetOp.reactionAppUserId=reactionAppUserId;
             treatmentFullByPostIdGetOp["on-complete"] = (Action<TreatmentFullByPostIdGetFullOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -106,12 +106,12 @@ public class TreatmentService : MonoBehaviour
     }
 
     // REGISTER
-    public void Register(RegisterTreatmentRequest registerTreatmentRequest)
+    public void Register(TreatmentFull treatmentFull)
     {
         TreatmentRegisterOperation referredRegisterOp = new TreatmentRegisterOperation();
         try
         {
-            referredRegisterOp.registerTreatmentRequest = registerTreatmentRequest;
+            referredRegisterOp.treatmentFull = treatmentFull;
             referredRegisterOp["on-complete"] = (Action<TreatmentRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)
@@ -128,12 +128,12 @@ public class TreatmentService : MonoBehaviour
     }
 
     // UPDATE
-    public void UpdateTreatment(RegisterTreatmentRequest registerTreatmentRequest)
+    public void UpdateTreatment(TreatmentFull treatmentFull)
     {
         TreatmentPutOperation referredPutOp = new TreatmentPutOperation();
         try
         {
-            referredPutOp.registerTreatmentRequest = registerTreatmentRequest;
+            referredPutOp.treatmentFull = treatmentFull;
             referredPutOp["on-complete"] = (Action<TreatmentPutOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

@@ -5,14 +5,10 @@ using Leap.UI.Dialog;
 
 public class FeedToolsAction : MonoBehaviour
 {
-    FeedAction feedAction = null;
     PostService postService = null;
-
-    const int LIKE = 5, DISLIKE = 0;
 
     private void Awake()
     {
-        feedAction = GetComponent<FeedAction>();
         postService = GetComponent<PostService>();
     }
 
@@ -38,26 +34,6 @@ public class FeedToolsAction : MonoBehaviour
     }
 
     public void ApplyFavorite(long favoriteId)
-    {
-        ScreenDialog.Instance.Hide();
-    }
-
-    // Like/Dislike
-    public void RegisterLike(long postId)
-    {
-        ScreenDialog.Instance.Display();
-
-        postService.RegisterLike(new Like(postId, StateManager.Instance.AppUser.Id, LIKE));
-    }
-
-    public void RegisterDislike(long postId)
-    {
-        ScreenDialog.Instance.Display();
-
-        postService.RegisterLike(new Like(postId, StateManager.Instance.AppUser.Id, DISLIKE));
-    }
-
-    public void ApplyLike(long likeId)
     {
         ScreenDialog.Instance.Hide();
     }

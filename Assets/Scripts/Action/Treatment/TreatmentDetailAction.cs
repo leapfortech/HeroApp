@@ -69,10 +69,6 @@ public class TreatmentDetailAction : MonoBehaviour
     [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
-    Toggle tglLike = null;
-    [SerializeField]
-    Toggle tglDislike = null;
-    [SerializeField]
     Toggle tglReaction = null;
     [SerializeField]
     ComboAdapter cmbReaction = null;
@@ -88,10 +84,6 @@ public class TreatmentDetailAction : MonoBehaviour
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
-    [SerializeField]
-    UnityBoolEvent onLikeChanged = null;
-    [SerializeField]
-    UnityBoolEvent onDislikeChanged = null;
     [SerializeField]
     UnityBoolEvent onReactionChanged = null;
 
@@ -177,41 +169,6 @@ public class TreatmentDetailAction : MonoBehaviour
     public void ApplyDetailFavorite()
     {
         onFavoriteChanged.Invoke(tglFavorite.Checked);
-    }
-
-    // Like
-
-    public void ApplyLike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 5);
-        if (check)
-        {
-            tglDislike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-            postService.DeleteLike(like);
-    }
-
-    public void ApplyDislike(bool check)
-    {
-        Like like = new Like(postId, StateManager.Instance.AppUser.Id, 1);
-        if (check)
-        {
-            tglLike.Uncheck();
-            postService.UpdateLike(like);
-        }
-        else
-        {
-            like.Rank = -1;
-            postService.DeleteLike(like);
-        }
-    }
-
-    public void ApplyDetailLike()
-    {
-        onLikeChanged.Invoke(tglLike.Checked);
-        onDislikeChanged.Invoke(tglDislike.Checked);
     }
 
     // Reaction

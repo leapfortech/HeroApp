@@ -98,10 +98,10 @@ public class HappeningRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId =  StateManager.Instance.CurrentLocality.CountryId;
-        post.StateId = StateManager.Instance.CurrentLocality.StateId;
+        HappeningFull happeningFull = dtmPost.BuildClass<HappeningFull>();
+        happeningFull.AppUserId = StateManager.Instance.AppUser.Id;
+        happeningFull.PostCountryId =  StateManager.Instance.CurrentLocality.CountryId;
+        happeningFull.PostStateId = StateManager.Instance.CurrentLocality.StateId;
 
         Happening happening = dtmHappening.BuildClass<Happening>();
 
@@ -124,16 +124,16 @@ public class HappeningRegisterAction : MonoBehaviour
             }
         }
 
-        Contact contact = dtmContact.BuildClass<Contact>();
+        happeningFull.ContactFull = dtmContact.BuildClass<ContactFull>();
 
-        List<Link> links = new();
+        happeningFull.LinkFulls = new();
 
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
             if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-                links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+                happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
         String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
@@ -142,17 +142,17 @@ public class HappeningRegisterAction : MonoBehaviour
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
             if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-                links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+                happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
         String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
         if (hasEmail == "1")
         {
-            Link email = dtmEmail.BuildClass<Link>();
-            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            LinkFull email = dtmEmail.BuildClass<LinkFull>();
+            if (email != null && !String.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
-                links.Add(email);
+                happeningFull.LinkFulls.Add(email);
             }
         }
 
@@ -161,7 +161,7 @@ public class HappeningRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        happeningService.Register(new RegisterHappeningRequest(post, contact, links, strImages, happening));
+        happeningService.Register(happeningFull);
     }
 
     public void ApplyHappening(long happeningId)

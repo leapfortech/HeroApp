@@ -20,7 +20,7 @@ public class RadioGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public RadioFull radioFull;
@@ -36,7 +36,7 @@ public class RadioFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public RadioFull radioFull;
@@ -81,7 +81,7 @@ public class RadioGetFeedOperation : HttpOperation
 public class RadioRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterRadioRequest registerRadioRequest;
+    public RadioFull radioFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -112,7 +112,7 @@ public class RadioListenRegisterOperation : HttpOperation
 public class RadioPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterRadioRequest registerRadioRequest;
+    public RadioFull radioFull;
 
     [HttpResponseTextBody]
     public String response;

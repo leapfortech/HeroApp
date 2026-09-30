@@ -14,6 +14,9 @@ using Sirenix.OdinInspector;
 
 public class ProductUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class ProductFeedEvent : UnityEvent<ProductFeed> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -47,8 +50,6 @@ public class ProductUpdateAction : MonoBehaviour
 
     [SerializeField]
     ValueList vllImages = null;
-    [SerializeField]
-    String spriteName = "Product";
 
     [Title("Action")]
     [SerializeField]
@@ -60,14 +61,13 @@ public class ProductUpdateAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    ProductFeedEvent onProductChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
     ProductService productService = null;
 
-    Contact contact = null;
-    Product product = null;
+    ProductFull productFull = null;
 
     private void Awake()
     {
@@ -97,11 +97,8 @@ public class ProductUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(productFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
-
-        contact = new Contact(productFull.ContactFull);
-        dtmContact.PopulateClass<Contact>(contact);
+        this.productFull = productFull;
+        dtmPost.PopulateClass<ProductFull>(productFull);
 
         dtmHasPhone.PopulateBuiltIn<String>("0");
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
@@ -142,17 +139,16 @@ public class ProductUpdateAction : MonoBehaviour
             if (linkFull.LinkTypeId == 4)
             {
                 dtmHasEmail.PopulateBuiltIn<String>("1");
-                dtmEmail.PopulateClass<Link>(new Link(linkFull));
+                dtmEmail.PopulateClass<LinkFull>(linkFull);
                 continue;
             }
         }
 
-        product = new Product(productFull);
-        dtmHasDiscountPrice.PopulateBuiltIn<String>(product.DiscountPrice == 0.0f ? "0" : "1");
-        dtmProduct.PopulateClass<Product>(product);
+        dtmHasDiscountPrice.PopulateBuiltIn<String>(this.productFull.DiscountPrice == 0.0f ? "0" : "1");
+        dtmProduct.PopulateClass<ProductFull>(this.productFull);
 
         for (int i = 0; i < productFull.ImageSprites.Count; i++)
-            vllImages.AddRecord(productFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
+            vllImages.AddRecord(productFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Product]}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -170,18 +166,18 @@ public class ProductUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Update(dtmPost.BuildClass<Post>());
+        productFull.Update(dtmPost.BuildClass<PostFull>());
 
-        contact.Update(dtmContact.BuildClass<Contact>());
+        productFull.ContactFull.Update(dtmContact.BuildClass<ContactFull>());
 
-        List<Link> links = new();
+        List<LinkFull> linkFulls = new();
 
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
             if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-                links.Add(new Link(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+                linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
         String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
@@ -189,30 +185,30 @@ public class ProductUpdateAction : MonoBehaviour
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
             if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-                links.Add(new Link(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+                linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
         String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
         if (hasEmail == "1")
         {
-            Link email = dtmEmail.BuildClass<Link>();
+            LinkFull email = dtmEmail.BuildClass<LinkFull>();
             if (email != null && !string.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
-                links.Add(email);
+                linkFulls.Add(email);
             }
         }
-
-        product.Update(dtmProduct.BuildClass<Product>());
+            
+        productFull.Update(dtmProduct.BuildClass<ProductFull>());
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        PostHelper.post.ImageCount = vllImages.RecordCount;
-        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
+        productFull.ImageCount = vllImages.RecordCount;
+        productFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
-        productService.UpdateProduct(new RegisterProductRequest(PostHelper.post, contact, links, strImages, product));
+        productService.UpdateProduct(productFull);
     }
 
     public void ApplyUpdate(bool updated)
@@ -223,7 +219,7 @@ public class ProductUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onProductChanged.Invoke(new ProductFeed(productFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

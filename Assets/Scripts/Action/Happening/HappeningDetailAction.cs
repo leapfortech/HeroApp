@@ -117,8 +117,7 @@ public class HappeningDetailAction : MonoBehaviour
         btnEmail?.AddAction(OpenEmail);
 
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
-                               - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
     }
 
     public void Display(long postId)
@@ -239,14 +238,6 @@ public class HappeningDetailAction : MonoBehaviour
     }
 
     //
-
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
 
     private void RefreshContents()
     {

@@ -14,6 +14,9 @@ using Sirenix.OdinInspector;
 
 public class NewsUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class NewsFeedEvent : UnityEvent<NewsFeed> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
@@ -25,8 +28,6 @@ public class NewsUpdateAction : MonoBehaviour
     DataMapper dtmNews = null;
     [SerializeField]
     ValueList vllImages = null;
-    [SerializeField]
-    String spriteName = "News";
 
     [Title("Action")]
     [SerializeField]
@@ -38,13 +39,13 @@ public class NewsUpdateAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    NewsFeedEvent onNewsChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
     NewsService newsService = null;
 
-    News news = null;
+    NewsFull newsFull = null;
 
     private void Awake()
     {
@@ -67,17 +68,16 @@ public class NewsUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(newsFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
+        dtmPost.PopulateClass<PostFull>(newsFull);
 
-        news = new News(newsFull);
-        dtmNews.PopulateClass<News>(news);
+        this.newsFull = newsFull;
+        dtmNews.PopulateClass<NewsFull>(newsFull);
 
         //String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         //dtmTime.PopulateBuiltIn<String>(dateTimeStr);
 
         for (int i = 0; i < newsFull.ImageSprites.Count; i++)
-            vllImages.AddRecord(newsFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
+            vllImages.AddRecord(newsFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.News]}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -89,9 +89,7 @@ public class NewsUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Update(dtmPost.BuildClass<Post>());
-
-        news.Update(dtmNews.BuildClass<News>());
+        newsFull.Update(dtmNews.BuildClass<NewsFull>());
 
         //if (news.DateTime.HasValue && news.DateTime.HasValue)
         //{
@@ -105,10 +103,10 @@ public class NewsUpdateAction : MonoBehaviour
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        PostHelper.post.ImageCount = vllImages.RecordCount;
-        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
+        newsFull.ImageCount = vllImages.RecordCount;
+        newsFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
-        newsService.UpdateNews(new RegisterNewsRequest(PostHelper.post, (Link)null, strImages, news));
+        newsService.UpdateNews(newsFull);
     }
 
     public void ApplyUpdate(bool updated)
@@ -119,7 +117,7 @@ public class NewsUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onNewsChanged.Invoke(new NewsFeed(newsFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

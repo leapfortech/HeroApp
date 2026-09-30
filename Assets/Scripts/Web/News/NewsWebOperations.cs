@@ -20,7 +20,7 @@ public class NewsGetFullOperation : HttpOperation
     [HttpQueryString]
     public long id;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public NewsFull newsFull;
@@ -36,7 +36,7 @@ public class NewsFullByPostIdGetFullOperation : HttpOperation
     [HttpQueryString]
     public long postId;
     [HttpQueryString]
-    public long likeAppUserId;
+    public long reactionAppUserId;
 
     [HttpResponseJsonBody]
     public NewsFull newsFull;
@@ -81,7 +81,7 @@ public class NewsGetFeedOperation : HttpOperation
 public class NewsRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterNewsRequest registerNewsRequest;
+    public NewsFull newsFull;
 
     [HttpResponseTextBody]
     public String id;
@@ -97,7 +97,7 @@ public class NewsRegisterOperation : HttpOperation
 public class NewsPutOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public RegisterNewsRequest registerNewsRequest;
+    public NewsFull newsFull;
 
     [HttpResponseTextBody]
     public String response;

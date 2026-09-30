@@ -35,7 +35,6 @@ public class RecipeUpdateAction : MonoBehaviour
     RecipeService recipeService = null;
 
     long postId = -1, recipeId = -1;
-    Post post = null;
     Recipe recipe = null;
 
     private void Awake()
@@ -65,8 +64,8 @@ public class RecipeUpdateAction : MonoBehaviour
     {
         RecipeFull recipeFull = null; // StateManager.Instance.GetRecipeFullById(recipeId);
 
-        post = new Post(recipeFull);
-        dtmPost.PopulateClass<Post>(post);
+        //PostHelper.post = new Post(recipeFull);
+        //dtmPost.PopulateClass<Post>(post);
 
         recipe = new Recipe(recipeFull);
         dtmRecipe.PopulateClass<Recipe>(recipe);
@@ -82,7 +81,7 @@ public class RecipeUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        post.Update(dtmPost.BuildClass<Post>());
+        //PostHelper.post.Update(dtmPost.BuildClass<Post>());
 
         recipe.Update(dtmRecipe.BuildClass<Recipe>());
 
@@ -91,7 +90,7 @@ public class RecipeUpdateAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        recipeService.UpdateRecipe(new RegisterRecipeRequest(post, strImages, recipe));
+        //recipeService.UpdateRecipe(new RegisterRecipeRequest(PostHelper.post, strImages, recipe));
     }
 
     public void ApplyUpdate(bool updated)

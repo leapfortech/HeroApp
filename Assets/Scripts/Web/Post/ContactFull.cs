@@ -18,4 +18,9 @@ public class ContactFull
         Name = name;
         Status = status;
     }
+
+    public void Update(ContactFull contactFull)
+    {
+        Name = contactFull.Name;
+    }
 }

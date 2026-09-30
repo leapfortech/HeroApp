@@ -23,5 +23,42 @@ public class TaleFeed
     public String CurrentLocality { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
+
+    public TaleFeed()
+    {
+    }
+
+    public TaleFeed(long id, long postId, string titleImage, string title, string description,
+                    int[] reactionCounts, long reactionPhraseId, int commentCount, string alias, string interestLocality, string currentLocality, DateTime publicationDateTime)
+    {
+        Id = id;
+        PostId = postId;
+        TitleImage = titleImage;
+        Title = title;
+        Description = description;
+        ReactionCounts = reactionCounts;
+        ReactionPhraseId = reactionPhraseId;
+        CommentCount = commentCount;
+        Alias = alias;
+        InterestLocality = interestLocality;
+        CurrentLocality = currentLocality;
+        PublicationDateTime = publicationDateTime;
+    }
+
+    public TaleFeed(TaleFull taleFull)
+    {
+        Id = taleFull.Id;
+        PostId = taleFull.PostId;
+        TitleSprite = taleFull.TitleSprite;
+        Title = taleFull.Title;
+        Description = taleFull.Description;
+        ReactionCounts = taleFull.ReactionCounts;
+        ReactionPhraseId = taleFull.ReactionPhraseId;
+        CommentCount = taleFull.CommentCount;
+        Alias = taleFull.AppUserAlias;
+        //InterestLocality = interestLocality;
+        //CurrentLocality = currentLocality;
+        PublicationDateTime = taleFull.PublicationDateTime;
+    }
 }
 

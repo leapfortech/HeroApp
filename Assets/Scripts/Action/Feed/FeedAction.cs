@@ -263,39 +263,39 @@ public class FeedAction : MonoBehaviour
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
-    public void ApplyDetailPost(Post post, Sprite titleSprite)
-    {
-        LoopScrollerValue loopValue = loopFeed[selectedIdx];
+    //public void ApplyDetailPost(Post post, Sprite titleSprite)
+    //{
+    //    LoopScrollerValue loopValue = loopFeed[selectedIdx];
 
-        Sprite thumbnailSprite = loopValue.GetSprite(0);
-        String alias = loopValue.GetText(2);
-        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
+    //    Sprite thumbnailSprite = loopValue.GetSprite(0);
+    //    String alias = loopValue.GetText(2);
+    //    bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
 
-        int itemIdx = loopValue.ItemIdx;
-        loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
-        if (itemIdx != loopValue.ItemIdx)
-            loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
+    //    int itemIdx = loopValue.ItemIdx;
+    //    loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
+    //    loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
+    //    if (itemIdx != loopValue.ItemIdx)
+    //        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new FeedUserData(post.Id, post.PublicationDateTime));
 
-        loopValue.SetSprite(0, thumbnailSprite);
-        loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        loopValue.SetText(2, alias);
-        loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
+    //    loopValue.SetSprite(0, thumbnailSprite);
+    //    loopValue.SetText(1, $"<line-height=70%>{post.Title}");
+    //    loopValue.SetText(2, alias);
+    //    loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
 
-        if (loopValue.ItemIdx == 2)
-        {
-            //loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
-            loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
-        }
+    //    if (loopValue.ItemIdx == 2)
+    //    {
+    //        //loopValue.GetSprite(4)?.Destroy();
+    //        loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
+    //        loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
+    //    }
 
-        loopValue.SetCheck(0, toggles[0]);
-        loopValue.SetCheck(1, toggles[1]);
-        loopValue.SetCheck(2, toggles[2]);
-        loopValue.SetCheck(3, toggles[3]);
+    //    loopValue.SetCheck(0, toggles[0]);
+    //    loopValue.SetCheck(1, toggles[1]);
+    //    loopValue.SetCheck(2, toggles[2]);
+    //    loopValue.SetCheck(3, toggles[3]);
 
-        loopFeed.RefreshVisibleValues();
-    }
+    //    loopFeed.RefreshVisibleValues();
+    //}
 
     // AppUser
 
@@ -342,57 +342,6 @@ public class FeedAction : MonoBehaviour
     public void ApplyDetailFavorite(bool check)
     {
         loopFeed[selectedIdx].SetCheck(0, check);
-        loopFeed.RefreshVisibleValues();
-    }
-
-    // Like
-
-    public void ApplyLike(int dataIndex, bool check)
-    {
-        int k = dataIndex % loopFeed.ValuesCount;
-        loopFeed[k].SetCheck(1, check);
-
-        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id, 5);
-        if (check)
-        {
-            loopFeed[k].SetCheck(2, false);
-            loopFeed.RefreshVisibleValues();
-            postService.UpdateLike(like);
-        }
-        else
-            postService.DeleteLike(like);
-    }
-
-    public void ApplyDetailLike(bool check)
-    {
-        loopFeed[selectedIdx].SetCheck(1, check);
-        loopFeed.RefreshVisibleValues();
-    }
-
-    // Dislike
-
-    public void ApplyDislike(int dataIndex, bool check)
-    {
-        int k = dataIndex % loopFeed.ValuesCount;
-        loopFeed[k].SetCheck(2, check);
-
-        Like like = new Like(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id, 1);
-        if (check)
-        {
-            loopFeed[k].SetCheck(1, false);
-            loopFeed.RefreshVisibleValues();
-            postService.UpdateLike(like);
-        }
-        else
-        {
-            like.Rank = -1;
-            postService.DeleteLike(like);
-        }
-    }
-
-    public void ApplyDetailDislike(bool check)
-    {
-        loopFeed[selectedIdx].SetCheck(2, check);
         loopFeed.RefreshVisibleValues();
     }
 

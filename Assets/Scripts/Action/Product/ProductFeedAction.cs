@@ -79,11 +79,10 @@ public class ProductFeedAction : MonoBehaviour
         valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
-        DateTime utcNow = DateTime.UtcNow;
         for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-            UpdateValue(emptyProductFeed, loopValue, utcNow);
+            UpdateValue(emptyProductFeed, loopValue);
             loopFeed.AddValue(loopValue);
 
             valueDates[k] = "--:--:--:---- : -1";
@@ -159,13 +158,12 @@ public class ProductFeedAction : MonoBehaviour
         //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
         //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
-        DateTime utcNow = DateTime.UtcNow;
         if (response.Direction < 3)
         {
             for (int i = 0; i < response.ProductFeeds.Count; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.ProductFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.ProductFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.ProductFeeds[i]);
             }
 
@@ -174,7 +172,7 @@ public class ProductFeedAction : MonoBehaviour
                 for (int i = response.ProductFeeds.Count; i < loopFeed.ValuesCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyProductFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyProductFeed, loopFeed[k]);
                     UpdateDebug(k, emptyProductFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
@@ -185,7 +183,7 @@ public class ProductFeedAction : MonoBehaviour
                 for (int i = response.ProductFeeds.Count; i < feedCount; i++)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyProductFeed, loopFeed[k], utcNow);
+                    UpdateValue(emptyProductFeed, loopFeed[k]);
                     UpdateDebug(k, emptyProductFeed);
                 }
             }
@@ -196,14 +194,14 @@ public class ProductFeedAction : MonoBehaviour
             for (int i = 0; i < n; i++)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyProductFeed, loopFeed[k], utcNow);
+                UpdateValue(emptyProductFeed, loopFeed[k]);
                 UpdateDebug(k, emptyProductFeed);
             }
 
             for (int i = 0; i < response.ProductFeeds.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
-                UpdateValue(response.ProductFeeds[i], loopFeed[k], utcNow);
+                UpdateValue(response.ProductFeeds[i], loopFeed[k]);
                 UpdateDebug(k, response.ProductFeeds[i]);
             }
         }
@@ -234,7 +232,7 @@ public class ProductFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    public void UpdateValue(ProductFeed productFeed, LoopScrollerValue loopValue, DateTime utcNow)
+    public void UpdateValue(ProductFeed productFeed, LoopScrollerValue loopValue)
     {
         bool empty = productFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
@@ -265,36 +263,9 @@ public class ProductFeedAction : MonoBehaviour
         onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
-    public void ApplyDetailPost(Post post, Sprite titleSprite)
+    public void ApplyDetailPost(ProductFeed productFeed)
     {
-        LoopScrollerValue loopValue = loopFeed[selectedIdx];
-
-        //Sprite thumbnailSprite = loopValue.GetSprite(0);
-        //String alias = loopValue.GetText(2);
-        bool[] toggles = { loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0), loopValue.GetCheck(0) };
-
-        int itemIdx = loopValue.ItemIdx;
-        loopValue.ItemIdx = post.ImageCount == 0 ? 1 : 2;
-        loopValue.ItemSize = post.ImageCount == 0 ? 460 : 1058;
-        if (itemIdx != loopValue.ItemIdx)
-            loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, new ProductUserData(post.Id, post.PublicationDateTime));
-
-        //loopValue.SetSprite(0, thumbnailSprite);
-        //loopValue.SetText(1, $"<line-height=70%>{post.Title}");
-        //loopValue.SetText(2, alias);
-        //loopValue.SetText(3, $"<line-height=70%>{((post.Description != null && post.Description.Length > 180) ? post.Description[0..179] + "..." : post.Description)}");
-
-        if (loopValue.ItemIdx == 2)
-        {
-            //loopValue.GetSprite(4)?.Destroy();
-            loopValue.SetSprite(4, titleSprite.Clone("CPY_" + titleSprite.name, true));
-            loopValue.SetText(5, post.ImageCount < 2 ? null : $"+{(post.ImageCount - 1).ToString()}");
-        }
-
-        loopValue.SetCheck(0, toggles[0]);
-        loopValue.SetCheck(1, toggles[1]);
-        loopValue.SetCheck(2, toggles[2]);
-        loopValue.SetCheck(3, toggles[3]);
+        UpdateValue(productFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
     }

@@ -14,17 +14,18 @@ using Sirenix.OdinInspector;
 
 public class TaleUpdateAction : MonoBehaviour
 {
+    [Serializable]
+    class TaleFeedEvent : UnityEvent<TaleFeed> { }
+
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmTaleFull = null;
     [SerializeField]
     ValueList vllImages = null;
-    [SerializeField]
-    String spriteName = "Tale";
 
     [Title("Action")]
     [SerializeField]
@@ -36,13 +37,12 @@ public class TaleUpdateAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    PostSpriteEvent onPostChanged = null;
+    TaleFeedEvent onTaleChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
     TaleService taleService = null;
-
-    Tale tale = null;
+    TaleFull taleFull = null;
 
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class TaleUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        dtmTaleFull.ClearElements();
         vllImages.ClearRecords();
     }
 
@@ -64,13 +64,12 @@ public class TaleUpdateAction : MonoBehaviour
     {
         Clear();
 
-        PostHelper.post = new Post(taleFull);
-        dtmPost.PopulateClass<Post>(PostHelper.post);
+        this.taleFull = taleFull;
 
-        tale = new Tale(taleFull);
+        dtmTaleFull.PopulateClass<TaleFull>(taleFull);
 
         for (int i = 0; i < taleFull.ImageSprites.Count; i++)
-            vllImages.AddRecord(taleFull.ImageSprites[i].Clone($"Edt_{spriteName}_{i}"));
+            vllImages.AddRecord(taleFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Tale]}_{i}"));
 
         onPopulated.Invoke();
     }
@@ -82,16 +81,16 @@ public class TaleUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        PostHelper.post.Update(dtmPost.BuildClass<Post>());
+        taleFull.Update(dtmTaleFull.BuildClass<TaleFull>());
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
-        PostHelper.post.ImageCount = vllImages.RecordCount;
-        PostHelper.titleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
+        taleFull.ImageCount = vllImages.RecordCount;
+        taleFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
-        taleService.UpdateTale(new RegisterTaleRequest(PostHelper.post, strImages, tale));
+        taleService.UpdateTale(taleFull);
     }
 
     public void ApplyUpdate(bool updated)
@@ -102,7 +101,7 @@ public class TaleUpdateAction : MonoBehaviour
             return;
         }
 
-        onPostChanged.Invoke(PostHelper.post, PostHelper.titleSprite);
+        onTaleChanged.Invoke(new TaleFeed(taleFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNext);

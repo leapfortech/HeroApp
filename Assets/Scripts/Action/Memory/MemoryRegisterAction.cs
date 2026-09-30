@@ -75,28 +75,25 @@ public class MemoryRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        Post post = dtmPost.BuildClass<Post>();
-        post.AppUserId = StateManager.Instance.AppUser.Id;
-        post.CountryId = StateManager.Instance.InterestLocality.CountryId;
-        post.StateId = StateManager.Instance.InterestLocality.StateId;
+        MemoryFull memoryFull = dtmPost.BuildClass<MemoryFull>();
+        memoryFull.AppUserId = StateManager.Instance.AppUser.Id;
+        memoryFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
+        memoryFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
-        Memory memory = dtmMemory.BuildClass<Memory>();
-
-        if (memory.DateTime.HasValue)
+        if (memoryFull.DateTime.HasValue)
         {
             String timeStr = dtmTime.BuildBuiltIn<String>();
             String[] time = timeStr.Split('|');
-            memory.DateTime = new DateTime(memory.DateTime.Value.Year, memory.DateTime.Value.Month, memory.DateTime.Value.Day,
-                                                Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
-
+            memoryFull.DateTime = new DateTime(memoryFull.DateTime.Value.Year, memoryFull.DateTime.Value.Month, memoryFull.DateTime.Value.Day,
+                                               Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
         }
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
+        memoryFull.Images = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+            memoryFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        memoryService.Register(new RegisterMemoryRequest(post, strImages, memory));
+        memoryService.Register(memoryFull);
     }
 
     public void ApplyMemory(long memoryId)

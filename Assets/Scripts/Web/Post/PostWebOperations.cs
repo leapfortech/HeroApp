@@ -138,51 +138,6 @@ public class SelectedDeleteOperation : HttpOperation
 }
 
 [HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/RegisterLike")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class LikeRegisterOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public Like like;
-
-    [HttpResponseTextBody]
-    public String likeId;
-}
-
-[HttpPOST]
-[HttpPathExt(WebServiceType.Main, "/post/UpdateLike")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class LikeUpdateOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public Like like;
-
-    [HttpResponseTextBody]
-    public String likeId;
-}
-
-[HttpDELETE]
-[HttpPathExt(WebServiceType.Main, "/post/DeleteLike")]
-[HttpProvider(typeof(HttpUnityWebAzureClient))]
-[HttpContentType("application/json")]
-[HttpAccept("text/plain")]
-[HttpFirebaseAuthorization]
-public class LikeDeleteOperation : HttpOperation
-{
-    [HttpRequestJsonBody]
-    public Like like;
-
-    [HttpResponseTextBody]
-    public String likeId;
-}
-
-[HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/post/RegisterReaction")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
 [HttpContentType("application/json")]
