@@ -96,7 +96,7 @@ public class ProductRegisterOperation : HttpOperation
 public class ReviewRegisterOperation : HttpOperation
 {
     [HttpRequestJsonBody]
-    public ProductReview productReview;
+    public ProductReviewFull productReviewFull;
 
     [HttpResponseTextBody]
     public String id;

@@ -24,10 +24,8 @@ public class HappeningUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmHappeningFull = null;
 
-    [SerializeField]
-    DataMapper dtmHappening = null;
     [SerializeField]
     DataMapper dtmStartTime = null;
     [SerializeField]
@@ -81,9 +79,10 @@ public class HappeningUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        happeningFull = null;
 
-        dtmHappening.ClearElements();
+        dtmHappeningFull.ClearElements();
+
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
 
@@ -101,7 +100,7 @@ public class HappeningUpdateAction : MonoBehaviour
 
         this.happeningFull = happeningFull;
 
-        dtmHappening.PopulateClass<HappeningFull>(happeningFull);
+        dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
 
         if (happeningFull.ContactFull != null)
             dtmContact.PopulateClass<ContactFull>(happeningFull.ContactFull);
@@ -110,52 +109,51 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
         dtmHasEmail.PopulateBuiltIn<String>("0");
 
-        if (happeningFull.LinkFulls == null)
-            return;
-
-        for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
-        {
-            LinkFull linkFull = happeningFull.LinkFulls[i];
-            if (linkFull == null)
-                continue;
-
-            // Phone
-            if (linkFull.LinkTypeId == 2)
-            {
-                dtmHasPhone.PopulateBuiltIn<String>("1");
-
-                String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                if (phoneStr.Length >= 2)
-                    dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
-                continue;
-            }
-
-            // WhatsApp
-            if (linkFull.LinkTypeId == 3)
-            {
-                dtmHasWhatsApp.PopulateBuiltIn<String>("1");
-
-                String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                if (whatsAppStr.Length >= 2)
-                    dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
-                continue;
-            }
-
-            // Email
-            if (linkFull.LinkTypeId == 4)
-            {
-                dtmHasEmail.PopulateBuiltIn<String>("1");
-                dtmEmail.PopulateClass<LinkFull>(linkFull);
-                continue;
-            }
-        }
-
-        dtmHappening.PopulateClass<HappeningFull>(this.happeningFull);
         String startTimeStr = this.happeningFull.StartDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmStartTime.PopulateBuiltIn<String>(startTimeStr);
 
         String endTimeStr = this.happeningFull.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
+
+        if (happeningFull.LinkFulls != null)
+        {
+            for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
+            {
+                LinkFull linkFull = happeningFull.LinkFulls[i];
+                if (linkFull == null)
+                    continue;
+
+                // Phone
+                if (linkFull.LinkTypeId == 2)
+                {
+                    dtmHasPhone.PopulateBuiltIn<String>("1");
+
+                    String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                    if (phoneStr.Length >= 2)
+                        dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
+                    continue;
+                }
+
+                // WhatsApp
+                if (linkFull.LinkTypeId == 3)
+                {
+                    dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+
+                    String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                    if (whatsAppStr.Length >= 2)
+                        dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
+                    continue;
+                }
+
+                // Email
+                if (linkFull.LinkTypeId == 4)
+                {
+                    dtmHasEmail.PopulateBuiltIn<String>("1");
+                    dtmEmail.PopulateClass<LinkFull>(linkFull);
+                    continue;
+                }
+            }
+        }
 
         for (int i = 0; i < happeningFull.ImageSprites.Count; i++)
             vllImages.AddRecord(happeningFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Happening]}_{i}"));
@@ -170,9 +168,26 @@ public class HappeningUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        happeningFull.Update(dtmPost.BuildClass<PostFull>());
+        happeningFull.Update(dtmHappeningFull.BuildClass<PostFull>());
 
-        happeningFull.ContactFull.Update(dtmContact.BuildClass<ContactFull>());
+        happeningFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+
+        if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
+        {
+            String[] startTime = dtmStartTime.BuildBuiltIn<String>().Split('|');
+            happeningFull.StartDateTime = new DateTime(happeningFull.StartDateTime.Value.Year, happeningFull.StartDateTime.Value.Month, happeningFull.StartDateTime.Value.Day,
+                                                   Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
+
+            String[] endTime = dtmEndTime.BuildBuiltIn<String>().Split('|');
+            happeningFull.EndDateTime = new DateTime(happeningFull.EndDateTime.Value.Year, happeningFull.EndDateTime.Value.Month, happeningFull.EndDateTime.Value.Day,
+                                                 Convert.ToInt32(endTime[0]), Convert.ToInt32(endTime[1]), 0);
+
+            if (happeningFull.EndDateTime.Value <= happeningFull.StartDateTime.Value)
+            {
+                ChoiceDialog.Instance.Error("Fecha inválida", "La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
+                return;
+            }
+        }
 
         List<LinkFull> linkFulls = new();
 
@@ -200,25 +215,6 @@ public class HappeningUpdateAction : MonoBehaviour
             {
                 email.LinkTypeId = (long)LinkType.Email;
                 linkFulls.Add(email);
-            }
-        }
-
-        happeningFull.Update(dtmHappening.BuildClass<HappeningFull>());
-
-        if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
-        {
-            String[] startTime = dtmStartTime.BuildBuiltIn<String>().Split('|');
-            happeningFull.StartDateTime = new DateTime(happeningFull.StartDateTime.Value.Year, happeningFull.StartDateTime.Value.Month, happeningFull.StartDateTime.Value.Day,
-                                                   Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-
-            String[] endTime = dtmEndTime.BuildBuiltIn<String>().Split('|');
-            happeningFull.EndDateTime = new DateTime(happeningFull.EndDateTime.Value.Year, happeningFull.EndDateTime.Value.Month, happeningFull.EndDateTime.Value.Day,
-                                                 Convert.ToInt32(endTime[0]), Convert.ToInt32(endTime[1]), 0);
-
-            if (happeningFull.EndDateTime.Value <= happeningFull.StartDateTime.Value)
-            {
-                ChoiceDialog.Instance.Error("Fecha inválida","La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
-                return;
             }
         }
 

@@ -18,11 +18,9 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmPuzzleFull = null;
     [SerializeField]
-    DataMapper dtmPuzzle = null;
-    [SerializeField]
-    DataMapper dtmPuzzleAnswer = null;
+    DataMapper dtmPuzzleAnswerFull = null;
 
     [Title("Action")]
     [SerializeField]
@@ -30,7 +28,7 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     [Title("Event")]
     [SerializeField]
-    UnityPuzzleAnswerFullsEvent OnPopulated = null;
+    UnityPuzzleAnswerFullsEvent onPopulated = null;
 
     [Title("Page")]
     [SerializeField]
@@ -38,8 +36,7 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     PuzzleService puzzleService = null;
 
-    //Post post = null;
-    Puzzle puzzle = null;
+    PuzzleFull puzzleFull = null;
 
     private void Awake()
     {
@@ -53,50 +50,45 @@ public class PuzzleUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmPuzzle.ClearElements();
-        dtmPuzzleAnswer.ClearElements();
+        dtmPuzzleFull.ClearElements();
+        dtmPuzzleAnswerFull.ClearElements();
     }
 
     public void Display(PuzzleFull puzzleFull)
     {
         Clear();
 
-        //post = new Post(puzzleFull);
-        //dtmPost.PopulateClass<Post>(post);
+        this.puzzleFull = puzzleFull;
 
-        puzzle = new Puzzle(puzzleFull);
-        dtmPuzzle.PopulateClass<Puzzle>(puzzle);
+        dtmPuzzleFull.PopulateClass<PuzzleFull>(puzzleFull);
 
-        OnPopulated.Invoke(puzzleFull.PuzzleAnswerFulls);
+        onPopulated.Invoke(puzzleFull.PuzzleAnswerFulls);
     }
 
     private void DoUpdate()
     {
         ScreenDialog.Instance.Display();
 
-        List<PuzzleAnswer> puzzleAnswers = dtmPuzzleAnswer.BuildClassList<PuzzleAnswer>();
+        List<PuzzleAnswerFull> puzzleAnswerFulls = dtmPuzzleAnswerFull.BuildClassList<PuzzleAnswerFull>();
 
-        if (puzzleAnswers == null || puzzleAnswers.Count == 0)
+        if (puzzleAnswerFulls == null || puzzleAnswerFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Error", "Debes ingresar al menos una respuesta.");
             return;
         }
 
-        bool hasCorrect = puzzleAnswers.Exists(a => a.IsCorrect == 1);
-
-        if (!hasCorrect)
+        if (!puzzleAnswerFulls.Exists(a => a.IsCorrect == 1))
         {
             ChoiceDialog.Instance.Error("Error", "Debes ingresar una respuesta correcta.");
             return;
         }
 
-        //post.Update(dtmPost.BuildClass<Post>());
+        puzzleFull.Update(dtmPuzzleFull.BuildClass<PuzzleFull>());
+        puzzleFull.PuzzleAnswerFulls = puzzleAnswerFulls;
 
-        puzzle.Update(dtmPuzzle.BuildClass<Puzzle>());
-        puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
+        puzzleFull.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        //puzzleService.UpdatePuzzle(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
+        puzzleService.UpdatePuzzle(puzzleFull);
     }
 
     public void ApplyUpdate(bool updated)

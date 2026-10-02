@@ -27,9 +27,7 @@ public class ProductUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmProduct = null;
+    DataMapper dtmProductFull = null;
     [SerializeField]
     DataMapper dtmHasDiscountPrice = null;
 
@@ -81,9 +79,9 @@ public class ProductUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        productFull = null;
 
-        dtmProduct.ClearElements();
+        dtmProductFull.ClearElements();
 
         dtmContact.ClearElements();
         dtmPhone.ClearElements();
@@ -98,54 +96,56 @@ public class ProductUpdateAction : MonoBehaviour
         Clear();
 
         this.productFull = productFull;
-        dtmPost.PopulateClass<ProductFull>(productFull);
+        dtmProductFull.PopulateClass<ProductFull>(productFull);
+
+        if (productFull.ContactFull != null)
+            dtmContact.PopulateClass<ContactFull>(productFull.ContactFull);
 
         dtmHasPhone.PopulateBuiltIn<String>("0");
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
         dtmHasEmail.PopulateBuiltIn<String>("0");
 
-        if (productFull.LinkFulls == null)
-            return;
+        dtmHasDiscountPrice.PopulateBuiltIn<String>(productFull.DiscountPrice == 0.0f ? "0" : "1");
 
-        for (int i = 0; i < productFull.LinkFulls.Count; i++)
+        if (productFull.LinkFulls != null)
         {
-            LinkFull linkFull = productFull.LinkFulls[i];
-            if (linkFull == null)
-                continue;
-
-            // Phone
-            if (linkFull.LinkTypeId == 2)
+            for (int i = 0; i < productFull.LinkFulls.Count; i++)
             {
-                dtmHasPhone.PopulateBuiltIn<String>("1");
+                LinkFull linkFull = productFull.LinkFulls[i];
+                if (linkFull == null)
+                    continue;
 
-                String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                if (phoneStr.Length >= 2)
-                    dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
-                continue;
-            }
+                // Phone
+                if (linkFull.LinkTypeId == 2)
+                {
+                    dtmHasPhone.PopulateBuiltIn<String>("1");
 
-            // WhatsApp
-            if (linkFull.LinkTypeId == 3)
-            {
-                dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+                    String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                    if (phoneStr.Length >= 2)
+                        dtmPhone.PopulateClass<Phone>(new Phone(Convert.ToInt64(phoneStr[0]), phoneStr[1]));
+                    continue;
+                }
 
-                String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
-                if (whatsAppStr.Length >= 2)
-                    dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
-                continue;
-            }
+                // WhatsApp
+                if (linkFull.LinkTypeId == 3)
+                {
+                    dtmHasWhatsApp.PopulateBuiltIn<String>("1");
 
-            // Email
-            if (linkFull.LinkTypeId == 4)
-            {
-                dtmHasEmail.PopulateBuiltIn<String>("1");
-                dtmEmail.PopulateClass<LinkFull>(linkFull);
-                continue;
+                    String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                    if (whatsAppStr.Length >= 2)
+                        dtmWhatsApp.PopulateClass<Phone>(new Phone(Convert.ToInt64(whatsAppStr[0]), whatsAppStr[1]));
+                    continue;
+                }
+
+                // Email
+                if (linkFull.LinkTypeId == 4)
+                {
+                    dtmHasEmail.PopulateBuiltIn<String>("1");
+                    dtmEmail.PopulateClass<LinkFull>(linkFull);
+                    continue;
+                }
             }
         }
-
-        dtmHasDiscountPrice.PopulateBuiltIn<String>(this.productFull.DiscountPrice == 0.0f ? "0" : "1");
-        dtmProduct.PopulateClass<ProductFull>(this.productFull);
 
         for (int i = 0; i < productFull.ImageSprites.Count; i++)
             vllImages.AddRecord(productFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Product]}_{i}"));
@@ -166,9 +166,9 @@ public class ProductUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        productFull.Update(dtmPost.BuildClass<PostFull>());
+        productFull.Update(dtmProductFull.BuildClass<PostFull>());
 
-        productFull.ContactFull.Update(dtmContact.BuildClass<ContactFull>());
+        productFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
 
         List<LinkFull> linkFulls = new();
 
@@ -198,8 +198,6 @@ public class ProductUpdateAction : MonoBehaviour
                 linkFulls.Add(email);
             }
         }
-            
-        productFull.Update(dtmProduct.BuildClass<ProductFull>());
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)

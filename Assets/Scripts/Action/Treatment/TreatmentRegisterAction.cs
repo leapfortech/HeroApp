@@ -19,9 +19,7 @@ public class TreatmentRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmTreatment = null;
+    DataMapper dtmTreatmentFull = null;
     [SerializeField]
     DataMapper dtmDiseaseVLL = null;
     [SerializeField]
@@ -55,8 +53,7 @@ public class TreatmentRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmTreatment.ClearElements();
+        dtmTreatmentFull.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
@@ -72,13 +69,12 @@ public class TreatmentRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        TreatmentFull treatmentFull = dtmPost.BuildClass<TreatmentFull>();
+        TreatmentFull treatmentFull = dtmTreatmentFull.BuildClass<TreatmentFull>();
         treatmentFull.Title = "Remedio";
         treatmentFull.AppUserId = StateManager.Instance.AppUser.Id;
         treatmentFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         treatmentFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
-        Treatment treatment = dtmTreatment.BuildClass<Treatment>();
         treatmentFull.DiseaseFulls = dtmDiseaseVLL.BuildClassList<DiseaseFull>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
@@ -86,7 +82,7 @@ public class TreatmentRegisterAction : MonoBehaviour
         for (int i = 0; i < images.Count; i++)
             treatmentFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        //treatmentService.Register(new RegisterTreatmentRequest(post, strImages, treatment, diseases));
+        treatmentService.Register(treatmentFull);
     }
 
     public void ApplyTreatment(long treatmentId)

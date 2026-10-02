@@ -56,6 +56,8 @@ public class TaleUpdateAction : MonoBehaviour
 
     public void Clear()
     {
+        taleFull = null;
+
         dtmTaleFull.ClearElements();
         vllImages.ClearRecords();
     }

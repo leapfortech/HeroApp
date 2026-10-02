@@ -18,9 +18,7 @@ public class RecipeUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmRecipe = null;
+    DataMapper dtmRecipeFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -34,8 +32,7 @@ public class RecipeUpdateAction : MonoBehaviour
 
     RecipeService recipeService = null;
 
-    long postId = -1, recipeId = -1;
-    Recipe recipe = null;
+    RecipeFull recipeFull = null;
 
     private void Awake()
     {
@@ -49,26 +46,13 @@ public class RecipeUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmRecipe.ClearElements();
+        dtmRecipeFull.ClearElements();
         dtmImagesVLL.ClearElements();
-    }
-
-    public void SetIds(long[] ids)
-    {
-        postId = ids[0];
-        recipeId = ids[1];
     }
 
     public void Populate()
     {
-        RecipeFull recipeFull = null; // StateManager.Instance.GetRecipeFullById(recipeId);
-
-        //PostHelper.post = new Post(recipeFull);
-        //dtmPost.PopulateClass<Post>(post);
-
-        recipe = new Recipe(recipeFull);
-        dtmRecipe.PopulateClass<Recipe>(recipe);
+        dtmRecipeFull.PopulateClass<RecipeFull>(recipeFull);
 
         //List<Sprite> images = StateManager.Instance.GetRecipeImagesById(recipeId);
         //dtmImagesVLL.PopulateBuiltInList<Sprite>(images);
@@ -81,16 +65,14 @@ public class RecipeUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        //PostHelper.post.Update(dtmPost.BuildClass<Post>());
-
-        recipe.Update(dtmRecipe.BuildClass<Recipe>());
+        recipeFull.Update(dtmRecipeFull.BuildClass<RecipeFull>());
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
         for (int i = 0; i < images.Count; i++)
             strImages[i] = images[i].ToStrBase64(ImageType.JPG);
 
-        //recipeService.UpdateRecipe(new RegisterRecipeRequest(PostHelper.post, strImages, recipe));
+        recipeService.UpdateRecipe(recipeFull);
     }
 
     public void ApplyUpdate(bool updated)

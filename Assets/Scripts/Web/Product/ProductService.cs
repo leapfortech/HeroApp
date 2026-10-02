@@ -160,12 +160,12 @@ public class ProductService : MonoBehaviour
         }
     }
 
-    public void RegisterReview(ProductReview productReview)
+    public void RegisterReview(ProductReviewFull productReviewFull)
     {
         ReviewRegisterOperation reviewRegisterOp = new ReviewRegisterOperation();
         try
         {
-            reviewRegisterOp.productReview = productReview;
+            reviewRegisterOp.productReviewFull = productReviewFull;
             reviewRegisterOp["on-complete"] = (Action<ReviewRegisterOperation, HttpResponse>)((op, response) =>
             {
                 if (response != null && !response.HasError)

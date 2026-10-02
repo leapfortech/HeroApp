@@ -22,24 +22,19 @@ public class TaleRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmTaleFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
-    //[SerializeField]
-    //Button btnRegisterTest = null;
 
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
 
     TaleService taleService = null;
-
-    //private int testCounter = 0;
-    //private bool isTest = false;
 
     private void Awake()
     {
@@ -49,12 +44,11 @@ public class TaleRegisterAction : MonoBehaviour
     private void Start()
     {
         btnRegister?.AddAction(Register);
-        //btnRegisterTest?.AddAction(RegisterTest);
     }
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        dtmTaleFull.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
@@ -63,11 +57,9 @@ public class TaleRegisterAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        //isTest = false;
-
         ScreenDialog.Instance.Display();
 
-        TaleFull taleFull = dtmPost.BuildClass<TaleFull>();
+        TaleFull taleFull = dtmTaleFull.BuildClass<TaleFull>();
         taleFull.AppUserId = StateManager.Instance.AppUser.Id;
         taleFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         taleFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
@@ -80,61 +72,8 @@ public class TaleRegisterAction : MonoBehaviour
         taleService.Register(taleFull);
     }
 
-    //List<String> srcImages = new List<String>();
-    //private void RegisterTest()
-    //{
-    //    //if (!ElementHelper.Validate(elementValues))
-    //    //    return;
-
-    //    if (testCounter == 600)
-    //    {
-    //        testCounter = 0;
-    //        ScreenDialog.Instance.Hide();
-    //        return;
-    //    }
-
-    //    if (testCounter == 0)
-    //    {
-    //        ScreenDialog.Instance.Display();
-
-    //        for (int i = 0; i < testImages.Count; i++)
-    //            srcImages.Add(testImages[i].ToStrBase64(ImageType.JPG, 50));
-    //    }
-
-    //    isTest = true;
-
-    //    //List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-
-    //    //if (images.Count == 0)
-    //    //{
-    //    //    ChoiceDialog.Instance.Error("Imágenes", "Debes agregar al menos una imagen.");
-    //    //    return;
-    //    //}
-
-    //    Post post = dtmPost.BuildClass<Post>();
-
-    //    post.AppUserId = StateManager.Instance.AppUser.Id;
-    //    post.CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-    //    post.StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
-
-    //    String[] strImages = testCounter % srcImages.Count == 3 ? new String[] { srcImages[((testCounter - 3) / srcImages.Count) % srcImages.Count] } : null;
-
-    //    testCounter++;
-
-    //    post.Title = $"{post.Title} {testCounter}";
-    //    post.Description = $"{post.Description} {testCounter}";
-
-    //    //taleService.Register(new RegisterTaleRequest(post, strImages));
-    //}
-
     public void ApplyTale(long taleId)
     {
-        //if (isTest)
-        //{
-        //    RegisterTest();
-        //    return;
-        //}
-
         Clear();
         PageManager.Instance.ChangePage(pagNext);
     }

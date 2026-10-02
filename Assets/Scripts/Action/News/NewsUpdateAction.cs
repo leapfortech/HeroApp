@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -23,9 +23,7 @@ public class NewsUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmNews = null;
+    DataMapper dtmNewsFull = null;
     [SerializeField]
     ValueList vllImages = null;
 
@@ -59,8 +57,9 @@ public class NewsUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmNews.ClearElements();
+        newsFull = null;
+
+        dtmNewsFull.ClearElements();
         vllImages.ClearRecords();
     }
 
@@ -68,13 +67,8 @@ public class NewsUpdateAction : MonoBehaviour
     {
         Clear();
 
-        dtmPost.PopulateClass<PostFull>(newsFull);
-
         this.newsFull = newsFull;
-        dtmNews.PopulateClass<NewsFull>(newsFull);
-
-        //String dateTimeStr = news.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
-        //dtmTime.PopulateBuiltIn<String>(dateTimeStr);
+        dtmNewsFull.PopulateClass<PostFull>(newsFull);
 
         for (int i = 0; i < newsFull.ImageSprites.Count; i++)
             vllImages.AddRecord(newsFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.News]}_{i}"));
@@ -89,15 +83,7 @@ public class NewsUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        newsFull.Update(dtmNews.BuildClass<NewsFull>());
-
-        //if (news.DateTime.HasValue && news.DateTime.HasValue)
-        //{
-        //    String startTimeStr = dtmTime.BuildBuiltIn<String>();
-        //    String[] startTime = startTimeStr.Split('|');
-        //    news.DateTime = new DateTime(news.DateTime.Value.Year, news.DateTime.Value.Month, news.DateTime.Value.Day,
-        //                                 Convert.ToInt32(startTime[0]), Convert.ToInt32(startTime[1]), 0);
-        //}
+        newsFull.Update(dtmNewsFull.BuildClass<NewsFull>());
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)

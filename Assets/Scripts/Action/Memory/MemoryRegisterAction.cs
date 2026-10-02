@@ -18,9 +18,7 @@ public class MemoryRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmMemory = null;
+    DataMapper dtmMemoryFull = null;
     [SerializeField]
     DataMapper dtmTime = null;
 
@@ -55,11 +53,8 @@ public class MemoryRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-
-        dtmMemory.ClearElements();
+        dtmMemoryFull.ClearElements();
         dtmTime.ClearElements();
-
         dtmImagesVLL.ClearElements();
     }
 
@@ -75,7 +70,7 @@ public class MemoryRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        MemoryFull memoryFull = dtmPost.BuildClass<MemoryFull>();
+        MemoryFull memoryFull = dtmMemoryFull.BuildClass<MemoryFull>();
         memoryFull.AppUserId = StateManager.Instance.AppUser.Id;
         memoryFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
         memoryFull.PostStateId = StateManager.Instance.InterestLocality.StateId;

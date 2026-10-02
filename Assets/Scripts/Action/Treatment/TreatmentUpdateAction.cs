@@ -23,9 +23,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmTreatment = null;
+    DataMapper dtmTreatmentFull = null;
     [SerializeField]
     DataMapper dtmDiseaseVLL = null;
     [SerializeField]
@@ -41,7 +39,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     [Title("Events")]
     [SerializeField]
-    UnityLongsEvent OnPopulated = null;
+    UnityLongsEvent onPopulated = null;
     [SerializeField]
     TreatmentFeedEvent onTreatmentChanged = null;
 
@@ -60,8 +58,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmTreatment.ClearElements();
+        dtmTreatmentFull.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
@@ -71,15 +68,18 @@ public class TreatmentUpdateAction : MonoBehaviour
 
         this.treatmentFull = treatmentFull;
 
-        dtmPost.PopulateClass<PostFull>(treatmentFull);
-        dtmTreatment.PopulateClass<TreatmentFull>(treatmentFull);
+        dtmTreatmentFull.PopulateClass<TreatmentFull>(treatmentFull);
 
         long[] diseaseIds = new long[treatmentFull.DiseaseFulls.Count];
         for (int i = 0; i < treatmentFull.DiseaseFulls.Count; i++)
             diseaseIds[i] = treatmentFull.DiseaseFulls[i].DiseaseTypeId;
-        OnPopulated?.Invoke(diseaseIds);
 
         dtmImagesVLL.PopulateBuiltInList<Sprite>(treatmentFull.ImageSprites);
+
+        //for (int i = 0; i < treatmentFull.ImageSprites.Count; i++)
+        //    vllImages.AddRecord(treatmentFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Treatment]}_{i}"));
+
+        onPopulated?.Invoke(diseaseIds);
     }
 
     private void DoUpdate()
@@ -89,7 +89,7 @@ public class TreatmentUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        treatmentFull.Update(dtmTreatment.BuildClass<TreatmentFull>());
+        treatmentFull.Update(dtmTreatmentFull.BuildClass<TreatmentFull>());
 
         treatmentFull.DiseaseFulls = dtmDiseaseVLL.BuildClassList<DiseaseFull>();
 

@@ -24,10 +24,7 @@ public class MemoryUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-
-    [SerializeField]
-    DataMapper dtmMemory = null;
+    DataMapper dtmMemoryFull = null;
     [SerializeField]
     DataMapper dtmTime = null;
 
@@ -63,11 +60,10 @@ public class MemoryUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        memoryFull = null;
 
-        dtmMemory.ClearElements();
+        dtmMemoryFull.ClearElements();
         dtmTime.ClearElements();
-
         vllImages.ClearRecords();
     }
 
@@ -77,7 +73,7 @@ public class MemoryUpdateAction : MonoBehaviour
 
         this.memoryFull = memoryFull;
 
-        dtmMemory.PopulateClass<MemoryFull>(memoryFull);
+        dtmMemoryFull.PopulateClass<MemoryFull>(memoryFull);
 
         String timeStr = memoryFull.DateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmTime.PopulateBuiltIn<String>(timeStr);
@@ -95,7 +91,7 @@ public class MemoryUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        memoryFull.Update(dtmMemory.BuildClass<MemoryFull>());
+        memoryFull.Update(dtmMemoryFull.BuildClass<MemoryFull>());
 
         if (memoryFull.DateTime.HasValue)
         {

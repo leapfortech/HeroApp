@@ -13,11 +13,9 @@ public class PuzzleRegisterAction : MonoBehaviour
 {
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
+    DataMapper dtmPuzzleFull = null;
     [SerializeField]
-    DataMapper dtmPuzzle = null;
-    [SerializeField]
-    DataMapper dtmPuzzleAnswer = null;
+    DataMapper dtmPuzzleAnswerFull = null;
 
     [Title("Action")]
     [SerializeField]
@@ -41,42 +39,39 @@ public class PuzzleRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
-        dtmPuzzle.ClearElements();
-        dtmPuzzleAnswer.ClearElements();
+        dtmPuzzleFull.ClearElements();
+        dtmPuzzleAnswerFull.ClearElements();
     }
 
     private void Register()
     {
         ScreenDialog.Instance.Display();
 
-        List<PuzzleAnswer> puzzleAnswers = dtmPuzzleAnswer.BuildClassList<PuzzleAnswer>();
+        List<PuzzleAnswerFull> puzzleAnswerFulls = dtmPuzzleAnswerFull.BuildClassList<PuzzleAnswerFull>();
 
-        if (puzzleAnswers == null || puzzleAnswers.Count == 0)
+        if (puzzleAnswerFulls == null || puzzleAnswerFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Error", "Debes ingresar al menos una respuesta.");
             return;
         }
 
-        bool hasCorrect = puzzleAnswers.Exists(a => a.IsCorrect == 1);
-
-        if (!hasCorrect)
+        if (!puzzleAnswerFulls.Exists(a => a.IsCorrect == 1))
         {
             ChoiceDialog.Instance.Error("Error", "Debes ingresar una respuesta correcta.");
             return;
         }
 
-        PuzzleFull puzzleFull = dtmPost.BuildClass<PuzzleFull>();
+        PuzzleFull puzzleFull = dtmPuzzleFull.BuildClass<PuzzleFull>();
         puzzleFull.AppUserId = StateManager.Instance.AppUser.Id;
+        puzzleFull.PuzzleAnswerFulls = puzzleAnswerFulls;
 
         //RM REVIEW
         puzzleFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
         puzzleFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
-        Puzzle puzzle = dtmPuzzle.BuildClass<Puzzle>();
-        puzzle.CountryId = StateManager.Instance.Identity.BirthCountryId;
+        puzzleFull.CountryId = StateManager.Instance.Identity.BirthCountryId;
 
-        //puzzleService.Register(new RegisterPuzzleRequest(post, puzzle, puzzleAnswers));
+        puzzleService.Register(puzzleFull);
     }
 
     public void ApplyPuzzle(long puzzleId)

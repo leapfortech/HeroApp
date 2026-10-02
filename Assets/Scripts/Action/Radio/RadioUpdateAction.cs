@@ -24,7 +24,7 @@ public class RadioUpdateAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmRadio = null;
+    DataMapper dtmRadioFull = null;
     [SerializeField]
     DataMapper dtmRadioTypeVLL = null;
     [SerializeField]
@@ -68,7 +68,9 @@ public class RadioUpdateAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmRadio.ClearElements();
+        radioFull = null;
+
+        dtmRadioFull.ClearElements();
         dtmRadioTypeVLL.ClearElements();
         dtmRadioLanguageVLL.ClearElements();
         dtmLink.ClearElements();
@@ -81,8 +83,7 @@ public class RadioUpdateAction : MonoBehaviour
 
         this.radioFull = radioFull;
 
-        dtmRadio.PopulateClass<RadioFull>(this.radioFull);
-        dtmLink.PopulateClass<LinkFull>(radioFull.LinkFulls[0]);
+        dtmRadioFull.PopulateClass<RadioFull>(radioFull);
 
         long[] radioTypesIds = new long[radioFull.RadioTypeFulls.Count];
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
@@ -93,6 +94,9 @@ public class RadioUpdateAction : MonoBehaviour
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
             radioLanguageIds[i] = radioFull.RadioLanguageFulls[i].LanguageId;
         onRadioLanguagePopulated?.Invoke(radioLanguageIds);
+
+        if (radioFull.LinkFulls != null)
+            dtmLink.PopulateClass<LinkFull>(radioFull.LinkFulls[0]);
 
         for (int i = 0; i < radioFull.ImageSprites.Count; i++)
             vllImages.AddRecord(radioFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Radio]}_{i}"));
@@ -107,7 +111,7 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        radioFull.Update(dtmRadio.BuildClass<RadioFull>());
+        radioFull.Update(dtmRadioFull.BuildClass<RadioFull>());
 
         LinkFull linkFull = dtmLink.BuildClass<LinkFull>();
         linkFull.LinkTypeId = (long)LinkType.Url;

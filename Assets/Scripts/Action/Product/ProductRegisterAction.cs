@@ -22,9 +22,7 @@ public class ProductRegisterAction : MonoBehaviour
 
     [Title("Data")]
     [SerializeField]
-    DataMapper dtmPost = null;
-    [SerializeField]
-    DataMapper dtmProduct = null;
+    DataMapper dtmProductFull = null;
 
     [SerializeField]
     DataMapper dtmContact = null;
@@ -66,9 +64,8 @@ public class ProductRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        dtmPost.ClearElements();
+        dtmProductFull.ClearElements();
 
-        dtmProduct.ClearElements();
         dtmContact.ClearElements();
         dtmPhone.ClearElements();
         dtmWhatsApp.ClearElements();
@@ -90,7 +87,7 @@ public class ProductRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        ProductFull productFull = dtmPost.BuildClass<ProductFull>();
+        ProductFull productFull = dtmProductFull.BuildClass<ProductFull>();
         productFull.AppUserId = StateManager.Instance.AppUser.Id;
         productFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         productFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
@@ -126,8 +123,6 @@ public class ProductRegisterAction : MonoBehaviour
                 productFull.LinkFulls.Add(email);
             }
         }
-
-        Product product = dtmProduct.BuildClass<Product>();
 
         List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
         String[] strImages = new String[images.Count];
