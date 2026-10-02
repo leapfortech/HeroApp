@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class RadioFull : PostFull
 {
     public long Id { get; set; }
-    public long CountryId { get; }
+    public int Favorite { get; set; } = 0;
     public int Status { get; set; }
 
     public List<RadioTypeFull> RadioTypeFulls { get; set; }
@@ -21,7 +21,7 @@ public class RadioFull : PostFull
                      int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                      DateTime publicationDateTime, int postStatus,
                      AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
-                     int status,
+                     int favorite, int status,
                      List<RadioTypeFull> radioTypeFulls,
                      List<RadioLanguageFull> radioLanguageFulls)
         : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
@@ -29,7 +29,7 @@ public class RadioFull : PostFull
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
         Id = id;
-        CountryId = postCountryId;
+        Favorite = favorite;
         Status = status;
 
         RadioTypeFulls = radioTypeFulls ?? new List<RadioTypeFull>();

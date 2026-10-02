@@ -260,6 +260,7 @@ public class NewsFeedAction : MonoBehaviour
     public void SelectValue(int idx)
     {
         selectedIdx = idx % loopFeed.ValuesCount;
+
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 

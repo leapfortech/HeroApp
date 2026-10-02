@@ -198,7 +198,7 @@ public class FeedCommentAction : MonoBehaviour
             return;
 
         loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, $"{PostHelper.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
+        loopValue.SetText(1, $"{FeedHelper.Instance.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
         loopValue.SetText(2, commentFull.Message);
     }
 

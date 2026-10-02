@@ -12,6 +12,7 @@ public class ProductFull : PostFull
     public double DiscountPrice { get; set; }
     public long DeliveryTypeId { get; set; }
     public String Annotation { get; set; }
+    public int Favorite { get; set; } = 0;
     public int Status { get; set; }
 
     public List<ProductReviewFull> ProductReviewFulls { get; set; }
@@ -27,8 +28,8 @@ public class ProductFull : PostFull
                        int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                        DateTime publicationDateTime, int postStatus,
                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
-                       long productSubtypeId, long saleCountryId, long saleStateId,
-                       long currencyId, double price, double discountPrice, long deliveryTypeId, String annotation, int status,
+                       long productSubtypeId, long saleCountryId, long saleStateId, long currencyId, double price, double discountPrice,
+                       long deliveryTypeId, String annotation, int favorite, int status,
                        List<ProductReviewFull> productReviewFulls)
         : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
@@ -43,6 +44,7 @@ public class ProductFull : PostFull
         DiscountPrice = discountPrice;
         DeliveryTypeId = deliveryTypeId;
         Annotation = annotation;
+        Favorite = favorite;
         Status = status;
 
         ProductReviewFulls = productReviewFulls ?? new List<ProductReviewFull>();

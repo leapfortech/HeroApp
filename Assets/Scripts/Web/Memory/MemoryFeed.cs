@@ -48,8 +48,8 @@ public class MemoryFeed
         PostId = memoryFull.PostId;
         TitleSprite = memoryFull.TitleSprite;
         Title = memoryFull.Title;
-        Country = memoryFull.CountryId;
-        State = memoryFull.StateId;
+        Country = FeedHelper.Instance.GetCountry(memoryFull.CountryId);
+        State = FeedHelper.Instance.GetState(memoryFull.StateId);
         DateTime = memoryFull.DateTime;
         ReactionCounts = memoryFull.ReactionCounts;
         ReactionPhraseId = memoryFull.ReactionPhraseId;

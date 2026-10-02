@@ -20,8 +20,8 @@ public class HappeningFeed
     public String Country { get; set; }
     public String State { get; set; }
     public String Location { get; set; }
-    public int Selected { get; set; }
     public int Favorite { get; set; }
+    public int Selected { get; set; }
     public int FavoriteCount { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
@@ -31,7 +31,7 @@ public class HappeningFeed
     }
 
     public HappeningFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, DateTime? startDateTime, DateTime? endDateTime,
-                         string happeningType, string country, string state, string location, int selected, int favorite, int favoriteCount, DateTime publicationDateTime)
+                         string happeningType, string country, string state, string location, int favorite, int selected, int favoriteCount, DateTime publicationDateTime)
     {
         Id = id;
         PostId = postId;
@@ -44,8 +44,8 @@ public class HappeningFeed
         Country = country;
         State = state;
         Location = location;
-        Selected = selected;
         Favorite = favorite;
+        Selected = selected;
         FavoriteCount = favoriteCount;
         PublicationDateTime = publicationDateTime;
     }
@@ -58,12 +58,12 @@ public class HappeningFeed
         Title = happeningFull.Title;
         StartDateTime = happeningFull.StartDateTime;
         EndDateTime = happeningFull.EndDateTime;
-        HappeningType = happeningFull.HappeningTypeId;
-        Country = happeningFull.CountryId;
-        State = happeningFull.StateId;
+        HappeningType = FeedHelper.Instance.GetHappeningType(happeningFull.HappeningTypeId);
+        Country = FeedHelper.Instance.GetCountry(happeningFull.CountryId);
+        State = FeedHelper.Instance.GetState(happeningFull.StateId);
         Location = happeningFull.Location;
-        Selected = happeningFull.Selected;
         Favorite = happeningFull.Favorite;
+        Selected = happeningFull.Selected;
         FavoriteCount = happeningFull.FavoriteCount;
         PublicationDateTime = happeningFull.PublicationDateTime;
     }

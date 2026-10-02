@@ -54,10 +54,10 @@ public class ProductFeed
         PostId = productFull.PostId;
         TitleSprite = productFull.TitleSprite;
         Title = productFull.Title;
-        ProductSubtype = productFull.ProductSubtypeId;
-        SaleCountry = productFull.SaleCountryId;
-        SaleState = productFull.SaleStateId;
-        Currency = productFull.CurrencyId;
+        ProductSubtype = FeedHelper.Instance.GetProductSubtype(productFull.ProductSubtypeId);
+        SaleCountry = FeedHelper.Instance.GetCountry(productFull.SaleCountryId);
+        SaleState = FeedHelper.Instance.GetState(productFull.SaleStateId);
+        Currency = FeedHelper.Instance.GetState(productFull.CurrencyId);
         Price = productFull.Price;
         DiscountPrice = productFull.DiscountPrice;
         Link = productFull.LinkFulls[0].Url;

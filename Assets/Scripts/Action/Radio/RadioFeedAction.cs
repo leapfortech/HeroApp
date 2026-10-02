@@ -256,6 +256,7 @@ public class RadioFeedAction : MonoBehaviour
     public void SelectValue(int idx)
     {
         selectedIdx = idx % loopFeed.ValuesCount;
+
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
@@ -306,6 +307,7 @@ public class RadioFeedAction : MonoBehaviour
     public void ApplyDetailFavorite(bool check)
     {
         loopFeed[selectedIdx].SetCheck(0, check);
+
         loopFeed.RefreshVisibleValues();
     }
 

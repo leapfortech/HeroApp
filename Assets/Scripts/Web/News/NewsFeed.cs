@@ -56,7 +56,7 @@ public class NewsFeed
         Title = newsFull.Title;
         Description = newsFull.Description;
         DateTime = newsFull.DateTime;
-        NewsType = newsFull.NewsTypeId;
+        NewsType = FeedHelper.Instance.GetNewsType(newsFull.NewsTypeId);
         Source = newsFull.Source;
         Alias = newsFull.AppUserAlias;
         ReactionCounts = newsFull.ReactionCounts;

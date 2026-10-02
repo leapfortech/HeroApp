@@ -47,9 +47,9 @@ public class RadioFeed
         PostId = radioFull.PostId;
         TitleSprite = radioFull.TitleSprite;
         Title = radioFull.Title;
-        RadioType = radioFull.RadioTypeFulls[0].RadioTypeId;
-        PostCountry = radioFull.PostCountryId;
-        PostState = radioFull.PostStateId;
+        RadioType = FeedHelper.Instance.GetRadioType(radioFull.RadioTypeFulls[0].RadioTypeId);
+        PostCountry = FeedHelper.Instance.GetCountry(radioFull.PostCountryId);
+        PostState = FeedHelper.Instance.GetState(radioFull.PostStateId);
         Url = radioFull.LinkFulls[0].Url;
         Favorite = radioFull.Favorite;
         PublicationDateTime = radioFull.PublicationDateTime;
