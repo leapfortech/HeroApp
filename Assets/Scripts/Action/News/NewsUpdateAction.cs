@@ -68,7 +68,7 @@ public class NewsUpdateAction : MonoBehaviour
         Clear();
 
         this.newsFull = newsFull;
-        dtmNewsFull.PopulateClass<PostFull>(newsFull);
+        dtmNewsFull.PopulateClass<NewsFull>(newsFull);
 
         for (int i = 0; i < newsFull.ImageSprites.Count; i++)
             vllImages.AddRecord(newsFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.News]}_{i}"));
