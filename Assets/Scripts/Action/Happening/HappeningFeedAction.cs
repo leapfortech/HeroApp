@@ -103,7 +103,7 @@ public class HappeningFeedAction : MonoBehaviour
         txtEmpty.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new FeedUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new HappeningUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
@@ -118,7 +118,7 @@ public class HappeningFeedAction : MonoBehaviour
         if (userData == null)
             return;
 
-        FeedUserData feedUserData = (FeedUserData)userData;
+        HappeningUserData feedUserData = (HappeningUserData)userData;
 
         if (feedUserData.PostId == -1L || direction == 3)
             ScreenDialog.Instance.Display();
@@ -240,7 +240,7 @@ public class HappeningFeedAction : MonoBehaviour
         bool empty = happeningFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
         loopValue.ItemSize = empty ? 2000 : 660;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedUserData(happeningFeed.PostId, happeningFeed.PublicationDateTime));
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new HappeningUserData(happeningFeed.PostId, happeningFeed.PublicationDateTime, happeningFeed.FavoriteCount));
 
         if (empty)
             return;
@@ -260,7 +260,7 @@ public class HappeningFeedAction : MonoBehaviour
     public void SelectValue(int idx)
     {
         selectedIdx = idx % loopFeed.ValuesCount;
-        onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
+        onValueSelected.Invoke(((HappeningUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
     public void ApplyDetailPost(HappeningFeed happeningFeed)
@@ -297,18 +297,48 @@ public class HappeningFeedAction : MonoBehaviour
     public void ApplyFavorite(int dataIndex, bool check)
     {
         int k = dataIndex % loopFeed.ValuesCount;
+        HappeningUserData userData = (HappeningUserData)loopFeed[k].UserData;
+
         loopFeed[k].SetCheck(0, check);
 
-        Favorite favorite = new Favorite(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
+        Favorite favorite = new Favorite(
+            userData.PostId,
+            StateManager.Instance.AppUser.Id
+        );
+
         if (check)
+        {
             happeningService.RegisterFavorite(favorite);
+
+            userData.FavoriteCount++;
+
+            loopFeed[k].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+        }
         else
+        {
             happeningService.DeleteFavorite(favorite);
+
+            userData.FavoriteCount--;
+
+            loopFeed[k].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+        }
+
+        loopFeed.RefreshVisibleValues();
     }
 
     public void ApplyDetailFavorite(bool check)
     {
+        HappeningUserData userData = (HappeningUserData)loopFeed[selectedIdx].UserData;
+
         loopFeed[selectedIdx].SetCheck(0, check);
+
+        if (check)
+            userData.FavoriteCount++;
+        else
+            userData.FavoriteCount--;
+
+        loopFeed[selectedIdx].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+
         loopFeed.RefreshVisibleValues();
     }
 
@@ -319,7 +349,7 @@ public class HappeningFeedAction : MonoBehaviour
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(1, check);
 
-        Selected selected = new Selected(((FeedUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
+        Selected selected = new Selected(((HappeningUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
         if (check)
             happeningService.RegisterSelected(selected);
         else
@@ -348,7 +378,7 @@ public class HappeningFeedAction : MonoBehaviour
 
     //    if (!check)
     //    {
-    //        happeningService.DeleteReaction(new Reaction(-1, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
+    //        happeningService.DeleteReaction(new Reaction(-1, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
     //        return;
     //    }
 
@@ -359,7 +389,7 @@ public class HappeningFeedAction : MonoBehaviour
     //{
     //    long reactionPhraseId = cmbReaction.GetSelectedId();
 
-    //    Reaction reaction = new Reaction(reactionPhraseId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+    //    Reaction reaction = new Reaction(reactionPhraseId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
     //    happeningService.RegisterReaction(reaction);
 
     //    loopFeed[selectedIdx].SetCheck(3, true);
@@ -385,7 +415,7 @@ public class HappeningFeedAction : MonoBehaviour
 
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
-        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((FeedUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
         //happeningService.RegisterPostPlaint(postPlaint);
     }
 
