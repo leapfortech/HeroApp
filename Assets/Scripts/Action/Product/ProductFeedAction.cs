@@ -383,8 +383,10 @@ public class ProductFeedAction : MonoBehaviour
     public void ApplyDetailFavorite(bool check)
     {
         loopFeed[selectedIdx].SetCheck(0, check);
+
         loopFeed.RefreshVisibleValues();
     }
+
 
     // Reaction
 
