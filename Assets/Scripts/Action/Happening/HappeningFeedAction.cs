@@ -323,7 +323,12 @@ public class HappeningFeedAction : MonoBehaviour
         if (check)
             happeningService.RegisterSelected(selected);
         else
+        {
             happeningService.DeleteSelected(selected);
+
+            if (selectedAppUserId != -1)
+                ResetPosts(true);
+        }
     }
 
     public void ApplyDetailSelected(bool check)

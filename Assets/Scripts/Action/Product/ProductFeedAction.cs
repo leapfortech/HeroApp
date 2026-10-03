@@ -375,7 +375,7 @@ public class ProductFeedAction : MonoBehaviour
         {
             productService.DeleteFavorite(favorite);
 
-            if (appUserId != -1)
+            if (favoriteAppUserId != -1)
                 ResetPosts(true);
         }
     }
