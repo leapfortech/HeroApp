@@ -81,6 +81,8 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
+    Toggle tglSelected = null;
+    [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
     [Title("Page")]
@@ -92,6 +94,8 @@ public class HappeningDetailAction : MonoBehaviour
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
+    [SerializeField]
+    UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
     HappeningFullEvent onApplyUpdate = null;
@@ -190,6 +194,11 @@ public class HappeningDetailAction : MonoBehaviour
         else
             tglFavorite.Uncheck();
 
+        if (happeningFull.Selected != 0)
+            tglSelected.Check();
+        else
+            tglSelected.Uncheck();
+
         RefreshContents();
 
         btnUpdate.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
@@ -216,6 +225,22 @@ public class HappeningDetailAction : MonoBehaviour
     public void ApplyDetailFavorite()
     {
         onFavoriteChanged.Invoke(tglFavorite.Checked);
+    }
+
+    // Selected
+
+    public void ApplySelected(bool check)
+    {
+        Selected selected = new Selected(postId, StateManager.Instance.AppUser.Id);
+        if (check)
+            postService.RegisterSelected(selected);
+        else
+            postService.DeleteSelected(selected);
+    }
+
+    public void ApplyDetailSelected()
+    {
+        onSelectedChanged.Invoke(tglSelected.Checked);
     }
 
     // Plaint

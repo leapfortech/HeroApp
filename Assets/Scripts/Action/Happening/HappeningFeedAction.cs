@@ -364,6 +364,7 @@ public class HappeningFeedAction : MonoBehaviour
     public void ApplyDetailSelected(bool check)
     {
         loopFeed[selectedIdx].SetCheck(1, check);
+
         loopFeed.RefreshVisibleValues();
     }
 
