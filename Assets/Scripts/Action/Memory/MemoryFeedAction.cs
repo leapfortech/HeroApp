@@ -338,18 +338,31 @@ public class MemoryFeedAction : MonoBehaviour
         loopFeed.RefreshVisibleValues();
     }
 
-    public void ApplyDetailReaction(long reactionPhraseId, bool check)
+    public void ApplyDetailReaction(long previousReactionPhraseId, long reactionPhraseId, bool check)
     {
         MemoryUserData userData = (MemoryUserData)loopFeed[selectedIdx].UserData;
 
+        int previousIndex = Convert.ToInt32(previousReactionPhraseId) - 1;
+        int newIndex = Convert.ToInt32(reactionPhraseId) - 1;
+
+        if (previousReactionPhraseId > 0)
+        {
+            userData.ReactionCounts[previousIndex]--;
+
+            loopFeed[selectedIdx].SetText(4 + previousIndex, $"{icnReactions[previousIndex]}  {userData.ReactionCounts[previousIndex]}");
+            loopFeed[selectedIdx].SetCheck(previousIndex, false);
+        }
+
         if (check)
-            userData.ReactionCounts[reactionPhraseId - 1]++;
-        else
-            userData.ReactionCounts[reactionPhraseId - 1]--;
+        {
+            userData.ReactionCounts[newIndex]++;
 
-        loopFeed[selectedIdx].SetText(4 + Convert.ToInt32(reactionPhraseId) - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+            loopFeed[selectedIdx].SetText(4 + newIndex, $"{icnReactions[newIndex]}  {userData.ReactionCounts[newIndex]}");
+            loopFeed[selectedIdx].SetCheck(newIndex, true);
+        }
 
-        loopFeed[selectedIdx].SetCheck(Convert.ToInt32(reactionPhraseId) - 1, check);
+        loopFeed[selectedIdx].SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+
         loopFeed.RefreshVisibleValues();
     }
 

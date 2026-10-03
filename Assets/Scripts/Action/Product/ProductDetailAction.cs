@@ -189,7 +189,10 @@ public class ProductDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(productFull.ImageSprites);
 
         // Actions
-        //SetToggle(tglFavorite, productFull.Favorite != 0);
+        if (productFull.Favorite != 0)
+            tglFavorite.Check();
+        else
+            tglFavorite.Uncheck();
 
         RefreshContents();
 

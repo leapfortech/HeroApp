@@ -18,7 +18,7 @@ public class MemoryDetailAction : MonoBehaviour
     [Serializable]
     public class MemoryFullEvent : UnityEvent<MemoryFull> { }
     [Serializable]
-    public class ReactionEvent : UnityEvent<long, bool> { }
+    public class ReactionEvent : UnityEvent<long, long, bool> { }
 
     [Space, Title("Details")]
     [SerializeField]
@@ -112,7 +112,7 @@ public class MemoryDetailAction : MonoBehaviour
     float contentInitialHeight = 0.0f;
     bool isRefresh = false;
     int[] reactionCounts;
-    long reactionPhraseId = -1, currentReactionPhraseId = -1;
+    long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     MemoryFull memoryFull = null;
 
     private void Awake()
@@ -200,47 +200,57 @@ public class MemoryDetailAction : MonoBehaviour
     // Reaction
     public void ApplyReaction1(bool check)
     {
-        reactionPhraseId = 1;
-        ApplyReaction(check, reactionPhraseId);
+        if (ignoreReactionEvent)
+            return;
+
+        ApplyReaction(check, 1);
     }
 
     public void ApplyReaction2(bool check)
     {
-        reactionPhraseId = 2;
-        ApplyReaction(check, reactionPhraseId);
+        if (ignoreReactionEvent)
+            return;
+
+        ApplyReaction(check, 2);
     }
 
     public void ApplyReaction3(bool check)
     {
-        reactionPhraseId = 3;
-        ApplyReaction(check, reactionPhraseId);
+        if (ignoreReactionEvent)
+            return;
+
+        ApplyReaction(check, 3);
     }
 
     public void ApplyReaction4(bool check)
     {
-        reactionPhraseId = 4;
-        ApplyReaction(check, reactionPhraseId);
+        if (ignoreReactionEvent)
+            return;
+
+        ApplyReaction(check, 4);
     }
 
+    bool ignoreReactionEvent = false;
     public void ApplyReaction(bool check, long reactionPhraseId)
     {
-        long previousReactionPhraseId = currentReactionPhraseId;
+        previousReactionPhraseId = currentReactionPhraseId;
+
+        if (previousReactionPhraseId != -1)
+        {
+            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+
+            ChangeReactionCount(previousReactionPhraseId, -1);
+            currentReactionPhraseId = -1;
+
+            ignoreReactionEvent = true;
+            SetReactionToggle(previousReactionPhraseId, false);
+            ignoreReactionEvent = false;
+        }
 
         if (!check)
         {
-            postService.DeleteReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
-
-            ChangeReactionCount(reactionPhraseId, -1);
-            currentReactionPhraseId = -1;
-
+            onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, false);
             return;
-        }
-
-        if (previousReactionPhraseId != -1 && previousReactionPhraseId != reactionPhraseId)
-        {
-            postService.DeleteReaction(new Reaction(previousReactionPhraseId, postId, StateManager.Instance.AppUser.Id));
-
-            ChangeReactionCount(previousReactionPhraseId, -1);
         }
 
         postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
@@ -248,48 +258,33 @@ public class MemoryDetailAction : MonoBehaviour
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
 
-        UncheckOtherReactions(reactionPhraseId);
+        onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
     }
 
-    public void ApplyDetailReaction()
+    private void SetReactionToggle(long reactionPhraseId, bool value)
     {
-        bool check = false;
-
-        switch (reactionPhraseId)
+        if (reactionPhraseId == 1)
         {
-            case 1:
-                check = tglReaction1.Checked;
-                break;
-
-            case 2:
-                check = tglReaction2.Checked;
-                break;
-
-            case 3:
-                check = tglReaction3.Checked;
-                break;
-
-            case 4:
-                check = tglReaction4.Checked;
-                break;
+            SetToggle(tglReaction1, value);
+            return;
         }
 
-        onReactionChanged.Invoke(reactionPhraseId, check);
-    }
+        if (reactionPhraseId == 2)
+        {
+            SetToggle(tglReaction2, value);
+            return;
+        }
 
-    private void UncheckOtherReactions(long reactionPhraseId)
-    {
-        if (reactionPhraseId != 1)
-            tglReaction1.Uncheck();
+        if (reactionPhraseId == 3)
+        {
+            SetToggle(tglReaction3, value);
+            return;
+        }
 
-        if (reactionPhraseId != 2)
-            tglReaction2.Uncheck();
-
-        if (reactionPhraseId != 3)
-            tglReaction3.Uncheck();
-
-        if (reactionPhraseId != 4)
-            tglReaction4.Uncheck();
+        if (reactionPhraseId == 4)
+        {
+            SetToggle(tglReaction4, value);
+        }
     }
 
     private void ChangeReactionCount(long reactionPhraseId, int amount)

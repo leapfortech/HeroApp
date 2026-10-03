@@ -28,7 +28,7 @@ public class PostFull
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
     public int PostStatus { get; set; } = -1;
 
-    public AppUserInfo AppUserInfo { get; set; }
+    public AppUserInfo AppUserInfo { get; set; } = null;
     public ContactFull ContactFull { get; set; } = null;
     public List<LinkFull> LinkFulls { get; set; } = null;
     public List<CommentFull> CommentFulls { get; set; } = null;

@@ -167,7 +167,7 @@ public class RadioDetailAction : MonoBehaviour
             lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
         else
             lstHeight = radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y;
-        
+
         deltaY += lstHeight;
 
         lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
@@ -180,7 +180,10 @@ public class RadioDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(radioFull.ImageSprites);
 
         // Actions
-        //SetToggle(tglFavorite, radioFull.Favorite != 0);
+        if (radioFull.Favorite != 0)
+            tglFavorite.Check();
+        else
+            tglFavorite.Uncheck();
 
         RefreshContents(deltaY);
 
