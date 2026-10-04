@@ -35,5 +35,16 @@ public class MemoryFull : PostFull
         Location = location;
         Status = status;
     }
+
+    public void Update(MemoryFull memoryFull)
+    {
+        Title = memoryFull.Title;
+        Description = memoryFull.Description;
+
+        MemoryTypeId = memoryFull.MemoryTypeId;
+        DateTime = memoryFull.DateTime;
+        CountryId = memoryFull.CountryId;
+        StateId = memoryFull.StateId;
+    }
 }
 
