@@ -89,6 +89,8 @@ public class TaleUpdateAction : MonoBehaviour
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
 
+        taleFull.Images = strImages;
+
         taleFull.ImageCount = vllImages.RecordCount;
         taleFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 

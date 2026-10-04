@@ -124,10 +124,7 @@ public class ProductRegisterAction : MonoBehaviour
             }
         }
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        productFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         productService.Register(productFull);
     }

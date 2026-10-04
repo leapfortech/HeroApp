@@ -75,10 +75,7 @@ public class RadioRegisterAction : MonoBehaviour
         radioFull.RadioTypeFulls = dtmRadioTypeVLL.BuildClassList<RadioTypeFull>();
         radioFull.RadioLanguageFulls = dtmRadioLanguageVLL.BuildClassList<RadioLanguageFull>();
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        radioFull.Images = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            radioFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
+        radioFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         radioService.Register(radioFull);
     }

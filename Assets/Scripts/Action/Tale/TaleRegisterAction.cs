@@ -64,10 +64,7 @@ public class TaleRegisterAction : MonoBehaviour
         taleFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         taleFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        taleFull.Images = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            taleFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
+        taleFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         taleService.Register(taleFull);
     }

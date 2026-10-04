@@ -83,10 +83,7 @@ public class MemoryRegisterAction : MonoBehaviour
                                                Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
         }
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        memoryFull.Images = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            memoryFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
+        memoryFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         memoryService.Register(memoryFull);
     }

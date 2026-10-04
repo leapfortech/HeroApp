@@ -65,10 +65,7 @@ public class NewsRegisterAction : MonoBehaviour
         newsFull.PostCountryId =  StateManager.Instance.InterestLocality.CountryId;
         newsFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        newsFull.Images = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            newsFull.Images[i] = images[i].ToStrBase64(ImageType.JPG);
+        newsFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         newsService.Register(newsFull);
     }

@@ -85,7 +85,5 @@ public class ImageVisionAction : MonoBehaviour
     private void ApplyPhoto(Texture2D photo)
     {
         onImageTaken.Invoke(photo);
-
-        PageManager.Instance.ChangePage(nextPage);
     }
 }

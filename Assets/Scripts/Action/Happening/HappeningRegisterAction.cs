@@ -151,10 +151,7 @@ public class HappeningRegisterAction : MonoBehaviour
             }
         }
 
-        List<Sprite> images = dtmImagesVLL.BuildBuiltInList<Sprite>();
-        String[] strImages = new String[images.Count];
-        for (int i = 0; i < images.Count; i++)
-            strImages[i] = images[i].ToStrBase64(ImageType.JPG);
+        happeningFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         happeningService.Register(happeningFull);
     }

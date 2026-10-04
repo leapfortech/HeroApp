@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using hg.LitJson;
+
 using Leap.Graphics.Tools;
 
 public class PostFull
@@ -15,9 +17,10 @@ public class PostFull
     public String Title { get; set; } = null;
     public String TitleImage 
     {
-        get => null;
+        get => TitleSprite?.ToStrBase64(ImageType.JPG);
         set => TitleSprite = value?.CreateSprite("Title_" + PostId.ToString("D02"));
     }
+    [JsonIgnore]
     public Sprite TitleSprite { get; set; } = null;
     public String Description { get; set; } = null;
     public int ImageCount { get; set; } = 0;
@@ -35,7 +38,16 @@ public class PostFull
 
     public String[] Images
     {
-        get => null;
+        get
+        {
+            if (ImageSprites == null)
+                return null;
+
+            String[] images = new String[ImageSprites.Count];
+            for (int i = 0; i < ImageSprites.Count; i++)
+                images[i] = ImageSprites[i].ToStrBase64(ImageType.JPG);
+            return images;
+        }
         set
         {
             ImageSprites = new List<Sprite>();
@@ -44,6 +56,7 @@ public class PostFull
                     ImageSprites.Add(value[i].CreateSprite($"{PostType.Names[PostTypeId]}_{i:D02}"));
         }
     }
+    [JsonIgnore]
     public List<Sprite> ImageSprites { get; set; }
 
     public PostFull()

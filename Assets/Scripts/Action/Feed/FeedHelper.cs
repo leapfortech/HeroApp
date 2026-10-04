@@ -5,6 +5,7 @@ using Leap.Core.Tools;
 using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
+using Leap.Data.Mapper;
 
 public class FeedHelper : SingletonBehaviour<FeedHelper>
 {
@@ -30,6 +31,12 @@ public class FeedHelper : SingletonBehaviour<FeedHelper>
 
     [SerializeField]
     private ValueList vllRadioType;
+
+    [Title("Orphans")]
+#pragma warning disable 414 
+    [SerializeField]
+    DataClass dataClass = null;
+#pragma warning restore 414 
 
     // General
     public String GetCountry(long countryId)
