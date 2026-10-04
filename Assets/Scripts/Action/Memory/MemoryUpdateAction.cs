@@ -103,7 +103,7 @@ public class MemoryUpdateAction : MonoBehaviour
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
-
+        memoryFull.Images = strImages;
         memoryFull.ImageCount = vllImages.RecordCount;
         memoryFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 

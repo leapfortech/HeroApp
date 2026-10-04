@@ -26,11 +26,11 @@ public class RadioUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmRadioFull = null;
     [SerializeField]
-    DataMapper dtmRadioTypeVLL = null;
+    DataMapper dtmRadioTypeFullVLL = null;
     [SerializeField]
-    DataMapper dtmRadioLanguageVLL = null;
+    DataMapper dtmRadioLanguageFullVLL = null;
     [SerializeField]
-    DataMapper dtmLink = null;
+    DataMapper dtmLinkFull = null;
     [SerializeField]
     ValueList vllImages = null;
 
@@ -71,9 +71,9 @@ public class RadioUpdateAction : MonoBehaviour
         radioFull = null;
 
         dtmRadioFull.ClearElements();
-        dtmRadioTypeVLL.ClearElements();
-        dtmRadioLanguageVLL.ClearElements();
-        dtmLink.ClearElements();
+        dtmRadioTypeFullVLL.ClearElements();
+        dtmRadioLanguageFullVLL.ClearElements();
+        dtmLinkFull.ClearElements();
         vllImages.ClearRecords();
     }
 
@@ -96,7 +96,7 @@ public class RadioUpdateAction : MonoBehaviour
         onRadioLanguagePopulated?.Invoke(radioLanguageIds);
 
         if (radioFull.LinkFulls != null)
-            dtmLink.PopulateClass<LinkFull>(radioFull.LinkFulls[0]);
+            dtmLinkFull.PopulateClass<LinkFull>(radioFull.LinkFulls[0]);
 
         for (int i = 0; i < radioFull.ImageSprites.Count; i++)
             vllImages.AddRecord(radioFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Radio]}_{i}"));
@@ -113,16 +113,18 @@ public class RadioUpdateAction : MonoBehaviour
 
         radioFull.Update(dtmRadioFull.BuildClass<RadioFull>());
 
-        LinkFull linkFull = dtmLink.BuildClass<LinkFull>();
+        LinkFull linkFull = dtmLinkFull.BuildClass<LinkFull>();
         linkFull.LinkTypeId = (long)LinkType.Url;
 
-        List<RadioType> radioTypes = dtmRadioTypeVLL.BuildClassList<RadioType>();
-        List<RadioLanguage> radioLanguages = dtmRadioLanguageVLL.BuildClassList<RadioLanguage>();
+        List<RadioTypeFull> radioTypeFulls = dtmRadioTypeFullVLL.BuildClassList<RadioTypeFull>();
+        List<RadioLanguageFull> radioLanguageFulls = dtmRadioLanguageFullVLL.BuildClassList<RadioLanguageFull>();
+        radioFull.RadioTypeFulls = radioTypeFulls;
+        radioFull.RadioLanguageFulls = radioLanguageFulls;
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
-
+        radioFull.Images = strImages;
         radioFull.ImageCount = vllImages.RecordCount;
         radioFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 

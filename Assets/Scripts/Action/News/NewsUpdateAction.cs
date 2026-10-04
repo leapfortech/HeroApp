@@ -88,7 +88,7 @@ public class NewsUpdateAction : MonoBehaviour
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
-
+        newsFull.Images = strImages;
         newsFull.ImageCount = vllImages.RecordCount;
         newsFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 

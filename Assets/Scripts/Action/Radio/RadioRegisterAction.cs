@@ -20,11 +20,11 @@ public class RadioRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmRadioFull = null;
     [SerializeField]
-    DataMapper dtmRadioTypeVLL = null;
+    DataMapper dtmRadioTypeFullVLL = null;
     [SerializeField]
-    DataMapper dtmRadioLanguageVLL = null;
+    DataMapper dtmRadioLanguageFullVLL = null;
     [SerializeField]
-    DataMapper dtmLink = null;
+    DataMapper dtmLinkFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
@@ -51,9 +51,9 @@ public class RadioRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmRadioFull.ClearElements();
-        dtmRadioTypeVLL.ClearElements();
-        dtmRadioLanguageVLL.ClearElements();
-        dtmLink.ClearElements();
+        dtmRadioTypeFullVLL.ClearElements();
+        dtmRadioLanguageFullVLL.ClearElements();
+        dtmLinkFull.ClearElements();
         dtmImagesVLL.ClearElements();
     }
 
@@ -69,11 +69,11 @@ public class RadioRegisterAction : MonoBehaviour
         radioFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
         radioFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
-        radioFull.LinkFulls = new List<LinkFull>() { dtmLink.BuildClass<LinkFull>() };
+        radioFull.LinkFulls = new List<LinkFull>() { dtmLinkFull.BuildClass<LinkFull>() };
         radioFull.LinkFulls[0].LinkTypeId = (long)LinkType.Url;
 
-        radioFull.RadioTypeFulls = dtmRadioTypeVLL.BuildClassList<RadioTypeFull>();
-        radioFull.RadioLanguageFulls = dtmRadioLanguageVLL.BuildClassList<RadioLanguageFull>();
+        radioFull.RadioTypeFulls = dtmRadioTypeFullVLL.BuildClassList<RadioTypeFull>();
+        radioFull.RadioLanguageFulls = dtmRadioLanguageFullVLL.BuildClassList<RadioLanguageFull>();
 
         radioFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 

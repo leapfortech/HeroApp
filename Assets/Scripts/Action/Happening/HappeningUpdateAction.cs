@@ -221,7 +221,7 @@ public class HappeningUpdateAction : MonoBehaviour
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);
-
+        happeningFull.Images = strImages;
         happeningFull.ImageCount = vllImages.RecordCount;
         happeningFull.TitleSprite = vllImages.RecordCount == 0 ? null : vllImages[0].GetCellSprite(0);
 
