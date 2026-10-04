@@ -161,7 +161,8 @@ public class NewsDetailAction : MonoBehaviour
 
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
-        txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
+        //txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
+        txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
 
         for (int i = 0; i < reactionCounts.Length; i++)
             txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
