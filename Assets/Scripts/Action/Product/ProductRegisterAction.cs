@@ -74,6 +74,13 @@ public class ProductRegisterAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
+    public void ClearContact()
+    {
+        dtmHasPhone.PopulateBuiltIn<String>("0");
+        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+        dtmHasEmail.PopulateBuiltIn<String>("0");
+    }
+
     private void Register()
     {
         if (!ElementHelper.Validate(elementValues))
@@ -122,6 +129,12 @@ public class ProductRegisterAction : MonoBehaviour
                 email.LinkTypeId = (long)LinkType.Email;
                 productFull.LinkFulls.Add(email);
             }
+        }
+
+        if (productFull.LinkFulls.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+            return;
         }
 
         productFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();

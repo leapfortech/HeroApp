@@ -55,5 +55,22 @@ public class HappeningFull : PostFull
         Selected = selected;
         Status = status;
     }
+
+    public void Update(HappeningFull happeningFull)
+    {
+        Title = happeningFull.Title;
+        Description = happeningFull.Description;
+
+        HappeningTypeId = happeningFull.HappeningTypeId;
+        CountryId = happeningFull.CountryId;
+        StateId = happeningFull.StateId;
+        IsPublic = happeningFull.IsPublic;
+        HasSignup = happeningFull.HasSignup;
+        HasPayment = happeningFull.HasPayment;
+        PaymentDetails = happeningFull.PaymentDetails;
+        StartDateTime = happeningFull.StartDateTime;
+        EndDateTime = happeningFull.EndDateTime;
+        Location = happeningFull.Location;
+    }
 }
 

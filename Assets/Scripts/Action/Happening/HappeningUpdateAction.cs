@@ -166,11 +166,49 @@ public class HappeningUpdateAction : MonoBehaviour
         if (!ElementHelper.Validate(elementValues))
             return;
 
+        List<LinkFull> linkFulls = new();
+
+        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
+        if (hasPhone == "1")
+        {
+            Phone phone = dtmPhone.BuildClass<Phone>();
+            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+                linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, happeningFull.PostId, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+        }
+
+        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
+        if (hasWhatsApp == "1")
+        {
+            Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
+            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+                linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, happeningFull.PostId, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+        }
+
+        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
+        if (hasEmail == "1")
+        {
+            LinkFull email = dtmEmail.BuildClass<LinkFull>();
+            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            {
+                email.LinkTypeId = (long)LinkType.Email;
+                email.PostId = happeningFull.PostId;
+                linkFulls.Add(email);
+            }
+        }
+
+        if (linkFulls.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+            return;
+        }
+
         ScreenDialog.Instance.Display();
 
-        happeningFull.Update(dtmHappeningFull.BuildClass<PostFull>());
+        happeningFull.Update(dtmHappeningFull.BuildClass<HappeningFull>());
 
         happeningFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+
+        happeningFull.LinkFulls = linkFulls;
 
         if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
         {
@@ -186,35 +224,6 @@ public class HappeningUpdateAction : MonoBehaviour
             {
                 ChoiceDialog.Instance.Error("Fecha inválida", "La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
                 return;
-            }
-        }
-
-        List<LinkFull> linkFulls = new();
-
-        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
-        if (hasPhone == "1")
-        {
-            Phone phone = dtmPhone.BuildClass<Phone>();
-            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-                linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
-        }
-
-        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
-        if (hasWhatsApp == "1")
-        {
-            Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-                linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
-        }
-
-        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
-        if (hasEmail == "1")
-        {
-            LinkFull email = dtmEmail.BuildClass<LinkFull>();
-            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
-            {
-                email.LinkTypeId = (long)LinkType.Email;
-                linkFulls.Add(email);
             }
         }
 

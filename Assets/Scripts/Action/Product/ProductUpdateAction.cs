@@ -96,6 +96,9 @@ public class ProductUpdateAction : MonoBehaviour
         Clear();
 
         this.productFull = productFull;
+
+        dtmHasDiscountPrice.PopulateBuiltIn<String>(productFull.DiscountPrice == 0.0f ? "0" : "1");
+
         dtmProductFull.PopulateClass<ProductFull>(productFull);
 
         if (productFull.ContactFull != null)
@@ -104,8 +107,6 @@ public class ProductUpdateAction : MonoBehaviour
         dtmHasPhone.PopulateBuiltIn<String>("0");
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
         dtmHasEmail.PopulateBuiltIn<String>("0");
-
-        dtmHasDiscountPrice.PopulateBuiltIn<String>(productFull.DiscountPrice == 0.0f ? "0" : "1");
 
         if (productFull.LinkFulls != null)
         {
@@ -164,40 +165,49 @@ public class ProductUpdateAction : MonoBehaviour
             return;
         }
 
-        ScreenDialog.Instance.Display();
-
-        productFull.Update(dtmProductFull.BuildClass<PostFull>());
-
-        productFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
-
         List<LinkFull> linkFulls = new();
 
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
-            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
-                linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
+            if (phone != null && !String.IsNullOrWhiteSpace(phone.PhoneNumber))
+                linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, productFull.PostId, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
         String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
         if (hasWhatsApp == "1")
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
-                linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
+            if (whatsApp != null && !String.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+                linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, productFull.PostId, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
         String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
         if (hasEmail == "1")
         {
             LinkFull email = dtmEmail.BuildClass<LinkFull>();
-            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            if (email != null && !String.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
+                email.PostId = productFull.PostId;
                 linkFulls.Add(email);
             }
         }
+
+        if (linkFulls.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+            return;
+        }
+
+        ScreenDialog.Instance.Display();
+
+        productFull.Update(dtmProductFull.BuildClass<ProductFull>());
+
+        productFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+
+        productFull.LinkFulls = linkFulls;
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)

@@ -16,8 +16,13 @@ public class CountryDefaultIndexAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbWhatsAppPrefix = null;
 
+    public bool isUpdate { get; set; } = false;
+
     public void SetDefaultIndexes()
     {
+        if (isUpdate)
+            return;
+
         long selectedCountryId = cmbSaleCountry.GetSelectedId();
         
         cmbPhonePrefix.Select(selectedCountryId);

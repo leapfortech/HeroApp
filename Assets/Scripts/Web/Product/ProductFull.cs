@@ -49,4 +49,17 @@ public class ProductFull : PostFull
 
         ProductReviewFulls = productReviewFulls ?? new List<ProductReviewFull>();
     }
+
+    public void Update(ProductFull productFull)
+    {
+        Title = productFull.Title;
+        Description = productFull.Description;
+
+        ProductSubtypeId = productFull.ProductSubtypeId;
+        SaleCountryId = productFull.SaleCountryId;
+        SaleStateId = productFull.SaleStateId;
+        CurrencyId = productFull.CurrencyId;
+        Price = productFull.Price;
+        DiscountPrice = productFull.DiscountPrice;
+    }
 }

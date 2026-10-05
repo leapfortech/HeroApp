@@ -83,6 +83,13 @@ public class HappeningRegisterAction : MonoBehaviour
         dtmImagesVLL.ClearElements();
     }
 
+    public void ClearContact()
+    {
+        dtmHasPhone.PopulateBuiltIn<String>("0");
+        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
+        dtmHasEmail.PopulateBuiltIn<String>("0");
+    }
+
     private void Register()
     {
         ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, DoRegister, null, "De acuerdo", "Regresar");
@@ -149,6 +156,12 @@ public class HappeningRegisterAction : MonoBehaviour
                 email.LinkTypeId = (long)LinkType.Email;
                 happeningFull.LinkFulls.Add(email);
             }
+        }
+
+        if (happeningFull.LinkFulls.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+            return;
         }
 
         happeningFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
