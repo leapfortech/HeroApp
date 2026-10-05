@@ -309,6 +309,8 @@ public class RadioFeedAction : MonoBehaviour
         loopFeed[selectedIdx].SetCheck(0, check);
 
         loopFeed.RefreshVisibleValues();
+
+        MustReset = true;
     }
 
     // Reaction

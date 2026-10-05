@@ -400,6 +400,8 @@ public class ProductFeedAction : MonoBehaviour
         loopFeed[selectedIdx].SetCheck(0, check);
 
         loopFeed.RefreshVisibleValues();
+
+        MustReset = true;
     }
 
 

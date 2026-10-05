@@ -34,7 +34,7 @@ public class HappeningFull : PostFull
                          long happeningTypeId, long countryId, long stateId, int isPublic, int hasSignup, int hasPayment, String paymentDetails,
                          DateTime? startDateTime, DateTime? endDateTime, String location, double? latitude, double? longitude,
                          int favorite, int selected, int status)
-        : base(postId, appUserId, appUserAlias, postSubtypeId, countryId, stateId, title, titleImage, description,
+        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {

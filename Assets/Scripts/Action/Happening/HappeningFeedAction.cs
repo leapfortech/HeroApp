@@ -381,6 +381,8 @@ public class HappeningFeedAction : MonoBehaviour
         loopFeed[selectedIdx].SetCheck(1, check);
 
         loopFeed.RefreshVisibleValues();
+
+        MustReset = true;
     }
 
     // Reaction

@@ -23,7 +23,7 @@ public class MemoryFull : PostFull
                       DateTime publicationDateTime, int postStatus,
                       AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
                       long memoryTypeId, long countryId, long stateId, DateTime? dateTime, String location, int status)
-        : base(postId, appUserId, appUserAlias, postSubtypeId, countryId, stateId, title, titleImage, description,
+        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
