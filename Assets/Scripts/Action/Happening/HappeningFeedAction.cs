@@ -23,6 +23,8 @@ public class HappeningFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
+    [SerializeField]
+    ComboAdapter cmbHappeningType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -138,6 +140,8 @@ public class HappeningFeedAction : MonoBehaviour
             CountryId = StateManager.Instance.CurrentLocality.CountryId,
             StateId = StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
+
+            HappeningTypeId = typeId,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = selectedAppUserId
@@ -268,6 +272,17 @@ public class HappeningFeedAction : MonoBehaviour
         UpdateValue(happeningFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
+    }
+
+    // Type
+
+    long typeId = -1;
+
+    public void ApplyType()
+    {
+        typeId = cmbHappeningType.GetSelectedId();
+
+        ResetPosts(true);
     }
 
     // AppUser

@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 using Leap.Core.Tools;
 using Leap.Graphics.Tools;
+using Leap.UI.Extensions;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -20,6 +21,8 @@ public class MemoryFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
+    [SerializeField]
+    ComboAdapter cmbMemoryType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -134,6 +137,8 @@ public class MemoryFeedAction : MonoBehaviour
             CountryId = StateManager.Instance.InterestLocality.CountryId,
             StateId = StateManager.Instance.InterestLocality.StateId,
             Status = 1,
+
+            MemoryTypeId = typeId,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
@@ -268,6 +273,17 @@ public class MemoryFeedAction : MonoBehaviour
         UpdateValue(memoryFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
+    }
+
+    // Type
+
+    long typeId = -1;
+
+    public void ApplyType()
+    {
+        typeId = cmbMemoryType.GetSelectedId();
+
+        ResetPosts(true);
     }
 
     // AppUser

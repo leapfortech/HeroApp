@@ -21,6 +21,8 @@ public class NewsFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
+    [SerializeField]
+    ComboAdapter cmbNewsType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -135,6 +137,8 @@ public class NewsFeedAction : MonoBehaviour
             CountryId = StateManager.Instance.InterestLocality.CountryId,
             StateId = StateManager.Instance.InterestLocality.StateId,
             Status = 1,
+
+            NewsTypeId = typeId,
 
             FavoriteAppUserId = appUserId,
             SelectedAppUserId = -1L
@@ -269,6 +273,17 @@ public class NewsFeedAction : MonoBehaviour
         UpdateValue(newsFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
+    }
+
+    // Type
+
+    long typeId = -1;
+
+    public void ApplyType()
+    {
+        typeId = cmbNewsType.GetSelectedId();
+
+        ResetPosts(true);
     }
 
     // AppUser

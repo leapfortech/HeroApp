@@ -21,6 +21,8 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     ToggleGroup tggFavorite = null;
     [SerializeField]
+    ComboAdapter cmbProductSubtype = null;
+    [SerializeField]
     int feedCount = 20;
 
     [Title("Loop")]
@@ -135,6 +137,8 @@ public class ProductFeedAction : MonoBehaviour
             CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
             StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
+
+            ProductTypeId = typeId,
 
             FavoriteAppUserId = favoriteAppUserId,
             SelectedAppUserId = -1L
@@ -268,6 +272,17 @@ public class ProductFeedAction : MonoBehaviour
         UpdateValue(productFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
+    }
+
+    // Type
+
+    long typeId = -1;
+
+    public void ApplyType()
+    {
+        typeId = cmbProductSubtype.GetSelectedId();
+
+        ResetPosts(true);
     }
 
     // AppUser
