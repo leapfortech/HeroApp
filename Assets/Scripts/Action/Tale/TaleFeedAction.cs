@@ -70,6 +70,12 @@ public class TaleFeedAction : MonoBehaviour
         taleService = GetComponent<TaleService>();
     }
 
+    public bool SetMustReset()
+    {
+        MustReset = true;
+        return true;
+    }
+
     public void CreateLoopFeed()
     {
         int valueCount = feedCount * 4;
@@ -130,8 +136,8 @@ public class TaleFeedAction : MonoBehaviour
 
             PostTypeId = PostType.Tale,
             AppUserId = appUserId,
-            CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
-            StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
+            CountryId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
+            StateId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
             FavoriteAppUserId = -1L,
@@ -273,7 +279,7 @@ public class TaleFeedAction : MonoBehaviour
     {
         appUserId = appUser ? StateManager.Instance.AppUser.Id : -1;
 
-        ResetPosts(true);
+        //ResetPosts(true);
     }
 
     // Locality
@@ -282,6 +288,9 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ApplyLocality()
     {
+        if (tggLocality == null)
+            return;
+
         interestLocality = tggLocality.Value == "1";
 
         ResetPosts(true);

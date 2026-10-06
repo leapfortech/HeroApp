@@ -33,12 +33,12 @@ public class TaleUpdateAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagNext = null;
+    Page[] pagNexts = null;
 
-    [Title("Event")]
+    [Title("Events")]
     [SerializeField]
-    TaleFeedEvent onTaleChanged = null;
-    [SerializeField]
+    TaleFeedEvent[] onTaleChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     TaleService taleService = null;
@@ -104,9 +104,9 @@ public class TaleUpdateAction : MonoBehaviour
             return;
         }
 
-        onTaleChanged.Invoke(new TaleFeed(taleFull));
+        onTaleChanged[StateManager.Instance.FeedDetailType].Invoke(new TaleFeed(taleFull));
 
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
     }
 }

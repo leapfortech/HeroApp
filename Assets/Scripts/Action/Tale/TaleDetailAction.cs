@@ -89,21 +89,19 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
+    [Title("Configs")]
+    [SerializeField]
+    FeedDetailConfig[] configs = null;
+
     [Title("Page")]
     [SerializeField]
-    Page pagDetail;
+    Page pagDetail = null;
 
     [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
     [SerializeField]
-    ReactionEvent onReactionChanged = null;
-
-    [SerializeField]
     TaleFullEvent onApplyUpdate = null;
-
-    TaleService taleService;
-    PostService postService;
 
     long postId = -1;
     float contentInitialHeight = 0.0f;
@@ -111,6 +109,10 @@ public class TaleDetailAction : MonoBehaviour
     int[] reactionCounts;
     bool isRefresh = false;
     TaleFull taleFull = null;
+
+    TaleService taleService;
+    PostService postService;
+
 
     private void Awake()
     {
@@ -123,6 +125,12 @@ public class TaleDetailAction : MonoBehaviour
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+    }
+
+    public bool ChangePagBack()
+    {
+        PageManager.Instance.ChangePage(configs[StateManager.Instance.FeedDetailType].pagBack);
+        return false;
     }
 
     public void Display(long postId)
@@ -254,7 +262,7 @@ public class TaleDetailAction : MonoBehaviour
 
         if (!check)
         {
-            onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, false);
+            configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, false);
             return;
         }
 
@@ -263,7 +271,7 @@ public class TaleDetailAction : MonoBehaviour
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
 
-        onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
+        configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
     }
 
     private void SetReactionToggle(long reactionPhraseId, bool value)

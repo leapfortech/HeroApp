@@ -48,6 +48,8 @@ public class StateManager : SingletonBehaviour<StateManager>
         set { portrait?.Destroy(); portrait = value; }
     }
 
+    public int FeedDetailType { get; set; } = 0;
+
     public Player Player { get; set; } = null;
 
     public List<PuzzleResultSummary> PuzzleResultSummarys { get; set; }
