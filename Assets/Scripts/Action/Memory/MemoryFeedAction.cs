@@ -97,8 +97,9 @@ public class MemoryFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
-                                                                                       vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
+        if (txtLocality != null)
+            txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
+                                                                                           vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
 
         if (!MustReset && !force)
             return;

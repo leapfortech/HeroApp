@@ -41,7 +41,7 @@ public class MemoryUpdateAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     MemoryFeedEvent[] onMemoryChanged = null;
-    [SerializeField]
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     MemoryService memoryService = null;
