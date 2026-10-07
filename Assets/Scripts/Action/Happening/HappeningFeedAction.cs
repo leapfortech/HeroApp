@@ -325,10 +325,7 @@ public class HappeningFeedAction : MonoBehaviour
 
         loopFeed[k].SetCheck(0, check);
 
-        Favorite favorite = new Favorite(
-            userData.PostId,
-            StateManager.Instance.AppUser.Id
-        );
+        Favorite favorite = new Favorite(userData.PostId, StateManager.Instance.AppUser.Id);
 
         if (check)
         {
