@@ -83,7 +83,9 @@ public class FilterScrollController : MonoBehaviour
 
         // TglAll
         Toggle tglAll = Instantiate(togglePrefab, content);
-        tglAll.Title = "Todos";
+        tglAll.Title = "  Todos";
+
+        CreateAllCircle(tglAll);
 
         UnityIntBoolEvent allToggleEvent = new UnityIntBoolEvent();
         allToggleEvent.AddListener(OnToggleChanged);
@@ -113,9 +115,17 @@ public class FilterScrollController : MonoBehaviour
             UpdateToggleWidth(toggle);
         }
 
+        toggles[0].Checked = true;
+
         UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(content);
 
         scrollRect.horizontalNormalizedPosition = 0f;
+
+        List<int> indexes = new List<int> { -1 };
+
+        Debug.Log("SelectionChanged: " + string.Join(", ", indexes));
+
+        onSelectionChanged?.Invoke(indexes);
     }
 
     private void UpdateToggleWidth(Toggle toggle)
@@ -126,10 +136,20 @@ public class FilterScrollController : MonoBehaviour
         TMP_Text text = toggle.GetComponentInChildren<TMP_Text>(true);
 
         text.text = toggle.Title;
-
         text.ForceMeshUpdate();
 
         float width = text.preferredWidth + additionalWidth;
+
+        if (toggle == toggles[0])
+        {
+            width += AllCircleLeft + AllCircleSize + AllCircleSpacing;
+
+            RectTransform textRect = text.GetComponent<RectTransform>();
+
+            textRect.anchoredPosition = new Vector2(
+                AllCircleLeft + AllCircleSize + AllCircleSpacing,
+                textRect.anchoredPosition.y);
+        }
 
         toggleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
 
@@ -138,6 +158,41 @@ public class FilterScrollController : MonoBehaviour
 
     private void OnToggleChanged(int index, bool checkedValue)
     {
+        if (!checkedValue && index == -1)
+        {
+            // "Todos" no puede quedar desactivado si no hay otro filtro seleccionado
+            toggles[0].Checked = true;
+            return;
+        }
+        else if (checkedValue)
+        {
+            if (index == -1)
+                // "Todos" activado: desactivar los demás
+                for (int i = 1; i < toggles.Count; i++)
+                    toggles[i].Checked = false;
+            else
+                // Otro toggle activado: desactivar "Todos"
+                toggles[0].Checked = false;
+        }
+        else
+        {
+            // Se desactivó un filtro.
+            // Si no queda ninguno seleccionado, activar "Todos".
+            bool anySelected = false;
+
+            for (int i = 1; i < toggles.Count; i++)
+            {
+                if (toggles[i].Checked)
+                {
+                    anySelected = true;
+                    break;
+                }
+            }
+
+            if (!anySelected)
+                toggles[0].Checked = true;
+        }
+
         UpdateSelectedValues();
     }
 
@@ -229,5 +284,34 @@ public class FilterScrollController : MonoBehaviour
         separatorLayout.preferredWidth = 30f;
         separatorLayout.minWidth = 30f;
         separatorLayout.flexibleWidth = 0f;
+    }
+
+    private const float AllCircleSize = 14f;
+    private const float AllCircleLeft = 55f;
+    private const float AllCircleSpacing = 8f;
+    private void CreateAllCircle(Toggle toggle)
+    {
+        GameObject circleObject = new GameObject("AllCircle");
+        circleObject.transform.SetParent(toggle.transform, false);
+
+        MPImage circleImage = circleObject.AddComponent<MPImage>();
+        circleImage.color = Color.white;
+        circleImage.DrawShape = DrawShape.Circle;
+
+        Circle circle = circleImage.Circle;
+        circle.Radius = AllCircleSize / 2f;
+        circleImage.Circle = circle;
+
+        RectTransform circleRect = circleObject.GetComponent<RectTransform>();
+
+        circleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, AllCircleSize);
+
+        circleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, AllCircleSize);
+
+        circleRect.anchorMin = new Vector2(0f, 0.5f);
+        circleRect.anchorMax = new Vector2(0f, 0.5f);
+        circleRect.pivot = new Vector2(0f, 0.5f);
+
+        circleRect.anchoredPosition = new Vector2(AllCircleLeft, 0f);
     }
 }
