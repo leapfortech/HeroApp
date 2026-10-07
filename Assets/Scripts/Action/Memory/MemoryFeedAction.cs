@@ -141,8 +141,8 @@ public class MemoryFeedAction : MonoBehaviour
 
             PostTypeId = PostType.Memory,
             AppUserId = appUserId,
-            CountryId = StateManager.Instance.InterestLocality.CountryId,
-            StateId = StateManager.Instance.InterestLocality.StateId,
+            CountryId = appUserId != -1 ? -1 : StateManager.Instance.InterestLocality.CountryId,
+            StateId = appUserId != -1 ? -1 : StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
             MemoryTypeId = typeId,

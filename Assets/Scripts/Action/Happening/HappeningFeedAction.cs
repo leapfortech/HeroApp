@@ -99,9 +99,12 @@ public class HappeningFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        String localityName = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, 0)
-                                                                                  : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, 1);
-        txtLocality.TextValue = $"Eventos en: {localityName}";
+        if (txtLocality != null)
+        {
+            String localityName = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, 0)
+                                                                                      : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, 1);
+            txtLocality.TextValue = $"Eventos en: {localityName}";
+        }
 
         if (!MustReset && !force)
             return;
@@ -143,8 +146,8 @@ public class HappeningFeedAction : MonoBehaviour
 
             PostTypeId = PostType.Happening,
             AppUserId = appUserId,
-            CountryId = StateManager.Instance.CurrentLocality.CountryId,
-            StateId = StateManager.Instance.CurrentLocality.StateId,
+            CountryId = appUserId != -1 ? -1 : StateManager.Instance.CurrentLocality.CountryId,
+            StateId = appUserId != -1 ? -1 : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
             HappeningTypeId = typeId,

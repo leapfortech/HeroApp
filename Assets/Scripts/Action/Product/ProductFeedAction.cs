@@ -140,8 +140,8 @@ public class ProductFeedAction : MonoBehaviour
 
             PostTypeId = PostType.Product,
             AppUserId = appUserId,
-            CountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
-            StateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
+            CountryId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
+            StateId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
             ProductTypeId = typeId,

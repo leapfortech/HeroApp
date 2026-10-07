@@ -57,10 +57,10 @@ public class ProductUpdateAction : MonoBehaviour
     [SerializeField]
     Page[] pagNexts = null;
 
-    [Title("Event")]
+    [Title("Events")]
     [SerializeField]
     ProductFeedEvent[] onProductChanged = null;
-    [SerializeField]
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     ProductService productService = null;
