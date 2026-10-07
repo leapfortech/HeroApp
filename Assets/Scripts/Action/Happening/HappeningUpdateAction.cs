@@ -57,10 +57,10 @@ public class HappeningUpdateAction : MonoBehaviour
     [SerializeField]
     Page[] pagNexts = null;
 
-    [Title("Event")]
+    [Title("Events")]
     [SerializeField]
     HappeningFeedEvent[] onHappeningChanged = null;
-    [SerializeField]
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     HappeningService happeningService = null;
