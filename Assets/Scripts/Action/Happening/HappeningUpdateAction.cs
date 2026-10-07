@@ -55,11 +55,11 @@ public class HappeningUpdateAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagNext = null;
+    Page[] pagNexts = null;
 
     [Title("Event")]
     [SerializeField]
-    HappeningFeedEvent onHappeningChanged = null;
+    HappeningFeedEvent[] onHappeningChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
@@ -245,9 +245,9 @@ public class HappeningUpdateAction : MonoBehaviour
             return;
         }
 
-        onHappeningChanged.Invoke(new HappeningFeed(happeningFull));
+        onHappeningChanged[StateManager.Instance.FeedDetailType].Invoke(new HappeningFeed(happeningFull));
 
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
     }
 }

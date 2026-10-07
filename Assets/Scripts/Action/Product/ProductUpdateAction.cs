@@ -55,11 +55,11 @@ public class ProductUpdateAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagNext = null;
+    Page[] pagNexts = null;
 
     [Title("Event")]
     [SerializeField]
-    ProductFeedEvent onProductChanged = null;
+    ProductFeedEvent[] onProductChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
@@ -227,10 +227,10 @@ public class ProductUpdateAction : MonoBehaviour
             return;
         }
 
-        onProductChanged.Invoke(new ProductFeed(productFull));
+        onProductChanged[StateManager.Instance.FeedDetailType].Invoke(new ProductFeed(productFull));
 
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
     }
 
     public bool ValidatePrice()

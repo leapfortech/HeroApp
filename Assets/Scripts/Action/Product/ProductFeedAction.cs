@@ -74,6 +74,12 @@ public class ProductFeedAction : MonoBehaviour
         productService = GetComponent<ProductService>();
     }
 
+    public bool SetMustReset()
+    {
+        MustReset = true;
+        return true;
+    }
+
     public void CreateLoopFeed()
     {
         int valueCount = feedCount * 4;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -37,11 +36,11 @@ public class MemoryUpdateAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagNext = null;
+    Page[] pagNexts = null;
 
     [Title("Event")]
     [SerializeField]
-    MemoryFeedEvent onMemoryChanged = null;
+    MemoryFeedEvent[] onMemoryChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
@@ -118,9 +117,9 @@ public class MemoryUpdateAction : MonoBehaviour
             return;
         }
 
-        onMemoryChanged.Invoke(new MemoryFeed(memoryFull));
+        onMemoryChanged[StateManager.Instance.FeedDetailType].Invoke(new MemoryFeed(memoryFull));
 
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
     }
 }

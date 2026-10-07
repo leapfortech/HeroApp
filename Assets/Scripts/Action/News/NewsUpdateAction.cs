@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,12 +32,12 @@ public class NewsUpdateAction : MonoBehaviour
 
     [Title("Page")]
     [SerializeField]
-    Page pagNext = null;
+    Page[] pagNexts = null;
 
-    [Title("Event")]
+    [Title("Events")]
     [SerializeField]
-    NewsFeedEvent onNewsChanged = null;
-    [SerializeField]
+    NewsFeedEvent[] onNewsChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     NewsService newsService = null;
@@ -103,9 +102,9 @@ public class NewsUpdateAction : MonoBehaviour
             return;
         }
 
-        onNewsChanged.Invoke(new NewsFeed(newsFull));
+        onNewsChanged[StateManager.Instance.FeedDetailType].Invoke(new NewsFeed(newsFull));
 
         Clear();
-        PageManager.Instance.ChangePage(pagNext);
+        PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
     }
 }

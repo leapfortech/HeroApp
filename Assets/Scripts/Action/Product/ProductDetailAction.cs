@@ -78,6 +78,11 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
+    [Title("Configs")]
+    [SerializeField]
+    FeedDetailConfig[] configs = null;
+
+
     [Space, Title("Page")]
     [SerializeField]
     Page pagDetail;
@@ -85,8 +90,6 @@ public class ProductDetailAction : MonoBehaviour
     [Space, Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
-    [SerializeField]
-    UnityBoolEvent onFavoriteChanged = null;
 
     [SerializeField]
     ProductFullEvent onApplyUpdate = null;
@@ -113,6 +116,12 @@ public class ProductDetailAction : MonoBehaviour
 
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
+    }
+
+    public bool ChangePagBack()
+    {
+        PageManager.Instance.ChangePage(configs[StateManager.Instance.FeedDetailType].pagBack);
+        return false;
     }
 
     public void Display(long postId)
@@ -219,7 +228,7 @@ public class ProductDetailAction : MonoBehaviour
 
     public void ApplyDetailFavorite()
     {
-        onFavoriteChanged.Invoke(tglFavorite.Checked);
+        configs[StateManager.Instance.FeedDetailType].onFavoriteChanged.Invoke(tglFavorite.Checked);
     }
 
     // Plaint
@@ -245,14 +254,6 @@ public class ProductDetailAction : MonoBehaviour
     }
 
     //
-
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
 
     private void RefreshContents()
     {

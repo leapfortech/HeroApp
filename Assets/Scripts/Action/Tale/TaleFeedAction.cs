@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.Core.Tools;
 using Leap.Graphics.Tools;
-using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
@@ -288,9 +286,6 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ApplyLocality()
     {
-        if (tggLocality == null)
-            return;
-
         interestLocality = tggLocality.Value == "1";
 
         ResetPosts(true);

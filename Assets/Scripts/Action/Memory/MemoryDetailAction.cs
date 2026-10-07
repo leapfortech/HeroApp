@@ -92,6 +92,11 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
+    [Title("Configs")]
+    [SerializeField]
+    FeedDetailConfig[] configs = null;
+
+
     [Title("Page")]
     [SerializeField]
     Page pagDetail;
@@ -99,8 +104,6 @@ public class MemoryDetailAction : MonoBehaviour
     [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
-    [SerializeField]
-    ReactionEvent onReactionChanged = null;
 
     [SerializeField]
     MemoryFullEvent onApplyUpdate = null;
@@ -125,6 +128,12 @@ public class MemoryDetailAction : MonoBehaviour
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+    }
+
+    public bool ChangePagBack()
+    {
+        PageManager.Instance.ChangePage(configs[StateManager.Instance.FeedDetailType].pagBack);
+        return false;
     }
 
     public void Display(long postId)
@@ -250,7 +259,7 @@ public class MemoryDetailAction : MonoBehaviour
 
         if (!check)
         {
-            onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, false);
+            configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, false);
             return;
         }
 
@@ -259,7 +268,7 @@ public class MemoryDetailAction : MonoBehaviour
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
 
-        onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
+        configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
     }
 
     private void SetReactionToggle(long reactionPhraseId, bool value)

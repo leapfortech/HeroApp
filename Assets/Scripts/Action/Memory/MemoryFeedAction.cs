@@ -71,6 +71,12 @@ public class MemoryFeedAction : MonoBehaviour
         memoryService = GetComponent<MemoryService>();
     }
 
+    public bool SetMustReset()
+    {
+        MustReset = true;
+        return true;
+    }
+
     public void CreateLoopFeed()
     {
         int valueCount = feedCount * 4;

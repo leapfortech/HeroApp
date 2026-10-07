@@ -73,6 +73,12 @@ public class HappeningFeedAction : MonoBehaviour
         happeningService = GetComponent<HappeningService>();
     }
 
+    public bool SetMustReset()
+    {
+        MustReset = true;
+        return true;
+    }
+
     public void CreateLoopFeed()
     {
         int valueCount = feedCount * 4;

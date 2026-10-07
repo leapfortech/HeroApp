@@ -71,6 +71,12 @@ public class NewsFeedAction : MonoBehaviour
         newsService = GetComponent<NewsService>();
     }
 
+    public bool SetMustReset()
+    {
+        MustReset = true;
+        return true;
+    }
+
     public void CreateLoopFeed()
     {
         int valueCount = feedCount * 4;
@@ -91,8 +97,9 @@ public class NewsFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
-                                                                                       vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
+        if (txtLocality != null)
+            txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0) :
+                                                                                           vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
 
         if (!MustReset && !force)
             return;

@@ -85,6 +85,11 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
+    [Title("Configs")]
+    [SerializeField]
+    FeedDetailConfig[] configs = null;
+
+
     [Title("Page")]
     [SerializeField]
     Page pagDetail;
@@ -92,10 +97,6 @@ public class HappeningDetailAction : MonoBehaviour
     [Title("Events")]
     [SerializeField]
     ImagesEvent onImagesDisplay = null;
-    [SerializeField]
-    UnityBoolEvent onFavoriteChanged = null;
-    [SerializeField]
-    UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
     HappeningFullEvent onApplyUpdate = null;
@@ -122,6 +123,12 @@ public class HappeningDetailAction : MonoBehaviour
 
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
+    }
+
+    public bool ChangePagBack()
+    {
+        PageManager.Instance.ChangePage(configs[StateManager.Instance.FeedDetailType].pagBack);
+        return false;
     }
 
     public void Display(long postId)
@@ -226,7 +233,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     public void ApplyDetailFavorite()
     {
-        onFavoriteChanged.Invoke(tglFavorite.Checked);
+        configs[StateManager.Instance.FeedDetailType].onFavoriteChanged.Invoke(tglFavorite.Checked);
     }
 
     // Selected
@@ -242,7 +249,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     public void ApplyDetailSelected()
     {
-        onSelectedChanged.Invoke(tglSelected.Checked);
+        configs[StateManager.Instance.FeedDetailType].onSelectedChanged.Invoke(tglSelected.Checked);
     }
 
     // Plaint
