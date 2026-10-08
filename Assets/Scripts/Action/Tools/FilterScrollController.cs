@@ -120,7 +120,7 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
 
         scrollRect.horizontalNormalizedPosition = 0f;
         List<int> indexes = new List<int> { -1 };
-        Debug.Log("SelectionChanged: " + string.Join(", ", indexes));
+        //Debug.Log("SelectionChanged: " + string.Join(", ", indexes));
 
         onSelectionChanged?.Invoke(indexes);
     }
@@ -200,7 +200,7 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
 
         onSelectionChanged?.Invoke(selectedIndexes);
 
-        Debug.Log(string.Join(", ", selectedIndexes));
+        //Debug.Log(string.Join(", ", selectedIndexes));
     }
 
     //
