@@ -14,7 +14,10 @@ public class ListChangeAction : MonoBehaviour
     [Title("Parameters")]
     [SerializeField]
     Image imgBkg = null;
-    
+
+    [SerializeField]
+    Text txtEmpty = null;
+
     [Space, SerializeField]
     ComboAdapter cmbOption = null;
 
@@ -33,6 +36,17 @@ public class ListChangeAction : MonoBehaviour
     [Title("Events")]
     [SerializeField]
     UnityFloatEvent onLstChanged = null;
+
+    private float originalHeight = 0f;
+
+    private void Awake()
+    {
+        if (imgBkg != null)
+        {
+            RectTransform imgRect = imgBkg.GetComponent<RectTransform>();
+            originalHeight = imgRect.sizeDelta.y;
+        }
+    }
 
     public void Clear()
     {
@@ -115,16 +129,40 @@ public class ListChangeAction : MonoBehaviour
 
         lstOption.ApplyValues();
 
+        if (txtEmpty != null)
+            txtEmpty.gameObject.SetActive(vllOption.RecordCount == 0);
+
         SendDeltaY();
     }
+
+    //private void SendDeltaY()
+    //{
+    //    RectTransform imgRect = imgBkg.GetComponent<RectTransform>();
+    //    RectTransform lstRect = lstOption.GetComponent<RectTransform>();
+    //    RectTransform itmRect = lstOption.ListItem.GetComponent<RectTransform>();
+    //    float deltaY = vllOption.RecordCount * itmRect.sizeDelta.y - (imgRect.sizeDelta.y + lstRect.sizeDelta.y);
+    //    imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, imgRect.sizeDelta.y + deltaY);
+
+    //    onLstChanged?.Invoke(deltaY);
+    //}
 
     private void SendDeltaY()
     {
         RectTransform imgRect = imgBkg.GetComponent<RectTransform>();
         RectTransform lstRect = lstOption.GetComponent<RectTransform>();
         RectTransform itmRect = lstOption.ListItem.GetComponent<RectTransform>();
-        float deltaY = vllOption.RecordCount * itmRect.sizeDelta.y - (imgRect.sizeDelta.y + lstRect.sizeDelta.y);
-        imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, imgRect.sizeDelta.y + deltaY);
+
+        float previousHeight = imgRect.sizeDelta.y;
+        float newHeight = originalHeight;
+
+        if (vllOption.RecordCount > 0)
+            newHeight += vllOption.RecordCount * itmRect.sizeDelta.y - lstRect.sizeDelta.y - 160f;
+
+        newHeight = Mathf.Max(originalHeight - 160f, newHeight);
+
+        imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, newHeight);
+
+        float deltaY = newHeight - previousHeight;
 
         onLstChanged?.Invoke(deltaY);
     }

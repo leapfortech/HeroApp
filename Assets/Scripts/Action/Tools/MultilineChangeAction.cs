@@ -27,15 +27,33 @@ public class MultilineChangeAction : MonoBehaviour
         initHeight = imgRect.sizeDelta.y;
     }
 
+    //public void Display()
+    //{
+    //    float deltaY = 0f;
+    //    if (imlText.TextHeight == 0f)
+    //        deltaY = initHeight - imgRect.sizeDelta.y;
+    //    else
+    //        deltaY = imlText.TextHeight - (imgRect.sizeDelta.y + txtRect.sizeDelta.y);
+
+    //    imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, imgRect.sizeDelta.y + deltaY);
+
+    //    onImlChanged?.Invoke(deltaY);
+    //}
+
     public void Display()
     {
         float deltaY = 0f;
+
         if (imlText.TextHeight == 0f)
             deltaY = initHeight - imgRect.sizeDelta.y;
         else
             deltaY = imlText.TextHeight - (imgRect.sizeDelta.y + txtRect.sizeDelta.y);
-        
-        imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, imgRect.sizeDelta.y + deltaY);
+
+        float newHeight = Mathf.Max(initHeight, imgRect.sizeDelta.y + deltaY);
+
+        deltaY = newHeight - imgRect.sizeDelta.y;
+
+        imgRect.sizeDelta = new Vector2(imgRect.sizeDelta.x, newHeight);
 
         onImlChanged?.Invoke(deltaY);
     }
