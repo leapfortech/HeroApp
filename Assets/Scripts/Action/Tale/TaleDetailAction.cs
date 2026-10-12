@@ -45,6 +45,20 @@ public class TaleDetailAction : MonoBehaviour
     SectionTitle sttCommentsCount = null;
 
     [SerializeField]
+    Text txtAliasComment1 = null;
+    [SerializeField]
+    Text txtAliasComment2 = null;
+    [SerializeField]
+    Text txtAliasComment3 = null;
+
+    [SerializeField]
+    Text txtDateComment1 = null;
+    [SerializeField]
+    Text txtDateComment2 = null;
+    [SerializeField]
+    Text txtDateComment3 = null;
+
+    [SerializeField]
     Text txtComment1 = null;
     [SerializeField]
     Text txtComment2 = null;
@@ -191,6 +205,15 @@ public class TaleDetailAction : MonoBehaviour
         DisplayReactionsCount();
 
         sttCommentsCount.Title = $"Comentarios ({taleFull.CommentCount.ToString()})";
+
+        txtAliasComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].AppUserAlias : "";
+        txtAliasComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].AppUserAlias : "";
+        txtAliasComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].AppUserAlias : "";
+
+        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? GetTimeAgo(taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? GetTimeAgo(taleFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? GetTimeAgo(taleFull.CommentFulls[2].PublicationDateTime) : "";
+
         txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].Message : "";
@@ -411,5 +434,27 @@ public class TaleDetailAction : MonoBehaviour
         }
 
         rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private string GetTimeAgo(DateTime publicationDateTime)
+    {
+        TimeSpan elapsed = DateTime.Now - publicationDateTime;
+
+        if (elapsed.TotalSeconds < 60)
+            return "Hace unos segundos";
+
+        if (elapsed.TotalMinutes < 60)
+            return "Hace " + (int)elapsed.TotalMinutes + " minutos";
+
+        if (elapsed.TotalHours < 24)
+            return "Hace " + (int)elapsed.TotalHours + " horas";
+
+        if (elapsed.TotalDays < 30)
+            return "Hace " + (int)elapsed.TotalDays + " días";
+
+        if (elapsed.TotalDays < 365)
+            return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
+
+        return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
     }
 }
