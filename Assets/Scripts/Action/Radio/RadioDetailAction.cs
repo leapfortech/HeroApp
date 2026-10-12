@@ -98,7 +98,7 @@ public class RadioDetailAction : MonoBehaviour
     {
         btnRadio?.AddAction(OpenRadio);
 
-        RectTransform content = lstRadioType.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
                                - lstRadioType.GetComponent<RectTransform>().sizeDelta.y;
                                //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
@@ -239,7 +239,7 @@ public class RadioDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = lstRadioType.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
 
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
