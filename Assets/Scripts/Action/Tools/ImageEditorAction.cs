@@ -12,6 +12,12 @@ public class ImageEditorAction : MonoBehaviour
     [Space, Title("Display")]
     [SerializeField]
     Image imgDisplay = null;
+    [SerializeField]
+    GameObject gobEmtpy = null;
+    [SerializeField]
+    Text txtMax = null;
+    [SerializeField]
+    GameObject gobDelete = null;
 
     [Space, Title("Images")]
     [SerializeField]
@@ -32,8 +38,6 @@ public class ImageEditorAction : MonoBehaviour
     Button btnAddFirst = null;
     [SerializeField]
     Button btnAdd = null;
-    [SerializeField]
-    Button btnDelete = null;
 
     private int currentIdx = 0;
 
@@ -45,15 +49,22 @@ public class ImageEditorAction : MonoBehaviour
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(lstImage.ListItem, true);
             scrollerValue.SetSprite(0, vllImages.GetRecordCellSprite(i, "Image"));
+            scrollerValue.SetActive(1, false);
             lstImage.ApplyAddValue(scrollerValue);
         }
 
         bool hasImages = vllImages.RecordCount > 0;
-        btnDelete.gameObject.SetActive(hasImages);
-        imgDisplay.gameObject.SetActive(hasImages);
+        
+        gobEmtpy.gameObject.SetActive(!hasImages);
         btnAddFirst.gameObject.SetActive(!hasImages);
 
+        gobDelete.gameObject.SetActive(hasImages);
+        imgDisplay.gameObject.SetActive(hasImages);
+
         btnAdd.gameObject.SetActive(vllImages.RecordCount < maxCount);
+
+        txtMax.TextValue = $"Solo puedes agregar hasta {maxCount} imágenes.";
+        txtMax.gameObject.SetActive(vllImages.RecordCount == maxCount);
 
         if (vllImages.RecordCount > 0)
             SelectImage(vllImages.RecordCount - 1);
@@ -64,6 +75,11 @@ public class ImageEditorAction : MonoBehaviour
         currentIdx = idx;
 
         imgDisplay.Sprite = vllImages.GetRecordCellSprite(currentIdx, "Image");
+
+        for (int i = 0; i < vllImages.RecordCount; i++)
+            lstImage[i].SetActive(1, idx == i);
+
+        lstImage.RefreshVisibleValues();
     }
 
     public void AddImage(Texture2D image)
