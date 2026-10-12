@@ -112,12 +112,16 @@ public class TaleDetailAction : MonoBehaviour
 
     TaleService taleService;
     PostService postService;
-
+    float commentInitialHeight = 0.0f, initialCommentsHeight = 0.0f;
 
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
         postService = GetComponent<PostService>();
+
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        commentInitialHeight = rtfComment1.sizeDelta.y;
+        initialCommentsHeight = rtfComments.sizeDelta.y;
     }
 
     private void Start()
@@ -388,24 +392,24 @@ public class TaleDetailAction : MonoBehaviour
         if (commentCount > 0)
         {
             float height = txtComment1.TextHeight + commentItemPadding;
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 1)
         {
             float height = txtComment2.TextHeight + commentItemPadding;
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 2)
         {
             float height = txtComment3.TextHeight + commentItemPadding;
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
-        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, totalHeight + commentPadding);
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
     }
 }
