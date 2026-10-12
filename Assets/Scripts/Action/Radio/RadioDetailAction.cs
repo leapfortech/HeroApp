@@ -21,17 +21,13 @@ public class RadioDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgCover = null;
+    [SerializeField]
     Text txtTitle = null;
     [SerializeField]
     Text txtPlace = null;
     [SerializeField]
     Text txtDescription = null;
-
-    [Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -72,8 +68,6 @@ public class RadioDetailAction : MonoBehaviour
     Page pagDetail;
 
     [Title("Events")]
-    [SerializeField]
-    ImagesEvent onImagesDisplay = null;
     [SerializeField]
     UnityBoolEvent onFavoriteChanged = null;
 
@@ -173,11 +167,7 @@ public class RadioDetailAction : MonoBehaviour
         lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
         lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
 
-        // Images
-        goEmptyImages.SetActive(radioFull.ImageSprites.Count == 0);
-        goImages.SetActive(radioFull.ImageSprites.Count != 0);
-
-        onImagesDisplay.Invoke(radioFull.ImageSprites);
+        imgCover.Sprite = radioFull.ImageSprites[0];
 
         // Actions
         if (radioFull.Favorite != 0)
