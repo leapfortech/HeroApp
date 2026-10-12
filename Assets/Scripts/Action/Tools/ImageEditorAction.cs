@@ -13,7 +13,7 @@ public class ImageEditorAction : MonoBehaviour
     [SerializeField]
     Image imgDisplay = null;
     [SerializeField]
-    GameObject gobEmtpy = null;
+    GameObject gobEmpty = null;
     [SerializeField]
     Text txtMax = null;
     [SerializeField]
@@ -55,7 +55,7 @@ public class ImageEditorAction : MonoBehaviour
 
         bool hasImages = vllImages.RecordCount > 0;
         
-        gobEmtpy.gameObject.SetActive(!hasImages);
+        gobEmpty.gameObject.SetActive(!hasImages);
         btnAddFirst.gameObject.SetActive(!hasImages);
 
         gobDelete.gameObject.SetActive(hasImages);

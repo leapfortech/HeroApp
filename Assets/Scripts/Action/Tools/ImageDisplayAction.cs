@@ -3,66 +3,56 @@ using UnityEngine;
 
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
-using MPUIKIT;
 
 using Sirenix.OdinInspector;
 
 public class ImageDisplayAction : MonoBehaviour
 {
-    [Space, Title("Test Images")]
-    [SerializeField]
-    List<Sprite> testImages = null;
-
     [Space, Title("Display")]
     [SerializeField]
     Image imgDisplay = null;
+
+    [SerializeField]
+    GameObject gobEmpty = null;
+
     [SerializeField]
     ListScroller lstImage = null;
 
-    [Title("Indicator")]
-    [SerializeField]
-    private GameObject indicatorPrefab;
-    [SerializeField]
-    private Transform indicatorParent;
-    [SerializeField]
-    private Color colorOn = Color.white;
-    [SerializeField]
-    private Color colorOff = Color.gray;
-
-    private GameObject[] indicators;
 
     private List<Sprite> images = new List<Sprite>();
 
     public void Clear()
     {
-        testImages = null;
         for (int i = 0; i < images.Count; i++)
             images[i].Destroy();
         images.Clear();
         lstImage.Clear();
-        ClearIndicators();
     }
 
-    public void DisplayTestImages()
-    {
-        Display(testImages);
-    }
+
 
     public void Display(List<Sprite> imgs)
     {
-        images = imgs;
+        Clear();
 
-        if (images == null || images.Count == 0)
+        if (imgs != null)
+            images.AddRange(imgs);
+
+        bool hasImages = images.Count > 0;
+
+        gobEmpty.gameObject.SetActive(!hasImages);
+
+        if (!hasImages)
+        {
+            imgDisplay.Sprite = null;
             return;
-
-        lstImage.Clear();
-
-        CreateIndicators(images.Count);
+        }
 
         for (int i = 0; i < images.Count; i++)
         {
             ListScrollerValue scrollerValue = new ListScrollerValue(lstImage.ListItem, true);
             scrollerValue.SetSprite(0, images[i]);
+            scrollerValue.SetActive(1, false);
             lstImage.ApplyAddValue(scrollerValue);
         }
 
@@ -73,32 +63,9 @@ public class ImageDisplayAction : MonoBehaviour
     {
         imgDisplay.Sprite = images[idx];
 
-        UpdateIndicator(idx);
-    }
+        for (int i = 0; i < images.Count; i++)
+            lstImage[i].SetActive(1, idx == i);
 
-    public void UpdateIndicator(int idx)
-    {
-        for (int i = 0; i < indicators.Length; i++)
-        {
-            MPImage indicatorImage = indicators[i].GetComponent<MPImage>();
-
-            if (indicatorImage != null)
-                indicatorImage.color = (i == idx) ? colorOn : colorOff;
-        }
-    }
-
-    private void CreateIndicators(int count)
-    {
-        ClearIndicators();
-
-        indicators = new GameObject[count];
-        for (int i = 0; i < count; i++)
-            indicators[i] = Instantiate(indicatorPrefab, indicatorParent);
-    }
-
-    private void ClearIndicators()
-    {
-        foreach (Transform child in indicatorParent)
-            Destroy(child.gameObject);
+        lstImage.RefreshVisibleValues();
     }
 }

@@ -31,12 +31,18 @@ public class TaleDetailAction : MonoBehaviour
     Text txtInterestLocation = null;
     [SerializeField]
     Text txtDescription = null;
+    [SerializeField]
+    Text txtDate = null;
+    [SerializeField]
+    Text txtLocation = null;
+    [SerializeField]
+    Text txtReactionsCount = null;
 
     [Space, SerializeField]
-    Text[] txtReactionCounts = null;
+    Toggle[] tglReactionCounts = null;
 
     [Space, SerializeField]
-    Text txtCommentCount = null;
+    SectionTitle sttCommentsCount = null;
 
     [SerializeField]
     Text txtComment1 = null;
@@ -44,12 +50,6 @@ public class TaleDetailAction : MonoBehaviour
     Text txtComment2 = null;
     [SerializeField]
     Text txtComment3 = null;
-
-    [Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -65,7 +65,7 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     float commentPadding = 220;
     [SerializeField]
-    RectTransform rtfImgComments = null;
+    RectTransform rtfComments = null;
 
     [Title("Values")]
     [SerializeField]
@@ -124,7 +124,7 @@ public class TaleDetailAction : MonoBehaviour
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
     }
 
     public bool ChangePagBack()
@@ -177,18 +177,19 @@ public class TaleDetailAction : MonoBehaviour
         txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
+        txtDate.TextValue = taleFull.PublicationDateTime.ToString("dd/MM/yyyy");
 
-        for(int i = 0; i < reactionCounts.Length; i++)
-            txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        String country = vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
+        String state = vllState.FindRecordCellString(taleFull.PostStateId, "Name");
 
-        txtCommentCount.TextValue = $"({taleFull.CommentCount.ToString()})";
+        txtLocation.TextValue = country + (String.IsNullOrWhiteSpace(state) ? "" : ", " + state);
+
+        DisplayReactionsCount();
+
+        sttCommentsCount.Title = $"Comentarios ({taleFull.CommentCount.ToString()})";
         txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].Message : "";
-
-        // Images
-        goEmptyImages.SetActive(taleFull.ImageSprites.Count == 0);
-        goImages.SetActive(taleFull.ImageSprites.Count != 0);
 
         onImagesDisplay.Invoke(taleFull.ImageSprites);
 
@@ -211,6 +212,19 @@ public class TaleDetailAction : MonoBehaviour
     }
 
     // Reaction
+
+    private void DisplayReactionsCount()
+    {
+        long totalReactions = 0;
+        for (int i = 0; i < reactionCounts.Length; i++)
+        {
+            totalReactions += reactionCounts[i];
+            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        }
+
+        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+    }
+
     public void ApplyReaction1(bool check)
     {
         if (ignoreReactionEvent)
@@ -309,7 +323,7 @@ public class TaleDetailAction : MonoBehaviour
         if (reactionCounts[index] < 0)
             reactionCounts[index] = 0;
 
-        txtReactionCounts[index].TextValue = reactionCounts[index] > 9999 ? "+9999" : reactionCounts[index].ToString();
+        DisplayReactionsCount();
     }
 
     // Plaint
@@ -353,7 +367,7 @@ public class TaleDetailAction : MonoBehaviour
 
         DisplayComments(commentCount);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
@@ -392,6 +406,6 @@ public class TaleDetailAction : MonoBehaviour
             totalHeight += height + commentItemSpacing;
         }
 
-        rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, totalHeight + commentPadding);
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, totalHeight + commentPadding);
     }
 }
