@@ -132,10 +132,6 @@ public class TaleDetailAction : MonoBehaviour
     {
         taleService = GetComponent<TaleService>();
         postService = GetComponent<PostService>();
-
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        commentInitialHeight = rtfComment1.sizeDelta.y;
-        initialCommentsHeight = rtfComments.sizeDelta.y;
     }
 
     private void Start()
@@ -143,6 +139,10 @@ public class TaleDetailAction : MonoBehaviour
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         
         contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        commentInitialHeight = rtfComment1.sizeDelta.y;
+        initialCommentsHeight = rtfComments.sizeDelta.y;
     }
 
     public bool ChangePagBack()

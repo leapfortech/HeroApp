@@ -22,24 +22,41 @@ public class NewsDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Text txtAlias = null;
-    [SerializeField]
     Text txtTitle = null;
     [SerializeField]
+    Text txtNewsDate = null;
+    [SerializeField]
     Text txtDescription = null;
-
     [SerializeField]
     Text txtNewsType = null;
     [SerializeField]
     Text txtSource = null;
     [SerializeField]
-    Text txtNewsDate = null;
+    Text txtAlias = null;
+    [SerializeField]
+    Text txtLocation = null;
+    [SerializeField]
+    Text txtReactionsCount = null;
 
     [Space, SerializeField]
-    Text[] txtReactionCounts = null;
+    Toggle[] tglReactionCounts = null;
 
     [Space, SerializeField]
-    Text txtCommentCount = null;
+    SectionTitle sttCommentsCount = null;
+
+    [SerializeField]
+    Text txtAliasComment1 = null;
+    [SerializeField]
+    Text txtAliasComment2 = null;
+    [SerializeField]
+    Text txtAliasComment3 = null;
+
+    [SerializeField]
+    Text txtDateComment1 = null;
+    [SerializeField]
+    Text txtDateComment2 = null;
+    [SerializeField]
+    Text txtDateComment3 = null;
 
     [SerializeField]
     Text txtComment1 = null;
@@ -47,12 +64,6 @@ public class NewsDetailAction : MonoBehaviour
     Text txtComment2 = null;
     [SerializeField]
     Text txtComment3 = null;
-
-    [Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -68,7 +79,7 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     float commentPadding = 220;
     [SerializeField]
-    RectTransform rtfImgComments = null;
+    RectTransform rtfComments = null;
 
     [Title("Actions")]
     [SerializeField]
@@ -87,6 +98,10 @@ public class NewsDetailAction : MonoBehaviour
     [Title("Values")]
     [SerializeField]
     ValueList vllNewsType = null;
+    [SerializeField]
+    ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllState = null;
 
     [Title("Configs")]
     [SerializeField]
@@ -109,7 +124,7 @@ public class NewsDetailAction : MonoBehaviour
 
     long postId = -1;
     String url = null;
-    float contentInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, commentInitialHeight = 0.0f, initialCommentsHeight = 0.0f;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
@@ -125,7 +140,11 @@ public class NewsDetailAction : MonoBehaviour
     {
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
 
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        commentInitialHeight = rtfComment1.sizeDelta.y;
+        initialCommentsHeight = rtfComments.sizeDelta.y;
     }
 
     public bool ChangePagBack()
@@ -163,27 +182,33 @@ public class NewsDetailAction : MonoBehaviour
             url = newsFull.LinkFulls[0].Url;
 
         // Post
-        txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
-
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
-
+        txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToString("dd/MM/yyyy");
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
-        //txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToLocalTime().ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
-        txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToString("d 'de' MMMM, yyyy", new System.Globalization.CultureInfo("es-ES"));
+        txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
 
-        for (int i = 0; i < reactionCounts.Length; i++)
-            txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        String country = vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");
+        String state = vllState.FindRecordCellString(newsFull.PostStateId, "Name");
 
-        txtCommentCount.TextValue = $"({newsFull.CommentCount.ToString()})";
+        txtLocation.TextValue = country + (String.IsNullOrWhiteSpace(state) ? "" : ", " + state);
+
+        DisplayReactionsCount();
+
+        sttCommentsCount.Title = $"Comentarios ({newsFull.CommentCount.ToString()})";
+
+        txtAliasComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].AppUserAlias : "";
+        txtAliasComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].AppUserAlias : "";
+        txtAliasComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].AppUserAlias : "";
+
+        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? GetTimeAgo(newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? GetTimeAgo(newsFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? GetTimeAgo(newsFull.CommentFulls[2].PublicationDateTime) : "";
+
         txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].Message : "";
-
-        // Images
-        goEmptyImages.SetActive(newsFull.ImageSprites.Count == 0);
-        goImages.SetActive(newsFull.ImageSprites.Count != 0);
 
         onImagesDisplay.Invoke(newsFull.ImageSprites);
 
@@ -206,6 +231,18 @@ public class NewsDetailAction : MonoBehaviour
     }
 
     // Reaction
+    private void DisplayReactionsCount()
+    {
+        long totalReactions = 0;
+        for (int i = 0; i < reactionCounts.Length; i++)
+        {
+            totalReactions += reactionCounts[i];
+            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        }
+
+        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+    }
+
     public void ApplyReaction1(bool check)
     {
         if (ignoreReactionEvent)
@@ -304,7 +341,7 @@ public class NewsDetailAction : MonoBehaviour
         if (reactionCounts[index] < 0)
             reactionCounts[index] = 0;
 
-        txtReactionCounts[index].TextValue = reactionCounts[index] > 9999 ? "+9999" : reactionCounts[index].ToString();
+        DisplayReactionsCount();
     }
 
     // Plaint
@@ -342,11 +379,11 @@ public class NewsDetailAction : MonoBehaviour
         RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
         RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
 
-        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x,txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
 
         DisplayComments(commentCount);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
@@ -367,24 +404,46 @@ public class NewsDetailAction : MonoBehaviour
         if (commentCount > 0)
         {
             float height = txtComment1.TextHeight + commentItemPadding;
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 1)
         {
             float height = txtComment2.TextHeight + commentItemPadding;
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 2)
         {
             float height = txtComment3.TextHeight + commentItemPadding;
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
-        rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, totalHeight + commentPadding);
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private string GetTimeAgo(DateTime publicationDateTime)
+    {
+        TimeSpan elapsed = DateTime.Now - publicationDateTime;
+
+        if (elapsed.TotalSeconds < 60)
+            return "Hace unos segundos";
+
+        if (elapsed.TotalMinutes < 60)
+            return "Hace " + (int)elapsed.TotalMinutes + " minutos";
+
+        if (elapsed.TotalHours < 24)
+            return "Hace " + (int)elapsed.TotalHours + " horas";
+
+        if (elapsed.TotalDays < 30)
+            return "Hace " + (int)elapsed.TotalDays + " días";
+
+        if (elapsed.TotalDays < 365)
+            return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
+
+        return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
     }
 }
