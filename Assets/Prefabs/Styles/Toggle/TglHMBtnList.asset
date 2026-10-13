@@ -110,10 +110,16 @@ MonoBehaviour:
       - Title
       values:
       - rid: 7896456371665371406
-    sprites: []
+    sprites:
+    - rid: 3096978206888559045
+    - rid: 3096978206888559046
     DictSprites:
-      keys: []
-      values: []
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 3096978206888559045
+      - rid: 3096978206888559046
   - stateName: Activated
     index: 1
     style: {fileID: 11400000}
@@ -210,10 +216,16 @@ MonoBehaviour:
       - Title
       values:
       - rid: 7896456371665371433
-    sprites: []
+    sprites:
+    - rid: 3096978206888559047
+    - rid: 3096978206888559048
     DictSprites:
-      keys: []
-      values: []
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 3096978206888559047
+      - rid: 3096978206888559048
   - stateName: Disabled
     index: 2
     style: {fileID: 11400000}
@@ -310,13 +322,55 @@ MonoBehaviour:
       - Title
       values:
       - rid: 7896456371665371460
-    sprites: []
+    sprites:
+    - rid: 3096978206888559049
+    - rid: 3096978206888559050
     DictSprites:
-      keys: []
-      values: []
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 3096978206888559049
+      - rid: 3096978206888559050
   references:
     version: 2
     RefIds:
+    - rid: 3096978206888559045
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 3096978206888559046
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
+    - rid: 3096978206888559047
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 3096978206888559048
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
+    - rid: 3096978206888559049
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 3096978206888559050
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
     - rid: 7896456371665371380
       type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
