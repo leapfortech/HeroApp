@@ -24,20 +24,36 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
-    Text txtDescription = null;
-
+    Text txtDateTime = null;
     [SerializeField]
     Text txtMemoryType = null;
     [SerializeField]
-    Text txtPlace = null;
+    Text txtDescription = null;
     [SerializeField]
-    Text txtDateTime = null;
+    Text txtLocation = null;
+
+    [SerializeField]
+    Text txtReactionsCount = null;
 
     [Space, SerializeField]
-    Text[] txtReactionCounts = null;
+    Toggle[] tglReactionCounts = null;
 
     [Space, SerializeField]
-    Text txtCommentCount = null;
+    SectionTitle sttCommentsCount = null;
+
+    [SerializeField]
+    Text txtAliasComment1 = null;
+    [SerializeField]
+    Text txtAliasComment2 = null;
+    [SerializeField]
+    Text txtAliasComment3 = null;
+
+    [SerializeField]
+    Text txtDateComment1 = null;
+    [SerializeField]
+    Text txtDateComment2 = null;
+    [SerializeField]
+    Text txtDateComment3 = null;
 
     [SerializeField]
     Text txtComment1 = null;
@@ -45,12 +61,6 @@ public class MemoryDetailAction : MonoBehaviour
     Text txtComment2 = null;
     [SerializeField]
     Text txtComment3 = null;
-
-    [Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -66,7 +76,7 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     float commentPadding = 220;
     [SerializeField]
-    RectTransform rtfImgComments = null;
+    RectTransform rtfComments = null;
 
     [Title("Values")]
     [SerializeField]
@@ -112,7 +122,7 @@ public class MemoryDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, commentInitialHeight = 0.0f, initialCommentsHeight = 0.0f;
     bool isRefresh = false;
     int[] reactionCounts;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
@@ -127,7 +137,11 @@ public class MemoryDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfImgComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
+        commentInitialHeight = rtfComment1.sizeDelta.y;
+        initialCommentsHeight = rtfComments.sizeDelta.y;
+
     }
 
     public bool ChangePagBack()
@@ -170,22 +184,26 @@ public class MemoryDetailAction : MonoBehaviour
 
         String country = memoryFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(memoryFull.PostCountryId, "Name");
         String state = memoryFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(memoryFull.PostStateId, "Name");
-        txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+        txtLocation.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         //txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
         txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToString("dd/MM/yyyy HH:mm");
 
-        for (int i = 0; i < reactionCounts.Length; i++)
-            txtReactionCounts[i].TextValue = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        DisplayReactionsCount();
 
-        txtCommentCount.TextValue = $"({memoryFull.CommentCount.ToString()})";
+        sttCommentsCount.Title = $"Comentarios ({memoryFull.CommentCount.ToString()})";
+
+        txtAliasComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].AppUserAlias : "";
+        txtAliasComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].AppUserAlias : "";
+        txtAliasComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? memoryFull.CommentFulls[2].AppUserAlias : "";
+
+        txtDateComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? GetTimeAgo(memoryFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? GetTimeAgo(memoryFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? GetTimeAgo(memoryFull.CommentFulls[2].PublicationDateTime) : "";
+
         txtComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? memoryFull.CommentFulls[2].Message : "";
-
-        // Images
-        goEmptyImages.SetActive(memoryFull.ImageSprites.Count == 0);
-        goImages.SetActive(memoryFull.ImageSprites.Count != 0);
 
         onImagesDisplay.Invoke(memoryFull.ImageSprites);
 
@@ -208,6 +226,18 @@ public class MemoryDetailAction : MonoBehaviour
     }
 
     // Reaction
+    private void DisplayReactionsCount()
+    {
+        long totalReactions = 0;
+        for (int i = 0; i < reactionCounts.Length; i++)
+        {
+            totalReactions += reactionCounts[i];
+            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+        }
+
+        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+    }
+
     public void ApplyReaction1(bool check)
     {
         if (ignoreReactionEvent)
@@ -306,7 +336,7 @@ public class MemoryDetailAction : MonoBehaviour
         if (reactionCounts[index] < 0)
             reactionCounts[index] = 0;
 
-        txtReactionCounts[index].TextValue = reactionCounts[index] > 9999 ? "+9999" : reactionCounts[index].ToString();
+        DisplayReactionsCount();
     }
 
     // Plaint
@@ -350,7 +380,7 @@ public class MemoryDetailAction : MonoBehaviour
 
         DisplayComments(commentCount);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfImgComments.sizeDelta.y + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
@@ -371,24 +401,46 @@ public class MemoryDetailAction : MonoBehaviour
         if (commentCount > 0)
         {
             float height = txtComment1.TextHeight + commentItemPadding;
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 1)
         {
             float height = txtComment2.TextHeight + commentItemPadding;
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
         if (commentCount > 2)
         {
             float height = txtComment3.TextHeight + commentItemPadding;
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
             totalHeight += height + commentItemSpacing;
         }
 
-        rtfImgComments.sizeDelta = new Vector2(rtfImgComments.sizeDelta.x, totalHeight + commentPadding);
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private string GetTimeAgo(DateTime publicationDateTime)
+    {
+        TimeSpan elapsed = DateTime.Now - publicationDateTime;
+
+        if (elapsed.TotalSeconds < 60)
+            return "Hace unos segundos";
+
+        if (elapsed.TotalMinutes < 60)
+            return "Hace " + (int)elapsed.TotalMinutes + " minutos";
+
+        if (elapsed.TotalHours < 24)
+            return "Hace " + (int)elapsed.TotalHours + " horas";
+
+        if (elapsed.TotalDays < 30)
+            return "Hace " + (int)elapsed.TotalDays + " días";
+
+        if (elapsed.TotalDays < 365)
+            return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
+
+        return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
     }
 }
