@@ -237,7 +237,7 @@ public class RadioFeedAction : MonoBehaviour
     {
         bool empty = radioFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 270;
+        loopValue.ItemSize = empty ? 2000 : 460;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new RadioUserData(radioFeed.PostId, radioFeed.PublicationDateTime, radioFeed.Url));
 
         if (empty)
