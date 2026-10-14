@@ -73,8 +73,6 @@ public class NewsRegisterAction : MonoBehaviour
 
         NewsFull newsFull = dtmNewsFull.BuildClass<NewsFull>();
         newsFull.AppUserId = StateManager.Instance.AppUser.Id;
-        newsFull.PostCountryId =  StateManager.Instance.InterestLocality.CountryId;
-        newsFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
 
         newsFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
