@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.UI.Extensions;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -26,6 +26,10 @@ public class NewsRegisterAction : MonoBehaviour
     DataMapper dtmNewsFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    ComboAdapter cmbCountry = null;
+    [SerializeField]
+    ComboAdapter cmbState = null;
 
     [Title("Action")]
     [SerializeField]
@@ -51,6 +55,13 @@ public class NewsRegisterAction : MonoBehaviour
     {
         dtmNewsFull.ClearElements();
         dtmImagesVLL.ClearElements();
+        FillCombos();
+    }
+
+    public void FillCombos()
+    {
+        cmbCountry.Select(StateManager.Instance.InterestLocality.CountryId);
+        cmbState.Select(StateManager.Instance.InterestLocality.StateId);
     }
 
     private void Register()

@@ -80,9 +80,6 @@ public class RadioRegisterAction : MonoBehaviour
 
         radioFull.AppUserId = StateManager.Instance.AppUser.Id;
 
-        radioFull.PostCountryId = cmbCountry.GetSelectedId();
-        radioFull.PostStateId = cmbState.GetSelectedId();
-
         radioFull.LinkFulls = new List<LinkFull>() { dtmLinkFull.BuildClass<LinkFull>() };
         radioFull.LinkFulls[0].LinkTypeId = (long)LinkType.Url;
 
