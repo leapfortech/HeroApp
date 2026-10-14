@@ -92,8 +92,10 @@ public class RadioDetailAction : MonoBehaviour
     {
         btnRadio?.AddAction(OpenRadio);
 
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight
+                               - txtDescription.TextHeight
                                - lstRadioType.GetComponent<RectTransform>().sizeDelta.y;
                                //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
     }
@@ -124,6 +126,8 @@ public class RadioDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title)}";
+        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        float deltaY = txtTitle.TextHeight;
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");
         String state = radioFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(radioFull.PostStateId, "Name");
@@ -131,8 +135,7 @@ public class RadioDetailAction : MonoBehaviour
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
         txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
-
-        float deltaY = txtDescription.TextHeight;
+        deltaY += txtDescription.TextHeight;
 
         // Radio Type
         lstRadioType.Clear();
@@ -229,7 +232,7 @@ public class RadioDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
 
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 

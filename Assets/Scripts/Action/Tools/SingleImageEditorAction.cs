@@ -28,6 +28,14 @@ public class SingleImageEditorAction : MonoBehaviour
         imgDisplay.ClearValue();
     }
 
+    public void RefreshImage()
+    {
+        if (vllImages.RecordCount == 0)
+            return;
+
+        imgDisplay.Sprite = vllImages.GetRecordCellSprite(0, "Image");
+    }
+
     public void AddImage(Texture2D image)
     {
         Clear();
