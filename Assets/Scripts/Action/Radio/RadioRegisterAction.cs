@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
+using Leap.UI.Extensions;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -27,6 +27,10 @@ public class RadioRegisterAction : MonoBehaviour
     DataMapper dtmLinkFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    ComboAdapter cmbCountry = null;
+    [SerializeField]
+    ComboAdapter cmbState = null;
 
     [Title("Action")]
     [SerializeField]
@@ -55,6 +59,14 @@ public class RadioRegisterAction : MonoBehaviour
         dtmRadioLanguageFullVLL.ClearElements();
         dtmLinkFull.ClearElements();
         dtmImagesVLL.ClearElements();
+
+        FillCombos();
+    }
+
+    public void FillCombos()
+    {
+        cmbCountry.Select(StateManager.Instance.InterestLocality.CountryId);
+        cmbState.Select(StateManager.Instance.InterestLocality.StateId);
     }
 
     private void Register()
@@ -65,9 +77,11 @@ public class RadioRegisterAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         RadioFull radioFull = dtmRadioFull.BuildClass<RadioFull>();
+
         radioFull.AppUserId = StateManager.Instance.AppUser.Id;
-        radioFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
-        radioFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
+
+        radioFull.PostCountryId = cmbCountry.GetSelectedId();
+        radioFull.PostStateId = cmbState.GetSelectedId();
 
         radioFull.LinkFulls = new List<LinkFull>() { dtmLinkFull.BuildClass<LinkFull>() };
         radioFull.LinkFulls[0].LinkTypeId = (long)LinkType.Url;
