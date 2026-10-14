@@ -136,9 +136,12 @@ public class TaleDetailAction : MonoBehaviour
 
     private void Start()
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
         
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight 
+                               - txtDescription.TextHeight
+                               - rtfComments.sizeDelta.y;
 
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentInitialHeight = rtfComment1.sizeDelta.y;
@@ -179,6 +182,8 @@ public class TaleDetailAction : MonoBehaviour
         // Post
         txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
+        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        float deltaY = txtTitle.TextHeight;
 
         String currCountry = taleFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CountryId, "Name");
         String currState = taleFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.StateId, "Name");
@@ -195,6 +200,9 @@ public class TaleDetailAction : MonoBehaviour
         txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
+        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        deltaY += txtDescription.TextHeight;
+
         txtDate.TextValue = taleFull.PublicationDateTime.ToString("dd/MM/yyyy");
 
         String country = vllCountry.FindRecordCellString(taleFull.PostCountryId, "Name");
@@ -226,7 +234,9 @@ public class TaleDetailAction : MonoBehaviour
         SetToggle(tglReaction3, taleFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, taleFull.ReactionPhraseId == 4);
 
-        RefreshContents(taleFull.CommentFulls.Count);
+        DisplayComments(taleFull.CommentFulls.Count);
+
+        RefreshContents(deltaY);
 
         btnUpdate.gameObject.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -385,21 +395,6 @@ public class TaleDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents(int commentCount)
-    {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
-
-        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
-
-        DisplayComments(commentCount);
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
-
-        if (!isRefresh)
-            scrollRect.verticalNormalizedPosition = 1f;
-    }
-
     private void DisplayComments(int commentCount)
     {
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
@@ -434,6 +429,16 @@ public class TaleDetailAction : MonoBehaviour
         }
 
         rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private void RefreshContents(float deltaY)
+    {
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private string GetTimeAgo(DateTime publicationDateTime)
