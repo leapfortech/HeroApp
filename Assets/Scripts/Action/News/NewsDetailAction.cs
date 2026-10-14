@@ -425,7 +425,6 @@ public class NewsDetailAction : MonoBehaviour
     private void RefreshContents(float deltaY)
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
 
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
 

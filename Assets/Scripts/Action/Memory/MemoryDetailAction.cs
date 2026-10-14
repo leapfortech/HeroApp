@@ -137,7 +137,12 @@ public class MemoryDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight
+                               - txtDescription.TextHeight
+                               - rtfComments.sizeDelta.y;
+        
+        
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentInitialHeight = rtfComment1.sizeDelta.y;
         initialCommentsHeight = rtfComments.sizeDelta.y;
@@ -177,7 +182,12 @@ public class MemoryDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(memoryFull.Title) ? "Evento" : memoryFull.Title)}";
+        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        float deltaY = txtTitle.TextHeight;
+
         txtDescription.TextValue = String.IsNullOrWhiteSpace(memoryFull.Description) ? "-" : memoryFull.Description;
+        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        deltaY += txtDescription.TextHeight;
 
         // Memory
         txtMemoryType.TextValue = memoryFull.MemoryTypeId == -1 ? "-" : vllMemoryType.FindRecordCellString(memoryFull.MemoryTypeId, "Name");
@@ -213,7 +223,9 @@ public class MemoryDetailAction : MonoBehaviour
         SetToggle(tglReaction3, memoryFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, memoryFull.ReactionPhraseId == 4);
 
-        RefreshContents(memoryFull.CommentFulls.Count);
+        DisplayComments(memoryFull.CommentFulls.Count);
+
+        RefreshContents(deltaY);
 
         btnUpdate.gameObject.SetActive(memoryFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -371,21 +383,6 @@ public class MemoryDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents(int commentCount)
-    {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
-
-        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
-
-        DisplayComments(commentCount);
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
-
-        if (!isRefresh)
-            scrollRect.verticalNormalizedPosition = 1f;
-    }
-
     private void DisplayComments(int commentCount)
     {
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
@@ -420,6 +417,16 @@ public class MemoryDetailAction : MonoBehaviour
         }
 
         rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private void RefreshContents(float deltaY)
+    {
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private string GetTimeAgo(DateTime publicationDateTime)
