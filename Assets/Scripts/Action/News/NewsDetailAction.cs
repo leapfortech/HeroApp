@@ -138,9 +138,12 @@ public class NewsDetailAction : MonoBehaviour
 
     private void Start()
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
 
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - rtfComments.sizeDelta.y;
+        contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight
+                               - txtDescription.TextHeight
+                               - rtfComments.sizeDelta.y;
 
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentInitialHeight = rtfComment1.sizeDelta.y;
@@ -183,9 +186,16 @@ public class NewsDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
+        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        float deltaY = txtTitle.TextHeight;
+
         txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToString("dd/MM/yyyy");
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
+        
         txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
+        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        deltaY += txtDescription.TextHeight;
+
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
 
@@ -218,7 +228,9 @@ public class NewsDetailAction : MonoBehaviour
         SetToggle(tglReaction3, newsFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, newsFull.ReactionPhraseId == 4);
 
-        RefreshContents(newsFull.CommentFulls.Count);
+        DisplayComments(newsFull.CommentFulls.Count);
+
+        RefreshContents(deltaY);
 
         btnUpdate.gameObject.SetActive(newsFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -374,21 +386,6 @@ public class NewsDetailAction : MonoBehaviour
             toggle.Uncheck();
     }
 
-    private void RefreshContents(int commentCount)
-    {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
-
-        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
-
-        DisplayComments(commentCount);
-
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + rtfComments.sizeDelta.y + contentPadding);
-
-        if (!isRefresh)
-            scrollRect.verticalNormalizedPosition = 1f;
-    }
-
     private void DisplayComments(int commentCount)
     {
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
@@ -423,6 +420,17 @@ public class NewsDetailAction : MonoBehaviour
         }
 
         rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+    }
+
+    private void RefreshContents(float deltaY)
+    {
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfDescription = txtDescription.transform.GetComponent<RectTransform>();
+
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
+
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private string GetTimeAgo(DateTime publicationDateTime)
