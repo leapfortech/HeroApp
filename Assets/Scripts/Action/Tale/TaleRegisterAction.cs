@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.UI.Extensions;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -25,6 +25,10 @@ public class TaleRegisterAction : MonoBehaviour
     DataMapper dtmTaleFull = null;
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    ComboAdapter cmbCountry = null;
+    [SerializeField]
+    ComboAdapter cmbState = null;
 
     [Title("Action")]
     [SerializeField]
@@ -50,6 +54,13 @@ public class TaleRegisterAction : MonoBehaviour
     {
         dtmTaleFull.ClearElements();
         dtmImagesVLL.ClearElements();
+        FillCombos();
+    }
+
+    public void FillCombos()
+    {
+        cmbCountry.Select(StateManager.Instance.CurrentLocality.CountryId);
+        cmbState.Select(StateManager.Instance.CurrentLocality.StateId);
     }
 
     private void Register()
@@ -61,8 +72,6 @@ public class TaleRegisterAction : MonoBehaviour
 
         TaleFull taleFull = dtmTaleFull.BuildClass<TaleFull>();
         taleFull.AppUserId = StateManager.Instance.AppUser.Id;
-        taleFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        taleFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         taleFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
