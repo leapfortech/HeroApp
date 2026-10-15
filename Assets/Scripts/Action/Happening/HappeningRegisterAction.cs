@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
+using Leap.UI.Extensions;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -44,6 +43,11 @@ public class HappeningRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmImagesVLL = null;
 
+    [SerializeField]
+    ComboAdapter cmbHappeningCountry = null;
+    [SerializeField]
+    ComboAdapter cmbHappeningState = null;
+
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
@@ -76,10 +80,17 @@ public class HappeningRegisterAction : MonoBehaviour
 
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
+        dtmImagesVLL.ClearElements();
 
         ClearContact();
 
-        dtmImagesVLL.ClearElements();
+        FillCombos();
+    }
+
+    public void FillCombos()
+    {
+        cmbHappeningCountry.Select(StateManager.Instance.CurrentLocality.CountryId);
+        cmbHappeningState.Select(StateManager.Instance.CurrentLocality.StateId);
     }
 
     public void ClearContact()
