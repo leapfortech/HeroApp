@@ -264,4 +264,25 @@ public class MemoryService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Delete(PostModerationRequest postModerationRequest)
+    {
+        MemoryDeletePutOperation deletePutOp = new MemoryDeletePutOperation();
+        try
+        {
+            deletePutOp.postModerationRequest = postModerationRequest;
+            deletePutOp["on-complete"] = (Action<MemoryDeletePutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(bool.Parse(op.response));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            deletePutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

@@ -132,3 +132,18 @@ public class MemoryRejectPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/memory/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class MemoryDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}
