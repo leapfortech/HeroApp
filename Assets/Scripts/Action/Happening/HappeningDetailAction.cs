@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-using Leap.Core.Tools;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
@@ -21,10 +20,11 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Text txtSelectedCount = null;
+    [SerializeField]
     Text txtTitle = null;
     [SerializeField]
     Text txtDescription = null;
-
     [SerializeField]
     Text txtHappeningType = null;
     [SerializeField]
@@ -32,26 +32,23 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     Text txtIsPublic = null;
     [SerializeField]
-    Text txtHasSignup = null;
-    [SerializeField]
-    Text txtHasPayment = null;
+    Text txtHasSignupPayment = null;
     [SerializeField]
     Text txtPaymentDetails = null;
     [SerializeField]
-    Text txtStartDateTime = null;
+    Text txtStartDate = null;
     [SerializeField]
-    Text txtEndDateTime = null;
+    Text txtStartTime = null;
+    [SerializeField]
+    Text txtEndDate = null;
+    [SerializeField]
+    Text txtEndTime = null;
     [SerializeField]
     Text txtLocation = null;
-
+    [SerializeField]
+    GameObject trfPaymentsDetails = null;
     [SerializeField]
     Text txtContactName = null;
-
-    [Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -64,8 +61,6 @@ public class HappeningDetailAction : MonoBehaviour
     ValueList vllCountry = null;
     [SerializeField]
     ValueList vllState = null;
-    //[SerializeField]
-    //ValueList vllCity = null;
     [SerializeField]
     ValueList vllHappeningType = null;
 
@@ -107,6 +102,7 @@ public class HappeningDetailAction : MonoBehaviour
     long postId = -1;
     float contentInitialHeight = 0.0f;
     String phone = "", whatsapp = "", email = "";
+    bool isRefresh = false;
     HappeningFull happeningFull = null;
 
     private void Awake()
@@ -121,8 +117,13 @@ public class HappeningDetailAction : MonoBehaviour
         btnWhatsApp?.AddAction(OpenWhatsApp);
         btnEmail?.AddAction(OpenEmail);
 
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight - txtLocation.TextHeight - txtPaymentDetails.TextHeight;
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight
+                               - txtDescription.TextHeight
+                               - txtPlace.TextHeight
+                               - txtLocation.TextHeight
+                               - txtPaymentDetails.TextHeight;
     }
 
     public bool ChangePagBack()
@@ -133,8 +134,18 @@ public class HappeningDetailAction : MonoBehaviour
 
     public void Display(long postId)
     {
+        isRefresh = false;
         ScreenDialog.Instance.Display();
         happeningService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+    }
+
+    public bool Refresh()
+    {
+        isRefresh = true;
+        ScreenDialog.Instance.Display();
+        happeningService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+
+        return false;
     }
 
     public void ApplyFull(HappeningFull happeningFull)
@@ -145,26 +156,56 @@ public class HappeningDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title)}";
-        txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
+        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        float deltaY = txtTitle.TextHeight;
 
+        txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
+        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        deltaY += txtDescription.TextHeight;
+
+        txtSelectedCount.TextValue = "0"; //happeningFull.SelectedCount.ToString();
         // Happening
         txtHappeningType.TextValue = happeningFull.HappeningTypeId == -1 ? "-" : vllHappeningType.FindRecordCellString(happeningFull.HappeningTypeId, "Name");
 
         String country = happeningFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(happeningFull.PostCountryId, "Name");
         String state = happeningFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(happeningFull.PostStateId, "Name");
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
+        txtPlace.GetComponent<RectTransform>().sizeDelta = new Vector2(txtPlace.GetComponent<RectTransform>().sizeDelta.x, txtPlace.TextHeight);
+        deltaY += txtPlace.TextHeight;
 
-        txtIsPublic.TextValue = happeningFull.IsPublic == -1 ? "-" : happeningFull.IsPublic == 0 ? "No" : "Sí";
-        txtHasSignup.TextValue = happeningFull.HasSignup == -1 ? "-" : happeningFull.HasSignup == 0 ? "No" : "Sí";
-        txtHasPayment.TextValue = happeningFull.HasPayment == -1 ? "-" : happeningFull.HasPayment == 0 ? "No" : "Sí";
-        txtPaymentDetails.TextValue = String.IsNullOrWhiteSpace(happeningFull.PaymentDetails) ? "-" : happeningFull.PaymentDetails;
-        //txtStartDateTime.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-        //txtEndDateTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-        txtStartDateTime.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("dd/MM/yyyy HH:mm");
-        txtEndDateTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToString("dd/MM/yyyy HH:mm");
+        txtIsPublic.TextValue = happeningFull.IsPublic == -1 ? "-" : happeningFull.IsPublic == 0 ? "Evento privado" : "Evento público";
+
+        if (happeningFull.HasSignup == 0 && happeningFull.HasPayment == 0)
+            txtHasSignupPayment.TextValue = "<color=#34A60E>Sin registro ni pago</color>";
+        else if (happeningFull.HasSignup == 0 && happeningFull.HasPayment == 1)
+            txtHasSignupPayment.TextValue = "<color=#D88510>Sin registro, con pago</color>";
+        else if (happeningFull.HasSignup == 1 && happeningFull.HasPayment == 0)
+            txtHasSignupPayment.TextValue = "<color=#D88510>Con registro, sin pago</color>";
+        else
+            txtHasSignupPayment.TextValue = "<color=#D88510>Con registro y pago</color>";
+
+        trfPaymentsDetails.gameObject.SetActive(happeningFull.HasPayment == 1);
+
+        txtPaymentDetails.TextValue = happeningFull.HasPayment == 1 ? happeningFull.PaymentDetails ?? "" : "";
+
+        if (!String.IsNullOrWhiteSpace(txtPaymentDetails.TextValue))
+        {
+            txtPaymentDetails.GetComponent<RectTransform>().sizeDelta = new Vector2(txtPaymentDetails.GetComponent<RectTransform>().sizeDelta.x, txtPaymentDetails.TextHeight);
+            deltaY += txtPaymentDetails.TextHeight;
+        }
+
+        txtStartDate.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("dd/MM/yyyy");
+        txtStartTime.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("HH:mm");
+        txtEndDate.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToString("dd/MM/yyyy");
+        txtEndTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToString("HH:mm");
+        
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
+        txtLocation.GetComponent<RectTransform>().sizeDelta = new Vector2(txtLocation.GetComponent<RectTransform>().sizeDelta.x, txtLocation.TextHeight);
+        deltaY += txtLocation.TextHeight;
 
         txtContactName.TextValue = happeningFull.ContactFull == null || String.IsNullOrEmpty(happeningFull.ContactFull.Name) ? "-" : happeningFull.ContactFull.Name;
+        txtContactName.GetComponent<RectTransform>().sizeDelta = new Vector2(txtContactName.GetComponent<RectTransform>().sizeDelta.x, txtContactName.TextHeight);
+        deltaY += txtContactName.TextHeight;
 
         phone = "";
         whatsapp = "";
@@ -191,10 +232,6 @@ public class HappeningDetailAction : MonoBehaviour
         btnWhatsApp.Interactable = whatsapp.Length != 0;
         btnEmail.Interactable = email.Length != 0;
 
-        // Images
-        goEmptyImages.SetActive(happeningFull.ImageSprites.Count == 0);
-        goImages.SetActive(happeningFull.ImageSprites.Count != 0);
-
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
         // Actions
@@ -208,7 +245,7 @@ public class HappeningDetailAction : MonoBehaviour
         else
             tglSelected.Uncheck();
 
-        RefreshContents();
+        RefreshContents(deltaY);
 
         btnUpdate.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
 
@@ -276,15 +313,14 @@ public class HappeningDetailAction : MonoBehaviour
 
     //
 
-    private void RefreshContents()
+    private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
 
-        float txtHeights = txtDescription.TextHeight + txtLocation.TextHeight + txtPaymentDetails.TextHeight;
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtHeights + contentPadding);
-
-        scrollRect.verticalNormalizedPosition = 1f;
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
     }
 
     private void OpenPhone()
