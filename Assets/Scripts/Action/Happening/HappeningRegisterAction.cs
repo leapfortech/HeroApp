@@ -29,6 +29,8 @@ public class HappeningRegisterAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmHasPhone = null;
     [SerializeField]
+    DataMapper dtmHasContact = null;
+    [SerializeField]
     DataMapper dtmHasWhatsApp = null;
     [SerializeField]
     DataMapper dtmHasEmail = null;
@@ -75,36 +77,32 @@ public class HappeningRegisterAction : MonoBehaviour
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
 
-        dtmContact.ClearElements();
-        dtmPhone.ClearElements();
-        dtmWhatsApp.ClearElements();
-        dtmEmail.ClearElements();
+        ClearContact();
 
         dtmImagesVLL.ClearElements();
     }
 
     public void ClearContact()
     {
+        dtmHasContact.PopulateBuiltIn<String>("0");
         dtmHasPhone.PopulateBuiltIn<String>("0");
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
         dtmHasEmail.PopulateBuiltIn<String>("0");
+
+        dtmContact.ClearElements();
+        dtmPhone.ClearElements();
+        dtmWhatsApp.ClearElements();
+        dtmEmail.ClearElements();
     }
 
     private void Register()
     {
-        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, DoRegister, null, "De acuerdo", "Regresar");
-    }
-
-    private void DoRegister()
-    {
         if (!ElementHelper.Validate(elementValues))
             return;
 
-        ScreenDialog.Instance.Display();
-
         HappeningFull happeningFull = dtmHappeningFull.BuildClass<HappeningFull>();
         happeningFull.AppUserId = StateManager.Instance.AppUser.Id;
-        happeningFull.PostCountryId =  StateManager.Instance.CurrentLocality.CountryId;
+        happeningFull.PostCountryId = StateManager.Instance.CurrentLocality.CountryId;
         happeningFull.PostStateId = StateManager.Instance.CurrentLocality.StateId;
 
         happeningFull.ContactFull = dtmContact.BuildClass<ContactFull>();
@@ -123,12 +121,14 @@ public class HappeningRegisterAction : MonoBehaviour
 
             if (happeningFull.EndDateTime.Value <= happeningFull.StartDateTime.Value)
             {
-                ChoiceDialog.Instance.Error("Fecha inválida","La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
+                ChoiceDialog.Instance.Error("Fecha inválida", "La fecha y hora de finalización debe ser mayor que la fecha y hora de inicio.");
                 return;
             }
         }
 
         happeningFull.LinkFulls = new();
+
+        String hasContact = dtmHasContact.BuildBuiltIn<String>();
 
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
@@ -158,14 +158,26 @@ public class HappeningRegisterAction : MonoBehaviour
             }
         }
 
-        if (happeningFull.LinkFulls.Count == 0)
+        if (hasContact == "1" && happeningFull.LinkFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
             return;
         }
 
+        if (hasContact == "0")
+        {
+            happeningFull.ContactFull = null;
+            happeningFull.LinkFulls = null;
+        }
+
         happeningFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
+        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(happeningFull), null, "De acuerdo", "Regresar");
+    }
+
+    private void DoRegister(HappeningFull happeningFull)
+    {
+        ScreenDialog.Instance.Display();
         happeningService.Register(happeningFull);
     }
 

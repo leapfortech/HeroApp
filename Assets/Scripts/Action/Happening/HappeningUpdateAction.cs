@@ -34,6 +34,8 @@ public class HappeningUpdateAction : MonoBehaviour
     [SerializeField]
     DataMapper dtmContact = null;
     [SerializeField]
+    DataMapper dtmHasContact = null;
+    [SerializeField]
     DataMapper dtmHasPhone = null;
     [SerializeField]
     DataMapper dtmHasWhatsApp = null;
@@ -103,7 +105,12 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
 
         if (happeningFull.ContactFull != null)
+        {
+            dtmHasContact.PopulateBuiltIn<String>("1");
             dtmContact.PopulateClass<ContactFull>(happeningFull.ContactFull);
+        }
+        else
+            dtmHasContact.PopulateBuiltIn<String>("0");
 
         dtmHasPhone.PopulateBuiltIn<String>("0");
         dtmHasWhatsApp.PopulateBuiltIn<String>("0");
@@ -168,6 +175,8 @@ public class HappeningUpdateAction : MonoBehaviour
 
         List<LinkFull> linkFulls = new();
 
+        String hasContact = dtmHasContact.BuildBuiltIn<String>();
+
         String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
         if (hasPhone == "1")
         {
@@ -196,7 +205,7 @@ public class HappeningUpdateAction : MonoBehaviour
             }
         }
 
-        if (linkFulls.Count == 0)
+        if (hasContact == "1" && linkFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
             return;
@@ -206,10 +215,26 @@ public class HappeningUpdateAction : MonoBehaviour
 
         happeningFull.Update(dtmHappeningFull.BuildClass<HappeningFull>());
 
-        happeningFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+        // Contact
+        ContactFull contactFull = dtmContact.BuildClass<ContactFull>();
 
-        happeningFull.LinkFulls = linkFulls;
+        if (hasContact == "0")
+        {
+            happeningFull.ContactFull = null;
+            happeningFull.LinkFulls = null;
+        }
+        else if (happeningFull.ContactFull == null)
+        {
+            happeningFull.ContactFull = contactFull;
+            happeningFull.LinkFulls = linkFulls;
+        }
+        else if (contactFull != null)
+        {
+            happeningFull.ContactFull.Update(contactFull);
+            happeningFull.LinkFulls = linkFulls;
+        }
 
+        // Dates
         if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
         {
             String[] startTime = dtmStartTime.BuildBuiltIn<String>().Split('|');
