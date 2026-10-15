@@ -45,8 +45,17 @@ public class HappeningDetailAction : MonoBehaviour
     Text txtEndTime = null;
     [SerializeField]
     Text txtLocation = null;
+
     [SerializeField]
-    GameObject trfPaymentsDetails = null;
+    RectTransform rtfPaymentDetails = null;
+    [SerializeField]
+    GameObject gobPaymentDetails = null;
+
+    [SerializeField]
+    RectTransform rtfContact = null;
+    [SerializeField]
+    GameObject gobContact = null;
+
     [SerializeField]
     Text txtContactName = null;
 
@@ -100,7 +109,8 @@ public class HappeningDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f,
+          contactInitialHeight = 0.0f, contactTextInitialHeight = 0.0f;
     String phone = "", whatsapp = "", email = "";
     bool isRefresh = false;
     HappeningFull happeningFull = null;
@@ -118,12 +128,20 @@ public class HappeningDetailAction : MonoBehaviour
         btnEmail?.AddAction(OpenEmail);
 
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+
+        paymentDetailsInitialHeight = rtfPaymentDetails.sizeDelta.y;
+        paymentDetailsTextInitialHeight = txtPaymentDetails.TextHeight;
+
+        contactInitialHeight = rtfContact.sizeDelta.y;
+        contactTextInitialHeight = txtContactName.TextHeight;
+
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
                                - txtPlace.TextHeight
                                - txtLocation.TextHeight
-                               - txtPaymentDetails.TextHeight;
+                               - paymentDetailsInitialHeight
+                               - contactInitialHeight;
     }
 
     public bool ChangePagBack()
@@ -184,16 +202,21 @@ public class HappeningDetailAction : MonoBehaviour
         else
             txtHasSignupPayment.TextValue = "<color=#D88510>Con registro y pago</color>";
 
-        trfPaymentsDetails.gameObject.SetActive(happeningFull.HasPayment == 1);
-
+        // Payment
+        gobPaymentDetails.SetActive(happeningFull.HasPayment == 1);
         txtPaymentDetails.TextValue = happeningFull.HasPayment == 1 ? happeningFull.PaymentDetails ?? "" : "";
 
-        if (!String.IsNullOrWhiteSpace(txtPaymentDetails.TextValue))
+        if (happeningFull.HasPayment == 1 && !String.IsNullOrWhiteSpace(txtPaymentDetails.TextValue))
         {
-            txtPaymentDetails.GetComponent<RectTransform>().sizeDelta = new Vector2(txtPaymentDetails.GetComponent<RectTransform>().sizeDelta.x, txtPaymentDetails.TextHeight);
-            deltaY += txtPaymentDetails.TextHeight;
-        }
+            float height = paymentDetailsInitialHeight - paymentDetailsTextInitialHeight + txtPaymentDetails.TextHeight;
 
+            rtfPaymentDetails.sizeDelta = new Vector2(rtfPaymentDetails.sizeDelta.x, height);
+            deltaY += height;
+        }
+        else
+            rtfPaymentDetails.sizeDelta = new Vector2(rtfPaymentDetails.sizeDelta.x, 0);
+
+        // Dates
         txtStartDate.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("dd/MM/yyyy");
         txtStartTime.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("HH:mm");
         txtEndDate.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToString("dd/MM/yyyy");
@@ -203,9 +226,21 @@ public class HappeningDetailAction : MonoBehaviour
         txtLocation.GetComponent<RectTransform>().sizeDelta = new Vector2(txtLocation.GetComponent<RectTransform>().sizeDelta.x, txtLocation.TextHeight);
         deltaY += txtLocation.TextHeight;
 
-        txtContactName.TextValue = happeningFull.ContactFull == null || String.IsNullOrEmpty(happeningFull.ContactFull.Name) ? "-" : happeningFull.ContactFull.Name;
-        txtContactName.GetComponent<RectTransform>().sizeDelta = new Vector2(txtContactName.GetComponent<RectTransform>().sizeDelta.x, txtContactName.TextHeight);
-        deltaY += txtContactName.TextHeight;
+        // Contact
+        bool hasContact = happeningFull.ContactFull != null && !String.IsNullOrWhiteSpace(happeningFull.ContactFull.Name);
+
+        gobContact.SetActive(hasContact);
+        txtContactName.TextValue = hasContact ? happeningFull.ContactFull.Name : "";
+
+        if (hasContact)
+        {
+            float height = contactInitialHeight - contactTextInitialHeight + txtContactName.TextHeight;
+
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, height);
+            deltaY += height;
+        }
+        else
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, 0);
 
         phone = "";
         whatsapp = "";
