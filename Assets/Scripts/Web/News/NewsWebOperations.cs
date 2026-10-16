@@ -132,3 +132,18 @@ public class NewsRejectPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/news/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class NewsDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}

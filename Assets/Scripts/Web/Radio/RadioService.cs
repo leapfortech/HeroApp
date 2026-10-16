@@ -285,4 +285,25 @@ public class RadioService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Delete(PostModerationRequest postModerationRequest)
+    {
+        RadioDeletePutOperation deletePutOp = new RadioDeletePutOperation();
+        try
+        {
+            deletePutOp.postModerationRequest = postModerationRequest;
+            deletePutOp["on-complete"] = (Action<RadioDeletePutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(bool.Parse(op.response));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            deletePutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

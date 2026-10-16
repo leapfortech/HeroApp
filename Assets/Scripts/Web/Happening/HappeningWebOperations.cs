@@ -132,3 +132,18 @@ public class HappeningRejectPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/happening/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class HappeningDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}

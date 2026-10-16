@@ -147,3 +147,18 @@ public class RadioRejectPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/radio/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class RadioDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}

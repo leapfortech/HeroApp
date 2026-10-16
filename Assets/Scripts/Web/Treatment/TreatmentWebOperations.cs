@@ -117,3 +117,18 @@ public class TreatmentRejectPutOperation : HttpOperation
     [HttpResponseTextBody]
     public String response;
 }
+
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/treatment/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class TreatmentDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}

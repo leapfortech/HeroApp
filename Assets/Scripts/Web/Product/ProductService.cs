@@ -286,4 +286,25 @@ public class ProductService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Delete(PostModerationRequest postModerationRequest)
+    {
+        ProductDeletePutOperation deletePutOp = new ProductDeletePutOperation();
+        try
+        {
+            deletePutOp.postModerationRequest = postModerationRequest;
+            deletePutOp["on-complete"] = (Action<ProductDeletePutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(bool.Parse(op.response));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            deletePutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }

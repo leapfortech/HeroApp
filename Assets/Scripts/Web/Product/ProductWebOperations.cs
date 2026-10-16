@@ -148,3 +148,18 @@ public class ProductRejectPutOperation : HttpOperation
     public String response;
 }
 
+[HttpPUT]
+[HttpPathExt(WebServiceType.Main, "/product/Delete")]
+[HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpContentType("application/json")]
+[HttpAccept("application/json")]
+[HttpFirebaseAuthorization]
+public class ProductDeletePutOperation : HttpOperation
+{
+    [HttpRequestJsonBody]
+    public PostModerationRequest postModerationRequest;
+
+    [HttpResponseTextBody]
+    public String response;
+}
+

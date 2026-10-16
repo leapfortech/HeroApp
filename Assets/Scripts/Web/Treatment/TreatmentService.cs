@@ -190,4 +190,25 @@ public class TreatmentService : MonoBehaviour
             WebManager.Instance.OnSendError(ex.Message);
         }
     }
+
+    public void Delete(PostModerationRequest postModerationRequest)
+    {
+        TreatmentDeletePutOperation deletePutOp = new TreatmentDeletePutOperation();
+        try
+        {
+            deletePutOp.postModerationRequest = postModerationRequest;
+            deletePutOp["on-complete"] = (Action<TreatmentDeletePutOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onUpdated.Invoke(bool.Parse(op.response));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            deletePutOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
 }
