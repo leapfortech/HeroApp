@@ -41,6 +41,10 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     ListScroller lstRadioLanguage = null;
 
+    [Title("Admin")]
+    [SerializeField]
+    GameObject gobAdmin = null;
+
     [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -57,7 +61,7 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     Button btnRadio = null;
     [SerializeField]
-    Button btnUpdate = null;
+    Button btnDelete = null;
     [SerializeField]
     Toggle tglFavorite = null;
     [SerializeField]
@@ -73,6 +77,9 @@ public class RadioDetailAction : MonoBehaviour
 
     [SerializeField]
     RadioFullEvent onApplyUpdate = null;
+
+    [SerializeField]
+    UnityEvent onDeleted = null;
 
     RadioService radioService;
     PostService postService;
@@ -90,14 +97,16 @@ public class RadioDetailAction : MonoBehaviour
 
     private void Start()
     {
-        btnRadio?.AddAction(OpenRadio);
-
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
-                               - lstRadioType.GetComponent<RectTransform>().sizeDelta.y;
-                               //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
+                               - lstRadioType.GetComponent<RectTransform>().sizeDelta.y
+                               - rtfAdmin.sizeDelta.y;
+        //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
+        btnRadio?.AddAction(OpenRadio);
+        btnDelete?.AddAction(Delete);
     }
 
     private void OpenRadio()
@@ -178,9 +187,13 @@ public class RadioDetailAction : MonoBehaviour
         else
             tglFavorite.Uncheck();
 
-        RefreshContents(deltaY);
+        // Admin
+        gobAdmin.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
 
-        btnUpdate.gameObject.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
+        if (radioFull.AppUserId == StateManager.Instance.AppUser.Id)
+            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+
+        RefreshContents(deltaY);
 
         PageManager.Instance.ChangePage(pagDetail);
     }
@@ -237,5 +250,29 @@ public class RadioDetailAction : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
         scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    // Delete
+    private void Delete()
+    {
+        ChoiceDialog.Instance.Error("Eliminar publicación", "¿Estas seguro de eliminar la publicación?", DoDelete, null, "De acuerdo", "Regresar");
+    }
+
+    private void DoDelete()
+    {
+        ScreenDialog.Instance.Display();
+
+        radioService.Delete(new PostModerationRequest(radioFull.PostId, radioFull.Id));
+    }
+
+    public void ApplyDelete(bool updated)
+    {
+        if (!updated)
+        {
+            ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
+            return;
+        }
+
+        onDeleted.Invoke();
     }
 }

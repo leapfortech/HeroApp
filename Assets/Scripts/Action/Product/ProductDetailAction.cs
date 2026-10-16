@@ -51,6 +51,10 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     float contentPadding = 160f;
 
+    [Title("Admin")]
+    [SerializeField]
+    GameObject gobAdmin = null;
+
     [Space, Title("Values")]
     [SerializeField]
     ValueList vllProductSubtype = null;
@@ -65,7 +69,7 @@ public class ProductDetailAction : MonoBehaviour
 
     [Space, Title("Actions")]
     [SerializeField]
-    Button btnUpdate = null;
+    Button btnDelete = null;
     [SerializeField]
     Button btnPhone = null;
     [SerializeField]
@@ -94,6 +98,9 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     ProductFullEvent onApplyUpdate = null;
 
+    [SerializeField]
+    UnityEvent onDeleted = null;
+
     ProductService productService;
     PostService postService;
 
@@ -110,12 +117,16 @@ public class ProductDetailAction : MonoBehaviour
 
     private void Start()
     {
+        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
+        contentInitialHeight = content.sizeDelta.y
+                               - txtDescription.TextHeight
+                               - rtfAdmin.sizeDelta.y;
+
         btnPhone?.AddAction(OpenPhone);
         btnWhatsApp?.AddAction(OpenWhatsApp);
         btnEmail?.AddAction(OpenEmail);
-
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
-        contentInitialHeight = content.sizeDelta.y - txtDescription.TextHeight;
+        btnDelete?.AddAction(Delete);
     }
 
     public bool ChangePagBack()
@@ -203,9 +214,14 @@ public class ProductDetailAction : MonoBehaviour
         else
             tglFavorite.Uncheck();
 
-        RefreshContents();
+        // Admin
+        gobAdmin.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
 
-        btnUpdate.gameObject.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
+        // WIP
+        //if (productFull.AppUserId == StateManager.Instance.AppUser.Id)
+            //deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+
+        RefreshContents();
 
         PageManager.Instance.ChangePage(pagDetail);
     }
@@ -277,5 +293,29 @@ public class ProductDetailAction : MonoBehaviour
     private void OpenEmail()
     {
         Application.OpenURL("mailto:" + email);
+    }
+
+    // Delete
+    private void Delete()
+    {
+        ChoiceDialog.Instance.Error("Eliminar publicación", "¿Estas seguro de eliminar la publicación?", DoDelete, null, "De acuerdo", "Regresar");
+    }
+
+    private void DoDelete()
+    {
+        ScreenDialog.Instance.Display();
+
+        productService.Delete(new PostModerationRequest(productFull.PostId, productFull.Id));
+    }
+
+    public void ApplyDelete(bool updated)
+    {
+        if (!updated)
+        {
+            ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
+            return;
+        }
+
+        onDeleted.Invoke();
     }
 }

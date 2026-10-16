@@ -81,6 +81,10 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     RectTransform rtfComments = null;
 
+    [Title("Admin")]
+    [SerializeField]
+    GameObject gobAdmin = null;
+
     [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -91,7 +95,7 @@ public class TaleDetailAction : MonoBehaviour
 
     [Title("Actions")]
     [SerializeField]
-    Button btnUpdate = null;
+    Button btnDelete = null;
     [SerializeField]
     Toggle tglReaction1 = null;
     [SerializeField]
@@ -117,6 +121,9 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     TaleFullEvent onApplyUpdate = null;
 
+    [SerializeField]
+    UnityEvent onDeleted = null;
+
     long postId = -1;
     float contentInitialHeight = 0.0f;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
@@ -137,15 +144,18 @@ public class TaleDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        
+        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight 
                                - txtDescription.TextHeight
-                               - rtfComments.sizeDelta.y;
+                               - rtfComments.sizeDelta.y
+                               - rtfAdmin.sizeDelta.y;
 
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentInitialHeight = rtfComment1.sizeDelta.y;
         initialCommentsHeight = rtfComments.sizeDelta.y;
+
+        btnDelete?.AddAction(Delete);
     }
 
     public bool ChangePagBack()
@@ -234,11 +244,16 @@ public class TaleDetailAction : MonoBehaviour
         SetToggle(tglReaction3, taleFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, taleFull.ReactionPhraseId == 4);
 
+        // Comments
         DisplayComments(taleFull.CommentFulls.Count);
 
-        RefreshContents(deltaY);
+        // Admin
+        gobAdmin.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
 
-        btnUpdate.gameObject.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
+        if (taleFull.AppUserId == StateManager.Instance.AppUser.Id)
+            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+
+        RefreshContents(deltaY);
 
         PageManager.Instance.ChangePage(pagDetail);
     }
@@ -461,5 +476,29 @@ public class TaleDetailAction : MonoBehaviour
             return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
 
         return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
+    }
+
+    // Delete
+    private void Delete()
+    {
+        ChoiceDialog.Instance.Error("Eliminar publicación", "¿Estas seguro de eliminar la publicación?", DoDelete, null, "De acuerdo", "Regresar");
+    }
+
+    private void DoDelete()
+    {
+        ScreenDialog.Instance.Display();
+
+        taleService.Delete(new PostModerationRequest(taleFull.PostId, taleFull.Id));
+    }
+
+    public void ApplyDelete(bool updated)
+    {
+        if (!updated)
+        {
+            ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
+            return;
+        }
+
+        onDeleted.Invoke();
     }
 }

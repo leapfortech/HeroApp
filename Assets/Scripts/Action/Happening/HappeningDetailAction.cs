@@ -65,6 +65,10 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     float contentPadding = 160f;
 
+    [Title("Admin")]
+    [SerializeField]
+    GameObject gobAdmin = null;
+
     [Title("Values")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -75,7 +79,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Title("Actions")]
     [SerializeField]
-    Button btnUpdate = null;
+    Button btnDelete = null;
     [SerializeField]
     Button btnPhone = null;
     [SerializeField]
@@ -105,6 +109,9 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     HappeningFullEvent onApplyUpdate = null;
 
+    [SerializeField]
+    UnityEvent onDeleted = null;
+
     HappeningService happeningService;
     PostService postService;
 
@@ -123,11 +130,8 @@ public class HappeningDetailAction : MonoBehaviour
 
     private void Start()
     {
-        btnPhone?.AddAction(OpenPhone);
-        btnWhatsApp?.AddAction(OpenWhatsApp);
-        btnEmail?.AddAction(OpenEmail);
-
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
 
         paymentDetailsInitialHeight = rtfPaymentDetails.sizeDelta.y;
         paymentDetailsTextInitialHeight = txtPaymentDetails.TextHeight;
@@ -141,7 +145,13 @@ public class HappeningDetailAction : MonoBehaviour
                                - txtPlace.TextHeight
                                - txtLocation.TextHeight
                                - paymentDetailsInitialHeight
-                               - contactInitialHeight;
+                               - contactInitialHeight
+                               - rtfAdmin.sizeDelta.y;
+
+        btnPhone?.AddAction(OpenPhone);
+        btnWhatsApp?.AddAction(OpenWhatsApp);
+        btnEmail?.AddAction(OpenEmail);
+        btnDelete?.AddAction(Delete);
     }
 
     public bool ChangePagBack()
@@ -280,9 +290,13 @@ public class HappeningDetailAction : MonoBehaviour
         else
             tglSelected.Uncheck();
 
-        RefreshContents(deltaY);
+        // Admin
+        gobAdmin.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
 
-        btnUpdate.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
+        if (happeningFull.AppUserId == StateManager.Instance.AppUser.Id)
+            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+
+        RefreshContents(deltaY);
 
         PageManager.Instance.ChangePage(pagDetail);
     }
@@ -371,5 +385,29 @@ public class HappeningDetailAction : MonoBehaviour
     private void OpenEmail()
     {
         Application.OpenURL("mailto:" + email);
+    }
+
+    // Delete
+    private void Delete()
+    {
+        ChoiceDialog.Instance.Error("Eliminar publicación", "¿Estas seguro de eliminar la publicación?", DoDelete, null, "De acuerdo", "Regresar");
+    }
+
+    private void DoDelete()
+    {
+        ScreenDialog.Instance.Display();
+
+        happeningService.Delete(new PostModerationRequest(happeningFull.PostId, happeningFull.Id));
+    }
+
+    public void ApplyDelete(bool updated)
+    {
+        if (!updated)
+        {
+            ChoiceDialog.Instance.Error("Error", "No se pudo realizar la actualización.");
+            return;
+        }
+
+        onDeleted.Invoke();
     }
 }
