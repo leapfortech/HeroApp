@@ -153,7 +153,7 @@ public class HappeningFeedAction : MonoBehaviour
             HappeningTypeId = typeId,
 
             FavoriteAppUserId = -1L,
-            SelectedAppUserId = selectedAppUserId
+            SelectedAppUserId = appUserId != -1 ? -1 : selectedAppUserId
         };
 
         //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");

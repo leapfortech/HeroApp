@@ -147,7 +147,7 @@ public class NewsFeedAction : MonoBehaviour
 
             NewsTypeId = typeId,
 
-            FavoriteAppUserId = appUserId,
+            FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
         };
 
