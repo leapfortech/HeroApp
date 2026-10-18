@@ -15,6 +15,7 @@ public class RadioFeed
     public Sprite TitleSprite { get; set; } = null;
     public String Title { get; set; }
     public String RadioType { get; set; }
+    public String RadioLanguage { get; set; }
     public String PostCountry { get; set; }
     public String PostState { get; set; }
     public String Url { get; set; }
@@ -26,7 +27,8 @@ public class RadioFeed
     {
     }
 
-    public RadioFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string radioType, string postCountry, string postState, string url, int favorite, DateTime publicationDateTime)
+    public RadioFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string radioType, String radioLanguage,
+                     string postCountry, string postState, string url, int favorite, DateTime publicationDateTime)
     {
         Id = id;
         PostId = postId;
@@ -34,6 +36,7 @@ public class RadioFeed
         TitleSprite = titleSprite;
         Title = title;
         RadioType = radioType;
+        RadioLanguage = radioLanguage;
         PostCountry = postCountry;
         PostState = postState;
         Url = url;
@@ -48,6 +51,7 @@ public class RadioFeed
         TitleSprite = radioFull.TitleSprite;
         Title = radioFull.Title;
         RadioType = FeedHelper.Instance.GetRadioType(radioFull.RadioTypeFulls[0].RadioTypeId);
+        RadioLanguage = FeedHelper.Instance.GetRadioLanguage(radioFull.RadioLanguageFulls[0].LanguageId);
         PostCountry = FeedHelper.Instance.GetCountry(radioFull.PostCountryId);
         PostState = FeedHelper.Instance.GetState(radioFull.PostStateId);
         Url = radioFull.LinkFulls[0].Url;

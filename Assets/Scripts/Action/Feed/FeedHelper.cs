@@ -32,6 +32,9 @@ public class FeedHelper : SingletonBehaviour<FeedHelper>
     [SerializeField]
     private ValueList vllRadioType;
 
+    [SerializeField]
+    private ValueList vllRadioLanguage;
+
     [Title("Orphans")]
 #pragma warning disable 414 
     [SerializeField]
@@ -73,6 +76,11 @@ public class FeedHelper : SingletonBehaviour<FeedHelper>
     public String GetRadioType(long radioTypeId)
     {
         return vllRadioType.FindRecordCellString(radioTypeId, "Name");
+    }
+
+    public String GetRadioLanguage(long languageId)
+    {
+        return vllRadioLanguage.FindRecordCellString(languageId, "Name");
     }
 
     // Delay

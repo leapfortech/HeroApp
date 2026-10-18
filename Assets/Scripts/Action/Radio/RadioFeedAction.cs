@@ -248,7 +248,7 @@ public class RadioFeedAction : MonoBehaviour
         loopValue.SetText(1, $"<line-height=70%>{radioFeed.Title}");
 
         loopValue.SetText(2, radioFeed.RadioType);
-        //loopValue.SetText(3, radioFeed.Language);
+        loopValue.SetText(3, radioFeed.RadioLanguage);
 
         loopValue.SetCheck(0, radioFeed.Favorite != 0);
     }
