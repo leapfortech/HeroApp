@@ -87,13 +87,15 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
             
             toggle.Title = valueList.GetRecordCellString(i, "Name");
 
-            toggle.SetAction(OnToggleChanged, i + 1);
+            toggle.SetAction(OnToggleChanged, i);
             toggles.Add(toggle);
 
             //UpdateToggleWidth(toggles[i]);
         }
 
         tglFilterAll.Checked = true;
+
+        ThemeManager.Instance.RefreshStylesInHierarchy(content.gameObject);
 
         for (int i = 0; i < recordCount; i++)
             UpdateToggleWidth(toggles[i]);
@@ -107,8 +109,6 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
 
     private void UpdateToggleWidth(Toggle toggle)
     {
-        toggle.SetStyle();
-
         RectTransform toggleRect = toggle.GetComponent<RectTransform>();
         TMP_Text text = toggle.GetComponentInChildren<TMP_Text>(true);
 
@@ -128,7 +128,7 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
         if (checkedValue)
         {
             if (index == -1)
-                for (int i = 1; i < toggles.Count; i++)
+                for (int i = 0; i < toggles.Count; i++)
                     toggles[i].Checked = false;
             else
                 tglFilterAll.Checked = false;
@@ -137,7 +137,7 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
         {
             bool anySelected = false;
 
-            for (int i = 1; i < toggles.Count; i++)
+            for (int i = 0; i < toggles.Count; i++)
             {
                 if (toggles[i].Checked)
                 {
