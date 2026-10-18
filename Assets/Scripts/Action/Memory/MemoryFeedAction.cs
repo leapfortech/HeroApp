@@ -145,7 +145,7 @@ public class MemoryFeedAction : MonoBehaviour
             StateId = appUserId != -1 ? -1 : StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
-            MemoryTypeId = typeId,
+            //MemoryTypeIds = XXX,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
