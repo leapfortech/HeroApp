@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,8 +22,6 @@ public class MemoryFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
-    [SerializeField]
-    ComboAdapter cmbMemoryType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -145,7 +144,7 @@ public class MemoryFeedAction : MonoBehaviour
             StateId = appUserId != -1 ? -1 : StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
-            //MemoryTypeIds = XXX,
+            MemoryTypeIds = typeIds,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
@@ -284,11 +283,11 @@ public class MemoryFeedAction : MonoBehaviour
 
     // Type
 
-    long typeId = -1;
+    List<long> typeIds = new List<long> { -1L };
 
-    public void ApplyType()
+    public void ApplyTypes(List<long> typeIds)
     {
-        typeId = cmbMemoryType.GetSelectedId();
+        this.typeIds = typeIds;
 
         ResetPosts(true);
     }

@@ -1,0 +1,913 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da39ce696ab95824ea9721acb2aff629, type: 3}
+  m_Name: TglBtnFilter
+  m_EditorClassIdentifier: Leap.UI.Elements::Leap.UI.Elements.Style
+  type: 6
+  states:
+  - stateName: Normal
+    index: 0
+    style: {fileID: 11400000}
+    floats:
+    - rid: 1502242254733968075
+    - rid: 1502242254733968076
+    - rid: 1502242254733968077
+    - rid: 1502242254733968078
+    - rid: 1502242254733968079
+    - rid: 1502242254733968080
+    - rid: 1502242254733968081
+    - rid: 1502242254733968082
+    - rid: 1502242254733968083
+    - rid: 1502242254733968084
+    - rid: 1502242254733968085
+    - rid: 1502242254733968086
+    - rid: 1502242254733968087
+    - rid: 1502242254733968088
+    - rid: 1502242254733968089
+    - rid: 1502242254733968090
+    - rid: 1502242254733968091
+    - rid: 1502242254733968092
+    - rid: 1502242254733968093
+    - rid: 1502242254733968094
+    - rid: 1502242254733968095
+    - rid: 1502242254733968096
+    DictFloats:
+      keys:
+      - Size
+      - 'A: Size'
+      - 'C: Size'
+      - 'B: Width'
+      - 'K: Size'
+      - 'K: C: Size'
+      - 'K: B: Width'
+      - 'M: Title: Baseline'
+      - 'M: Spacing'
+      - 'F: Title'
+      - 'O: Alignment'
+      - 'O: Icon: Place'
+      - Width
+      - Height
+      - 'C: TopLeft'
+      - 'C: TopRight'
+      - 'C: BottomLeft'
+      - 'C: BottomRight'
+      - 'M: X'
+      - 'I: Size'
+      - 'K: Width'
+      - 'K: Height'
+      values:
+      - rid: 1502242254733968075
+      - rid: 1502242254733968076
+      - rid: 1502242254733968077
+      - rid: 1502242254733968078
+      - rid: 1502242254733968079
+      - rid: 1502242254733968080
+      - rid: 1502242254733968081
+      - rid: 1502242254733968082
+      - rid: 1502242254733968083
+      - rid: 1502242254733968084
+      - rid: 1502242254733968085
+      - rid: 1502242254733968086
+      - rid: 1502242254733968087
+      - rid: 1502242254733968088
+      - rid: 1502242254733968089
+      - rid: 1502242254733968090
+      - rid: 1502242254733968091
+      - rid: 1502242254733968092
+      - rid: 1502242254733968093
+      - rid: 1502242254733968094
+      - rid: 1502242254733968095
+      - rid: 1502242254733968096
+    colors:
+    - rid: 7896456368283189645
+    - rid: 7896456368283189646
+    - rid: 7896456368283189647
+    - rid: 7896456368283189648
+    - rid: 7896456368283189649
+    - rid: 7896456368283189650
+    DictColors:
+      keys:
+      - Background
+      - Border
+      - Mark Background
+      - Mark Border
+      - Title
+      - Icon
+      values:
+      - rid: 7896456368283189645
+      - rid: 7896456368283189646
+      - rid: 7896456368283189647
+      - rid: 7896456368283189648
+      - rid: 7896456368283189649
+      - rid: 7896456368283189650
+    fonts:
+    - rid: 7896456368283189651
+    DictFonts:
+      keys:
+      - Title
+      values:
+      - rid: 7896456368283189651
+    sprites:
+    - rid: 4368655947681235010
+    - rid: 4368655947681235011
+    DictSprites:
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 4368655947681235010
+      - rid: 4368655947681235011
+  - stateName: Activated
+    index: 1
+    style: {fileID: 11400000}
+    floats:
+    - rid: 1502242254733968097
+    - rid: 1502242254733968098
+    - rid: 1502242254733968099
+    - rid: 1502242254733968100
+    - rid: 1502242254733968101
+    - rid: 1502242254733968102
+    - rid: 1502242254733968103
+    - rid: 1502242254733968104
+    - rid: 1502242254733968105
+    - rid: 1502242254733968106
+    - rid: 1502242254733968107
+    - rid: 1502242254733968108
+    - rid: 1502242254733968109
+    - rid: 1502242254733968110
+    - rid: 1502242254733968111
+    - rid: 1502242254733968112
+    - rid: 1502242254733968113
+    - rid: 1502242254733968114
+    - rid: 1502242254733968115
+    - rid: 1502242254733968116
+    - rid: 1502242254733968117
+    - rid: 1502242254733968118
+    DictFloats:
+      keys:
+      - Size
+      - 'A: Size'
+      - 'C: Size'
+      - 'B: Width'
+      - 'K: Size'
+      - 'K: C: Size'
+      - 'K: B: Width'
+      - 'M: Title: Baseline'
+      - 'M: Spacing'
+      - 'F: Title'
+      - 'O: Alignment'
+      - 'O: Icon: Place'
+      - Width
+      - Height
+      - 'C: TopLeft'
+      - 'C: TopRight'
+      - 'C: BottomLeft'
+      - 'C: BottomRight'
+      - 'M: X'
+      - 'I: Size'
+      - 'K: Width'
+      - 'K: Height'
+      values:
+      - rid: 1502242254733968097
+      - rid: 1502242254733968098
+      - rid: 1502242254733968099
+      - rid: 1502242254733968100
+      - rid: 1502242254733968101
+      - rid: 1502242254733968102
+      - rid: 1502242254733968103
+      - rid: 1502242254733968104
+      - rid: 1502242254733968105
+      - rid: 1502242254733968106
+      - rid: 1502242254733968107
+      - rid: 1502242254733968108
+      - rid: 1502242254733968109
+      - rid: 1502242254733968110
+      - rid: 1502242254733968111
+      - rid: 1502242254733968112
+      - rid: 1502242254733968113
+      - rid: 1502242254733968114
+      - rid: 1502242254733968115
+      - rid: 1502242254733968116
+      - rid: 1502242254733968117
+      - rid: 1502242254733968118
+    colors:
+    - rid: 7896456368283189673
+    - rid: 7896456368283189674
+    - rid: 7896456368283189675
+    - rid: 7896456368283189676
+    - rid: 7896456368283189677
+    - rid: 7896456368283189678
+    DictColors:
+      keys:
+      - Background
+      - Border
+      - Mark Background
+      - Mark Border
+      - Title
+      - Icon
+      values:
+      - rid: 7896456368283189673
+      - rid: 7896456368283189674
+      - rid: 7896456368283189675
+      - rid: 7896456368283189676
+      - rid: 7896456368283189677
+      - rid: 7896456368283189678
+    fonts:
+    - rid: 7896456368283189679
+    DictFonts:
+      keys:
+      - Title
+      values:
+      - rid: 7896456368283189679
+    sprites:
+    - rid: 4368655947681235012
+    - rid: 4368655947681235013
+    DictSprites:
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 4368655947681235012
+      - rid: 4368655947681235013
+  - stateName: Disabled
+    index: 2
+    style: {fileID: 11400000}
+    floats:
+    - rid: 1502242254733968119
+    - rid: 1502242254733968120
+    - rid: 1502242254733968121
+    - rid: 1502242254733968122
+    - rid: 1502242254733968123
+    - rid: 1502242254733968124
+    - rid: 1502242254733968125
+    - rid: 1502242254733968126
+    - rid: 1502242254733968127
+    - rid: 1502242254733968128
+    - rid: 1502242254733968129
+    - rid: 1502242254733968130
+    - rid: 1502242254733968131
+    - rid: 1502242254733968132
+    - rid: 1502242254733968133
+    - rid: 1502242254733968134
+    - rid: 1502242254733968135
+    - rid: 1502242254733968136
+    - rid: 1502242254733968137
+    - rid: 1502242254733968138
+    - rid: 1502242254733968139
+    - rid: 1502242254733968140
+    DictFloats:
+      keys:
+      - Size
+      - 'A: Size'
+      - 'C: Size'
+      - 'B: Width'
+      - 'K: Size'
+      - 'K: C: Size'
+      - 'K: B: Width'
+      - 'M: Title: Baseline'
+      - 'M: Spacing'
+      - 'F: Title'
+      - 'O: Alignment'
+      - 'O: Icon: Place'
+      - Width
+      - Height
+      - 'C: TopLeft'
+      - 'C: TopRight'
+      - 'C: BottomLeft'
+      - 'C: BottomRight'
+      - 'M: X'
+      - 'I: Size'
+      - 'K: Width'
+      - 'K: Height'
+      values:
+      - rid: 1502242254733968119
+      - rid: 1502242254733968120
+      - rid: 1502242254733968121
+      - rid: 1502242254733968122
+      - rid: 1502242254733968123
+      - rid: 1502242254733968124
+      - rid: 1502242254733968125
+      - rid: 1502242254733968126
+      - rid: 1502242254733968127
+      - rid: 1502242254733968128
+      - rid: 1502242254733968129
+      - rid: 1502242254733968130
+      - rid: 1502242254733968131
+      - rid: 1502242254733968132
+      - rid: 1502242254733968133
+      - rid: 1502242254733968134
+      - rid: 1502242254733968135
+      - rid: 1502242254733968136
+      - rid: 1502242254733968137
+      - rid: 1502242254733968138
+      - rid: 1502242254733968139
+      - rid: 1502242254733968140
+    colors:
+    - rid: 7896456368283189701
+    - rid: 7896456368283189702
+    - rid: 7896456368283189703
+    - rid: 7896456368283189704
+    - rid: 7896456368283189705
+    - rid: 7896456368283189706
+    DictColors:
+      keys:
+      - Background
+      - Border
+      - Mark Background
+      - Mark Border
+      - Title
+      - Icon
+      values:
+      - rid: 7896456368283189701
+      - rid: 7896456368283189702
+      - rid: 7896456368283189703
+      - rid: 7896456368283189704
+      - rid: 7896456368283189705
+      - rid: 7896456368283189706
+    fonts:
+    - rid: 7896456368283189707
+    DictFonts:
+      keys:
+      - Title
+      values:
+      - rid: 7896456368283189707
+    sprites:
+    - rid: 4368655947681235014
+    - rid: 4368655947681235015
+    DictSprites:
+      keys:
+      - Sprite
+      - Icon
+      values:
+      - rid: 4368655947681235014
+      - rid: 4368655947681235015
+  references:
+    version: 2
+    RefIds:
+    - rid: 1502242254733968075
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Size
+        ThemeProperty: 
+    - rid: 1502242254733968076
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'A: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968077
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968078
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'B: Width'
+        ThemeProperty: 'B: Filter: Off'
+    - rid: 1502242254733968079
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968080
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968081
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: B: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968082
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Title: Baseline'
+        ThemeProperty: 'M: Filter: Title: Y'
+    - rid: 1502242254733968083
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Spacing'
+        ThemeProperty: 
+    - rid: 1502242254733968084
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'F: Title'
+        ThemeProperty: 'F: Filter: Off'
+    - rid: 1502242254733968085
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Alignment'
+        ThemeProperty: 'O: Button: Alignment'
+    - rid: 1502242254733968086
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Icon: Place'
+        ThemeProperty: 'O: Button: Icon: Place'
+    - rid: 1502242254733968087
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 'W: Filter'
+    - rid: 1502242254733968088
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 'H: Filter'
+    - rid: 1502242254733968089
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968090
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968091
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968092
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968093
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: X'
+        ThemeProperty: 'M: Button'
+    - rid: 1502242254733968094
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'I: Size'
+        ThemeProperty: 'I: Button: Size'
+    - rid: 1502242254733968095
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968096
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Height'
+        ThemeProperty: 
+    - rid: 1502242254733968097
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Size
+        ThemeProperty: 
+    - rid: 1502242254733968098
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'A: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968099
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968100
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'B: Width'
+        ThemeProperty: 'B: Filter: On'
+    - rid: 1502242254733968101
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968102
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968103
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: B: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968104
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Title: Baseline'
+        ThemeProperty: 'M: Filter: Title: Y'
+    - rid: 1502242254733968105
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Spacing'
+        ThemeProperty: 
+    - rid: 1502242254733968106
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'F: Title'
+        ThemeProperty: 'F: Filter: On'
+    - rid: 1502242254733968107
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Alignment'
+        ThemeProperty: 'O: Button: Alignment'
+    - rid: 1502242254733968108
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Icon: Place'
+        ThemeProperty: 'O: Button: Icon: Place'
+    - rid: 1502242254733968109
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 'W: Filter'
+    - rid: 1502242254733968110
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 'H: Filter'
+    - rid: 1502242254733968111
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968112
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968113
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968114
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968115
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: X'
+        ThemeProperty: 'M: Button'
+    - rid: 1502242254733968116
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'I: Size'
+        ThemeProperty: 'I: Button: Size'
+    - rid: 1502242254733968117
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968118
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Height'
+        ThemeProperty: 
+    - rid: 1502242254733968119
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Size
+        ThemeProperty: 
+    - rid: 1502242254733968120
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'A: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968121
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968122
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'B: Width'
+        ThemeProperty: 'B: Filter: Off'
+    - rid: 1502242254733968123
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968124
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: C: Size'
+        ThemeProperty: 
+    - rid: 1502242254733968125
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: B: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968126
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Title: Baseline'
+        ThemeProperty: 'M: Filter: Title: Y'
+    - rid: 1502242254733968127
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: Spacing'
+        ThemeProperty: 
+    - rid: 1502242254733968128
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'F: Title'
+        ThemeProperty: 'F: Filter: Off'
+    - rid: 1502242254733968129
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Alignment'
+        ThemeProperty: 'O: Button: Alignment'
+    - rid: 1502242254733968130
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Icon: Place'
+        ThemeProperty: 'O: Button: Icon: Place'
+    - rid: 1502242254733968131
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 'W: Filter'
+    - rid: 1502242254733968132
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 'H: Filter'
+    - rid: 1502242254733968133
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968134
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968135
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomLeft'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968136
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomRight'
+        ThemeProperty: 'C: Filter'
+    - rid: 1502242254733968137
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'M: X'
+        ThemeProperty: 'M: Button'
+    - rid: 1502242254733968138
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'I: Size'
+        ThemeProperty: 'I: Button: Size'
+    - rid: 1502242254733968139
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Width'
+        ThemeProperty: 
+    - rid: 1502242254733968140
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'K: Height'
+        ThemeProperty: 
+    - rid: 4368655947681235010
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 4368655947681235011
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
+    - rid: 4368655947681235012
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 4368655947681235013
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
+    - rid: 4368655947681235014
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 4368655947681235015
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 
+    - rid: 7896456368283189645
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Background
+        ThemeProperty: 'Filter: Bkg: Off: Default'
+    - rid: 7896456368283189646
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Border
+        ThemeProperty: 'Filter: Border: Off: Default'
+    - rid: 7896456368283189647
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Background
+        ThemeProperty: 
+    - rid: 7896456368283189648
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Border
+        ThemeProperty: 
+    - rid: 7896456368283189649
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Filter: Title: Off: Default'
+    - rid: 7896456368283189650
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 'Filter: Icon: Off: Default'
+    - rid: 7896456368283189651
+      type: {class: StylePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Button: Title: Off'
+    - rid: 7896456368283189673
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Background
+        ThemeProperty: 'Filter: Bkg: On: Default'
+    - rid: 7896456368283189674
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Border
+        ThemeProperty: 
+    - rid: 7896456368283189675
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Background
+        ThemeProperty: 
+    - rid: 7896456368283189676
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Border
+        ThemeProperty: 
+    - rid: 7896456368283189677
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Filter: Title: On: Default'
+    - rid: 7896456368283189678
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 'Filter: Icon: On: Default'
+    - rid: 7896456368283189679
+      type: {class: StylePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Button: Title: On'
+    - rid: 7896456368283189701
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Background
+        ThemeProperty: 'Filter: Bkg: Off: Default'
+    - rid: 7896456368283189702
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Border
+        ThemeProperty: 'Filter: Border: Off: Default'
+    - rid: 7896456368283189703
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Background
+        ThemeProperty: 
+    - rid: 7896456368283189704
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Mark Border
+        ThemeProperty: 
+    - rid: 7896456368283189705
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Filter: Title: Off: Default'
+    - rid: 7896456368283189706
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Icon
+        ThemeProperty: 'Filter: Icon: Off: Default'
+    - rid: 7896456368283189707
+      type: {class: StylePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Title
+        ThemeProperty: 'Button: Title: Off'

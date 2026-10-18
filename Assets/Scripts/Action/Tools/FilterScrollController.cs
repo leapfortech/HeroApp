@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UScrollRect = UnityEngine.UI.ScrollRect;
+using ULayoutElement = UnityEngine.UI.LayoutElement;
 
 using Leap.UI.Elements;
 using Leap.Data.Collections;
@@ -10,49 +12,45 @@ using Leap.Data.Collections;
 using TMPro;
 using MPUIKIT;
 
+using Sirenix.OdinInspector;
+
 public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [Serializable]
-    public class UnityIntListEvent : UnityEvent<List<int>>{}
+    public class UnityLongListEvent : UnityEvent<List<long>>{}
 
-    [Header("Scroll")]
-    [SerializeField]
-    UnityEngine.UI.ScrollRect scrollRect = null;
-    [SerializeField]
-    RectTransform content = null;
-
-    [Header("Data")]
+    [Title("Data")]
     [SerializeField]
     ValueList valueList = null;
 
     [SerializeField]
     Toggle togglePrefab = null;
 
+    [Title("Layout")]
+    [SerializeField]
+    Toggle tglFilterAll = null;
 
-    [Header("Layout")]
     [SerializeField]
     float additionalWidth = 0f;
 
-    [Header("Event")]
+    [Title("Event")]
     [SerializeField]
-    UnityIntListEvent onSelectionChanged = null;
+    UnityLongListEvent onSelectionChanged = null;
 
-    List<Toggle> toggles = new List<Toggle>();
+    Transform content = null;
 
-    List<int> selectedIndexes = new List<int>();
-    List<long> selectedIds = new List<long>();
-
-    bool initialize = false;
-
+    readonly List<Toggle> toggles = new List<Toggle>();
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        tglFilterAll.ClickAllowed = false;
         for (int i = 0; i < toggles.Count; i++)
             toggles[i].ClickAllowed = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        tglFilterAll.ClickAllowed = true;
         for (int i = 0; i < toggles.Count; i++)
             toggles[i].ClickAllowed = true;
     }
@@ -61,68 +59,50 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
     {
         for (int i = toggles.Count - 1; i >= 0; i--)
         {
-            if (toggles[i] != null)
-                Destroy(toggles[i].gameObject);
+            if (toggles[i] == null)
+                continue;
+            toggles[i].ClearActions();
+            Destroy(toggles[i].gameObject);
+            toggles[i] = null;
         }
 
         toggles.Clear();
-        selectedIndexes.Clear();
-        selectedIds.Clear();
     }
 
     public void Initialize()
     {
-        if (initialize)
+        if (toggles.Count > 0)
             return;
 
-        initialize = true;
+        content = transform.GetChild(0).GetChild(0);
 
-        Clear();
+        tglFilterAll.SetAction(OnToggleChanged, -1);
 
-        // TglAll
-        Toggle tglAll = Instantiate(togglePrefab, content);
-        tglAll.Title = "  Todos";
-
-        CreateAllCircle(tglAll);
-
-        UnityIntBoolEvent allToggleEvent = new UnityIntBoolEvent();
-        allToggleEvent.AddListener(OnToggleChanged);
-        tglAll.SetIntBoolEvent(allToggleEvent, -1);
-        toggles.Add(tglAll);
-
-        UpdateToggleWidth(tglAll);
-
-        // Separator
-        CreateSeparator();
-
-        // All Toggles
+        // Toggles
         int recordCount = valueList.RecordCount;
 
         for (int i = 0; i < recordCount; i++)
         {
             Toggle toggle = Instantiate(togglePrefab, content);
             
-            String title = valueList.GetRecordCellString(i, "Name");
-            toggle.Title = title;
+            toggle.Title = valueList.GetRecordCellString(i, "Name");
 
-            UnityIntBoolEvent toggleEvent = new UnityIntBoolEvent();
-            toggleEvent.AddListener(OnToggleChanged);
-            toggle.SetIntBoolEvent(toggleEvent, i + 1);
+            toggle.SetAction(OnToggleChanged, i + 1);
             toggles.Add(toggle);
+
+            //UpdateToggleWidth(toggles[i]);
         }
 
-        toggles[0].Checked = true;
+        tglFilterAll.Checked = true;
 
         for (int i = 0; i < recordCount; i++)
             UpdateToggleWidth(toggles[i]);
 
         ThemeManager.Instance.RefreshStylesInHierarchy(content.gameObject);
 
-        scrollRect.horizontalNormalizedPosition = 0f;
-        List<int> indexes = new List<int> { -1 };
-        //Debug.Log("SelectionChanged: " + string.Join(", ", indexes));
+        GetComponent<UScrollRect>().horizontalNormalizedPosition = 0f;
 
-        onSelectionChanged?.Invoke(indexes);
+        //Debug.Log("SelectionChanged: -1"));
     }
 
     private void UpdateToggleWidth(Toggle toggle)
@@ -134,32 +114,24 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
 
         text.text = toggle.Title;
 
-        float width = text.preferredWidth + additionalWidth;
-
-        if (toggle == toggles[0])
-        {
-            width += AllCircleLeft + AllCircleSize + AllCircleSpacing;
-            RectTransform textRect = text.GetComponent<RectTransform>();
-            textRect.anchoredPosition = new Vector2(AllCircleLeft + AllCircleSize + AllCircleSpacing, textRect.anchoredPosition.y);
-        }
-
-        toggleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+        toggleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, text.preferredWidth + additionalWidth);
     }
 
     private void OnToggleChanged(int index, bool checkedValue)
     {
         if (!checkedValue && index == -1)
         {
-            toggles[0].Checked = true;
+            tglFilterAll.Checked = true;
             return;
         }
-        else if (checkedValue)
+
+        if (checkedValue)
         {
             if (index == -1)
                 for (int i = 1; i < toggles.Count; i++)
                     toggles[i].Checked = false;
             else
-                toggles[0].Checked = false;
+                tglFilterAll.Checked = false;
         }
         else
         {
@@ -175,7 +147,7 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
             }
 
             if (!anySelected)
-                toggles[0].Checked = true;
+                tglFilterAll.Checked = true;
         }
 
         UpdateSelectedValues();
@@ -183,78 +155,21 @@ public class FilterScrollController : MonoBehaviour, IBeginDragHandler, IEndDrag
 
     private void UpdateSelectedValues()
     {
-        selectedIndexes.Clear();
-        selectedIds.Clear();
+        List<long> selectedIds = new List<long>();
 
-        if (toggles.Count > 0 && toggles[0].Checked)
-            selectedIndexes.Add(-1);
+        if (tglFilterAll.Checked)
+            selectedIds.Add(-1L);
+        else
+            for (int i = 0; i < toggles.Count; i++)
+            {
+                if (!toggles[i].Checked)
+                    continue;
 
-        for (int i = 1; i < toggles.Count; i++)
-        {
-            if (!toggles[i].Checked)
-                continue;
+                selectedIds.Add(valueList.GetRecordId(i));
+            }
 
-            selectedIndexes.Add(i);
-            selectedIds.Add(valueList.GetRecordId(i - 1));
-        }
+        onSelectionChanged?.Invoke(selectedIds);
 
-        onSelectionChanged?.Invoke(selectedIndexes);
-
-        //Debug.Log(string.Join(", ", selectedIndexes));
-    }
-
-    //
-
-    private void CreateSeparator()
-    {
-        GameObject separatorObject = new GameObject("Separator");
-        separatorObject.transform.SetParent(content, false);
-
-        MPImage separator = separatorObject.AddComponent<MPImage>();
-        separator.color = Color.gray;
-        separator.DrawShape = DrawShape.Circle;
-
-        Circle circle = separator.Circle;
-        circle.Radius = 7f;
-        separator.Circle = circle;
-
-        RectTransform separatorRect = separatorObject.GetComponent<RectTransform>();
-        separatorRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 14f);
-        separatorRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 14f);
-
-        UnityEngine.UI.LayoutElement separatorLayout = separatorObject.AddComponent<UnityEngine.UI.LayoutElement>();
-
-        separatorLayout.preferredWidth = 30f;
-        separatorLayout.minWidth = 30f;
-        separatorLayout.flexibleWidth = 0f;
-    }
-
-    private const float AllCircleSize = 14f;
-    private const float AllCircleLeft = 55f;
-    private const float AllCircleSpacing = 8f;
-    private void CreateAllCircle(Toggle toggle)
-    {
-        GameObject circleObject = new GameObject("AllCircle");
-        circleObject.transform.SetParent(toggle.transform, false);
-
-        MPImage circleImage = circleObject.AddComponent<MPImage>();
-        circleImage.color = Color.white;
-        circleImage.DrawShape = DrawShape.Circle;
-
-        Circle circle = circleImage.Circle;
-        circle.Radius = AllCircleSize / 2f;
-        circleImage.Circle = circle;
-
-        RectTransform circleRect = circleObject.GetComponent<RectTransform>();
-
-        circleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, AllCircleSize);
-
-        circleRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, AllCircleSize);
-
-        circleRect.anchorMin = new Vector2(0f, 0.5f);
-        circleRect.anchorMax = new Vector2(0f, 0.5f);
-        circleRect.pivot = new Vector2(0f, 0.5f);
-
-        circleRect.anchoredPosition = new Vector2(AllCircleLeft, 0f);
+        //Debug.Log(string.Join(", ", selectedIds));
     }
 }
