@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,8 +21,6 @@ public class ProductFeedAction : MonoBehaviour
     ToggleGroup tggLocality = null;
     [SerializeField]
     ToggleGroup tggFavorite = null;
-    [SerializeField]
-    ComboAdapter cmbProductSubtype = null;
     [SerializeField]
     int feedCount = 20;
 
@@ -144,7 +143,7 @@ public class ProductFeedAction : MonoBehaviour
             StateId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
-            ProductTypeId = typeId,
+            ProductTypeIds = typeIds,
 
             FavoriteAppUserId = favoriteAppUserId,
             SelectedAppUserId = -1L
@@ -282,11 +281,11 @@ public class ProductFeedAction : MonoBehaviour
 
     // Type
 
-    long typeId = -1;
+    List<long> typeIds = new List<long> { -1L };
 
-    public void ApplyType()
+    public void ApplyTypes(List<long> typeIds)
     {
-        typeId = cmbProductSubtype.GetSelectedId();
+        this.typeIds = typeIds;
 
         ResetPosts(true);
     }

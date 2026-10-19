@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,8 +24,6 @@ public class HappeningFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
-    [SerializeField]
-    ComboAdapter cmbHappeningType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -150,7 +149,7 @@ public class HappeningFeedAction : MonoBehaviour
             StateId = appUserId != -1 ? -1 : StateManager.Instance.CurrentLocality.StateId,
             Status = 1,
 
-            HappeningTypeId = typeId,
+            HappeningTypeIds = typeIds,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = appUserId != -1 ? -1 : selectedAppUserId
@@ -283,13 +282,11 @@ public class HappeningFeedAction : MonoBehaviour
         loopFeed.RefreshVisibleValues();
     }
 
-    // Type
+    List<long> typeIds = new List<long> { -1L };
 
-    long typeId = -1;
-
-    public void ApplyType()
+    public void ApplyTypes(List<long> typeIds)
     {
-        typeId = cmbHappeningType.GetSelectedId();
+        this.typeIds = typeIds;
 
         ResetPosts(true);
     }

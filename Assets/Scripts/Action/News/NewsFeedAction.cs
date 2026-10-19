@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
@@ -21,8 +22,6 @@ public class NewsFeedAction : MonoBehaviour
     int feedCount = 20;
     [SerializeField]
     Text txtLocality = null;
-    [SerializeField]
-    ComboAdapter cmbNewsType = null;
 
     [Title("Loop")]
     [SerializeField]
@@ -145,7 +144,7 @@ public class NewsFeedAction : MonoBehaviour
             StateId = appUserId != -1 ? -1 : StateManager.Instance.InterestLocality.StateId,
             Status = 1,
 
-            NewsTypeId = typeId,
+            NewsTypeIds = typeIds,
 
             FavoriteAppUserId = -1L,
             SelectedAppUserId = -1L
@@ -284,11 +283,11 @@ public class NewsFeedAction : MonoBehaviour
 
     // Type
 
-    long typeId = -1;
+    List<long> typeIds = new List<long> { -1L };
 
-    public void ApplyType()
+    public void ApplyTypes(List<long> typeIds)
     {
-        typeId = cmbNewsType.GetSelectedId();
+        this.typeIds = typeIds;
 
         ResetPosts(true);
     }
