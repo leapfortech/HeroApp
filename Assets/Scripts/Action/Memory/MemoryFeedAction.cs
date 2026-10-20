@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 using Leap.Core.Tools;
 using Leap.Graphics.Tools;
-using Leap.UI.Extensions;
 using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;

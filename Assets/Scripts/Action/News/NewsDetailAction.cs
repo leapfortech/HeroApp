@@ -73,12 +73,6 @@ public class NewsDetailAction : MonoBehaviour
 
     [Title("Comments")]
     [SerializeField]
-    float commentItemPadding = 80f;
-    [SerializeField]
-    float commentItemSpacing = 40f;
-    [SerializeField]
-    float commentPadding = 220;
-    [SerializeField]
     RectTransform rtfComments = null;
 
     [Title("Admin")]
@@ -131,7 +125,7 @@ public class NewsDetailAction : MonoBehaviour
 
     long postId = -1;
     String url = null;
-    float contentInitialHeight = 0.0f, commentInitialHeight = 0.0f, initialCommentsHeight = 0.0f;
+    float contentInitialHeight = 0.0f, commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
@@ -154,8 +148,9 @@ public class NewsDetailAction : MonoBehaviour
                                - rtfAdmin.sizeDelta.y;
 
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        commentInitialHeight = rtfComment1.sizeDelta.y;
-        initialCommentsHeight = rtfComments.sizeDelta.y;
+        commentTextItemInitialHeight = txtComment1.TextHeight;
+        commentItemInitialHeight = rtfComment1.sizeDelta.y;
+        commentTotalinitialHeight = rtfComments.sizeDelta.y;
 
         btnDelete?.AddAction(Delete);
     }
@@ -222,9 +217,9 @@ public class NewsDetailAction : MonoBehaviour
         txtAliasComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].AppUserAlias : "";
         txtAliasComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].AppUserAlias : "";
 
-        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? GetTimeAgo(newsFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? GetTimeAgo(newsFull.CommentFulls[1].PublicationDateTime) : "";
-        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? GetTimeAgo(newsFull.CommentFulls[2].PublicationDateTime) : "";
+        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
 
         txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";
@@ -415,26 +410,26 @@ public class NewsDetailAction : MonoBehaviour
 
         if (commentCount > 0)
         {
-            float height = txtComment1.TextHeight + commentItemPadding;
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment1.TextHeight;
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            totalHeight += height;
         }
 
         if (commentCount > 1)
         {
-            float height = txtComment2.TextHeight + commentItemPadding;
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment2.TextHeight;
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            totalHeight += height;
         }
 
         if (commentCount > 2)
         {
-            float height = txtComment3.TextHeight + commentItemPadding;
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment3.TextHeight;
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            totalHeight += height;
         }
 
-        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, commentTotalinitialHeight + totalHeight);
     }
 
     private void RefreshContents(float deltaY)
@@ -445,28 +440,6 @@ public class NewsDetailAction : MonoBehaviour
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
-    }
-
-    private string GetTimeAgo(DateTime publicationDateTime)
-    {
-        TimeSpan elapsed = DateTime.Now - publicationDateTime;
-
-        if (elapsed.TotalSeconds < 60)
-            return "Hace unos segundos";
-
-        if (elapsed.TotalMinutes < 60)
-            return "Hace " + (int)elapsed.TotalMinutes + " minutos";
-
-        if (elapsed.TotalHours < 24)
-            return "Hace " + (int)elapsed.TotalHours + " horas";
-
-        if (elapsed.TotalDays < 30)
-            return "Hace " + (int)elapsed.TotalDays + " días";
-
-        if (elapsed.TotalDays < 365)
-            return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
-
-        return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
     }
 
     // Delete

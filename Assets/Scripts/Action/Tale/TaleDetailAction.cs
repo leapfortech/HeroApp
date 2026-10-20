@@ -73,12 +73,6 @@ public class TaleDetailAction : MonoBehaviour
 
     [Title("Comments")]
     [SerializeField]
-    float commentItemPadding = 80f;
-    [SerializeField]
-    float commentItemSpacing = 40f;
-    [SerializeField]
-    float commentPadding = 220;
-    [SerializeField]
     RectTransform rtfComments = null;
 
     [Title("Admin")]
@@ -133,7 +127,7 @@ public class TaleDetailAction : MonoBehaviour
 
     TaleService taleService;
     PostService postService;
-    float commentInitialHeight = 0.0f, initialCommentsHeight = 0.0f;
+    float commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
 
     private void Awake()
     {
@@ -152,8 +146,9 @@ public class TaleDetailAction : MonoBehaviour
                                - rtfAdmin.sizeDelta.y;
 
         RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        commentInitialHeight = rtfComment1.sizeDelta.y;
-        initialCommentsHeight = rtfComments.sizeDelta.y;
+        commentTextItemInitialHeight = txtComment1.TextHeight;
+        commentItemInitialHeight = rtfComment1.sizeDelta.y;
+        commentTotalinitialHeight = rtfComments.sizeDelta.y;
 
         btnDelete?.AddAction(Delete);
     }
@@ -228,9 +223,9 @@ public class TaleDetailAction : MonoBehaviour
         txtAliasComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].AppUserAlias : "";
         txtAliasComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].AppUserAlias : "";
 
-        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? GetTimeAgo(taleFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? GetTimeAgo(taleFull.CommentFulls[1].PublicationDateTime) : "";
-        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? GetTimeAgo(taleFull.CommentFulls[2].PublicationDateTime) : "";
+        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
 
         txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
@@ -424,26 +419,26 @@ public class TaleDetailAction : MonoBehaviour
 
         if (commentCount > 0)
         {
-            float height = txtComment1.TextHeight + commentItemPadding;
-            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment1.TextHeight;
+            rtfComment1.sizeDelta = new Vector2(rtfComment1.sizeDelta.x, height);
+            totalHeight += height;
         }
 
         if (commentCount > 1)
         {
-            float height = txtComment2.TextHeight + commentItemPadding;
-            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment2.TextHeight;
+            rtfComment2.sizeDelta = new Vector2(rtfComment2.sizeDelta.x, height);
+            totalHeight += height;
         }
 
         if (commentCount > 2)
         {
-            float height = txtComment3.TextHeight + commentItemPadding;
-            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, Mathf.Max(commentInitialHeight, height));
-            totalHeight += height + commentItemSpacing;
+            float height = commentItemInitialHeight - commentTextItemInitialHeight + txtComment3.TextHeight;
+            rtfComment3.sizeDelta = new Vector2(rtfComment3.sizeDelta.x, height);
+            totalHeight += height;
         }
 
-        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, Mathf.Max(initialCommentsHeight, totalHeight + commentPadding));
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, commentTotalinitialHeight + totalHeight);
     }
 
     private void RefreshContents(float deltaY)
@@ -454,28 +449,6 @@ public class TaleDetailAction : MonoBehaviour
 
         if (!isRefresh)
             scrollRect.verticalNormalizedPosition = 1f;
-    }
-
-    private string GetTimeAgo(DateTime publicationDateTime)
-    {
-        TimeSpan elapsed = DateTime.Now - publicationDateTime;
-
-        if (elapsed.TotalSeconds < 60)
-            return "Hace unos segundos";
-
-        if (elapsed.TotalMinutes < 60)
-            return "Hace " + (int)elapsed.TotalMinutes + " minutos";
-
-        if (elapsed.TotalHours < 24)
-            return "Hace " + (int)elapsed.TotalHours + " horas";
-
-        if (elapsed.TotalDays < 30)
-            return "Hace " + (int)elapsed.TotalDays + " días";
-
-        if (elapsed.TotalDays < 365)
-            return "Hace " + (int)(elapsed.TotalDays / 30) + " meses";
-
-        return "Hace " + (int)(elapsed.TotalDays / 365) + " años";
     }
 
     // Delete
