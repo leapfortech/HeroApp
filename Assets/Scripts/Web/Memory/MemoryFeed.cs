@@ -19,6 +19,7 @@ public class MemoryFeed
     public DateTime? DateTime { get; set; }
     public int[] ReactionCounts { get; set; }
     public long ReactionPhraseId { get; set; }
+    public int CommentCount { get; set; }
 
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);
 
@@ -27,7 +28,7 @@ public class MemoryFeed
     }
 
     public MemoryFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string country, string state,
-                      DateTime? dateTime, int[] reactionCounts, long reactionPhraseId, DateTime publicationDateTime)
+                      DateTime? dateTime, int[] reactionCounts, long reactionPhraseId, int commentCount, DateTime publicationDateTime)
     {
         Id = id;
         PostId = postId;
@@ -39,6 +40,7 @@ public class MemoryFeed
         DateTime = dateTime;
         ReactionCounts = reactionCounts;
         ReactionPhraseId = reactionPhraseId;
+        CommentCount = commentCount;
         PublicationDateTime = publicationDateTime;
     }
 
@@ -53,6 +55,7 @@ public class MemoryFeed
         DateTime = memoryFull.DateTime;
         ReactionCounts = memoryFull.ReactionCounts;
         ReactionPhraseId = memoryFull.ReactionPhraseId;
+        CommentCount = memoryFull.CommentCount;
         PublicationDateTime = memoryFull.PublicationDateTime;
     }
 }
