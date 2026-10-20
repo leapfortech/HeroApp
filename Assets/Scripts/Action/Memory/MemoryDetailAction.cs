@@ -210,7 +210,7 @@ public class MemoryDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
-        sttCommentsCount.Title = $"Comentarios ({memoryFull.CommentCount.ToString()})";
+        sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(memoryFull.CommentCount)})";
 
         txtAliasComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].AppUserAlias : "";
         txtAliasComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].AppUserAlias : "";

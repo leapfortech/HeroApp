@@ -20,7 +20,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
-    Text txtSelectedCount = null;
+    Text txtFavoriteCount = null;
     [SerializeField]
     Text txtTitle = null;
     [SerializeField]
@@ -191,7 +191,7 @@ public class HappeningDetailAction : MonoBehaviour
         txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
-        txtSelectedCount.TextValue = "0"; //happeningFull.SelectedCount.ToString();
+        txtFavoriteCount.TextValue = FeedHelper.Instance.FormatCount(happeningFull.FavoriteCount);
         // Happening
         txtHappeningType.TextValue = happeningFull.HappeningTypeId == -1 ? "-" : vllHappeningType.FindRecordCellString(happeningFull.HappeningTypeId, "Name");
 

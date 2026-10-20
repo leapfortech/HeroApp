@@ -216,7 +216,7 @@ public class NewsDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
-        sttCommentsCount.Title = $"Comentarios ({newsFull.CommentCount.ToString()})";
+        sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(newsFull.CommentCount)})";
 
         txtAliasComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].AppUserAlias : "";
         txtAliasComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].AppUserAlias : "";

@@ -259,8 +259,8 @@ public class MemoryFeedAction : MonoBehaviour
         loopValue.SetSprite(0, memoryFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{memoryFeed.Title}");
         loopValue.SetText(2, $"{date}   <Size=80%><Color=#1C1C1C>{location}</Color>");
-        loopValue.SetText(3, $"<Size=80%>{FormatCount(memoryFeed.ReactionCounts[0] + memoryFeed.ReactionCounts[1] + memoryFeed.ReactionCounts[2] + memoryFeed.ReactionCounts[3])} reacciones");
-        loopValue.SetText(4, memoryFeed.CommentCount == 0 ? "Sin comentarios" : $"<Size=80%>{FormatCount(memoryFeed.CommentCount)} comentarios");
+        loopValue.SetText(3, $"<Size=80%>{FeedHelper.Instance.FormatCount(memoryFeed.ReactionCounts[0] + memoryFeed.ReactionCounts[1] + memoryFeed.ReactionCounts[2] + memoryFeed.ReactionCounts[3])} reacciones");
+        loopValue.SetText(4, memoryFeed.CommentCount == 0 ? "<Size=80%>Sin comentarios" : $"<Size=80%>{FeedHelper.Instance.FormatCount(memoryFeed.CommentCount)} comentarios");
 
         for (int i = 0; i < 4; i++)
         {
@@ -410,17 +410,6 @@ public class MemoryFeedAction : MonoBehaviour
     //{
     //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
     //}
-
-    private String FormatCount(long count)
-    {
-        if (count >= 1000000)
-            return (count / 1000000.0).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) + " M";
-
-        if (count >= 10000)
-            return (count / 1000.0).ToString("#,##0.#", System.Globalization.CultureInfo.InvariantCulture) + " K";
-
-        return count.ToString("#,##0", System.Globalization.CultureInfo.InvariantCulture);
-    }
 
     // Errors
 

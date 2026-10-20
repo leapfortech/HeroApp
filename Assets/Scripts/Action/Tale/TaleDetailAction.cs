@@ -222,7 +222,7 @@ public class TaleDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
-        sttCommentsCount.Title = $"Comentarios ({taleFull.CommentCount.ToString()})";
+        sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(taleFull.CommentCount)})";
 
         txtAliasComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].AppUserAlias : "";
         txtAliasComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].AppUserAlias : "";

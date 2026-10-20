@@ -247,7 +247,7 @@ public class TaleFeedAction : MonoBehaviour
         loopValue.SetText(3, $"<Size=80%><Color=#025581>{taleFeed.Alias} originari@ de: {taleFeed.InterestLocality}</Color>");
         loopValue.SetText(4, $"<Size=80%><Color=#025581>Veve en: {taleFeed.CurrentLocality}</Color>");
         loopValue.SetText(5, $"<Size=80%>{taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3]} reacciones");
-        loopValue.SetText(6, $"<Size=80%>💬  {taleFeed.CommentCount} comentarios");
+        loopValue.SetText(6, taleFeed.CommentCount == 0 ? "<Size=80%>Sin comentarios" : $"<Size=80%>{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
 
         for (int i = 0; i < 4; i++)
         {

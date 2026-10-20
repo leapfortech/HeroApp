@@ -122,4 +122,15 @@ public class FeedHelper : SingletonBehaviour<FeedHelper>
             sDelay = "ahora";
         return sDelay;
     }
+
+    public String FormatCount(long count)
+    {
+        if (count >= 1000000)
+            return (count / 1000000.0).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) + " M";
+
+        if (count >= 10000)
+            return (count / 1000.0).ToString("#,##0.#", System.Globalization.CultureInfo.InvariantCulture) + " K";
+
+        return count.ToString("#,##0", System.Globalization.CultureInfo.InvariantCulture);
+    }
 }

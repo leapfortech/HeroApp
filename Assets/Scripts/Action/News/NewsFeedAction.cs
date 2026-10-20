@@ -258,7 +258,7 @@ public class NewsFeedAction : MonoBehaviour
         loopValue.SetText(3, $"<Size=80%><Color=#025581>{newsFeed.NewsType.PadLeft(newsFeed.NewsType.Length + pad, ' ').PadRight(width + pad, ' ')}</Color>    { newsFeed.DateTime.Value.ToString(@"dd \de MMMM, yyyy", CultureInfo.GetCultureInfo("es-GT"))}");
         loopValue.SetText(4, $"<Size=90%>📄  {newsFeed.Source}    @{newsFeed.Alias}");  // <Size=150%><b>⌂</b><Size=100%>
         loopValue.SetText(5, $"<Size=80%>{newsFeed.ReactionCounts[0] + newsFeed.ReactionCounts[1] + newsFeed.ReactionCounts[2] + newsFeed.ReactionCounts[3]} reacciones");
-        loopValue.SetText(6, $"<Size=80%>💬  {newsFeed.CommentCount} comentarios");
+        loopValue.SetText(6, newsFeed.CommentCount == 0 ? "<Size=80%>Sin comentarios" : $"<Size=80%>{FeedHelper.Instance.FormatCount(newsFeed.CommentCount)} comentarios");
 
         for (int i = 0; i < 4; i++)
         {
