@@ -191,11 +191,20 @@ public class ProductDetailAction : MonoBehaviour
             String[] split = url.Split('|');
 
             if (productFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+            {
                 phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+                btnPhone.Title = phone;
+            }
             else if (productFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
+            {
                 whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+                btnWhatsApp.Title = whatsapp;
+            }
             else if (productFull.LinkFulls[i].LinkTypeId == 4)
+            {
                 email = url;
+                btnEmail.Title = email;
+            }
         }
 
         btnPhone.Interactable = phone.Length != 0;
