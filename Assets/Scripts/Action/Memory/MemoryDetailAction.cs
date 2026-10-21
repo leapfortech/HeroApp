@@ -200,8 +200,7 @@ public class MemoryDetailAction : MonoBehaviour
         String state = memoryFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(memoryFull.PostStateId, "Name");
         txtLocation.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
-        //txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm");
-        txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToString("dd/MM/yyyy HH:mm");
+        txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToString("dd/MM/yyyy 'a las' HH:mm");
 
         DisplayReactionsCount();
 
