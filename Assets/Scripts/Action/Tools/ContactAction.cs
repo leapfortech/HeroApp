@@ -39,6 +39,8 @@ public class ContactAction : MonoBehaviour
     [SerializeField]
     RectTransform trfContactDetails = null;
     [SerializeField]
+    GameObject trfEmpty = null;
+    [SerializeField]
     GameObject trfPhone = null;
     [SerializeField]
     GameObject trfWhatsApp = null;
@@ -128,10 +130,10 @@ public class ContactAction : MonoBehaviour
         if (tglHasWhatsApp.Checked && cmbWhatsAppPrefix.GetSelectedId() == -1)
             cmbWhatsAppPrefix.Select(StateManager.Instance.CurrentLocality.CountryId);
 
-        RefreshInterface();
+        RefreshInterface(hasContact);
     }
 
-    private void RefreshInterface()
+    private void RefreshInterface(bool hasContact)
     {
         int activeContacts = 0;
         float offset = contactInitialHeight;
@@ -155,6 +157,12 @@ public class ContactAction : MonoBehaviour
         RectTransform rectEmail = trfEmail.GetComponent<RectTransform>();
         rectEmail.anchoredPosition = new Vector2(0f, -offset);
         if (trfEmail.activeSelf)
+            activeContacts++;
+
+        bool empty = hasContact && !tglHasPhone.Checked && !tglHasWhatsApp.Checked && !tglHasEmail.Checked;
+        trfEmpty.SetActive(empty);
+
+        if (empty)
             activeContacts++;
 
         float newHeight = tglHasContact.Checked ? contactInitialHeight + (activeContacts * phoneInitialHeight) : 0f;
