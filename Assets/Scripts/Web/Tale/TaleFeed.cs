@@ -18,6 +18,12 @@ public class TaleFeed
     public int[] ReactionCounts { get; set; }
     public long ReactionPhraseId { get; set; }
     public int CommentCount { get; set; }
+    public String Thumbnail
+    {
+        get => null;
+        set => ThumbnailSprite = value?.CreateSprite("Thumbnail_" + PostId.ToString("D02"));
+    }
+    public Sprite ThumbnailSprite { get; set; } = null;
     public String Alias { get; set; }
     public String InterestLocality { get; set; }
     public String CurrentLocality { get; set; }

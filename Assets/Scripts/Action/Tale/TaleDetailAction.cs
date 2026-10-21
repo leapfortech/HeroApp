@@ -22,6 +22,8 @@ public class TaleDetailAction : MonoBehaviour
 
     [Space, Title("Details")]
     [SerializeField]
+    Image imgThumbnail = null;
+    [SerializeField]
     Text txtAlias = null;
     [SerializeField]
     Text txtTitle = null;
@@ -180,6 +182,8 @@ public class TaleDetailAction : MonoBehaviour
         this.taleFull = taleFull;
 
         postId = taleFull.PostId;
+
+        imgThumbnail.Sprite = taleFull.AppUserInfo.ThumbnailSprite;
 
         reactionCounts = (int[])taleFull.ReactionCounts.Clone();
         currentReactionPhraseId = taleFull.ReactionPhraseId;

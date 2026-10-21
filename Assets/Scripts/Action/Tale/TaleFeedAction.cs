@@ -254,6 +254,9 @@ public class TaleFeedAction : MonoBehaviour
             loopValue.SetText(7 + i, $"{icnReactions[i]}  {taleFeed.ReactionCounts[i]}");
             loopValue.SetCheck(i, taleFeed.ReactionPhraseId == i + 1);
         }
+
+        loopValue.GetSprite(11)?.Destroy();
+        loopValue.SetSprite(11, taleFeed.ThumbnailSprite);
     }
 
     public void SelectValue(int idx)
