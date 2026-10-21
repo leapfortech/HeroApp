@@ -32,15 +32,16 @@ public class HappeningUpdateAction : MonoBehaviour
     DataMapper dtmEndTime = null;
 
     [SerializeField]
+    Toggle tglHasContact = null;
+    [SerializeField]
+    Toggle tglHasPhone = null;
+    [SerializeField]
+    Toggle tglHasWhatsApp = null;
+    [SerializeField]
+    Toggle tglHasEmail = null;
+
+    [SerializeField]
     DataMapper dtmContact = null;
-    [SerializeField]
-    DataMapper dtmHasContact = null;
-    [SerializeField]
-    DataMapper dtmHasPhone = null;
-    [SerializeField]
-    DataMapper dtmHasWhatsApp = null;
-    [SerializeField]
-    DataMapper dtmHasEmail = null;
     [SerializeField]
     DataMapper dtmPhone = null;
     [SerializeField]
@@ -64,6 +65,8 @@ public class HappeningUpdateAction : MonoBehaviour
     HappeningFeedEvent[] onHappeningChanged = null;
     [Space, SerializeField]
     UnityEvent onPopulated = null;
+    [Space, SerializeField]
+    UnityEvent onContactChanged = null;
 
     HappeningService happeningService = null;
 
@@ -88,11 +91,6 @@ public class HappeningUpdateAction : MonoBehaviour
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
 
-        dtmContact.ClearElements();
-        dtmPhone.ClearElements();
-        dtmWhatsApp.ClearElements();
-        dtmEmail.ClearElements();
-
         vllImages.ClearRecords();
     }
 
@@ -104,23 +102,26 @@ public class HappeningUpdateAction : MonoBehaviour
 
         dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
 
-        if (happeningFull.ContactFull != null)
-        {
-            dtmHasContact.PopulateBuiltIn<String>("1");
-            dtmContact.PopulateClass<ContactFull>(happeningFull.ContactFull);
-        }
-        else
-            dtmHasContact.PopulateBuiltIn<String>("0");
-
-        dtmHasPhone.PopulateBuiltIn<String>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
-        dtmHasEmail.PopulateBuiltIn<String>("0");
-
         String startTimeStr = this.happeningFull.StartDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmStartTime.PopulateBuiltIn<String>(startTimeStr);
 
         String endTimeStr = this.happeningFull.EndDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmEndTime.PopulateBuiltIn<String>(endTimeStr);
+
+        // Contact
+
+        if (happeningFull.ContactFull != null)
+        {
+            tglHasContact.Checked = true;
+            onContactChanged.Invoke();
+
+            dtmContact.PopulateClass<ContactFull>(happeningFull.ContactFull);
+        }
+        else
+        {
+            tglHasContact.Checked = false;
+            onContactChanged.Invoke();
+        }
 
         if (happeningFull.LinkFulls != null)
         {
@@ -133,7 +134,8 @@ public class HappeningUpdateAction : MonoBehaviour
                 // Phone
                 if (linkFull.LinkTypeId == 2)
                 {
-                    dtmHasPhone.PopulateBuiltIn<String>("1");
+                    tglHasPhone.Checked = true;
+                    onContactChanged.Invoke();
 
                     String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                     if (phoneStr.Length >= 2)
@@ -144,7 +146,8 @@ public class HappeningUpdateAction : MonoBehaviour
                 // WhatsApp
                 if (linkFull.LinkTypeId == 3)
                 {
-                    dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+                    tglHasWhatsApp.Checked = true;
+                    onContactChanged.Invoke();
 
                     String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                     if (whatsAppStr.Length >= 2)
@@ -155,7 +158,9 @@ public class HappeningUpdateAction : MonoBehaviour
                 // Email
                 if (linkFull.LinkTypeId == 4)
                 {
-                    dtmHasEmail.PopulateBuiltIn<String>("1");
+                    tglHasEmail.Checked = true;
+                    onContactChanged.Invoke();
+
                     dtmEmail.PopulateClass<LinkFull>(linkFull);
                     continue;
                 }
@@ -175,26 +180,21 @@ public class HappeningUpdateAction : MonoBehaviour
 
         List<LinkFull> linkFulls = new();
 
-        String hasContact = dtmHasContact.BuildBuiltIn<String>();
-
-        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
-        if (hasPhone == "1")
+        if (tglHasPhone.Checked)
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
             if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
                 linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, happeningFull.PostId, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
-        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
-        if (hasWhatsApp == "1")
+        if (tglHasWhatsApp.Checked)
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
             if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
                 linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, happeningFull.PostId, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
-        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
-        if (hasEmail == "1")
+        if (tglHasEmail.Checked)
         {
             LinkFull email = dtmEmail.BuildClass<LinkFull>();
             if (email != null && !string.IsNullOrWhiteSpace(email.Url))
@@ -205,7 +205,7 @@ public class HappeningUpdateAction : MonoBehaviour
             }
         }
 
-        if (hasContact == "1" && linkFulls.Count == 0)
+        if (tglHasContact.Checked && linkFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
             return;
@@ -218,7 +218,7 @@ public class HappeningUpdateAction : MonoBehaviour
         // Contact
         ContactFull contactFull = dtmContact.BuildClass<ContactFull>();
 
-        if (hasContact == "0")
+        if (!tglHasContact.Checked)
         {
             happeningFull.ContactFull = null;
             happeningFull.LinkFulls = null;

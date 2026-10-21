@@ -54,7 +54,7 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     RectTransform rtfContact = null;
     [SerializeField]
-    GameObject gobContact = null;
+    GameObject gobContactDetails = null;
 
     [SerializeField]
     Text txtContactName = null;
@@ -116,8 +116,7 @@ public class HappeningDetailAction : MonoBehaviour
     PostService postService;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f,
-          contactInitialHeight = 0.0f, contactTextInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f, contactInitialHeight = 0.0f;
     String phone = "", whatsapp = "", email = "";
     bool isRefresh = false;
     HappeningFull happeningFull = null;
@@ -137,7 +136,6 @@ public class HappeningDetailAction : MonoBehaviour
         paymentDetailsTextInitialHeight = txtPaymentDetails.TextHeight;
 
         contactInitialHeight = rtfContact.sizeDelta.y;
-        contactTextInitialHeight = txtContactName.TextHeight;
 
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
@@ -239,52 +237,77 @@ public class HappeningDetailAction : MonoBehaviour
         // Contact
         bool hasContact = happeningFull.ContactFull != null && !String.IsNullOrWhiteSpace(happeningFull.ContactFull.Name);
 
-        gobContact.SetActive(hasContact);
+        gobContactDetails.SetActive(hasContact);
         txtContactName.TextValue = hasContact ? happeningFull.ContactFull.Name : "";
-
-        if (hasContact)
-        {
-            float height = contactInitialHeight - contactTextInitialHeight + txtContactName.TextHeight;
-
-            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, height);
-            deltaY += height;
-        }
-        else
-            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, 0);
 
         phone = "";
         whatsapp = "";
         email = "";
 
-        for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
+        btnPhone.gameObject.SetActive(false);
+        btnWhatsApp.gameObject.SetActive(false);
+        btnEmail.gameObject.SetActive(false);
+
+        float offset = 0f;
+
+        Vector2 initialPosition = btnPhone.GetComponent<RectTransform>().anchoredPosition;
+
+        if (happeningFull.LinkFulls != null)
         {
-            String url = happeningFull.LinkFulls[i].Url;
-
-            if (String.IsNullOrWhiteSpace(url))
-                continue;
-
-            String[] split = url.Split('|');
-
-            if (happeningFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+            for (int i = 0; i < happeningFull.LinkFulls.Count; i++)
             {
-                phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
-                btnPhone.Title = phone;
-            }
-            else if (happeningFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
-            {
-                whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
-                btnWhatsApp.Title = whatsapp;
-            }
-            else if (happeningFull.LinkFulls[i].LinkTypeId == 4)
-            {
-                email = url;
-                btnEmail.Title = email;
+                String url = happeningFull.LinkFulls[i].Url;
+
+                if (String.IsNullOrWhiteSpace(url))
+                    continue;
+
+                String[] split = url.Split('|');
+                GameObject buttonObject = null;
+
+                if (happeningFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+                {
+                    phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+
+                    btnPhone.Title = phone;
+                    buttonObject = btnPhone.gameObject;
+                }
+                else if (happeningFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
+                {
+                    whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+
+                    btnWhatsApp.Title = whatsapp;
+                    buttonObject = btnWhatsApp.gameObject;
+                }
+                else if (happeningFull.LinkFulls[i].LinkTypeId == 4)
+                {
+                    email = url;
+                    btnEmail.Title = email;
+                    buttonObject = btnEmail.gameObject;
+                }
+
+                if (buttonObject != null && !buttonObject.activeSelf)
+                {
+                    RectTransform rect = buttonObject.GetComponent<RectTransform>();
+                    rect.anchoredPosition = initialPosition - new Vector2(0f, offset);
+
+                    buttonObject.SetActive(true);
+                    offset += btnPhone.GetComponent<RectTransform>().sizeDelta.y;
+                }
             }
         }
 
-        btnPhone.Interactable = phone.Length != 0;
-        btnWhatsApp.Interactable = whatsapp.Length != 0;
-        btnEmail.Interactable = email.Length != 0;
+        if (hasContact)
+        {
+            offset += contactInitialHeight;
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, offset);
+            deltaY += offset;
+        }
+        else
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, 0f);
+
+        btnPhone.gameObject.SetActive(phone.Length != 0);
+        btnWhatsApp.gameObject.SetActive(whatsapp.Length != 0);
+        btnEmail.gameObject.SetActive(email.Length != 0);
 
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 

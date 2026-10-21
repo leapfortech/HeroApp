@@ -22,17 +22,18 @@ public class HappeningRegisterAction : MonoBehaviour
     DataMapper dtmStartTime = null;
     [SerializeField]
     DataMapper dtmEndTime = null;
+    
+    [SerializeField]
+    Toggle tglHasContact = null;
+    [SerializeField]
+    Toggle tglHasPhone = null;
+    [SerializeField]
+    Toggle tglHasWhatsApp = null;
+    [SerializeField]
+    Toggle tglHasEmail = null;
 
     [SerializeField]
     DataMapper dtmContact = null;
-    [SerializeField]
-    DataMapper dtmHasPhone = null;
-    [SerializeField]
-    DataMapper dtmHasContact = null;
-    [SerializeField]
-    DataMapper dtmHasWhatsApp = null;
-    [SerializeField]
-    DataMapper dtmHasEmail = null;
     [SerializeField]
     DataMapper dtmPhone = null;
     [SerializeField]
@@ -82,8 +83,6 @@ public class HappeningRegisterAction : MonoBehaviour
         dtmEndTime.ClearElements();
         dtmImagesVLL.ClearElements();
 
-        ClearContact();
-
         FillCombos();
     }
 
@@ -91,19 +90,6 @@ public class HappeningRegisterAction : MonoBehaviour
     {
         cmbHappeningCountry.Select(StateManager.Instance.CurrentLocality.CountryId);
         cmbHappeningState.Select(StateManager.Instance.CurrentLocality.StateId);
-    }
-
-    public void ClearContact()
-    {
-        dtmHasContact.PopulateBuiltIn<String>("0");
-        dtmHasPhone.PopulateBuiltIn<String>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
-        dtmHasEmail.PopulateBuiltIn<String>("0");
-
-        dtmContact.ClearElements();
-        dtmPhone.ClearElements();
-        dtmWhatsApp.ClearElements();
-        dtmEmail.ClearElements();
     }
 
     private void Register()
@@ -139,27 +125,27 @@ public class HappeningRegisterAction : MonoBehaviour
 
         happeningFull.LinkFulls = new();
 
-        String hasContact = dtmHasContact.BuildBuiltIn<String>();
+        bool hasContact = tglHasContact.Checked;
 
-        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
-        if (hasPhone == "1")
+        bool hasPhone = tglHasPhone.Checked;
+        if (hasPhone)
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
             if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
                 happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
-        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
+        bool hasWhatsApp = tglHasWhatsApp.Checked;
 
-        if (hasWhatsApp == "1")
+        if (hasWhatsApp)
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
             if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
                 happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
-        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
-        if (hasEmail == "1")
+        bool hasEmail = tglHasEmail.Checked;
+        if (hasEmail)
         {
             LinkFull email = dtmEmail.BuildClass<LinkFull>();
             if (email != null && !String.IsNullOrWhiteSpace(email.Url))
@@ -169,13 +155,13 @@ public class HappeningRegisterAction : MonoBehaviour
             }
         }
 
-        if (hasContact == "1" && happeningFull.LinkFulls.Count == 0)
+        if (hasContact && happeningFull.LinkFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
             return;
         }
 
-        if (hasContact == "0")
+        if (!hasContact)
         {
             happeningFull.ContactFull = null;
             happeningFull.LinkFulls = null;

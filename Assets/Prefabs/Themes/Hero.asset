@@ -859,7 +859,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'W: Switch: Mark'
         Reference: 0
-        Value: 100
+        Value: 112
         Property: 
     - rid: 1502242252737741083
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -868,7 +868,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'H: Switch: Mark'
         Reference: 0
-        Value: 60
+        Value: 72
         Property: 
     - rid: 1502242252737741084
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -940,7 +940,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'W: Switch'
         Reference: 0
-        Value: 160
+        Value: 184
         Property: 
     - rid: 1502242252737741092
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -949,7 +949,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'H: Switch'
         Reference: 0
-        Value: 80
+        Value: 88
         Property: 
     - rid: 1502242252737741093
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -959,7 +959,7 @@ MonoBehaviour:
         Name: 'Switch: Bkg: On: Default'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'Subdominant: Dim'
+        Property: 'GreyScale: B'
     - rid: 1502242252737741094
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -968,7 +968,7 @@ MonoBehaviour:
         Name: 'Switch: Border: On: Default'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'CmpA: Light'
+        Property: 'GreyScale: B'
     - rid: 1502242252737741095
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -1013,7 +1013,7 @@ MonoBehaviour:
         Name: 'Switch: Bkg: On: Pressed'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'Subdominant: Dim'
+        Property: 'Dominant: Default'
     - rid: 1502242252737741166
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -1022,7 +1022,7 @@ MonoBehaviour:
         Name: 'Switch: Border: On: Pressed'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'CmpA: Dim'
+        Property: 'Dominant: Default'
     - rid: 1502242252737741167
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -1031,7 +1031,7 @@ MonoBehaviour:
         Name: 'Switch: Mark: Bkg: On: Pressed'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'CmpA: Dim'
+        Property: 'WhiteScale: Default'
     - rid: 1502242252737741168
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -2715,6 +2715,141 @@ MonoBehaviour:
         Reference: 0
         Value: 26
         Property: 
+    - rid: 3096978401127564346
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: H: Chip'
+        Reference: 1
+        Value: 100
+        Property: 'Area: Small'
+    - rid: 3096978401127564347
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: C: Chip'
+        Reference: 0
+        Value: 50
+        Property: 
+    - rid: 3096978401127564348
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Bkg: Off: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
+    - rid: 3096978401127564349
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Title: Off: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'BlackScale: C'
+    - rid: 3096978401127564350
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Title: Off'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Medium'
+    - rid: 3096978401127564351
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Icon: Off: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'BlackScale: C'
+    - rid: 3096978401127564352
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: M: Chip: Title: Y'
+        Reference: 0
+        Value: 36
+        Property: 
+    - rid: 3096978401127564353
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: F: Chip: Off'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Fine'
+    - rid: 3096978401127564354
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: B: Chip: Off: Default'
+        Reference: 1
+        Value: 0
+        Property: 'Corner: Edgy'
+    - rid: 3096978401127564355
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: F: Chip: On'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Fine'
+    - rid: 3096978401127564356
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: B: Chip: On: Pressed'
+        Reference: 1
+        Value: 0
+        Property: Zero
+    - rid: 3096978401127564357
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Border: Off: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: D'
+    - rid: 3096978401127564358
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Bkg: On: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Dominant: Default'
+    - rid: 3096978401127564359
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Border: On: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Dominant: Default'
+    - rid: 3096978401127564360
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Chip: Title: On'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Semi Bold'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -13487,6 +13622,13 @@ MonoBehaviour:
         - rid: 1502242254733968212
         - rid: 1502242254733968217
         - rid: 1502242254733968218
+        - rid: 3096978401127564346
+        - rid: 3096978401127564347
+        - rid: 3096978401127564352
+        - rid: 3096978401127564353
+        - rid: 3096978401127564354
+        - rid: 3096978401127564355
+        - rid: 3096978401127564356
         DictFloats:
           keys:
           - 'W: Button'
@@ -13875,6 +14017,13 @@ MonoBehaviour:
           - 'M: Filter: Title: Y'
           - 'B: Filter: On'
           - 'F: Filter: On'
+          - 'HM: H: Chip'
+          - 'HM: C: Chip'
+          - 'HM: M: Chip: Title: Y'
+          - 'HM: F: Chip: Off'
+          - 'HM: B: Chip: Off: Default'
+          - 'HM: F: Chip: On'
+          - 'HM: B: Chip: On: Pressed'
           values:
           - rid: 7896456371522242341
           - rid: 7896456371522242342
@@ -14262,6 +14411,13 @@ MonoBehaviour:
           - rid: 1502242254733968212
           - rid: 1502242254733968217
           - rid: 1502242254733968218
+          - rid: 3096978401127564346
+          - rid: 3096978401127564347
+          - rid: 3096978401127564352
+          - rid: 3096978401127564353
+          - rid: 3096978401127564354
+          - rid: 3096978401127564355
+          - rid: 3096978401127564356
         colors:
         - rid: 7896456371522242661
         - rid: 7896456371522242662
@@ -14753,6 +14909,12 @@ MonoBehaviour:
         - rid: 1502242254733968219
         - rid: 1502242254733968220
         - rid: 1502242254733968221
+        - rid: 3096978401127564348
+        - rid: 3096978401127564349
+        - rid: 3096978401127564351
+        - rid: 3096978401127564357
+        - rid: 3096978401127564358
+        - rid: 3096978401127564359
         DictColors:
           keys:
           - 'Main: Bkg: On: Default'
@@ -15245,6 +15407,12 @@ MonoBehaviour:
           - 'Filter: Bkg: On: Default'
           - 'Filter: Title: On: Default'
           - 'Filter: Icon: On: Default'
+          - 'HM: Chip: Bkg: Off: Default'
+          - 'HM: Chip: Title: Off: Default'
+          - 'HM: Chip: Icon: Off: Default'
+          - 'HM: Chip: Border: Off: Default'
+          - 'HM: Chip: Bkg: On: Pressed'
+          - 'HM: Chip: Border: On: Pressed'
           values:
           - rid: 7896456371522242661
           - rid: 7896456371522242662
@@ -15736,6 +15904,12 @@ MonoBehaviour:
           - rid: 1502242254733968219
           - rid: 1502242254733968220
           - rid: 1502242254733968221
+          - rid: 3096978401127564348
+          - rid: 3096978401127564349
+          - rid: 3096978401127564351
+          - rid: 3096978401127564357
+          - rid: 3096978401127564358
+          - rid: 3096978401127564359
         fonts:
         - rid: 7896456371522243087
         - rid: 7896456371522243088
@@ -15780,6 +15954,8 @@ MonoBehaviour:
         - rid: 3096978246585549875
         - rid: 1502242252737741098
         - rid: 1502242252737741176
+        - rid: 3096978401127564350
+        - rid: 3096978401127564360
         DictFonts:
           keys:
           - 'Main: Title: On'
@@ -15825,6 +16001,8 @@ MonoBehaviour:
           - 'HM: DetailRegular: On: Default '
           - 'Switch: Title: On'
           - 'Switch: Title: Off'
+          - 'HM: Chip: Title: Off'
+          - 'HM: Chip: Title: On'
           values:
           - rid: 7896456371522243087
           - rid: 7896456371522243088
@@ -15869,6 +16047,8 @@ MonoBehaviour:
           - rid: 3096978246585549875
           - rid: 1502242252737741098
           - rid: 1502242252737741176
+          - rid: 3096978401127564350
+          - rid: 3096978401127564360
         sprites:
         - rid: 4368655948687343831
         - rid: 4368655948687343832
@@ -40906,7 +41086,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'M: Button: Title: Y'
         Reference: 0
-        Value: 42
+        Value: 44
         Property: 
     - rid: 7896456371522242553
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}

@@ -15,7 +15,7 @@ public class VisibilityHeightAction : MonoBehaviour
     GameObject gobElement = null;
 
     [SerializeField]
-    ToggleGroup tggAction = null;
+    Toggle tglAction = null;
 
     [Title("Events")]
     [SerializeField]
@@ -51,8 +51,8 @@ public class VisibilityHeightAction : MonoBehaviour
         if (!initialized)
             return;
 
-        if (tggAction != null)
-            gobElement.SetActive(tggAction.Value == "1");
+        if (tglAction != null)
+            gobElement.SetActive(tglAction.Checked);
 
         bool visible = gobElement.activeSelf;
 
