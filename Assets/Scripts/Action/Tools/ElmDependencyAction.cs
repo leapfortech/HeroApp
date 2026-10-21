@@ -70,6 +70,15 @@ public class ElmDependencyAction : MonoBehaviour
                     return;
                 }
             }
+            else if (inputs[i] is Toggle)
+            {
+                bool value = inputs[i].GetValue<bool>();
+                 if (!value)
+                {
+                    ApplyActive(false);
+                    return;
+                }
+            }
             else
             {
                 String value = inputs[i].GetValue<String>();

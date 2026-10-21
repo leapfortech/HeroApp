@@ -30,6 +30,13 @@ public class HappeningUpdateAction : MonoBehaviour
     DataMapper dtmStartTime = null;
     [SerializeField]
     DataMapper dtmEndTime = null;
+    
+    [SerializeField]
+    Toggle tglIsPublic = null;
+    [SerializeField]
+    Toggle tglHasSignup = null;
+    [SerializeField]
+    Toggle tglHasPayment = null;
 
     [SerializeField]
     Toggle tglHasContact = null;
@@ -101,6 +108,10 @@ public class HappeningUpdateAction : MonoBehaviour
         this.happeningFull = happeningFull;
 
         dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
+
+        tglIsPublic.Checked = this.happeningFull.IsPublic == 1;
+        tglHasSignup.Checked = this.happeningFull.HasSignup == 1;
+        tglHasPayment.Checked = this.happeningFull.HasPayment == 1;
 
         String startTimeStr = this.happeningFull.StartDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmStartTime.PopulateBuiltIn<String>(startTimeStr);
@@ -214,6 +225,10 @@ public class HappeningUpdateAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         happeningFull.Update(dtmHappeningFull.BuildClass<HappeningFull>());
+
+        happeningFull.IsPublic = tglIsPublic.Checked ? 1 : 0;
+        happeningFull.HasSignup = tglHasSignup.Checked ? 1 : 0;
+        happeningFull.HasPayment = tglHasPayment.Checked ? 1 : 0;
 
         // Contact
         ContactFull contactFull = dtmContact.BuildClass<ContactFull>();

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Extensions;
 using Leap.UI.Elements;
@@ -22,7 +23,15 @@ public class HappeningRegisterAction : MonoBehaviour
     DataMapper dtmStartTime = null;
     [SerializeField]
     DataMapper dtmEndTime = null;
-    
+
+
+    [SerializeField]
+    Toggle tglIsPublic = null;
+    [SerializeField]
+    Toggle tglHasSignup = null;
+    [SerializeField]
+    Toggle tglHasPayment = null;
+
     [SerializeField]
     Toggle tglHasContact = null;
     [SerializeField]
@@ -53,6 +62,10 @@ public class HappeningRegisterAction : MonoBehaviour
     [SerializeField]
     Button btnRegister = null;
 
+    [Title("Events")]
+    [SerializeField]
+    UnityEvent onCleared = null;
+
     [Title("Page")]
     [SerializeField]
     Page pagNext = null;
@@ -82,6 +95,12 @@ public class HappeningRegisterAction : MonoBehaviour
         dtmStartTime.ClearElements();
         dtmEndTime.ClearElements();
         dtmImagesVLL.ClearElements();
+
+        tglHasPayment.Checked = false;
+        tglIsPublic.Checked = false;
+        tglHasSignup.Checked = false;
+
+        onCleared.Invoke();
 
         FillCombos();
     }
@@ -122,6 +141,10 @@ public class HappeningRegisterAction : MonoBehaviour
                 return;
             }
         }
+
+        happeningFull.IsPublic = tglIsPublic.Checked ? 1 : 0;
+        happeningFull.HasSignup = tglHasSignup.Checked ? 1 : 0;
+        happeningFull.HasPayment = tglHasPayment.Checked ? 1 : 0;
 
         happeningFull.LinkFulls = new();
 
