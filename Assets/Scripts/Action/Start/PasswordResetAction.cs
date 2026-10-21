@@ -9,7 +9,6 @@ using Leap.UI.Elements;
 using Leap.UI.Dialog;
 using Leap.Data.Web;
 using Leap.UI.Extensions;
-using Leap.Data.Collections;
 using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
@@ -144,6 +143,9 @@ public class PasswordResetAction : MonoBehaviour
     {
         pnlPhone.SetActive(tggMethod.Value == "P");
         pnlEmail.SetActive(tggMethod.Value != "P");
+
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+        tggPhoneChannel.gameObject.SetActive(whatsAppEnabled == "1");
     }
 
 

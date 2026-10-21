@@ -111,6 +111,12 @@ public class PhoneUpdateAction : MonoBehaviour
         ifdPhoneNumber.Clear();
     }
 
+    public void DisplayMethod()
+    {
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+        tggPhoneChannel.gameObject.SetActive(whatsAppEnabled == "1");
+    }
+
     private void ResetAccount()
     {
         if (!ElementHelper.Validate(cmbPhoneCountry.Combo) || !ElementHelper.Validate(ifdPhoneNumber))
@@ -118,7 +124,9 @@ public class PhoneUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        AccountRequest request = new AccountRequest(WebManager.Instance.WebSysUser.Id, 1, tggPhoneChannel.Value == "W" ? 1 : 2,
+        String whatsAppEnabled = AppManager.Instance.GetParamValue("WhatsAppEnabled");
+
+        AccountRequest request = new AccountRequest(WebManager.Instance.WebSysUser.Id, 1, whatsAppEnabled == "1" ? tggPhoneChannel.Value == "W" ? 1 : 2 : 2,
                                                     cmbPhoneCountry.GetSelectedId(), ifdPhoneNumber.Text, null);
         accessService.ResetAccount(request);
     }
