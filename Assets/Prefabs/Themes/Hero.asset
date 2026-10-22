@@ -113,7 +113,7 @@ MonoBehaviour:
         Name: 'HM: Post: Bkg: Default'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'Subdominant: Default'
+        Property: 'Dominant: Default'
     - rid: 749284301064373232
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -149,7 +149,7 @@ MonoBehaviour:
         Name: 'HM: Post: Bkg: Pressed'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'Subdominant: Dark'
+        Property: 'Dominant: Dark'
     - rid: 749284301064373236
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -211,7 +211,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: M: Button: Title: Baseline'
         Reference: 0
-        Value: 26
+        Value: 30
         Property: 
     - rid: 749284608293994571
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -230,7 +230,7 @@ MonoBehaviour:
         Name: 'HM: O: Button: Alignment'
         Reference: 1
         Value: 0
-        Property: 'O: Alignment: Left'
+        Property: 'O: Alignment: Center'
     - rid: 749284608293994573
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -327,7 +327,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: Button: Title: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 0.048593733, g: 0.44296664, b: 0.6603774, a: 1}
         Property: 'Identity: Default'
     - rid: 749284608293994584
@@ -2850,6 +2850,33 @@ MonoBehaviour:
         Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Semi Bold'
+    - rid: 3096978406440173916
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Footnote: B'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Mini'
+    - rid: 3096978406440173917
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Footnote: B'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: D'
+    - rid: 3096978406440173918
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Footnote: B'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Regular'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -11331,6 +11358,7 @@ MonoBehaviour:
         - rid: 3096978246585549861
         - rid: 3096978383280013312
         - rid: 3096978383280013315
+        - rid: 3096978406440173916
         DictFloats:
           keys:
           - Major
@@ -11441,6 +11469,7 @@ MonoBehaviour:
           - 'HM: Comment: Small'
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
+          - 'HM: Footnote: B'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -11550,6 +11579,7 @@ MonoBehaviour:
           - rid: 3096978246585549861
           - rid: 3096978383280013312
           - rid: 3096978383280013315
+          - rid: 3096978406440173916
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -11806,6 +11836,7 @@ MonoBehaviour:
         - rid: 3096978246585549862
         - rid: 3096978383280013313
         - rid: 3096978383280013316
+        - rid: 3096978406440173917
         DictColors:
           keys:
           - Major
@@ -12063,6 +12094,7 @@ MonoBehaviour:
           - 'HM: Comment: Small'
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
+          - 'HM: Footnote: B'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -12319,6 +12351,7 @@ MonoBehaviour:
           - rid: 3096978246585549862
           - rid: 3096978383280013313
           - rid: 3096978383280013316
+          - rid: 3096978406440173917
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -12427,6 +12460,7 @@ MonoBehaviour:
         - rid: 3096978246585549863
         - rid: 3096978383280013314
         - rid: 3096978383280013317
+        - rid: 3096978406440173918
         DictFonts:
           keys:
           - Major
@@ -12536,6 +12570,7 @@ MonoBehaviour:
           - 'HM: Comment: Small'
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
+          - 'HM: Footnote: B'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -12644,6 +12679,7 @@ MonoBehaviour:
           - rid: 3096978246585549863
           - rid: 3096978383280013314
           - rid: 3096978383280013317
+          - rid: 3096978406440173918
         sprites: []
         DictSprites:
           keys: []
@@ -34526,7 +34562,7 @@ MonoBehaviour:
         Name: 'Card: Emphasis'
         Reference: 1
         Value: 0
-        Property: 'Font: Fluid'
+        Property: 'Font: Compact'
     - rid: 7896456371522241768
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -35732,7 +35768,7 @@ MonoBehaviour:
         Name: 'Card: Emphasis'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'Identity: Dark'
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522241920
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -37082,7 +37118,7 @@ MonoBehaviour:
         Name: 'Card: Emphasis'
         Reference: 1
         Value: {fileID: 0}
-        Property: 'Main: Medium'
+        Property: 'Main: Semi Bold'
     - rid: 7896456371522242090
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -48656,7 +48692,7 @@ MonoBehaviour:
         Name: Separator
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: B'
+        Property: 'WhiteScale: C'
     - rid: 7896456371522243451
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -52822,7 +52858,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'W: Radio: Play'
         Reference: 0
-        Value: 336
+        Value: 453
         Property: 
     - rid: 8819016137173368893
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
