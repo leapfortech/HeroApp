@@ -251,7 +251,7 @@ public class HappeningFeedAction : MonoBehaviour
     {
         bool empty = happeningFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 660;
+        loopValue.ItemSize = empty ? 2000 : 788;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new HappeningUserData(happeningFeed.PostId, happeningFeed.PublicationDateTime, happeningFeed.FavoriteCount));
 
         if (empty)
@@ -261,9 +261,9 @@ public class HappeningFeedAction : MonoBehaviour
         loopValue.SetSprite(0, happeningFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{happeningFeed.Title}");
         loopValue.SetText(2, $"<line-height=70%>{happeningFeed.StartDateTime?.ToString("ddd dd MMM · h:mm tt", CultureInfo.GetCultureInfo("es-GT"))}");
-        loopValue.SetText(3, $"<line-height=70%>{happeningFeed.Location}");
-        loopValue.SetText(4, $"<line-height=70%>{happeningFeed.HappeningType}");
-        loopValue.SetText(5, $"<line-height=70%>Ya van {happeningFeed.FavoriteCount}");
+        //loopValue.SetText(3, $"<line-height=70%>{happeningFeed.Location}");
+        loopValue.SetText(3, $"<line-height=70%>{happeningFeed.HappeningType}");
+        loopValue.SetText(4, $"<line-height=70%>Ya van {happeningFeed.FavoriteCount}");
 
         loopValue.SetCheck(0, happeningFeed.Favorite != 0);
         loopValue.SetCheck(1, happeningFeed.Selected != 0);
