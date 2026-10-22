@@ -242,7 +242,7 @@ public class NewsFeedAction : MonoBehaviour
     {
         bool empty = newsFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 660;
+        loopValue.ItemSize = empty ? 2000 : 1484;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new NewsUserData(newsFeed.PostId, newsFeed.PublicationDateTime, newsFeed.ReactionCounts));
 
         if (empty)

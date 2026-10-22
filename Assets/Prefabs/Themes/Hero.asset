@@ -418,7 +418,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: S: FeedMain'
         Reference: 0
-        Value: 83
+        Value: 200
         Property: 
     - rid: 749284659829932086
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -435,8 +435,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: C: FeedMain: Default'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 44
         Property: 'Corner: Circular'
     - rid: 749284659829932088
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -444,9 +444,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: FeedMain: Bkg: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 
+        Property: 'WhiteScale: A'
     - rid: 749284659829932089
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -455,7 +455,7 @@ MonoBehaviour:
         Name: 'HM: FeedMain: Border: Off: Default'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: Transparent
+        Property: 'WhiteScale: C'
     - rid: 749284659829932090
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -464,7 +464,7 @@ MonoBehaviour:
         Name: 'HM: FeedMain: Icon: Off: Default'
         Reference: 1
         Value: {r: 0.5882353, g: 0.5921569, b: 0.6117647, a: 1}
-        Property: 'GreyScale: C'
+        Property: 'WhiteScale: Default'
     - rid: 749284659829932091
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -473,7 +473,7 @@ MonoBehaviour:
         Name: 'HM: FeedMain: Icon: On: Default'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'Dominant: Default'
+        Property: 'WhiteScale: Default'
     - rid: 749284659829932092
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -490,7 +490,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: FeedMain: Bkg: On: Default'
         Reference: 0
-        Value: {r: 1, g: 1, b: 1, a: 1}
+        Value: {r: 0.8901961, g: 0.9647059, b: 0.99607843, a: 1}
         Property: 
     - rid: 749284659829932094
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -500,16 +500,16 @@ MonoBehaviour:
         Name: 'HM: FeedMain: Border: On: Default'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: Transparent
+        Property: 'Subdominant: Fade'
     - rid: 749284659829932095
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: FeedMain: Bkg: Disabled'
-        Reference: 0
+        Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 
+        Property: 'WhiteScale: B'
     - rid: 749284659829932096
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -1874,7 +1874,7 @@ MonoBehaviour:
       data:
         themeElement:
           rid: 7896456371487375720
-        Name: 'HM: Reaaction: Detail: Title: Off: Default'
+        Name: 'HM: Reaction: Detail: Title: Off: Default'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
         Property: 'BlackScale: C'
@@ -1883,7 +1883,7 @@ MonoBehaviour:
       data:
         themeElement:
           rid: 7896456371487375720
-        Name: 'HM: Reaaction: Detail: Title: On: Default'
+        Name: 'HM: Reaction: Detail: Title: On: Default'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
         Property: 'BlackScale: C'
@@ -2192,7 +2192,7 @@ MonoBehaviour:
         Name: 'HM: Feed: Focus'
         Reference: 1
         Value: {r: 1, g: 1, b: 1, a: 1}
-        Property: 'BlackScale: D'
+        Property: 'BlackScale: A'
     - rid: 3096978206062281390
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -2201,7 +2201,7 @@ MonoBehaviour:
         Name: 'HM: Feed: Focus'
         Reference: 1
         Value: {fileID: 0}
-        Property: 'Main: Medium'
+        Property: 'Main: Regular'
     - rid: 3096978206062281391
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -2877,6 +2877,186 @@ MonoBehaviour:
         Reference: 1
         Value: {fileID: 0}
         Property: 'Main: Regular'
+    - rid: 3096978422089908906
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Feed: Bit'
+        Reference: 1
+        Value: 0
+        Property: 'Font: Mini'
+    - rid: 3096978422089908907
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Feed: Bit'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'GreyScale: B'
+    - rid: 3096978422089908908
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: Feed: Bit'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Regular'
+    - rid: 3096978422089908975
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedMain: Spacing'
+        Reference: 0
+        Value: 10
+        Property: 
+    - rid: 3096978422089909108
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: H: FeedMain'
+        Reference: 0
+        Value: 88
+        Property: 
+    - rid: 3096978422089909109
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedMain: Title: Off: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'BlackScale: C'
+    - rid: 3096978422089909110
+      type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedMain'
+        Reference: 1
+        Value: {fileID: 0}
+        Property: 'Main: Regular'
+    - rid: 3096978422089909111
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: O: FeedMain: Icon: Place'
+        Reference: 1
+        Value: 0
+        Property: 'O: Icon: Left'
+    - rid: 3096978422089909112
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'B: FeedMain: On: Pressed'
+        Reference: 1
+        Value: 0
+        Property: 'Border: Skinny'
+    - rid: 3096978422089909113
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: FeedMain: Title: On: Default'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'BlackScale: C'
+    - rid: 3096978422089909114
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: W: Feed: Comment'
+        Reference: 0
+        Value: 116
+        Property: 
+    - rid: 3096978422089909115
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: H: Feed: Comment'
+        Reference: 0
+        Value: 88
+        Property: 
+    - rid: 3096978422089909116
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: C: Feed: Comment'
+        Reference: 0
+        Value: 44
+        Property: 
+    - rid: 3096978422089909117
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: I: Feed: Comment'
+        Reference: 0
+        Value: 56
+        Property: 
+    - rid: 3096978422089909118
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Bkg: Default'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'Subdominant: Translucent'
+    - rid: 3096978422089909119
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Border: Default'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'Subdominant: Translucent'
+    - rid: 3096978422089909120
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Icon: Default'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'Subdominant: Default'
+    - rid: 3096978422089909121
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Bkg: Pressed'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'Subdominant: Tinted'
+    - rid: 3096978422089909122
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Border: Pressed'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'Subdominant: Default'
+    - rid: 3096978422089909123
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'Feed: Comment: Icon: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Subdominant: Default'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3424,7 +3604,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'C: FeedRegular: Default'
         Reference: 0
-        Value: 28
+        Value: 60
         Property: 
     - rid: 4368655488958857364
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -3441,9 +3621,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'FeedRegular: Bkg: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 0.9764706, g: 0.9764706, b: 0.9764706, a: 1}
-        Property: 
+        Property: 'WhiteScale: A'
     - rid: 4368655488958857366
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3531,9 +3711,9 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: FeedRegular: Bkg: Off: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 0.94716984, g: 0.94716984, b: 0.94716984, a: 1}
-        Property: 
+        Property: 'WhiteScale: A'
     - rid: 4368655948687343836
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3542,7 +3722,7 @@ MonoBehaviour:
         Name: 'HM: FeedRegular: Bkg: On: Default'
         Reference: 0
         Value: {r: 0.89019614, g: 0.96470594, b: 0.9960785, a: 1}
-        Property: 'Subdominant: Translucent'
+        Property: 'WhiteScale: A'
     - rid: 4368655948687343837
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3594,18 +3774,18 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'FeedAlternate: Icon: Default'
-        Reference: 0
+        Reference: 1
         Value: {r: 0.015686275, g: 0.18039216, b: 0.27058825, a: 1}
-        Property: 
+        Property: 'Identity: Default'
     - rid: 5164850474706535146
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
         themeElement:
           rid: 7896456371487375715
         Name: 'FeedAlternate: Icon: Pressed'
-        Reference: 0
+        Reference: 1
         Value: {r: 0.007843138, g: 0.33333334, b: 0.5058824, a: 1}
-        Property: 
+        Property: 'Identity: Default'
     - rid: 5164850474706535147
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -3613,7 +3793,7 @@ MonoBehaviour:
           rid: 7896456371487375715
         Name: 'I: FeedAlternate: Size'
         Reference: 0
-        Value: 80
+        Value: 84
         Property: 
     - rid: 5164850474706535148
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -6902,6 +7082,10 @@ MonoBehaviour:
         - rid: 3096978385314775569
         - rid: 3096978385314775570
         - rid: 3096978385314775571
+        - rid: 3096978422089909114
+        - rid: 3096978422089909115
+        - rid: 3096978422089909116
+        - rid: 3096978422089909117
         DictFloats:
           keys:
           - 'W: FullScreen'
@@ -7656,6 +7840,10 @@ MonoBehaviour:
           - 'HM: O: Link: A: Alignment'
           - 'HM: F: Link: A'
           - 'HM: M: Link: A: Title: Y'
+          - 'HM: W: Feed: Comment'
+          - 'HM: H: Feed: Comment'
+          - 'HM: C: Feed: Comment'
+          - 'HM: I: Feed: Comment'
           values:
           - rid: 7896456371487375989
           - rid: 7896456371487375990
@@ -8409,6 +8597,10 @@ MonoBehaviour:
           - rid: 3096978385314775569
           - rid: 3096978385314775570
           - rid: 3096978385314775571
+          - rid: 3096978422089909114
+          - rid: 3096978422089909115
+          - rid: 3096978422089909116
+          - rid: 3096978422089909117
         colors:
         - rid: 7896456371522240836
         - rid: 7896456371522240837
@@ -9063,6 +9255,12 @@ MonoBehaviour:
         - rid: 3096978385314775565
         - rid: 3096978385314775566
         - rid: 3096978385314775567
+        - rid: 3096978422089909118
+        - rid: 3096978422089909119
+        - rid: 3096978422089909120
+        - rid: 3096978422089909121
+        - rid: 3096978422089909122
+        - rid: 3096978422089909123
         DictColors:
           keys:
           - 'BioLogin: Apple: Bkg : Default'
@@ -9718,6 +9916,12 @@ MonoBehaviour:
           - 'HM: Link: A: Title: Pressed'
           - 'HM: Link: A: Icon: Pressed'
           - 'HM: Link: A: Bkg: Pressed'
+          - 'Feed: Comment: Bkg: Default'
+          - 'Feed: Comment: Border: Default'
+          - 'Feed: Comment: Icon: Default'
+          - 'Feed: Comment: Bkg: Pressed'
+          - 'Feed: Comment: Border: Pressed'
+          - 'Feed: Comment: Icon: Pressed'
           values:
           - rid: 7896456371522240836
           - rid: 7896456371522240837
@@ -10372,6 +10576,12 @@ MonoBehaviour:
           - rid: 3096978385314775565
           - rid: 3096978385314775566
           - rid: 3096978385314775567
+          - rid: 3096978422089909118
+          - rid: 3096978422089909119
+          - rid: 3096978422089909120
+          - rid: 3096978422089909121
+          - rid: 3096978422089909122
+          - rid: 3096978422089909123
         fonts:
         - rid: 7896456371522241478
         - rid: 7896456371522241479
@@ -11359,6 +11569,7 @@ MonoBehaviour:
         - rid: 3096978383280013312
         - rid: 3096978383280013315
         - rid: 3096978406440173916
+        - rid: 3096978422089908906
         DictFloats:
           keys:
           - Major
@@ -11470,6 +11681,7 @@ MonoBehaviour:
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
           - 'HM: Footnote: B'
+          - 'HM: Feed: Bit'
           values:
           - rid: 7896456371522241751
           - rid: 7896456371522241752
@@ -11580,6 +11792,7 @@ MonoBehaviour:
           - rid: 3096978383280013312
           - rid: 3096978383280013315
           - rid: 3096978406440173916
+          - rid: 3096978422089908906
         colors:
         - rid: 7896456371522241839
         - rid: 7896456371522241840
@@ -11837,6 +12050,7 @@ MonoBehaviour:
         - rid: 3096978383280013313
         - rid: 3096978383280013316
         - rid: 3096978406440173917
+        - rid: 3096978422089908907
         DictColors:
           keys:
           - Major
@@ -12095,6 +12309,7 @@ MonoBehaviour:
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
           - 'HM: Footnote: B'
+          - 'HM: Feed: Bit'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -12352,6 +12567,7 @@ MonoBehaviour:
           - rid: 3096978383280013313
           - rid: 3096978383280013316
           - rid: 3096978406440173917
+          - rid: 3096978422089908907
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -12461,6 +12677,7 @@ MonoBehaviour:
         - rid: 3096978383280013314
         - rid: 3096978383280013317
         - rid: 3096978406440173918
+        - rid: 3096978422089908908
         DictFonts:
           keys:
           - Major
@@ -12571,6 +12788,7 @@ MonoBehaviour:
           - 'HM: Footnote: A'
           - 'HM Disclosure: A'
           - 'HM: Footnote: B'
+          - 'HM: Feed: Bit'
           values:
           - rid: 7896456371522242073
           - rid: 7896456371522242074
@@ -12680,6 +12898,7 @@ MonoBehaviour:
           - rid: 3096978383280013314
           - rid: 3096978383280013317
           - rid: 3096978406440173918
+          - rid: 3096978422089908908
         sprites: []
         DictSprites:
           keys: []
@@ -13665,6 +13884,10 @@ MonoBehaviour:
         - rid: 3096978401127564354
         - rid: 3096978401127564355
         - rid: 3096978401127564356
+        - rid: 3096978422089908975
+        - rid: 3096978422089909108
+        - rid: 3096978422089909111
+        - rid: 3096978422089909112
         DictFloats:
           keys:
           - 'W: Button'
@@ -14060,6 +14283,10 @@ MonoBehaviour:
           - 'HM: B: Chip: Off: Default'
           - 'HM: F: Chip: On'
           - 'HM: B: Chip: On: Pressed'
+          - 'HM: FeedMain: Spacing'
+          - 'HM: H: FeedMain'
+          - 'HM: O: FeedMain: Icon: Place'
+          - 'B: FeedMain: On: Pressed'
           values:
           - rid: 7896456371522242341
           - rid: 7896456371522242342
@@ -14454,6 +14681,10 @@ MonoBehaviour:
           - rid: 3096978401127564354
           - rid: 3096978401127564355
           - rid: 3096978401127564356
+          - rid: 3096978422089908975
+          - rid: 3096978422089909108
+          - rid: 3096978422089909111
+          - rid: 3096978422089909112
         colors:
         - rid: 7896456371522242661
         - rid: 7896456371522242662
@@ -14951,6 +15182,8 @@ MonoBehaviour:
         - rid: 3096978401127564357
         - rid: 3096978401127564358
         - rid: 3096978401127564359
+        - rid: 3096978422089909109
+        - rid: 3096978422089909113
         DictColors:
           keys:
           - 'Main: Bkg: On: Default'
@@ -15405,8 +15638,8 @@ MonoBehaviour:
           - 'HM: Reation: Detail: Icon: Off: Default'
           - 'HM: Reation: Detail: Icon: On: Default'
           - 'HM: FeedRegular: Border: On: Default'
-          - 'HM: Reaaction: Detail: Title: Off: Default'
-          - 'HM: Reaaction: Detail: Title: On: Default'
+          - 'HM: Reaction: Detail: Title: Off: Default'
+          - 'HM: Reaction: Detail: Title: On: Default'
           - 'HM: Reaction: Detail: Bkg: On: Default'
           - 'HM: Reaction: Detail: Border: On: Default'
           - 'HM: Reaction: Detail: Bkg: Disabled'
@@ -15449,6 +15682,8 @@ MonoBehaviour:
           - 'HM: Chip: Border: Off: Default'
           - 'HM: Chip: Bkg: On: Pressed'
           - 'HM: Chip: Border: On: Pressed'
+          - 'HM: FeedMain: Title: Off: Default'
+          - 'HM: FeedMain: Title: On: Default'
           values:
           - rid: 7896456371522242661
           - rid: 7896456371522242662
@@ -15946,6 +16181,8 @@ MonoBehaviour:
           - rid: 3096978401127564357
           - rid: 3096978401127564358
           - rid: 3096978401127564359
+          - rid: 3096978422089909109
+          - rid: 3096978422089909113
         fonts:
         - rid: 7896456371522243087
         - rid: 7896456371522243088
@@ -15992,6 +16229,7 @@ MonoBehaviour:
         - rid: 1502242252737741176
         - rid: 3096978401127564350
         - rid: 3096978401127564360
+        - rid: 3096978422089909110
         DictFonts:
           keys:
           - 'Main: Title: On'
@@ -16039,6 +16277,7 @@ MonoBehaviour:
           - 'Switch: Title: Off'
           - 'HM: Chip: Title: Off'
           - 'HM: Chip: Title: On'
+          - 'HM: FeedMain'
           values:
           - rid: 7896456371522243087
           - rid: 7896456371522243088
@@ -16085,6 +16324,7 @@ MonoBehaviour:
           - rid: 1502242252737741176
           - rid: 3096978401127564350
           - rid: 3096978401127564360
+          - rid: 3096978422089909110
         sprites:
         - rid: 4368655948687343831
         - rid: 4368655948687343832
@@ -39268,7 +39508,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'W: Small: Off'
         Reference: 0
-        Value: 0
+        Value: 64
         Property: 
     - rid: 7896456371522242347
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -40538,7 +40778,7 @@ MonoBehaviour:
         Name: 'B: Button: Off: Default'
         Reference: 1
         Value: 0
-        Property: Zero
+        Property: 'Border: Skinny'
     - rid: 7896456371522242488
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -41600,7 +41840,7 @@ MonoBehaviour:
         Name: 'F: Button: On'
         Reference: 1
         Value: 0
-        Property: 'Font: Small'
+        Property: 'Font: Mini'
     - rid: 7896456371522242606
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -52885,7 +53125,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: FeedMain: Title: Y'
         Reference: 0
-        Value: 27
+        Value: 30
         Property: 
     - rid: 8819016162668446564
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
