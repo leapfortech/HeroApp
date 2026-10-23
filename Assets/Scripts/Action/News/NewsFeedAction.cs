@@ -10,7 +10,6 @@ using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 

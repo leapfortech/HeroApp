@@ -33,9 +33,9 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     float smoothReload = 1f;
 
-    [Title("Plaint")]
-    [SerializeField]
-    ComboAdapter cmbPlaintType = null;
+    //[Title("Plaint")]
+    //[SerializeField]
+    //ComboAdapter cmbPlaintType = null;
 
     [Title("Data")]
     [SerializeField]
@@ -425,25 +425,25 @@ public class HappeningFeedAction : MonoBehaviour
 
     // Plaint
 
-    public void DisplayPlaintTypes()
-    {
-        cmbPlaintType.Combo.Click();
-    }
+    //public void DisplayPlaintTypes()
+    //{
+    //    cmbPlaintType.Combo.Click();
+    //}
 
-    public void ApplyPlaint()
-    {
-        ScreenDialog.Instance.Display();
+    //public void ApplyPlaint()
+    //{
+    //    ScreenDialog.Instance.Display();
 
-        long plaintTypeId = cmbPlaintType.GetSelectedId();
+    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
 
-        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-        //happeningService.RegisterPostPlaint(postPlaint);
-    }
+    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+    //    //happeningService.RegisterPostPlaint(postPlaint);
+    //}
 
-    public void PlaintRegistered()
-    {
-        ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    }
+    //public void PlaintRegistered()
+    //{
+    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    //}
 
     // Errors
 
