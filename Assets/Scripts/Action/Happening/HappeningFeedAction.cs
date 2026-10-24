@@ -20,9 +20,9 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     ToggleGroup tggFavoriteSelected = null;
     [SerializeField]
-    int feedCount = 20;
-    [SerializeField]
     Text txtLocality = null;
+    [SerializeField]
+    int feedCount = 20;
 
     [Title("Loop")]
     [SerializeField]

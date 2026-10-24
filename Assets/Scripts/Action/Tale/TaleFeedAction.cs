@@ -7,6 +7,7 @@ using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -16,6 +17,10 @@ public class TaleFeedAction : MonoBehaviour
     [Title("Feed")]
     [SerializeField]
     ToggleGroup tggLocality = null;
+    [SerializeField]
+    Text lblLocality = null;
+    [SerializeField]
+    Text txtLocality = null;
     [SerializeField]
     int feedCount = 20;
 
@@ -31,11 +36,11 @@ public class TaleFeedAction : MonoBehaviour
     //[SerializeField]
     //ComboAdapter cmbPlaintType = null;
 
-    //[Title("Data")]
-    //[SerializeField]
-    //ValueList vllCountry = null;
-    //[SerializeField]
-    //ValueList vllState = null;
+    [Title("Data")]
+    [SerializeField]
+    ValueList vllCountry = null;
+    [SerializeField]
+    ValueList vllState = null;
 
     [Title("Errors")]
     [SerializeField]
@@ -94,6 +99,22 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
+        if (txtLocality != null)
+        {
+            if (tggLocality.Value == "0")
+            {
+                lblLocality.TextValue = "Historias cerca de ti en:";
+                txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, 0)
+                                                                                            : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, 1);
+            }
+            else
+            {
+                lblLocality.TextValue = "Historias de tu tierra en:";
+                txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, 0)
+                                                                                             : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, 1);
+            }
+        }
+
         if (!MustReset && !force)
             return;
 
@@ -228,7 +249,7 @@ public class TaleFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
+    //readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
 
     public void UpdateValue(TaleFeed taleFeed, LoopScrollerValue loopValue)
     {
@@ -242,21 +263,22 @@ public class TaleFeedAction : MonoBehaviour
 
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, taleFeed.TitleSprite);
-        loopValue.SetText(1, $"<line-height=70%>{taleFeed.Title}");
-        loopValue.SetText(2, $"<line-height=80%>{(taleFeed.Description.Length > 120 ? taleFeed.Description[0..119] + "..." : taleFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
-        loopValue.SetText(3, $"<Size=80%><Color=#025581>{taleFeed.Alias} originari@ de: {taleFeed.InterestLocality}</Color>");
-        loopValue.SetText(4, $"<Size=80%><Color=#025581>Veve en: {taleFeed.CurrentLocality}</Color>");
-        loopValue.SetText(5, $"<Size=80%>{taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3]} reacciones");
-        loopValue.SetText(6, taleFeed.CommentCount == 0 ? "<Size=80%>Sin comentarios" : $"<Size=80%>{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
+        loopValue.GetSprite(1)?.Destroy();
+        loopValue.SetSprite(1, taleFeed.ThumbnailSprite);
+        loopValue.SetText(2, $"@{taleFeed.Alias}");
+        loopValue.SetText(3, $"Originari@ de {taleFeed.InterestLocality}");
+        loopValue.SetText(4, $"Vive en {taleFeed.CurrentLocality}");
+        loopValue.SetText(5, $"<line-height=70%>{taleFeed.Title}");
+        loopValue.SetText(6, $"<line-height=80%>{(taleFeed.Description.Length > 120 ? taleFeed.Description[0..119] + "..." : taleFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
 
         for (int i = 0; i < 4; i++)
         {
-            loopValue.SetText(7 + i, $"{icnReactions[i]}  {taleFeed.ReactionCounts[i]}");
+            loopValue.SetText(7 + i, $"{taleFeed.ReactionCounts[i]}");
             loopValue.SetCheck(i, taleFeed.ReactionPhraseId == i + 1);
         }
 
-        loopValue.GetSprite(11)?.Destroy();
-        loopValue.SetSprite(11, taleFeed.ThumbnailSprite);
+        loopValue.SetText(11, $"{taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3]} reacciones");
+        loopValue.SetText(12, taleFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
     }
 
     public void SelectValue(int idx)
@@ -337,7 +359,7 @@ public class TaleFeedAction : MonoBehaviour
                 taleService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(7 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
+                loopValue.SetText(7 + i, $"{userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
                 loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
@@ -352,7 +374,7 @@ public class TaleFeedAction : MonoBehaviour
         taleService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(7 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(7 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
         loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
@@ -370,7 +392,7 @@ public class TaleFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[previousIndex]--;
 
-            loopFeed[selectedIdx].SetText(7 + previousIndex, $"{icnReactions[previousIndex]}  {userData.ReactionCounts[previousIndex]}");
+            loopFeed[selectedIdx].SetText(7 + previousIndex, $"{userData.ReactionCounts[previousIndex]}");
             loopFeed[selectedIdx].SetCheck(previousIndex, false);
         }
 
@@ -378,7 +400,7 @@ public class TaleFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[newIndex]++;
 
-            loopFeed[selectedIdx].SetText(7 + newIndex, $"{icnReactions[newIndex]}  {userData.ReactionCounts[newIndex]}");
+            loopFeed[selectedIdx].SetText(7 + newIndex, $"{userData.ReactionCounts[newIndex]}");
             loopFeed[selectedIdx].SetCheck(newIndex, true);
         }
 

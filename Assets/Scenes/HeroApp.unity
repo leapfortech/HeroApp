@@ -44815,8 +44815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HappeningFeedAction
   tggFavoriteSelected: {fileID: 0}
-  feedCount: 20
   txtLocality: {fileID: 0}
+  feedCount: 20
   loopFeed: {fileID: 1348253104}
   txtEmpty: {fileID: 2061984412}
   smoothReload: 1
@@ -53617,8 +53617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HappeningFeedAction
   tggFavoriteSelected: {fileID: 604896967}
-  feedCount: 20
   txtLocality: {fileID: 389140864}
+  feedCount: 20
   loopFeed: {fileID: 902209952}
   txtEmpty: {fileID: 588128790}
   smoothReload: 1
@@ -133130,7 +133130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1094026821316255047, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_Name
-      value: LblTitle
+      value: LblLocality
       objectReference: {fileID: 0}
     - target: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
       propertyPath: m_Pivot.x
@@ -182167,6 +182167,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d85c41c725f91c40b45c19720bcf171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &556036127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
+  m_PrefabInstance: {fileID: 404005567}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641dc34c0d9d82449419771c28f118f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &557357571
@@ -417155,7 +417166,7 @@ PrefabInstance:
       objectReference: {fileID: -7035558162382343040, guid: 6af95d8df8624c243bed3acb8067b660, type: 2}
     - target: {fileID: 8436609822253491789, guid: 5481935f17072f64ea7663fc0bfdd261, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4284023014
+      value: 4282723844
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491789, guid: 5481935f17072f64ea7663fc0bfdd261, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -499332,10 +499343,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaleFeedAction
   tggLocality: {fileID: 0}
+  lblLocality: {fileID: 0}
+  txtLocality: {fileID: 0}
   feedCount: 20
   loopFeed: {fileID: 1436830777}
   txtEmpty: {fileID: 111052271}
   smoothReload: 1
+  vllCountry: {fileID: 0}
+  vllState: {fileID: 0}
   pagMenu: {fileID: 1689003507}
   timeoutError: "La petici\xF3n excedi\xF3 el tiempo de espera.\nRevisa tu conexi\xF3n
     a Internet.\n\xBFDeseas intentar cargar de nuevo?"
@@ -510300,10 +510315,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaleFeedAction
   tggLocality: {fileID: 1360859362}
+  lblLocality: {fileID: 556036127}
+  txtLocality: {fileID: 2144375768}
   feedCount: 20
   loopFeed: {fileID: 1220447543}
   txtEmpty: {fileID: 826826232}
   smoothReload: 1
+  vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
+  vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   pagMenu: {fileID: 1689003507}
   timeoutError: "La petici\xF3n excedi\xF3 el tiempo de espera.\nRevisa tu conexi\xF3n
     a Internet.\n\xBFDeseas intentar cargar de nuevo?"
@@ -720357,6 +720376,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
   m_PrefabInstance: {fileID: 2144375766}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2144375768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
+  m_PrefabInstance: {fileID: 2144375766}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641dc34c0d9d82449419771c28f118f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2145209581
 PrefabInstance:
   m_ObjectHideFlags: 0
