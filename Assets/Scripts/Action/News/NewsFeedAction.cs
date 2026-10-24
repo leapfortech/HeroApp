@@ -255,8 +255,9 @@ public class NewsFeedAction : MonoBehaviour
         loopValue.SetText(3, newsFeed.NewsType);
         loopValue.SetText(4, $"@ {newsFeed.Alias}");
         loopValue.SetText(5, newsFeed.DateTime.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
-        loopValue.SetText(6, newsFeed.Source);
-       
+        loopValue.SetText(6, $"📄  {newsFeed.Source}");
+
+
         for (int i = 0; i < 4; i++)
         {
             loopValue.SetText(7 + i, $"{newsFeed.ReactionCounts[i]}");
