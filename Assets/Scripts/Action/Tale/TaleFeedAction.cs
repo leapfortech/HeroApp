@@ -249,8 +249,6 @@ public class TaleFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    //readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
-
     public void UpdateValue(TaleFeed taleFeed, LoopScrollerValue loopValue)
     {
         bool empty = taleFeed.PublicationDateTime.Year == 1753;

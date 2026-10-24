@@ -235,8 +235,6 @@ public class NewsFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    readonly String[] icnReactions = { "👍", "🙏", "💪", "😄" };
-
     public void UpdateValue(NewsFeed newsFeed, LoopScrollerValue loopValue)
     {
         bool empty = newsFeed.PublicationDateTime.Year == 1753;
@@ -261,7 +259,7 @@ public class NewsFeedAction : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            loopValue.SetText(7 + i, $"{icnReactions[i]}  {newsFeed.ReactionCounts[i]}");
+            loopValue.SetText(7 + i, $"{newsFeed.ReactionCounts[i]}");
             loopValue.SetCheck(i, newsFeed.ReactionPhraseId == i + 1);
         }
     }
@@ -337,7 +335,7 @@ public class NewsFeedAction : MonoBehaviour
                 newsService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(7 + i, $"{icnReactions[i]}  {userData.ReactionCounts[i]}");
+                loopValue.SetText(7 + i, $"{userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
                 loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
@@ -352,7 +350,7 @@ public class NewsFeedAction : MonoBehaviour
         newsService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(7 + reactionPhraseId - 1, $"{icnReactions[reactionPhraseId - 1]}  {userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(7 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
         loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
@@ -370,7 +368,7 @@ public class NewsFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[previousIndex]--;
 
-            loopFeed[selectedIdx].SetText(7 + previousIndex, $"{icnReactions[previousIndex]}  {userData.ReactionCounts[previousIndex]}");
+            loopFeed[selectedIdx].SetText(7 + previousIndex, $"{userData.ReactionCounts[previousIndex]}");
             loopFeed[selectedIdx].SetCheck(previousIndex, false);
         }
 
@@ -378,7 +376,7 @@ public class NewsFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[newIndex]++;
 
-            loopFeed[selectedIdx].SetText(7 + newIndex, $"{icnReactions[newIndex]}  {userData.ReactionCounts[newIndex]}");
+            loopFeed[selectedIdx].SetText(7 + newIndex, $"{userData.ReactionCounts[newIndex]}");
             loopFeed[selectedIdx].SetCheck(newIndex, true);
         }
 
