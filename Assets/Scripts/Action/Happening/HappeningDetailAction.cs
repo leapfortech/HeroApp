@@ -317,6 +317,8 @@ public class HappeningDetailAction : MonoBehaviour
         else
             tglFavorite.Uncheck();
 
+        tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia";
+
         if (happeningFull.Selected != 0)
             tglSelected.Check();
         else
@@ -339,7 +341,6 @@ public class HappeningDetailAction : MonoBehaviour
     }
 
     // Favorite
-
     public void ApplyFavorite(bool check)
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
@@ -347,6 +348,11 @@ public class HappeningDetailAction : MonoBehaviour
             postService.RegisterFavorite(favorite);
         else
             postService.DeleteFavorite(favorite);
+
+        happeningFull.FavoriteCount += check ? 1 : -1;
+
+        txtFavoriteCount.TextValue = FeedHelper.Instance.FormatCount(happeningFull.FavoriteCount);
+        tglFavorite.Title = check ? "Asistencia confirmada" : "Confirmar asistencia";
     }
 
     public void ApplyDetailFavorite()

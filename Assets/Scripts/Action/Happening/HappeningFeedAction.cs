@@ -10,7 +10,6 @@ using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -19,7 +18,7 @@ public class HappeningFeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
-    ToggleGroup tggSelected = null;
+    ToggleGroup tggFavoriteSelected = null;
     [SerializeField]
     int feedCount = 20;
     [SerializeField]
@@ -151,7 +150,7 @@ public class HappeningFeedAction : MonoBehaviour
 
             HappeningTypeIds = typeIds,
 
-            FavoriteAppUserId = -1L,
+            FavoriteAppUserId = appUserId != -1 ? -1 : favoriteAppUserId,
             SelectedAppUserId = appUserId != -1 ? -1 : selectedAppUserId
         };
 
@@ -260,10 +259,14 @@ public class HappeningFeedAction : MonoBehaviour
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, happeningFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{happeningFeed.Title}");
-        loopValue.SetText(2, $"<line-height=70%>{happeningFeed.StartDateTime?.ToString("ddd dd MMM · h:mm tt", CultureInfo.GetCultureInfo("es-GT"))}");
-        //loopValue.SetText(3, $"<line-height=70%>{happeningFeed.Location}");
-        loopValue.SetText(3, $"<line-height=70%>{happeningFeed.HappeningType}");
-        loopValue.SetText(4, $"<line-height=70%>Ya van {happeningFeed.FavoriteCount}");
+        loopValue.SetText(2, $"{(happeningFeed.Description.Length > 28 ? happeningFeed.Description[0..27] + "..." : happeningFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
+        loopValue.SetText(3, happeningFeed.StartDateTime?.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(4, happeningFeed.StartDateTime?.ToString("HH:mm", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(5, happeningFeed.EndDateTime?.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(6, happeningFeed.EndDateTime?.ToString("HH:mm", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(7, $"{happeningFeed.HappeningType}");
+        loopValue.SetText(8, $"{happeningFeed.FavoriteCount}");
+        loopValue.SetText(9, happeningFeed.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia");
 
         loopValue.SetCheck(0, happeningFeed.Favorite != 0);
         loopValue.SetCheck(1, happeningFeed.Selected != 0);
@@ -302,12 +305,13 @@ public class HappeningFeedAction : MonoBehaviour
         ResetPosts(true);
     }
 
-
+    long favoriteAppUserId = -1;
     long selectedAppUserId = -1;
 
-    public void ApplyAppUserSelected()
+    public void ApplyAppUserFavoriteSelected()
     {
-        selectedAppUserId = tggSelected.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
+        selectedAppUserId = tggFavoriteSelected.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
+        favoriteAppUserId = tggFavoriteSelected.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
@@ -324,22 +328,27 @@ public class HappeningFeedAction : MonoBehaviour
 
         Favorite favorite = new Favorite(userData.PostId, StateManager.Instance.AppUser.Id);
 
+        String title = "";
         if (check)
         {
             happeningService.RegisterFavorite(favorite);
 
             userData.FavoriteCount++;
-
-            loopFeed[k].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+            title = "Asistencia confirmada";
         }
         else
         {
             happeningService.DeleteFavorite(favorite);
 
             userData.FavoriteCount--;
+            title = "Confirmar asistencia";
 
-            loopFeed[k].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+            if (favoriteAppUserId != -1)
+                ResetPosts(true);
         }
+
+        loopFeed[k].SetText(8, $"{userData.FavoriteCount}");
+        loopFeed[k].SetText(9, title);
 
         loopFeed.RefreshVisibleValues();
     }
@@ -350,12 +359,20 @@ public class HappeningFeedAction : MonoBehaviour
 
         loopFeed[selectedIdx].SetCheck(0, check);
 
+        String title = "";
         if (check)
+        {
+            title = "Asistencia confirmada";
             userData.FavoriteCount++;
+        }
         else
+        {
+            title = "Confirmar asistencia";
             userData.FavoriteCount--;
+        }
 
-        loopFeed[selectedIdx].SetText(5, $"<line-height=70%>Ya van {userData.FavoriteCount}");
+        loopFeed[selectedIdx].SetText(8, $"{userData.FavoriteCount}");
+        loopFeed[selectedIdx].SetText(9, title);
 
         loopFeed.RefreshVisibleValues();
     }

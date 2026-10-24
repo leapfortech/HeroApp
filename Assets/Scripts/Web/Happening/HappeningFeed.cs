@@ -14,6 +14,7 @@ public class HappeningFeed
     }
     public Sprite TitleSprite { get; set; } = null;
     public String Title { get; set; }
+    public String Description { get; set; }
     public DateTime? StartDateTime { get; set; }
     public DateTime? EndDateTime { get; set; }
     public String HappeningType { get; set; }
@@ -30,7 +31,7 @@ public class HappeningFeed
     {
     }
 
-    public HappeningFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, DateTime? startDateTime, DateTime? endDateTime,
+    public HappeningFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, String description, DateTime? startDateTime, DateTime? endDateTime,
                          string happeningType, string country, string state, string location, int favorite, int selected, int favoriteCount, DateTime publicationDateTime)
     {
         Id = id;
@@ -38,6 +39,7 @@ public class HappeningFeed
         TitleImage = titleImage;
         TitleSprite = titleSprite;
         Title = title;
+        Description = description;
         StartDateTime = startDateTime;
         EndDateTime = endDateTime;
         HappeningType = happeningType;
