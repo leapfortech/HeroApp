@@ -175959,6 +175959,71 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: 2075330e910adf84fa82c9a48997d535, type: 3}
   m_PrefabInstance: {fileID: 536181186}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &536619339
+GameObject:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 536619340}
+  - component: {fileID: 536619342}
+  - component: {fileID: 536619341}
+  m_Layer: 5
+  m_Name: 'TMP SubMeshUI [Poppins-SemiBold Atlas Material + LiberationSans SDF Atlas]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &536619340
+RectTransform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536619339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 915194302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!222 &536619341
+CanvasRenderer:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536619339}
+  m_CullTransparentMesh: 1
+--- !u!114 &536619342
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536619339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 1
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1001 &536634204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -300934,6 +300999,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6214710697180196408, guid: 21886fb128d51394682cfee858ef4d99, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1619738089}
+    - targetCorrespondingSourceObject: {fileID: 4546372246484444274, guid: 21886fb128d51394682cfee858ef4d99, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 536619340}
     - targetCorrespondingSourceObject: {fileID: 4546372246484444274, guid: 21886fb128d51394682cfee858ef4d99, type: 3}
       insertIndex: -1
       addedObject: {fileID: 468023931}
