@@ -18,9 +18,7 @@ public class ProductFeedAction : MonoBehaviour
     [Space]
     [Title("Feed")]
     [SerializeField]
-    ToggleGroup tggLocality = null;
-    [SerializeField]
-    ToggleGroup tggFavorite = null;
+    ToggleGroup tggLocalityFavorite = null;
     [SerializeField]
     int feedCount = 20;
 
@@ -32,9 +30,9 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     float smoothReload = 1f;
 
-    [Title("Plaint")]
-    [SerializeField]
-    ComboAdapter cmbPlaintType = null;
+    //[Title("Plaint")]
+    //[SerializeField]
+    //ComboAdapter cmbPlaintType = null;
 
     [Title("Data")]
     [SerializeField]
@@ -305,7 +303,7 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyAppUserFavorite()
     {
-        favoriteAppUserId = tggFavorite.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
+        favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
@@ -316,7 +314,7 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyLocality()
     {
-        interestLocality = tggLocality.Value == "1";
+        interestLocality = tggLocalityFavorite.Value == "1";
 
         ResetPosts(true);
 
@@ -447,25 +445,25 @@ public class ProductFeedAction : MonoBehaviour
 
     // Plaint
 
-    public void DisplayPlaintTypes()
-    {
-        cmbPlaintType.Combo.Click();
-    }
+    //public void DisplayPlaintTypes()
+    //{
+    //    cmbPlaintType.Combo.Click();
+    //}
 
-    public void ApplyPlaint()
-    {
-        ScreenDialog.Instance.Display();
+    //public void ApplyPlaint()
+    //{
+    //    ScreenDialog.Instance.Display();
 
-        long plaintTypeId = cmbPlaintType.GetSelectedId();
+    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
 
-        PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((ProductUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-        //productService.RegisterPostPlaint(postPlaint);
-    }
+    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((ProductUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
+    //    //productService.RegisterPostPlaint(postPlaint);
+    //}
 
-    public void PlaintRegistered()
-    {
-        ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    }
+    //public void PlaintRegistered()
+    //{
+    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    //}
 
     // Errors
 
