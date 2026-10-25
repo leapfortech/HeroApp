@@ -39,12 +39,6 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtInterestLocation = null;
 
-    [Space, Title("Images")]
-    [SerializeField]
-    GameObject goEmptyImages = null;
-    [SerializeField]
-    GameObject goImages = null;
-
     [Title("ScrollView")]
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
@@ -210,10 +204,6 @@ public class ProductDetailAction : MonoBehaviour
         btnPhone.Interactable = phone.Length != 0;
         btnWhatsApp.Interactable = whatsapp.Length != 0;
         btnEmail.Interactable = email.Length != 0;
-
-        // Images
-        goEmptyImages.SetActive(productFull.ImageSprites.Count == 0);
-        goImages.SetActive(productFull.ImageSprites.Count != 0);
 
         onImagesDisplay.Invoke(productFull.ImageSprites);
 
