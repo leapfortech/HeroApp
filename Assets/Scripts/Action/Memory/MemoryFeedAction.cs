@@ -239,7 +239,7 @@ public class MemoryFeedAction : MonoBehaviour
     {
         bool empty = memoryFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 900;
+        loopValue.ItemSize = empty ? 2000 : 1082;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new MemoryUserData(memoryFeed.PostId, memoryFeed.PublicationDateTime, memoryFeed.ReactionCounts));
 
         if (empty)
