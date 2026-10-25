@@ -19,10 +19,6 @@ public class ImageVisionAction : MonoBehaviour
     [SerializeField]
     WebCamera webCamera = null;
 
-    [Title("Gallery")]
-    [SerializeField]
-    Vector2Int gallerySize = new Vector2Int(794, 560);
-
     [Title("Action")]
     [SerializeField]
     Button btnVision = null;
@@ -31,7 +27,7 @@ public class ImageVisionAction : MonoBehaviour
     [SerializeField]
     Page nextPage = null;
 
-    [Space]
+    [Title("Event")]
     [SerializeField]
     private ImageEvent onImageTaken = null;
     Page pagBack = null;
@@ -45,7 +41,7 @@ public class ImageVisionAction : MonoBehaviour
 
     public void SearchPhoto()
     {
-        GalleryDialog.Instance.Search(gallerySize, false, ApplyPhoto); // new Vector2(0.588f, 1.7f));  // new Vector2(0.625f, 1.6f));
+        GalleryDialog.Instance.Search(ApplyPhoto);
     }
 
     // Clear

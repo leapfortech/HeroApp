@@ -16,8 +16,6 @@ public class ImageEditorAction : MonoBehaviour
     GameObject gobEmpty = null;
     [SerializeField]
     Text txtMax = null;
-    [SerializeField]
-    GameObject gobDelete = null;
 
     [Space, Title("Images")]
     [SerializeField]
@@ -26,8 +24,6 @@ public class ImageEditorAction : MonoBehaviour
     String spriteName = "None";
     [SerializeField]
     ListScroller lstImage = null;
-    //[SerializeField]
-    //Text txtEmpty;
 
     [Title("Data")]
     [SerializeField]
@@ -58,7 +54,6 @@ public class ImageEditorAction : MonoBehaviour
         gobEmpty.gameObject.SetActive(!hasImages);
         btnAddFirst.gameObject.SetActive(!hasImages);
 
-        gobDelete.gameObject.SetActive(hasImages);
         imgDisplay.gameObject.SetActive(hasImages);
 
         btnAdd.gameObject.SetActive(vllImages.RecordCount < maxCount);
@@ -84,6 +79,9 @@ public class ImageEditorAction : MonoBehaviour
 
     public void AddImage(Texture2D image)
     {
+        if (image == null)
+            return;
+
         Sprite newSprite = image.CreateSprite($"Edt_{spriteName}_{vllImages.RecordCount + 1}");
 
         vllImages.AddRecord(newSprite);

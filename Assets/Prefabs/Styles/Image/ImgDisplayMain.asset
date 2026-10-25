@@ -1,0 +1,146 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da39ce696ab95824ea9721acb2aff629, type: 3}
+  m_Name: ImgDisplayMain
+  m_EditorClassIdentifier: Leap.UI.Elements::Leap.UI.Elements.Style
+  type: 7
+  states:
+  - stateName: Normal
+    index: 0
+    style: {fileID: 11400000}
+    floats:
+    - rid: 7896456368270082777
+    - rid: 7896456368270082778
+    - rid: 7896456368270082779
+    - rid: 7896456368270082780
+    - rid: 7896456368270082781
+    - rid: 7896456368270082782
+    - rid: 7896456368270082783
+    - rid: 7896456368270082784
+    DictFloats:
+      keys:
+      - 'O: Oversize'
+      - Width
+      - Height
+      - 'B: Width'
+      - 'C: TopLeft'
+      - 'C: TopRight'
+      - 'C: BottomLeft'
+      - 'C: BottomRight'
+      values:
+      - rid: 7896456368270082777
+      - rid: 7896456368270082778
+      - rid: 7896456368270082779
+      - rid: 7896456368270082780
+      - rid: 7896456368270082781
+      - rid: 7896456368270082782
+      - rid: 7896456368270082783
+      - rid: 7896456368270082784
+    colors:
+    - rid: 7896456368270082785
+    - rid: 7896456368270082786
+    DictColors:
+      keys:
+      - Color
+      - Border
+      values:
+      - rid: 7896456368270082785
+      - rid: 7896456368270082786
+    fonts: []
+    DictFonts:
+      keys: []
+      values: []
+    sprites:
+    - rid: 7896456368270082787
+    - rid: 7896456368270082788
+    DictSprites:
+      keys:
+      - Sprite
+      - Empty
+      values:
+      - rid: 7896456368270082787
+      - rid: 7896456368270082788
+  references:
+    version: 2
+    RefIds:
+    - rid: 7896456368270082777
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'O: Oversize'
+        ThemeProperty: 'O: Oversize'
+    - rid: 7896456368270082778
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Width
+        ThemeProperty: 'W: PanScan: Display'
+    - rid: 7896456368270082779
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Height
+        ThemeProperty: 'H: PanScan: Display'
+    - rid: 7896456368270082780
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'B: Width'
+        ThemeProperty: 'B: PanScan: Display'
+    - rid: 7896456368270082781
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopLeft'
+        ThemeProperty: 'C: PanScan: Display'
+    - rid: 7896456368270082782
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: TopRight'
+        ThemeProperty: 'C: PanScan: Display'
+    - rid: 7896456368270082783
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomLeft'
+        ThemeProperty: 'C: PanScan: Display'
+    - rid: 7896456368270082784
+      type: {class: StylePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: 'C: BottomRight'
+        ThemeProperty: 'C: PanScan: Display'
+    - rid: 7896456368270082785
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Color
+        ThemeProperty: 'Bkg: PanScan: Display'
+    - rid: 7896456368270082786
+      type: {class: StylePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Border
+        ThemeProperty: 'Border: PanScan: Display'
+    - rid: 7896456368270082787
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Sprite
+        ThemeProperty: 
+    - rid: 7896456368270082788
+      type: {class: StylePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        style: {fileID: 11400000}
+        ModelProperty: Empty
+        ThemeProperty: 
