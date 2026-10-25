@@ -245,25 +245,22 @@ public class MemoryFeedAction : MonoBehaviour
         if (empty)
             return;
 
-        String location = memoryFeed.Country;
-
-        if (!String.IsNullOrWhiteSpace(memoryFeed.State))
-            location += ", " + memoryFeed.State;
-
-        String date = memoryFeed.DateTime.Value.ToString("MMMM yyyy", CultureInfo.GetCultureInfo("es-GT"));
-
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, memoryFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{memoryFeed.Title}");
-        loopValue.SetText(2, $"{date}   <Size=80%><Color=#1C1C1C>{location}</Color>");
-        loopValue.SetText(3, $"<Size=80%>{FeedHelper.Instance.FormatCount(memoryFeed.ReactionCounts[0] + memoryFeed.ReactionCounts[1] + memoryFeed.ReactionCounts[2] + memoryFeed.ReactionCounts[3])} reacciones");
-        loopValue.SetText(4, memoryFeed.CommentCount == 0 ? "<Size=80%>Sin comentarios" : $"<Size=80%>{FeedHelper.Instance.FormatCount(memoryFeed.CommentCount)} comentarios");
+        loopValue.SetText(2, memoryFeed.DateTime.Value.ToString("MMMM yyyy", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(3, memoryFeed.MemoryType);
 
         for (int i = 0; i < 4; i++)
         {
-            loopValue.SetText(5 + i, $"{memoryFeed.ReactionCounts[i]}");
+            loopValue.SetText(4 + i, $"{memoryFeed.ReactionCounts[i]}");
             loopValue.SetCheck(i, memoryFeed.ReactionPhraseId == i + 1);
         }
+
+        loopValue.SetText(8, memoryFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(memoryFeed.CommentCount)} {(memoryFeed.CommentCount == 1 ? "comentario" : "comentarios")}");
+
+        int reactionCount = memoryFeed.ReactionCounts[0] + memoryFeed.ReactionCounts[1] + memoryFeed.ReactionCounts[2] + memoryFeed.ReactionCounts[3];
+        loopValue.SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
     }
 
     public void SelectValue(int idx)
@@ -329,6 +326,7 @@ public class MemoryFeedAction : MonoBehaviour
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
         MemoryUserData userData;
 
+        int reactionCount = 0;
         for (int i = 0; i < 4; i++)
             if (loopValue.GetCheck(i))
             {
@@ -336,10 +334,12 @@ public class MemoryFeedAction : MonoBehaviour
                 memoryService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(5 + i, $"{userData.ReactionCounts[i]}");
+                loopValue.SetText(4 + i, $"{userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
-                loopValue.SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+                reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+                loopValue.SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
                 loopFeed.RefreshVisibleValues();
                 //break;
             }
@@ -351,10 +351,12 @@ public class MemoryFeedAction : MonoBehaviour
         memoryService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(5 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(4 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
-        loopValue.SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+        loopValue.SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
         loopFeed.RefreshVisibleValues();
     }
 
@@ -369,7 +371,7 @@ public class MemoryFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[previousIndex]--;
 
-            loopFeed[selectedIdx].SetText(5 + previousIndex, $"{userData.ReactionCounts[previousIndex]}");
+            loopFeed[selectedIdx].SetText(4 + previousIndex, $"{userData.ReactionCounts[previousIndex]}");
             loopFeed[selectedIdx].SetCheck(previousIndex, false);
         }
 
@@ -377,11 +379,12 @@ public class MemoryFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[newIndex]++;
 
-            loopFeed[selectedIdx].SetText(5 + newIndex, $"{userData.ReactionCounts[newIndex]}");
+            loopFeed[selectedIdx].SetText(4 + newIndex, $"{userData.ReactionCounts[newIndex]}");
             loopFeed[selectedIdx].SetCheck(newIndex, true);
         }
 
-        loopFeed[selectedIdx].SetText(3, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        int reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+        loopFeed[selectedIdx].SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
 
         loopFeed.RefreshVisibleValues();
     }

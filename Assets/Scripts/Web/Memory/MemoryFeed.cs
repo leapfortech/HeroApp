@@ -17,6 +17,7 @@ public class MemoryFeed
     public String Country { get; set; }
     public String State { get; set; }
     public DateTime? DateTime { get; set; }
+    public String MemoryType { get; set; }
     public int[] ReactionCounts { get; set; }
     public long ReactionPhraseId { get; set; }
     public int CommentCount { get; set; }
@@ -28,7 +29,7 @@ public class MemoryFeed
     }
 
     public MemoryFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string country, string state,
-                      DateTime? dateTime, int[] reactionCounts, long reactionPhraseId, int commentCount, DateTime publicationDateTime)
+                      DateTime? dateTime, String memoryType, int[] reactionCounts, long reactionPhraseId, int commentCount, DateTime publicationDateTime)
     {
         Id = id;
         PostId = postId;
@@ -38,6 +39,7 @@ public class MemoryFeed
         Country = country;
         State = state;
         DateTime = dateTime;
+        MemoryType = memoryType;
         ReactionCounts = reactionCounts;
         ReactionPhraseId = reactionPhraseId;
         CommentCount = commentCount;

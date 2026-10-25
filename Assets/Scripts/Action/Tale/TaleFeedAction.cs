@@ -275,8 +275,11 @@ public class TaleFeedAction : MonoBehaviour
             loopValue.SetCheck(i, taleFeed.ReactionPhraseId == i + 1);
         }
 
-        loopValue.SetText(11, $"{taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3]} reacciones");
-        loopValue.SetText(12, taleFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
+        
+        loopValue.SetText(11, taleFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
+
+        int reactionCount = taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3];
+        loopValue.SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
     }
 
     public void SelectValue(int idx)
@@ -350,6 +353,7 @@ public class TaleFeedAction : MonoBehaviour
         LoopScrollerValue loopValue = loopFeed[selectedIdx];
         TaleUserData userData;
 
+        int reactionCount = 0;
         for (int i = 0; i < 4; i++)
             if (loopValue.GetCheck(i))
             {
@@ -360,7 +364,9 @@ public class TaleFeedAction : MonoBehaviour
                 loopValue.SetText(7 + i, $"{userData.ReactionCounts[i]}");
                 loopValue.SetCheck(i, false);
 
-                loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+                reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+                loopValue.SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
                 loopFeed.RefreshVisibleValues();
                 //break;
             }
@@ -375,7 +381,9 @@ public class TaleFeedAction : MonoBehaviour
         loopValue.SetText(7 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
-        loopValue.SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+        loopValue.SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
         loopFeed.RefreshVisibleValues();
     }
 
@@ -402,7 +410,8 @@ public class TaleFeedAction : MonoBehaviour
             loopFeed[selectedIdx].SetCheck(newIndex, true);
         }
 
-        loopFeed[selectedIdx].SetText(5, $"<Size=80%>{userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3]} reacciones");
+        int reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
+        loopFeed[selectedIdx].SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
 
         loopFeed.RefreshVisibleValues();
     }
