@@ -9,7 +9,6 @@ using Leap.Data.Collections;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
-using Leap.UI.Extensions;
 
 using Sirenix.OdinInspector;
 
@@ -19,6 +18,10 @@ public class ProductFeedAction : MonoBehaviour
     [Title("Feed")]
     [SerializeField]
     ToggleGroup tggLocalityFavorite = null;
+    [SerializeField]
+    Text lblLocality = null;
+    [SerializeField]
+    Text txtLocality = null;
     [SerializeField]
     int feedCount = 20;
 
@@ -37,8 +40,8 @@ public class ProductFeedAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     ValueList vllCountry = null;
-    //[SerializeField]
-    //ValueList vllState = null;
+    [SerializeField]
+    ValueList vllState = null;
 
     [Title("Errors")]
     [SerializeField]
@@ -97,6 +100,27 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
+        if (txtLocality != null)
+        {
+            if (tggLocalityFavorite.Value == "0")
+            {
+                lblLocality.TextValue = "Productos cerca de ti en:";
+                txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, "Name")
+                                                                                            : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, "Name");
+            }
+            else if (tggLocalityFavorite.Value == "1")
+            {
+                lblLocality.TextValue = "Productos de tu tierra en:";
+                txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, "Name")
+                                                                                             : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, "Name");
+            }
+            else
+            {
+                lblLocality.TextValue = "Productos favoritos";
+                txtLocality.TextValue = "De todas las localidades";
+            }
+        }
+
         if (!MustReset && !force)
             return;
 
@@ -137,8 +161,8 @@ public class ProductFeedAction : MonoBehaviour
 
             PostTypeId = PostType.Product,
             AppUserId = appUserId,
-            CountryId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId,
-            StateId = appUserId != -1 ? -1 : interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId,
+            CountryId = interestLocality == 1 ? StateManager.Instance.InterestLocality.CountryId : interestLocality == 0 ? StateManager.Instance.CurrentLocality.CountryId : -1,
+            StateId = interestLocality == 1 ? StateManager.Instance.InterestLocality.StateId : interestLocality == 0 ? StateManager.Instance.CurrentLocality.StateId: -1,
             Status = 1,
 
             ProductTypeIds = typeIds,
@@ -301,31 +325,38 @@ public class ProductFeedAction : MonoBehaviour
 
     long favoriteAppUserId = -1;
 
-    public void ApplyAppUserFavorite()
-    {
-        favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
+    //public void ApplyAppUserFavorite()
+    //{
+    //    favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
 
-        ResetPosts(true);
-    }
+    //    ResetPosts(true);
+    //}
 
     // Locality
 
-    bool interestLocality = true;
+    int interestLocality = -1;
 
-    public void ApplyLocality()
+    public void ApplyLocalityFavorite()
     {
-        interestLocality = tggLocalityFavorite.Value == "1";
+        favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
+
+        if (tggLocalityFavorite.Value == "2")
+            interestLocality = -1;
+        else if (tggLocalityFavorite.Value == "1")
+            interestLocality = 1;
+        else
+            interestLocality = 0;
 
         ResetPosts(true);
 
-        onLocalityRefreshed.Invoke(interestLocality);
+        onLocalityRefreshed.Invoke(interestLocality == 1);
     }
 
-    public void ChangeLocality(bool isInterest)
-    {
-        if (isInterest == interestLocality)
-            MustReset = true;
-    }
+    //public void ChangeLocality(bool isInterest)
+    //{
+    //    if (isInterest == interestLocality)
+    //        MustReset = true;
+    //}
 
     // Open
 
