@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.Events;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
-using Leap.Graphics.Tools;
 
 using Sirenix.OdinInspector;
 
@@ -18,6 +18,8 @@ public class ProductRegisterAction : MonoBehaviour
     [Space, SerializeField]
     InputField ifdPrice = null;
     [SerializeField]
+    Toggle tglDiscountPrice = null;
+    [SerializeField]
     InputField ifdDiscountPrice = null;
 
     [Title("Data")]
@@ -25,13 +27,15 @@ public class ProductRegisterAction : MonoBehaviour
     DataMapper dtmProductFull = null;
 
     [SerializeField]
+    Toggle tglHasContact = null;
+    [SerializeField]
+    Toggle tglHasPhone = null;
+    [SerializeField]
+    Toggle tglHasWhatsApp = null;
+    [SerializeField]
+    Toggle tglHasEmail = null;
+    [SerializeField]
     DataMapper dtmContact = null;
-    [SerializeField]
-    DataMapper dtmHasPhone = null;
-    [SerializeField]
-    DataMapper dtmHasWhatsApp = null;
-    [SerializeField]
-    DataMapper dtmHasEmail = null;
     [SerializeField]
     DataMapper dtmPhone = null;
     [SerializeField]
@@ -45,6 +49,10 @@ public class ProductRegisterAction : MonoBehaviour
     [Title("Action")]
     [SerializeField]
     Button btnRegister = null;
+
+    [Title("Events")]
+    [SerializeField]
+    UnityEvent onCleared = null;
 
     [Title("Page")]
     [SerializeField]
@@ -65,20 +73,12 @@ public class ProductRegisterAction : MonoBehaviour
     public void Clear()
     {
         dtmProductFull.ClearElements();
-
-        dtmContact.ClearElements();
-        dtmPhone.ClearElements();
-        dtmWhatsApp.ClearElements();
-        dtmEmail.ClearElements();
-
         dtmImagesVLL.ClearElements();
-    }
 
-    public void ClearContact()
-    {
-        dtmHasPhone.PopulateBuiltIn<String>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
-        dtmHasEmail.PopulateBuiltIn<String>("0");
+        tglDiscountPrice.Checked = false;
+        tglHasContact.Checked = true;
+
+        onCleared.Invoke();
     }
 
     private void Register()
@@ -99,44 +99,54 @@ public class ProductRegisterAction : MonoBehaviour
         productFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
         productFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
+        // Contact
         productFull.ContactFull = dtmContact.BuildClass<ContactFull>();
 
         productFull.LinkFulls = new();
 
-        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
-        if (hasPhone == "1")
-        { 
+        bool hasContact = tglHasContact.Checked;
+
+        bool hasPhone = tglHasPhone.Checked;
+        if (hasPhone)
+        {
             Phone phone = dtmPhone.BuildClass<Phone>();
-            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+            if (phone != null && !String.IsNullOrWhiteSpace(phone.PhoneNumber))
                 productFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
-        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
+        bool hasWhatsApp = tglHasWhatsApp.Checked;
 
-        if (hasWhatsApp == "1")
+        if (hasWhatsApp)
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+            if (whatsApp != null && !String.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
                 productFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
-        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
-        if (hasEmail == "1")
+        bool hasEmail = tglHasEmail.Checked;
+        if (hasEmail)
         {
             LinkFull email = dtmEmail.BuildClass<LinkFull>();
-            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
+            if (email != null && !String.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
                 productFull.LinkFulls.Add(email);
             }
         }
 
-        if (productFull.LinkFulls.Count == 0)
-        {
-            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
-            return;
-        }
+        //if (hasContact && productFull.LinkFulls.Count == 0)
+        //{
+        //    ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+        //    return;
+        //}
 
+        //if (!hasContact)
+        //{
+        //    productFull.ContactFull = null;
+        //    productFull.LinkFulls = null;
+        //}
+
+        // Images
         productFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         productService.Register(productFull);

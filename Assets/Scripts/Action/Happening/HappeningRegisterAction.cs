@@ -121,8 +121,6 @@ public class HappeningRegisterAction : MonoBehaviour
         happeningFull.PostCountryId = StateManager.Instance.CurrentLocality.CountryId;
         happeningFull.PostStateId = StateManager.Instance.CurrentLocality.StateId;
 
-        happeningFull.ContactFull = dtmContact.BuildClass<ContactFull>();
-
         if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
         {
             String startTimeStr = dtmStartTime.BuildBuiltIn<String>();
@@ -146,6 +144,9 @@ public class HappeningRegisterAction : MonoBehaviour
         happeningFull.HasSignup = tglHasSignup.Checked ? 1 : 0;
         happeningFull.HasPayment = tglHasPayment.Checked ? 1 : 0;
 
+        // Contact
+        happeningFull.ContactFull = dtmContact.BuildClass<ContactFull>();
+
         happeningFull.LinkFulls = new();
 
         bool hasContact = tglHasContact.Checked;
@@ -154,7 +155,7 @@ public class HappeningRegisterAction : MonoBehaviour
         if (hasPhone)
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
-            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
+            if (phone != null && !String.IsNullOrWhiteSpace(phone.PhoneNumber))
                 happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.Phone, 0, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
@@ -163,7 +164,7 @@ public class HappeningRegisterAction : MonoBehaviour
         if (hasWhatsApp)
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+            if (whatsApp != null && !String.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
                 happeningFull.LinkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, 0, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
@@ -190,6 +191,7 @@ public class HappeningRegisterAction : MonoBehaviour
             happeningFull.LinkFulls = null;
         }
 
+        // Images
         happeningFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
         ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(happeningFull), null, "De acuerdo", "Regresar");
