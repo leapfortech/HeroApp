@@ -30,14 +30,31 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtPrice = null;
     [SerializeField]
-    Text txtDiscountPrice = null;
-
+    GameObject gobDiscountPrice = null;
     [SerializeField]
-    Text txtContactName = null;
+    Text txtDiscountPrice = null;
+    [SerializeField]
+    Text txtDate = null;
+    [SerializeField]
+    Text txtLocation = null;
+
+    [Space, Title("AppUser")]
+    [SerializeField]
+    Text txtAlias = null;
+    [SerializeField]
+    Image imgThumbnail = null;
     [SerializeField]
     Text txtCurrentLocation = null;
     [SerializeField]
     Text txtInterestLocation = null;
+
+    [SerializeField]
+    RectTransform rtfContact = null;
+    [SerializeField]
+    GameObject gobContactDetails = null;
+
+    [SerializeField]
+    Text txtContactName = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -64,6 +81,8 @@ public class ProductDetailAction : MonoBehaviour
     [Space, Title("Actions")]
     [SerializeField]
     Button btnDelete = null;
+    [SerializeField]
+    Button btnContact = null;
     [SerializeField]
     Button btnPhone = null;
     [SerializeField]
@@ -100,7 +119,8 @@ public class ProductDetailAction : MonoBehaviour
 
     long postId = -1;
     String phone = "", whatsapp = "", email = "";
-    float contentInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, contactInitialHeight = 0.0f;
+    bool isRefresh = false;
     ProductFull productFull = null;
 
     private void Awake()
@@ -111,12 +131,17 @@ public class ProductDetailAction : MonoBehaviour
 
     private void Start()
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
         RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
+        
+        contactInitialHeight = rtfContact.sizeDelta.y;
+
         contentInitialHeight = content.sizeDelta.y
                                - txtDescription.TextHeight
+                               - contactInitialHeight
                                - rtfAdmin.sizeDelta.y;
 
+        btnContact?.AddAction(OpenContact);
         btnPhone?.AddAction(OpenPhone);
         btnWhatsApp?.AddAction(OpenWhatsApp);
         btnEmail?.AddAction(OpenEmail);
@@ -131,8 +156,18 @@ public class ProductDetailAction : MonoBehaviour
 
     public void Display(long postId)
     {
+        isRefresh = false;
         ScreenDialog.Instance.Display();
         productService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+    }
+
+    public bool Refresh()
+    {
+        isRefresh = true;
+        ScreenDialog.Instance.Display();
+        productService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
+
+        return false;
     }
 
     public void ApplyFull(ProductFull productFull)
@@ -143,7 +178,10 @@ public class ProductDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
+        float deltaY = txtTitle.TextHeight;
+
         txtDescription.TextValue = String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description;
+        deltaY += txtDescription.TextHeight;
 
         // Product
         txtProductSubtype.TextValue = vllProductSubtype.FindRecordCellString(productFull.ProductSubtypeId, "Name");
@@ -152,10 +190,22 @@ public class ProductDetailAction : MonoBehaviour
         String state = productFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(productFull.PostStateId, "Name");
 
         String currencySymbol = vllCurrency.FindRecordCellString(productFull.CurrencyId, "Symbol");
-        txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
-        txtDiscountPrice.TextValue = productFull.DiscountPrice <= 0d ? "-" : currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
 
-        txtContactName.TextValue = String.IsNullOrEmpty(productFull.ContactFull.Name) ? "-" : productFull.ContactFull.Name;
+        gobDiscountPrice.SetActive(productFull.DiscountPrice > 0d);
+        if (productFull.DiscountPrice > 0d)
+        {
+            txtPrice.TextValue = currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
+            txtDiscountPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
+        }
+        else
+            txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
+
+        txtDate.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy");
+        txtLocation.TextValue = vllCountry.FindRecordCellString(productFull.SaleCountryId, "Name") + (productFull.SaleStateId != -1 ? ", " + vllState.FindRecordCellString(productFull.SaleStateId, "Name") : "");
+
+        // AppUserInfo
+        txtAlias.TextValue = productFull.AppUserInfo.Alias;
+        imgThumbnail.Sprite = productFull.AppUserInfo.ThumbnailSprite;
 
         String currCountry = productFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(productFull.AppUserInfo.CurrentLocality.CountryId, "Name");
         String currState = productFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(productFull.AppUserInfo.CurrentLocality.StateId, "Name");
@@ -165,46 +215,88 @@ public class ProductDetailAction : MonoBehaviour
         String intState = productFull.AppUserInfo.InterestLocality.StateId == -1 ? "" : vllState.FindRecordCellString(productFull.AppUserInfo.InterestLocality.StateId, "Name");
         String intCity = productFull.AppUserInfo.InterestLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(productFull.AppUserInfo.InterestLocality.CityId, "Name");
 
-        String currentLocation = currCountry + (String.IsNullOrWhiteSpace(currState) ? "" : ", " + currState) + (String.IsNullOrWhiteSpace(currCity) ? "" : ", " + currCity);
-        String interestLocation = intCountry + (String.IsNullOrWhiteSpace(intState) ? "" : ", " + intState) + (String.IsNullOrWhiteSpace(intCity) ? "" : ", " + intCity);
+        String currentLocation = !String.IsNullOrWhiteSpace(currCity) ? currCity : !String.IsNullOrWhiteSpace(currState) ? currState : currCountry;
+        String interestLocation = !String.IsNullOrWhiteSpace(intCity) ? intCity : !String.IsNullOrWhiteSpace(intState) ? intState : intCountry;
 
-        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en: " + currentLocation;
-        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de: " + interestLocation;
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en: " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de: " + interestLocation;
+
+        // Contact
+        bool hasContact = productFull.ContactFull != null && !String.IsNullOrWhiteSpace(productFull.ContactFull.Name);
+
+        gobContactDetails.SetActive(hasContact);
+        txtContactName.TextValue = hasContact ? productFull.ContactFull.Name : "";
 
         phone = "";
         whatsapp = "";
         email = "";
 
-        for (int i = 0; i < productFull.LinkFulls.Count; i++)
+        btnPhone.gameObject.SetActive(false);
+        btnWhatsApp.gameObject.SetActive(false);
+        btnEmail.gameObject.SetActive(false);
+
+        float offset = 0f;
+
+        Vector2 initialPosition = btnPhone.GetComponent<RectTransform>().anchoredPosition;
+
+        if (productFull.LinkFulls != null)
         {
-            String url = productFull.LinkFulls[i].Url;
-
-            if (String.IsNullOrWhiteSpace(url))
-                continue;
-
-            String[] split = url.Split('|');
-
-            if (productFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+            for (int i = 0; i < productFull.LinkFulls.Count; i++)
             {
-                phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
-                btnPhone.Title = phone;
-            }
-            else if (productFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
-            {
-                whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
-                btnWhatsApp.Title = whatsapp;
-            }
-            else if (productFull.LinkFulls[i].LinkTypeId == 4)
-            {
-                email = url;
-                btnEmail.Title = email;
+                String url = productFull.LinkFulls[i].Url;
+
+                if (String.IsNullOrWhiteSpace(url))
+                    continue;
+
+                String[] split = url.Split('|');
+                GameObject buttonObject = null;
+
+                if (productFull.LinkFulls[i].LinkTypeId == 2 && split.Length > 1)
+                {
+                    phone = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+
+                    btnPhone.Title = phone;
+                    buttonObject = btnPhone.gameObject;
+                }
+                else if (productFull.LinkFulls[i].LinkTypeId == 3 && split.Length > 1)
+                {
+                    whatsapp = vllCountry.FindRecordCellString(Convert.ToInt64(split[0]), "PhonePrefix") + split[1];
+
+                    btnWhatsApp.Title = whatsapp;
+                    buttonObject = btnWhatsApp.gameObject;
+                }
+                else if (productFull.LinkFulls[i].LinkTypeId == 4)
+                {
+                    email = url;
+                    btnEmail.Title = email;
+                    buttonObject = btnEmail.gameObject;
+                }
+
+                if (buttonObject != null && !buttonObject.activeSelf)
+                {
+                    RectTransform rect = buttonObject.GetComponent<RectTransform>();
+                    rect.anchoredPosition = initialPosition - new Vector2(0f, offset);
+
+                    buttonObject.SetActive(true);
+                    offset += btnPhone.GetComponent<RectTransform>().sizeDelta.y;
+                }
             }
         }
 
-        btnPhone.Interactable = phone.Length != 0;
-        btnWhatsApp.Interactable = whatsapp.Length != 0;
-        btnEmail.Interactable = email.Length != 0;
+        if (hasContact)
+        {
+            offset += contactInitialHeight;
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, offset);
+            deltaY += offset;
+        }
+        else
+            rtfContact.sizeDelta = new Vector2(rtfContact.sizeDelta.x, 0f);
 
+        btnPhone.gameObject.SetActive(phone.Length != 0);
+        btnWhatsApp.gameObject.SetActive(whatsapp.Length != 0);
+        btnEmail.gameObject.SetActive(email.Length != 0);
+
+        // Images
         onImagesDisplay.Invoke(productFull.ImageSprites);
 
         // Actions
@@ -216,11 +308,10 @@ public class ProductDetailAction : MonoBehaviour
         // Admin
         gobAdmin.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
 
-        // WIP
-        //if (productFull.AppUserId == StateManager.Instance.AppUser.Id)
-            //deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        if (productFull.AppUserId == StateManager.Instance.AppUser.Id)
+            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
 
-        RefreshContents();
+        RefreshContents(deltaY);
 
         PageManager.Instance.ChangePage(pagDetail);
     }
@@ -270,13 +361,24 @@ public class ProductDetailAction : MonoBehaviour
 
     //
 
-    private void RefreshContents()
+    private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtDescription.transform.parent.GetComponent<RectTransform>();
+        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
 
-        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + txtDescription.TextHeight + contentPadding);
+        content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
-        scrollRect.verticalNormalizedPosition = 1f;
+        if (!isRefresh)
+            scrollRect.verticalNormalizedPosition = 1f;
+    }
+
+    private void OpenContact()
+    {
+        if (!String.IsNullOrWhiteSpace(phone))
+            OpenPhone();
+        else if (!String.IsNullOrWhiteSpace(whatsapp))
+            OpenWhatsApp();
+        else if (!String.IsNullOrWhiteSpace(email))
+            OpenEmail();
     }
 
     private void OpenPhone()

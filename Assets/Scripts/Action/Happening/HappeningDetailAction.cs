@@ -309,6 +309,8 @@ public class HappeningDetailAction : MonoBehaviour
         btnWhatsApp.gameObject.SetActive(whatsapp.Length != 0);
         btnEmail.gameObject.SetActive(email.Length != 0);
 
+        // Images
+
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
         // Actions

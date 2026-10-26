@@ -183,30 +183,13 @@ public class TaleDetailAction : MonoBehaviour
 
         postId = taleFull.PostId;
 
-        imgThumbnail.Sprite = taleFull.AppUserInfo.ThumbnailSprite;
-
         reactionCounts = (int[])taleFull.ReactionCounts.Clone();
         currentReactionPhraseId = taleFull.ReactionPhraseId;
 
         // Post
-        txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
         txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
-
-        String currCountry = taleFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CountryId, "Name");
-        String currState = taleFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.StateId, "Name");
-        String currCity = taleFull.AppUserInfo.CurrentLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CityId, "Name");
-
-        String intCountry = taleFull.AppUserInfo.InterestLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CountryId, "Name");
-        String intState = taleFull.AppUserInfo.InterestLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.StateId, "Name");
-        String intCity = taleFull.AppUserInfo.InterestLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CityId, "Name");
-
-        String currentLocation = currCountry + (String.IsNullOrWhiteSpace(currState) ? "" : ", " + currState) + (String.IsNullOrWhiteSpace(currCity) ? "" : ", " + currCity);
-        String interestLocation = intCountry + (String.IsNullOrWhiteSpace(intState) ? "" : ", " + intState) + (String.IsNullOrWhiteSpace(intCity) ? "" : ", " + intCity);
-
-        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currCountry + currState + currCity) ? "" : "Vive en " + currentLocation;
-        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(intCountry + intState + intCity) ? "" : "Originario de " + interestLocation;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
         txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
@@ -218,6 +201,24 @@ public class TaleDetailAction : MonoBehaviour
         String state = vllState.FindRecordCellString(taleFull.PostStateId, "Name");
 
         txtLocation.TextValue = country + (String.IsNullOrWhiteSpace(state) ? "" : ", " + state);
+
+        // AppUserInfo
+        txtAlias.TextValue = $"@{taleFull.AppUserAlias}";
+        imgThumbnail.Sprite = taleFull.AppUserInfo.ThumbnailSprite;
+
+        String currCountry = taleFull.AppUserInfo.CurrentLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CountryId, "Name");
+        String currState = taleFull.AppUserInfo.CurrentLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.StateId, "Name");
+        String currCity = taleFull.AppUserInfo.CurrentLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.CurrentLocality.CityId, "Name");
+
+        String intCountry = taleFull.AppUserInfo.InterestLocality.CountryId == -1 ? "" : vllCountry.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CountryId, "Name");
+        String intState = taleFull.AppUserInfo.InterestLocality.StateId == -1 ? "" : vllState.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.StateId, "Name");
+        String intCity = taleFull.AppUserInfo.InterestLocality.CityId == -1 ? "" : vllCity.FindRecordCellString(taleFull.AppUserInfo.InterestLocality.CityId, "Name");
+
+        String currentLocation = !String.IsNullOrWhiteSpace(currCity) ? currCity : !String.IsNullOrWhiteSpace(currState) ? currState : currCountry;
+        String interestLocation = !String.IsNullOrWhiteSpace(intCity) ? intCity : !String.IsNullOrWhiteSpace(intState) ? intState : intCountry;
+
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en: " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de: " + interestLocation;
 
         DisplayReactionsCount();
 
