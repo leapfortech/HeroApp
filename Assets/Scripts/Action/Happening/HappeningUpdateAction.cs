@@ -178,6 +178,7 @@ public class HappeningUpdateAction : MonoBehaviour
             }
         }
 
+        // Images
         for (int i = 0; i < happeningFull.ImageSprites.Count; i++)
             vllImages.AddRecord(happeningFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Happening]}_{i}"));
 

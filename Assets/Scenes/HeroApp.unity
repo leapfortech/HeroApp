@@ -15470,13 +15470,14 @@ MonoBehaviour:
   - {fileID: 681840358}
   - {fileID: 685447421}
   ifdPrice: {fileID: 148649859}
+  tglDiscountPrice: {fileID: 2062022543}
   ifdDiscountPrice: {fileID: 916562036}
   dtmProductFull: {fileID: 2084750799}
-  dtmHasDiscountPrice: {fileID: 1618318475}
+  tglHasContact: {fileID: 1502001782}
+  tglHasPhone: {fileID: 216524348}
+  tglHasWhatsApp: {fileID: 1386984514}
+  tglHasEmail: {fileID: 438779336}
   dtmContact: {fileID: 1652974846}
-  dtmHasPhone: {fileID: 0}
-  dtmHasWhatsApp: {fileID: 0}
-  dtmHasEmail: {fileID: 0}
   dtmPhone: {fileID: 539009187}
   dtmWhatsApp: {fileID: 1459188955}
   dtmEmail: {fileID: 1507860496}
@@ -15520,6 +15521,33 @@ MonoBehaviour:
       - m_Target: {fileID: 1775286319}
         m_TargetAssemblyTypeName: TextChangeAction, Assembly-CSharp
         m_MethodName: Display
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1780738508}
+        m_TargetAssemblyTypeName: ElmDependencyAction, Assembly-CSharp
+        m_MethodName: Activate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onContactChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 686929782}
+        m_TargetAssemblyTypeName: ContactAction, Assembly-CSharp
+        m_MethodName: RefreshElements
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -279487,7 +279515,6 @@ Transform:
   - {fileID: 1908482933}
   - {fileID: 739224058}
   - {fileID: 2084750798}
-  - {fileID: 1618318476}
   - {fileID: 1652974847}
   - {fileID: 539009188}
   - {fileID: 1459188956}
@@ -525471,85 +525498,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1594617360122771297, guid: 8f5d007ed0da98348a4c8cbd5c05e56b, type: 3}
   m_PrefabInstance: {fileID: 1618150639}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1618318474
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1618318476}
-  - component: {fileID: 1618318475}
-  m_Layer: 0
-  m_Name: DtmHasDiscountPrice
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &1618318475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618318474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 487f5b9686e8f7f42a33c6f43e612d28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Leap.Data.Mapper::Leap.Data.Mapper.DataMapper
-  dataMapping:
-    dataMapType: 1
-    dataBuiltInTarget: System.String
-    dataClassTarget: {fileID: 0}
-    dataBuildInMap:
-      rid: 7676932719626682394
-    dataClassMap:
-      rid: -2
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7676932719626682394
-      type: {class: DataBuiltInMap, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: String
-          FieldTypeName: System.String
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 7676932719626682395
-          ItemIdx: -1
-    - rid: 7676932719626682395
-      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: String
-          FieldTypeName: System.String
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 7676932719626682395
-          ItemIdx: -1
-        NeedsItem: 0
-        elementValue: {fileID: 0}
---- !u!4 &1618318476
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618318474}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 894932382}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1618518854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -683688,7 +683636,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2110063318}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
   m_Name: 

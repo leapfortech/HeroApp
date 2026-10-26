@@ -23,22 +23,25 @@ public class ProductUpdateAction : MonoBehaviour
     [Space, SerializeField]
     InputField ifdPrice = null;
     [SerializeField]
+    Toggle tglDiscountPrice = null;
+    [SerializeField]
     InputField ifdDiscountPrice = null;
 
     [Title("Data")]
     [SerializeField]
     DataMapper dtmProductFull = null;
+
     [SerializeField]
-    DataMapper dtmHasDiscountPrice = null;
+    Toggle tglHasContact = null;
+    [SerializeField]
+    Toggle tglHasPhone = null;
+    [SerializeField]
+    Toggle tglHasWhatsApp = null;
+    [SerializeField]
+    Toggle tglHasEmail = null;
 
     [SerializeField]
     DataMapper dtmContact = null;
-    [SerializeField]
-    DataMapper dtmHasPhone = null;
-    [SerializeField]
-    DataMapper dtmHasWhatsApp = null;
-    [SerializeField]
-    DataMapper dtmHasEmail = null;
     [SerializeField]
     DataMapper dtmPhone = null;
     [SerializeField]
@@ -62,6 +65,8 @@ public class ProductUpdateAction : MonoBehaviour
     ProductFeedEvent[] onProductChanged = null;
     [Space, SerializeField]
     UnityEvent onPopulated = null;
+    [Space, SerializeField]
+    UnityEvent onContactChanged = null;
 
     ProductService productService = null;
 
@@ -97,16 +102,24 @@ public class ProductUpdateAction : MonoBehaviour
 
         this.productFull = productFull;
 
-        dtmHasDiscountPrice.PopulateBuiltIn<String>(productFull.DiscountPrice == 0.0f ? "0" : "1");
-
         dtmProductFull.PopulateClass<ProductFull>(productFull);
 
-        if (productFull.ContactFull != null)
-            dtmContact.PopulateClass<ContactFull>(productFull.ContactFull);
+        tglDiscountPrice.Checked = this.productFull.DiscountPrice > 0d;
 
-        dtmHasPhone.PopulateBuiltIn<String>("0");
-        dtmHasWhatsApp.PopulateBuiltIn<String>("0");
-        dtmHasEmail.PopulateBuiltIn<String>("0");
+        // Contact
+
+        if (productFull.ContactFull != null)
+        {
+            tglHasContact.Checked = true;
+            onContactChanged.Invoke();
+
+            dtmContact.PopulateClass<ContactFull>(productFull.ContactFull);
+        }
+        else
+        {
+            tglHasContact.Checked = false;
+            onContactChanged.Invoke();
+        }
 
         if (productFull.LinkFulls != null)
         {
@@ -119,7 +132,8 @@ public class ProductUpdateAction : MonoBehaviour
                 // Phone
                 if (linkFull.LinkTypeId == 2)
                 {
-                    dtmHasPhone.PopulateBuiltIn<String>("1");
+                    tglHasPhone.Checked = true;
+                    onContactChanged.Invoke();
 
                     String[] phoneStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                     if (phoneStr.Length >= 2)
@@ -130,7 +144,8 @@ public class ProductUpdateAction : MonoBehaviour
                 // WhatsApp
                 if (linkFull.LinkTypeId == 3)
                 {
-                    dtmHasWhatsApp.PopulateBuiltIn<String>("1");
+                    tglHasWhatsApp.Checked = true;
+                    onContactChanged.Invoke();
 
                     String[] whatsAppStr = linkFull.Url.Split('|', StringSplitOptions.RemoveEmptyEntries);
                     if (whatsAppStr.Length >= 2)
@@ -141,13 +156,16 @@ public class ProductUpdateAction : MonoBehaviour
                 // Email
                 if (linkFull.LinkTypeId == 4)
                 {
-                    dtmHasEmail.PopulateBuiltIn<String>("1");
+                    tglHasEmail.Checked = true;
+                    onContactChanged.Invoke();
+
                     dtmEmail.PopulateClass<LinkFull>(linkFull);
                     continue;
                 }
             }
         }
 
+        // Images
         for (int i = 0; i < productFull.ImageSprites.Count; i++)
             vllImages.AddRecord(productFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Product]}_{i}"));
 
@@ -167,27 +185,24 @@ public class ProductUpdateAction : MonoBehaviour
 
         List<LinkFull> linkFulls = new();
 
-        String hasPhone = dtmHasPhone.BuildBuiltIn<String>();
-        if (hasPhone == "1")
+        if (tglHasPhone.Checked)
         {
             Phone phone = dtmPhone.BuildClass<Phone>();
-            if (phone != null && !String.IsNullOrWhiteSpace(phone.PhoneNumber))
+            if (phone != null && !string.IsNullOrWhiteSpace(phone.PhoneNumber))
                 linkFulls.Add(new LinkFull(0, (long)LinkType.Phone, productFull.PostId, $"{phone.PhoneCountryId}|{phone.PhoneNumber}", 0));
         }
 
-        String hasWhatsApp = dtmHasWhatsApp.BuildBuiltIn<String>();
-        if (hasWhatsApp == "1")
+        if (tglHasWhatsApp.Checked)
         {
             Phone whatsApp = dtmWhatsApp.BuildClass<Phone>();
-            if (whatsApp != null && !String.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
+            if (whatsApp != null && !string.IsNullOrWhiteSpace(whatsApp.PhoneNumber))
                 linkFulls.Add(new LinkFull(0, (long)LinkType.WhatsApp, productFull.PostId, $"{whatsApp.PhoneCountryId}|{whatsApp.PhoneNumber}", 0));
         }
 
-        String hasEmail = dtmHasEmail.BuildBuiltIn<String>();
-        if (hasEmail == "1")
+        if (tglHasEmail.Checked)
         {
             LinkFull email = dtmEmail.BuildClass<LinkFull>();
-            if (email != null && !String.IsNullOrWhiteSpace(email.Url))
+            if (email != null && !string.IsNullOrWhiteSpace(email.Url))
             {
                 email.LinkTypeId = (long)LinkType.Email;
                 email.PostId = productFull.PostId;
@@ -195,7 +210,7 @@ public class ProductUpdateAction : MonoBehaviour
             }
         }
 
-        if (linkFulls.Count == 0)
+        if (tglHasContact.Checked && linkFulls.Count == 0)
         {
             ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
             return;
@@ -205,9 +220,27 @@ public class ProductUpdateAction : MonoBehaviour
 
         productFull.Update(dtmProductFull.BuildClass<ProductFull>());
 
-        productFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+        // Contact
+        ContactFull contactFull = dtmContact.BuildClass<ContactFull>();
 
-        productFull.LinkFulls = linkFulls;
+        if (!tglHasContact.Checked)
+        {
+            productFull.ContactFull = null;
+            productFull.LinkFulls = null;
+        }
+        else if (productFull.ContactFull == null)
+        {
+            productFull.ContactFull = contactFull;
+            productFull.LinkFulls = linkFulls;
+        }
+        else if (contactFull != null)
+        {
+            productFull.ContactFull.Update(contactFull);
+            productFull.LinkFulls = linkFulls;
+        }
+
+        //productFull.ContactFull?.Update(dtmContact.BuildClass<ContactFull>());
+        //productFull.LinkFulls = linkFulls;
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
