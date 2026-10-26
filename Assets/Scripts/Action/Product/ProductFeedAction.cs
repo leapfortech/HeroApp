@@ -275,15 +275,11 @@ public class ProductFeedAction : MonoBehaviour
 
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, productFeed.TitleSprite);
-        loopValue.SetText(1, $"<line-height=70%>{productFeed.Title}");
-
-        loopValue.SetText(2, $"{productFeed.Currency} {productFeed.Price:N2}");
-        loopValue.SetText(3, productFeed.ProductSubtype);
-
-        String saleLocation = productFeed.SaleCountry;
-        if (!String.IsNullOrEmpty(productFeed.SaleState))
-            saleLocation += ", " + productFeed.SaleState;
-        loopValue.SetText(4, saleLocation);
+        String saleLocation = !String.IsNullOrEmpty(productFeed.SaleState) ? productFeed.SaleState : productFeed.SaleCountry;
+        loopValue.SetText(1, saleLocation);
+        loopValue.SetText(2, productFeed.ProductSubtype);
+        loopValue.SetText(3, $"<line-height=70%>{productFeed.Title}");
+        loopValue.SetText(4, $"{productFeed.Currency} {productFeed.Price:N2}");
 
         loopValue.SetCheck(0, productFeed.Favorite != 0);
     }
