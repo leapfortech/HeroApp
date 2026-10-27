@@ -58,6 +58,7 @@ public class HappeningFeed
         PostId = happeningFull.PostId;
         TitleSprite = happeningFull.TitleSprite;
         Title = happeningFull.Title;
+        Description = happeningFull.Description;
         StartDateTime = happeningFull.StartDateTime;
         EndDateTime = happeningFull.EndDateTime;
         HappeningType = FeedHelper.Instance.GetHappeningType(happeningFull.HappeningTypeId);
