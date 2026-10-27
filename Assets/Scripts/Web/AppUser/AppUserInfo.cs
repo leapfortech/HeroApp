@@ -1,6 +1,9 @@
-﻿using Leap.Graphics.Tools;
-using System;
+﻿using System;
 using UnityEngine;
+
+using Leap.Graphics.Tools;
+
+using hg.LitJson;
 
 public class AppUserInfo
 {
@@ -11,6 +14,7 @@ public class AppUserInfo
         get => null;
         set => ThumbnailSprite = value?.CreateSprite("Thumbnail");
     }
+    [JsonIgnore]
     public Sprite ThumbnailSprite { get; set; } = null;
     public LocalityFull InterestLocality { get; set; }
     public LocalityFull CurrentLocality { get; set; }
