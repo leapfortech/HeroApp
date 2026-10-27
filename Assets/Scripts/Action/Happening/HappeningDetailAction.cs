@@ -320,6 +320,7 @@ public class HappeningDetailAction : MonoBehaviour
             tglFavorite.Uncheck();
 
         tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia";
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglFavorite.gameObject);
 
         if (happeningFull.Selected != 0)
             tglSelected.Check();
@@ -355,6 +356,7 @@ public class HappeningDetailAction : MonoBehaviour
 
         txtFavoriteCount.TextValue = FeedHelper.Instance.FormatCount(happeningFull.FavoriteCount);
         tglFavorite.Title = check ? "Asistencia confirmada" : "Confirmar asistencia";
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglFavorite.gameObject);
     }
 
     public void ApplyDetailFavorite()
