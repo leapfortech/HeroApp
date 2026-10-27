@@ -28,6 +28,10 @@ public class RadioDetailAction : MonoBehaviour
     Text txtPlace = null;
     [SerializeField]
     Text txtDescription = null;
+    [SerializeField]
+    Text txtRadioTypes = null;
+    [SerializeField]
+    Text txtRadioLanguages = null;
 
     [Title("ScrollView")]
     [SerializeField]
@@ -35,11 +39,11 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     float contentPadding = 160f;
 
-    [Title("List")]
-    [SerializeField]
-    ListScroller lstRadioType = null;
-    [SerializeField]
-    ListScroller lstRadioLanguage = null;
+    //[Title("List")]
+    //[SerializeField]
+    //ListScroller lstRadioType = null;
+    //[SerializeField]
+    //ListScroller lstRadioLanguage = null;
 
     [Title("Admin")]
     [SerializeField]
@@ -102,7 +106,8 @@ public class RadioDetailAction : MonoBehaviour
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
-                               - lstRadioType.GetComponent<RectTransform>().sizeDelta.y
+                               - txtRadioTypes.TextHeight //lstRadioType.GetComponent<RectTransform>().sizeDelta.y
+                               - txtRadioLanguages.TextHeight
                                - rtfAdmin.sizeDelta.y;
         //- lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.y;
         btnRadio?.AddAction(OpenRadio);
@@ -146,38 +151,61 @@ public class RadioDetailAction : MonoBehaviour
         txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
-        // Radio Type
-        lstRadioType.Clear();
+        txtRadioTypes.TextValue = String.Empty;
+
         for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(lstRadioType.ListItem, true);
-            value.SetText(0, vllRadioType.FindRecordCellString(radioFull.RadioTypeFulls[i].RadioTypeId, "Name"));
+            if (i > 0)
+                txtRadioTypes.TextValue += ", ";
 
-            lstRadioType.AddValue(value);
+            txtRadioTypes.TextValue += vllRadioType.FindRecordCellString(radioFull.RadioTypeFulls[i].RadioTypeId, "Name");
         }
-        lstRadioType.ApplyValues();
 
-        // Radio Language
-        lstRadioLanguage.Clear();
+        txtRadioLanguages.TextValue = String.Empty;
+
         for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
         {
-            ListScrollerValue value = new ListScrollerValue(lstRadioLanguage.ListItem, true);
-            value.SetText(0, vllRadioLanguage.FindRecordCellString(radioFull.RadioLanguageFulls[i].LanguageId, "Name"));
+            if (i > 0)
+                txtRadioLanguages.TextValue += ", ";
 
-            lstRadioLanguage.AddValue(value);
+            txtRadioLanguages.TextValue += vllRadioLanguage.FindRecordCellString(radioFull.RadioLanguageFulls[i].LanguageId, "Name");
         }
-        lstRadioLanguage.ApplyValues();
 
-        float lstHeight = 0.0f;
-        if (radioFull.RadioTypeFulls.Count > radioFull.RadioLanguageFulls.Count)
-            lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
-        else
-            lstHeight = radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+        deltaY += txtRadioTypes.TextHeight;
+        deltaY += txtRadioLanguages.TextHeight;
 
-        deltaY += lstHeight;
+        // Radio Type
+        //lstRadioType.Clear();
+        //for (int i = 0; i < radioFull.RadioTypeFulls.Count; i++)
+        //{
+        //ListScrollerValue value = new ListScrollerValue(lstRadioType.ListItem, true);
+        //value.SetText(0, vllRadioType.FindRecordCellString(radioFull.RadioTypeFulls[i].RadioTypeId, "Name"));
 
-        lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
-        lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
+        //lstRadioType.AddValue(value);
+        //}
+        //lstRadioType.ApplyValues();
+
+        // Radio Language
+        //lstRadioLanguage.Clear();
+        //for (int i = 0; i < radioFull.RadioLanguageFulls.Count; i++)
+        //{
+        //ListScrollerValue value = new ListScrollerValue(lstRadioLanguage.ListItem, true);
+        //value.SetText(0, vllRadioLanguage.FindRecordCellString(radioFull.RadioLanguageFulls[i].LanguageId, "Name"));
+
+        //lstRadioLanguage.AddValue(value);
+        //}
+        //lstRadioLanguage.ApplyValues();
+
+        //float lstHeight = 0.0f;
+        //if (radioFull.RadioTypeFulls.Count > radioFull.RadioLanguageFulls.Count)
+        //    lstHeight = radioFull.RadioTypeFulls.Count * lstRadioType.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+        //else
+        //    lstHeight = radioFull.RadioLanguageFulls.Count * lstRadioLanguage.ListItem.GetComponent<RectTransform>().sizeDelta.y;
+
+        //deltaY += lstHeight;
+
+        //lstRadioType.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioType.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
+        //lstRadioLanguage.GetComponent<RectTransform>().sizeDelta = new Vector2(lstRadioLanguage.GetComponent<RectTransform>().sizeDelta.x, lstHeight);
 
         imgCover.Sprite = radioFull.ImageSprites[0];
 
