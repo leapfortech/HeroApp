@@ -253,9 +253,9 @@ public class NewsFeedAction : MonoBehaviour
         loopValue.SetText(1, $"<line-height=70%>{newsFeed.Title}");
         loopValue.SetText(2, $"<line-height=80%>{(newsFeed.Description.Length > 120 ? newsFeed.Description[0..119] + "..." : newsFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
         loopValue.SetText(3, newsFeed.NewsType);
-        loopValue.SetText(4, $"@ {newsFeed.Alias}");
+        loopValue.SetText(4, $"@{newsFeed.Alias}");
         loopValue.SetText(5, newsFeed.DateTime.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
-        loopValue.SetText(6, $"📎  {newsFeed.Source}");
+        loopValue.SetText(6, newsFeed.Source);
 
 
         for (int i = 0; i < 4; i++)
