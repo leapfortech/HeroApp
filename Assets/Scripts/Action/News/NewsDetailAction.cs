@@ -144,6 +144,7 @@ public class NewsDetailAction : MonoBehaviour
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
+                               - txtSource.TextHeight
                                - rtfComments.sizeDelta.y
                                - rtfAdmin.sizeDelta.y;
 
@@ -201,7 +202,10 @@ public class NewsDetailAction : MonoBehaviour
         txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
-        txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "-" : newsFull.Source;
+        txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "Sin fuente registrada" : newsFull.Source;
+        txtSource.GetComponent<RectTransform>().sizeDelta = new Vector2(txtSource.GetComponent<RectTransform>().sizeDelta.x, txtSource.TextHeight);
+        deltaY += txtSource.TextHeight;
+
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
 
         String country = vllCountry.FindRecordCellString(newsFull.PostCountryId, "Name");

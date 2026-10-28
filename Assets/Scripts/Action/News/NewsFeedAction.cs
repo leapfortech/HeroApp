@@ -255,7 +255,7 @@ public class NewsFeedAction : MonoBehaviour
         loopValue.SetText(3, newsFeed.NewsType);
         loopValue.SetText(4, $"@{newsFeed.Alias}");
         loopValue.SetText(5, newsFeed.DateTime.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
-        loopValue.SetText(6, newsFeed.Source);
+        loopValue.SetText(6, String.IsNullOrEmpty(newsFeed.Source) ? "" : newsFeed.Source.Length > 22 ? newsFeed.Source[0..19] + "..." : newsFeed.Source);
 
 
         for (int i = 0; i < 4; i++)
@@ -269,6 +269,8 @@ public class NewsFeedAction : MonoBehaviour
 
         int reactionCount = newsFeed.ReactionCounts[0] + newsFeed.ReactionCounts[1] + newsFeed.ReactionCounts[2] + newsFeed.ReactionCounts[3];
         loopValue.SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
+        loopValue.SetActive(13, !String.IsNullOrWhiteSpace(newsFeed.Source));
 
     }
 
