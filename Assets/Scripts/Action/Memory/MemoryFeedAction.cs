@@ -248,7 +248,7 @@ public class MemoryFeedAction : MonoBehaviour
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, memoryFeed.TitleSprite);
         loopValue.SetText(1, $"<line-height=70%>{memoryFeed.Title}");
-        loopValue.SetText(2, memoryFeed.DateTime.Value.ToString("MMMM yyyy", CultureInfo.GetCultureInfo("es-GT")));
+        loopValue.SetText(2, memoryFeed.DateTime.Value.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
         loopValue.SetText(3, memoryFeed.MemoryType);
 
         for (int i = 0; i < 4; i++)

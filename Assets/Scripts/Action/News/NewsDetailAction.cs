@@ -217,9 +217,9 @@ public class NewsDetailAction : MonoBehaviour
         txtAliasComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].AppUserAlias : "";
         txtAliasComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].AppUserAlias : "";
 
-        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[2].PublicationDateTime) : "";
 
         txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";

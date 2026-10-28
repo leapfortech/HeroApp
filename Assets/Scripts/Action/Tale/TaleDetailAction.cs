@@ -228,9 +228,9 @@ public class TaleDetailAction : MonoBehaviour
         txtAliasComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].AppUserAlias : "";
         txtAliasComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].AppUserAlias : "";
 
-        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[2].PublicationDateTime) : "";
 
         txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";

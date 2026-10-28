@@ -10778,7 +10778,7 @@ PrefabInstance:
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerPage
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1689003507}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: JustCreated
       value: 0
@@ -19767,17 +19767,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &71123913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
-  m_PrefabInstance: {fileID: 71123909}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 71123911}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &72472273
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72056,7 +72045,7 @@ MonoBehaviour:
   vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
   vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   vllHappeningType: {fileID: 11400000, guid: 02ff2fd298044ff4cadc8f496ee7979e, type: 2}
-  btnDelete: {fileID: 71123913}
+  btnDelete: {fileID: 2073673241}
   btnPhone: {fileID: 1868284089}
   btnWhatsApp: {fileID: 860840065}
   btnEmail: {fileID: 1101996896}
@@ -72122,7 +72111,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 142433496}
           m_TargetAssemblyTypeName: HappeningFeedAction, Assembly-CSharp
-          m_MethodName: ApplyDetailFavorite
+          m_MethodName: ApplyDetailSelected
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -72132,7 +72121,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  pagDetail: {fileID: 0}
+  pagDetail: {fileID: 1460243640}
   onImagesDisplay:
     m_PersistentCalls:
       m_Calls:
@@ -102919,11 +102908,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffce66f0ecd4f142bebf790d4931522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Leap.UI.Page::Leap.UI.Page.PageAction
-  nextPage: {fileID: 0}
+  nextPage: {fileID: 208718004}
   actions:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 142433496}
         m_TargetAssemblyTypeName: HappeningFeedAction, Assembly-CSharp
         m_MethodName: ApplyAppUser
         m_Mode: 6
@@ -102935,7 +102924,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 142433496}
         m_TargetAssemblyTypeName: HappeningFeedAction, Assembly-CSharp
         m_MethodName: set_MustReset
         m_Mode: 6
@@ -356356,7 +356345,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1467982044}
         m_TargetAssemblyTypeName: MemoryDetailAction, Assembly-CSharp
         m_MethodName: ApplyReaction2
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -475446,6 +475435,7 @@ MonoBehaviour:
   txtDateTime: {fileID: 1972820087}
   txtMemoryType: {fileID: 1783638076}
   txtDescription: {fileID: 889537936}
+  txtAlias: {fileID: 2110519458}
   txtLocation: {fileID: 849182410}
   txtReactionsCount: {fileID: 228698229}
   tglReactionCounts:
@@ -482196,8 +482186,8 @@ MonoBehaviour:
   loopFeed: {fileID: 1436830777}
   txtEmpty: {fileID: 111052271}
   smoothReload: 1
-  vllCountry: {fileID: 0}
-  vllState: {fileID: 0}
+  vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
+  vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   pagMenu: {fileID: 1689003507}
   timeoutError: "La petici\xF3n excedi\xF3 el tiempo de espera.\nRevisa tu conexi\xF3n
     a Internet.\n\xBFDeseas intentar cargar de nuevo?"
@@ -670922,6 +670912,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2303629463197277385, guid: 0763d43de201734448774eecf14d872a, type: 3}
   m_PrefabInstance: {fileID: 2073673239}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2073673241 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5068398272400326989, guid: 0763d43de201734448774eecf14d872a, type: 3}
+  m_PrefabInstance: {fileID: 2073673239}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb810ae85dfa462419e025e481487e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2073705997
 GameObject:
   m_ObjectHideFlags: 0
@@ -686339,6 +686340,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
   m_PrefabInstance: {fileID: 82875961}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2110519458 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
+  m_PrefabInstance: {fileID: 82875961}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641dc34c0d9d82449419771c28f118f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2111021023 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4452337896361883356, guid: 2075330e910adf84fa82c9a48997d535, type: 3}

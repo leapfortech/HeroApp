@@ -30,6 +30,8 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Text txtDescription = null;
     [SerializeField]
+    Text txtAlias = null;
+    [SerializeField]
     Text txtLocation = null;
 
     [SerializeField]
@@ -196,6 +198,8 @@ public class MemoryDetailAction : MonoBehaviour
         // Memory
         txtMemoryType.TextValue = memoryFull.MemoryTypeId == -1 ? "-" : vllMemoryType.FindRecordCellString(memoryFull.MemoryTypeId, "Name");
 
+        txtAlias.TextValue = $"@{memoryFull.AppUserAlias}";
+
         String country = memoryFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(memoryFull.PostCountryId, "Name");
         String state = memoryFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(memoryFull.PostStateId, "Name");
         txtLocation.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
@@ -210,9 +214,9 @@ public class MemoryDetailAction : MonoBehaviour
         txtAliasComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].AppUserAlias : "";
         txtAliasComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? memoryFull.CommentFulls[2].AppUserAlias : "";
 
-        txtDateComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - memoryFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - memoryFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.Now - memoryFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[0].PublicationDateTime) : "";
+        txtDateComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[1].PublicationDateTime) : "";
+        txtDateComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[2].PublicationDateTime) : "";
 
         txtComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].Message : "";

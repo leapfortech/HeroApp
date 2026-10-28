@@ -382,7 +382,7 @@ public class TaleFeedAction : MonoBehaviour
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
         reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
-        loopValue.SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+        loopValue.SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
 
         loopFeed.RefreshVisibleValues();
     }
