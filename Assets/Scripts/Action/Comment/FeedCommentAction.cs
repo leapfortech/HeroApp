@@ -2,6 +2,7 @@
 using UnityEngine;
 //using URandom = UnityEngine.Random;
 
+using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
 
@@ -185,9 +186,12 @@ public class FeedCommentAction : MonoBehaviour
         if (empty)
             return;
 
-        loopValue.SetText(0, commentFull.AppUserAlias);
-        loopValue.SetText(1, $"{FeedHelper.Instance.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
+        loopValue.GetSprite(0)?.Destroy();
+        //loopValue.SetSprite(0, commentFull.Thumbprint);
+
+        loopValue.SetText(1, commentFull.AppUserAlias);
         loopValue.SetText(2, commentFull.Message);
+        loopValue.SetText(3, $"{FeedHelper.Instance.GetFeedDelay(utcNow - commentFull.PublicationDateTime)}");
     }
 
     // Register
