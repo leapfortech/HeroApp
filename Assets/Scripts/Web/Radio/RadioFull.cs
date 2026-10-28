@@ -16,7 +16,7 @@ public class RadioFull : PostFull
     }
 
     public RadioFull(long id, long postId, long appUserId, String appUserAlias,
-                     long postSubtypeId, long postCountryId, long postStateId,
+                     long postTypeId, long postCountryId, long postStateId,
                      String title, String titleImage, String description,
                      int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                      DateTime publicationDateTime, int postStatus,
@@ -24,7 +24,7 @@ public class RadioFull : PostFull
                      int favorite, int status,
                      List<RadioTypeFull> radioTypeFulls,
                      List<RadioLanguageFull> radioLanguageFulls)
-        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+        : base(postId, appUserId, appUserAlias, postTypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {

@@ -23,7 +23,7 @@ public class ProductFull : PostFull
     }
 
     public ProductFull(long id, long postId, long appUserId, String appUserAlias,
-                       long postSubtypeId, long postCountryId, long postStateId,
+                       long postTypeId, long postCountryId, long postStateId,
                        String title, String titleImage, String description,
                        int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                        DateTime publicationDateTime, int postStatus,
@@ -31,7 +31,7 @@ public class ProductFull : PostFull
                        long productSubtypeId, long saleCountryId, long saleStateId, long currencyId, double price, double discountPrice,
                        long deliveryTypeId, String annotation, int favorite, int status,
                        List<ProductReviewFull> productReviewFulls)
-        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+        : base(postId, appUserId, appUserAlias, postTypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {

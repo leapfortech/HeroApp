@@ -20,14 +20,14 @@ public class TreatmentFull : PostFull
     }
 
     public TreatmentFull(long id, long postId, long appUserId, String appUserAlias,
-                            long postSubtypeId, long postCountryId, long postStateId,
+                            long postTypeId, long postCountryId, long postStateId,
                             String title, String titleImage, String description,
                             int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount, 
                             DateTime publicationDateTime, int postStatus,
                             AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
                             String ingredients, String preparation, String usage, String annotation,
                             int status, List<DiseaseFull> diseaseFulls)
-        : base(postId, appUserId, appUserAlias, postSubtypeId, postCountryId, postStateId, title, titleImage, description,
+        : base(postId, appUserId, appUserAlias, postTypeId, postCountryId, postStateId, title, titleImage, description,
                imageCount, favoriteCount, reactionCounts, reactionPhraseId, commentCount, publicationDateTime, postStatus,
                appUserInfo, contactFull, linkFulls, commentFulls, images)
     {
