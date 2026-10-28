@@ -23,12 +23,6 @@ public class FeedCommentAction : MonoBehaviour
     [Space, Title("Elements")]
     [SerializeField]
     GameObject goEmptyComments = null;
-    [SerializeField]
-    InputField ifdComment = null;
-
-    [Title("Action")]
-    [SerializeField]
-    Button btnRegister = null;
 
     [Title("Debug")]
     [SerializeField]
@@ -45,11 +39,6 @@ public class FeedCommentAction : MonoBehaviour
     private void Awake()
     {
         postService = GetComponent<PostService>();
-    }
-
-    private void Start()
-    {
-        btnRegister?.AddAction(RegisterComment);
     }
 
     public void SelectValue(long postId)
@@ -82,7 +71,6 @@ public class FeedCommentAction : MonoBehaviour
 
         UpdateOverlay(0);
 
-        ifdComment.Clear();
         goEmptyComments.SetActive(false);
 
         resetting = true;
@@ -203,34 +191,26 @@ public class FeedCommentAction : MonoBehaviour
     }
 
     // Register
-    public void RegisterComment()
+    public void RegisterComment(String strComment)
     {
-        if (String.IsNullOrWhiteSpace(ifdComment.Text))
+        if (String.IsNullOrWhiteSpace(strComment))
         {
             ChoiceDialog.Instance.Error("Tu comentario tiene que incluir caracteres.");
             return;
         }
 
-        if (!ifdComment.IsValid())
-        {
-            ChoiceDialog.Instance.Error(ifdComment.GetValidError());
-            return;
-        }
-
         ScreenDialog.Instance.Display();
-        Comment comment = new Comment(postId, StateManager.Instance.AppUser.Id, ifdComment.Text);
+
+        Comment comment = new Comment(postId, StateManager.Instance.AppUser.Id, strComment);
         postService.RegisterComment(comment);
     }
 
-    public void ApplyComment(long commentId)
+    public void ApplyComment(long _)
     {
-        ifdComment.Clear();
-
         Invoke(nameof(ResetComments), 1f);
     }
 
     // Debug
-
     String[] valueDates;
 
     public void UpdateDebug(int k, CommentFull commentFull)
