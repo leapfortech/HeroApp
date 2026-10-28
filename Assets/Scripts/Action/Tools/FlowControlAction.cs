@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 using UnityEngine.Events;
 
 using Leap.UI.Elements;
@@ -25,7 +27,11 @@ public class FlowControlAction : MonoBehaviour
     [SerializeField]
     Page pagRegisterBack = null;
     [SerializeField]
+    String pagRegisterTitle = null;
+    [SerializeField]
     Page pagUpdateBack = null;
+    [SerializeField]
+    String pagUpdateTitle = null;
 
     [Title("Event")]
     [SerializeField]
@@ -54,6 +60,7 @@ public class FlowControlAction : MonoBehaviour
         btnRegister.gameObject.SetActive(true);
         btnUpdate.gameObject.SetActive(false);
 
+        pagStart.HeaderTitle = pagRegisterTitle;
         pagStart.HeaderPage = pagRegisterBack;
     }
 
@@ -62,6 +69,7 @@ public class FlowControlAction : MonoBehaviour
         btnRegister.gameObject.SetActive(false);
         btnUpdate.gameObject.SetActive(true);
 
+        pagStart.HeaderTitle = pagUpdateTitle;
         pagStart.HeaderPage = pagUpdateBack;
     }
 }
