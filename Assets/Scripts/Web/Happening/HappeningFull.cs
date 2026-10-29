@@ -62,8 +62,8 @@ public class HappeningFull : PostFull
         Description = happeningFull.Description;
 
         HappeningTypeId = happeningFull.HappeningTypeId;
-        CountryId = happeningFull.CountryId;
-        StateId = happeningFull.StateId;
+        PostCountryId = happeningFull.CountryId;
+        PostStateId = happeningFull.StateId;
         PaymentDetails = happeningFull.PaymentDetails;
         StartDateTime = happeningFull.StartDateTime;
         EndDateTime = happeningFull.EndDateTime;

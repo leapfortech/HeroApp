@@ -96,8 +96,9 @@ public class ProductRegisterAction : MonoBehaviour
 
         ProductFull productFull = dtmProductFull.BuildClass<ProductFull>();
         productFull.AppUserId = StateManager.Instance.AppUser.Id;
-        productFull.PostCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        productFull.PostStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
+
+        productFull.SaleCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        productFull.SaleStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         // Contact
         productFull.ContactFull = dtmContact.BuildClass<ContactFull>();

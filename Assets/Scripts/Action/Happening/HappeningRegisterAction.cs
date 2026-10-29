@@ -118,8 +118,9 @@ public class HappeningRegisterAction : MonoBehaviour
 
         HappeningFull happeningFull = dtmHappeningFull.BuildClass<HappeningFull>();
         happeningFull.AppUserId = StateManager.Instance.AppUser.Id;
-        happeningFull.PostCountryId = StateManager.Instance.CurrentLocality.CountryId;
-        happeningFull.PostStateId = StateManager.Instance.CurrentLocality.StateId;
+        
+        happeningFull.CountryId = StateManager.Instance.CurrentLocality.CountryId;
+        happeningFull.StateId = StateManager.Instance.CurrentLocality.StateId;
 
         if (happeningFull.StartDateTime.HasValue && happeningFull.EndDateTime.HasValue)
         {
