@@ -323,7 +323,10 @@ public class ProductFeedAction : MonoBehaviour
     private void SelectValue(int idx)
     {
         selectedIdx = idx % loopFeed.ValuesCount;
-        onValueSelected.Invoke(idx % 2 == 0 ? ((ProductUserData)loopFeed[selectedIdx].UserData).PostId0 : ((ProductUserData)loopFeed[selectedIdx].UserData).PostId1);
+        if (idx % 2 == 0)
+            onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId0);
+        else if ((ProductUserData)loopFeed[selectedIdx].UserData != null)
+            onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId1);
     }
 
     public void ApplyDetailPost(ProductFeed productFeed)
