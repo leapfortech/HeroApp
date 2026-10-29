@@ -50,11 +50,13 @@ public class ProductFeedAction : MonoBehaviour
     [PropertySpace(4f, 0f), TextArea(2, 5)]
     String timeoutError = "La petición excedió el tiempo de espera.\nRevisa tu conexión a Internet.\n¿Deseas intentar cargar de nuevo?";
 
+#pragma warning disable 414
     [Title("Debug")]
     [SerializeField]
     Text txtDebug = null;
     [SerializeField]
     RectTransform trfOverlay = null;
+#pragma warning restore 414
 
     [Title("Event")]
     [SerializeField]
@@ -84,16 +86,16 @@ public class ProductFeedAction : MonoBehaviour
     {
         int valueCount = feedCount * 4;
 
-        valueDates = new String[valueCount];
+        //valueDates = new String[valueCount];
 
         loopFeed.ClearValues();
-        for (int k = 0; k < valueCount; k++)
+        for (int k = 0; k < valueCount; k += 2)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
-            UpdateValue(emptyProductFeed, loopValue);
+            UpdateValue(emptyProductFeed, emptyProductFeed, loopValue);
             loopFeed.AddValue(loopValue);
 
-            valueDates[k] = "--:--:--:---- : -1";
+            //valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
     }
@@ -178,9 +180,9 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyPosts(ProductFeedResponse response)
     {
-        if (txtDebug != null)
-            for (int i = 0; i < valueDates.Length; i++)
-                valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
+        //if (txtDebug != null)
+        //    for (int i = 0; i < valueDates.Length; i++)
+        //        valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
         txtEmpty.SetActive(response.Total == 0);
 
@@ -191,55 +193,55 @@ public class ProductFeedAction : MonoBehaviour
 
         if (response.Direction < 3)
         {
-            for (int i = 0; i < response.ProductFeeds.Count; i++)
+            for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(response.ProductFeeds[i], loopFeed[k]);
-                UpdateDebug(k, response.ProductFeeds[i]);
+                UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
+                //UpdateDebug(k, response.ProductFeeds[i]);
             }
 
             if (resetting)
             {
-                for (int i = response.ProductFeeds.Count; i < loopFeed.ValuesCount; i++)
+                for (int i = response.ProductFeeds.Count; i < loopFeed.ValuesCount; i += 2)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyProductFeed, loopFeed[k]);
-                    UpdateDebug(k, emptyProductFeed);
+                    UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
+                    //UpdateDebug(k, emptyProductFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
                 resetting = false;
             }
             else
             {
-                for (int i = response.ProductFeeds.Count; i < feedCount; i++)
+                for (int i = response.ProductFeeds.Count; i < feedCount; i += 2)
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                    UpdateValue(emptyProductFeed, loopFeed[k]);
-                    UpdateDebug(k, emptyProductFeed);
+                    UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
+                    //UpdateDebug(k, emptyProductFeed);
                 }
             }
         }
         else
         {
             int n = feedCount - response.ProductFeeds.Count;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i += 2)
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
-                UpdateValue(emptyProductFeed, loopFeed[k]);
-                UpdateDebug(k, emptyProductFeed);
+                UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
+                //UpdateDebug(k, emptyProductFeed);
             }
 
-            for (int i = 0; i < response.ProductFeeds.Count; i++)
+            for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
-                UpdateValue(response.ProductFeeds[i], loopFeed[k]);
-                UpdateDebug(k, response.ProductFeeds[i]);
+                UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
+                //UpdateDebug(k, response.ProductFeeds[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
 
-        if (txtDebug != null)
-            txtDebug.TextValue = String.Join('\n', valueDates);
+        //if (txtDebug != null)
+        //    txtDebug.TextValue = String.Join('\n', valueDates);
 
         ScreenDialog.Instance.Hide();
 
@@ -263,42 +265,75 @@ public class ProductFeedAction : MonoBehaviour
         loopFeed.SelectedIndex = 0;
     }
 
-    public void UpdateValue(ProductFeed productFeed, LoopScrollerValue loopValue)
+    private void UpdateValue(ProductFeed productFeed0, ProductFeed productFeed1, LoopScrollerValue loopValue)
     {
-        bool empty = productFeed.PublicationDateTime.Year == 1753;
+        bool empty = productFeed0.PublicationDateTime.Year == 1753 && productFeed1.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 1058;
-        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new ProductUserData(productFeed.PostId, productFeed.PublicationDateTime, productFeed.Link));
+        loopValue.ItemSize = empty ? 2000 : 976;
+        loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new ProductUserData(productFeed0.PostId, productFeed0.PublicationDateTime, productFeed0.Link, productFeed1.PostId, productFeed1.PublicationDateTime, productFeed1.Link));
 
         if (empty)
             return;
 
-        loopValue.GetSprite(0)?.Destroy();
-        loopValue.SetSprite(0, productFeed.TitleSprite);
-        String saleLocation = !String.IsNullOrEmpty(productFeed.SaleState) ? productFeed.SaleState : productFeed.SaleCountry;
-        loopValue.SetText(1, saleLocation);
-        loopValue.SetText(2, productFeed.ProductSubtype);
-        loopValue.SetText(3, $"<line-height=70%>{productFeed.Title}");
-        loopValue.SetText(4, $"{productFeed.Currency} {productFeed.Price:N2}");
-
-        loopValue.SetCheck(0, productFeed.Favorite != 0);
+        UpdateValue(0, productFeed0, loopValue);
+        UpdateValue(1, productFeed1, loopValue);
     }
 
-    public void SelectValue(int idx)
+    private void UpdateValue(int pos, ProductFeed productFeed, LoopScrollerValue loopValue)
+    {
+        if (productFeed.PublicationDateTime.Year != 1753)
+        {
+            loopValue.GetSprite(pos + 0)?.Destroy();
+            loopValue.SetSprite(pos + 0, productFeed.TitleSprite);
+            String saleLocation = !String.IsNullOrEmpty(productFeed.SaleState) ? productFeed.SaleState : productFeed.SaleCountry;
+            loopValue.SetText(pos + 2, saleLocation);
+            loopValue.SetText(pos + 4, productFeed.ProductSubtype);
+            loopValue.SetText(pos + 6, $"<line-height=70%>{productFeed.Title}");
+            loopValue.SetText(pos + 8, $"{productFeed.Currency} {productFeed.Price:N2}");
+            loopValue.SetActive(pos + 10, false);
+
+            loopValue.SetCheck(pos + 0, productFeed.Favorite != 0);
+        }
+        else
+        {
+            loopValue.GetSprite(pos + 0)?.Destroy();
+            loopValue.SetSprite(pos + 0, null);
+            loopValue.SetText(pos + 2, null);
+            loopValue.SetText(pos + 4, null);
+            loopValue.SetText(pos + 6, null);
+            loopValue.SetText(pos + 8, null);
+            loopValue.SetActive(pos + 10, true);
+
+            loopValue.SetCheck(pos + 0, false);
+        }
+    }
+
+    public void SelectValue0(int idx)
+    {
+        //idx = idx % (loopFeed.ValuesCount / 2);
+        SelectValue(2 * idx);
+    }
+
+    public void SelectValue1(int idx)
+    {
+        //idx = idx % (loopFeed.ValuesCount / 2);
+        SelectValue(2 * idx + 1);
+    }
+
+    private void SelectValue(int idx)
     {
         selectedIdx = idx % loopFeed.ValuesCount;
-        onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId);
+        onValueSelected.Invoke(idx % 2 == 0 ? ((ProductUserData)loopFeed[selectedIdx].UserData).PostId0 : ((ProductUserData)loopFeed[selectedIdx].UserData).PostId1);
     }
 
     public void ApplyDetailPost(ProductFeed productFeed)
     {
-        UpdateValue(productFeed, loopFeed[selectedIdx]);
+        UpdateValue(selectedIdx % 2, productFeed, loopFeed[selectedIdx]);
 
         loopFeed.RefreshVisibleValues();
     }
 
     // Type
-
     List<long> typeIds = new List<long> { -1L };
 
     public void ApplyTypes(List<long> typeIds)
@@ -356,9 +391,20 @@ public class ProductFeedAction : MonoBehaviour
 
     // Open
 
-    public void OpenURL(int idx)
+    public void OpenURL0(int idx)
     {
-        String link = ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link;
+        OpenURL(idx, 0);
+    }
+
+    public void OpenURL1(int idx)
+    {
+        OpenURL(idx, 1);
+    }
+
+    private void OpenURL(int idx, int linkId)
+    {
+        String link = linkId == 0 ? ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link0
+                                  : ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link1;
 
         String[] linkParts = link.Split('|');
 
@@ -407,8 +453,17 @@ public class ProductFeedAction : MonoBehaviour
     }
 
     // Favorite
+    public void ApplyFavorite0(int dataIndex, bool check)
+    {
+        ApplyFavorite(2 * dataIndex, check);
+    }
 
-    public void ApplyFavorite(int dataIndex, bool check)
+    public void ApplyFavorite1(int dataIndex, bool check)
+    {
+        ApplyFavorite(2 * dataIndex + 1, check);
+    }
+
+    private void ApplyFavorite(int dataIndex, bool check)
     {
         int k = dataIndex % loopFeed.ValuesCount;
         loopFeed[k].SetCheck(0, check);
@@ -517,25 +572,25 @@ public class ProductFeedAction : MonoBehaviour
 
     // Debug
 
-    String[] valueDates;
+    //String[] valueDates;
 
-    public void UpdateDebug(int k, ProductFeed productFeed)
-    {
-        if (productFeed.PublicationDateTime.Year == 1753)
-            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
-        else
-            valueDates[k] = $"<color=red>{productFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {productFeed.Title}</color>";
+    //private void UpdateDebug(int k, ProductFeed productFeed)
+    //{
+    //    if (productFeed.PublicationDateTime.Year == 1753)
+    //        valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
+    //    else
+    //        valueDates[k] = $"<color=red>{productFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {productFeed.Title}</color>";
 
-    }
+    //}
 
     public void UpdateOverlay(int idx)
     {
-        if (trfOverlay == null)
-            return;
+        //if (trfOverlay == null)
+        //    return;
 
-        if (loopFeed.ValuesCount == 0)
-            return;
+        //if (loopFeed.ValuesCount == 0)
+        //    return;
 
-        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
+        //trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
