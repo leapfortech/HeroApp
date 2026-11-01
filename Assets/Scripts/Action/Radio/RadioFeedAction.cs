@@ -27,7 +27,9 @@ public class RadioFeedAction : MonoBehaviour
     [SerializeField]
     LoopScroller loopFeed = null;
     [SerializeField]
-    GameObject txtEmpty;
+    GameObject gobEmptyFeed;
+    [SerializeField]
+    GameObject gobEmptyFavorite;
     [SerializeField]
     float smoothReload = 1f;
 
@@ -98,7 +100,8 @@ public class RadioFeedAction : MonoBehaviour
 
         UpdateOverlay(0);
 
-        txtEmpty.SetActive(false);
+        gobEmptyFeed.SetActive(false);
+        gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new RadioUserData(-1, DateTime.UtcNow), 2);
@@ -152,7 +155,8 @@ public class RadioFeedAction : MonoBehaviour
             for (int i = 0; i < valueDates.Length; i++)
                 valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
-        txtEmpty.SetActive(response.Total == 0);
+        gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
+        gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
