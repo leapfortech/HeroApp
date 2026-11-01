@@ -4128,6 +4128,42 @@ MonoBehaviour:
         Reference: 1
         Value: 0
         Property: 'Font: Clear'
+    - rid: 3712647285539602583
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Reaction: Like'
+        Reference: 0
+        Value: {fileID: -5683060261721961212, guid: fbcbe17367e01764a979db1170e96c66, type: 3}
+        Property: 
+    - rid: 3712647285539602584
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Reaction: Laugh'
+        Reference: 0
+        Value: {fileID: -6949342779449244151, guid: fbcbe17367e01764a979db1170e96c66, type: 3}
+        Property: 
+    - rid: 3712647285539602585
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Reaction: Care '
+        Reference: 0
+        Value: {fileID: 2767871882649738755, guid: fbcbe17367e01764a979db1170e96c66, type: 3}
+        Property: 
+    - rid: 3712647285539602586
+      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Reaction: Strength'
+        Reference: 0
+        Value: {fileID: -5964941228933926402, guid: fbcbe17367e01764a979db1170e96c66, type: 3}
+        Property: 
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -4731,15 +4767,6 @@ MonoBehaviour:
         Reference: 0
         Value: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
         Property: 
-    - rid: 4368655948687343830
-      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
-      data:
-        themeElement:
-          rid: 7896456371487375720
-        Name: FeedLikeOn
-        Reference: 0
-        Value: {fileID: -3960674044864828398, guid: 8ae9fc8bc20395849b03cdf24cd5c3a6, type: 3}
-        Property: 
     - rid: 4368655948687343831
       type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -4919,15 +4946,6 @@ MonoBehaviour:
         Name: PostUpdate
         Reference: 0
         Value: {fileID: 763670326, guid: 43339ed8c87496a4cabc4389d1a077c1, type: 3}
-        Property: 
-    - rid: 5164850610607752134
-      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
-      data:
-        themeElement:
-          rid: 7896456371487375720
-        Name: FeedPlaintOff
-        Reference: 0
-        Value: {fileID: 0}
         Property: 
     - rid: 5164850900192199059
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -17639,40 +17657,43 @@ MonoBehaviour:
         sprites:
         - rid: 4368655948687343831
         - rid: 4368655948687343832
-        - rid: 7896456371522243117
-        - rid: 4368655948687343830
         - rid: 4368655948687343833
         - rid: 4368655948687343834
         - rid: 5164850541716570634
         - rid: 5164850541716570635
-        - rid: 5164850610607752134
         - rid: 3096978246585549882
         - rid: 3096978246585549883
+        - rid: 3712647285539602583
+        - rid: 3712647285539602584
+        - rid: 3712647285539602585
+        - rid: 3712647285539602586
         DictSprites:
           keys:
-          - FeedLikeOff
-          - FeedLikeOn
+          - 'HM: Reaction: Strength'
           - FeedFavoriteOff
           - FeedFavoriteOn
           - FeedDislikeOff
           - FeedDislikeOn
           - FeedReactionOff
           - FeedReactionOn
-          - FeedPlaintOff
+          - 'HM: Reaction: Like'
           - 'DetailRegular: Off'
           - 'DetailRegular: On'
+          - 'HM: Reaction: Care '
+          - 'HM: Reaction: Laugh'
           values:
-          - rid: 7896456371522243117
-          - rid: 4368655948687343830
+          - rid: 3712647285539602586
           - rid: 4368655948687343831
           - rid: 4368655948687343832
           - rid: 4368655948687343833
           - rid: 4368655948687343834
           - rid: 5164850541716570634
           - rid: 5164850541716570635
-          - rid: 5164850610607752134
+          - rid: 3712647285539602583
           - rid: 3096978246585549882
           - rid: 3096978246585549883
+          - rid: 3712647285539602585
+          - rid: 3712647285539602584
     - rid: 7896456371487375721
       type: {class: ThemeElement, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -47633,15 +47654,6 @@ MonoBehaviour:
         Name: 'Dialog: Small: Title: Off'
         Reference: 0
         Value: {fileID: 0}
-        Property: 
-    - rid: 7896456371522243117
-      type: {class: ThemePropertySprite, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
-      data:
-        themeElement:
-          rid: 7896456371487375720
-        Name: FeedLikeOff
-        Reference: 0
-        Value: {fileID: -3960674044864828398, guid: 8ae9fc8bc20395849b03cdf24cd5c3a6, type: 3}
         Property: 
     - rid: 7896456371522243118
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
