@@ -244,6 +244,11 @@ public class TaleDetailAction : MonoBehaviour
         SetToggle(tglReaction3, taleFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, taleFull.ReactionPhraseId == 4);
 
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+
         // Comments
         DisplayComments(taleFull.CommentFulls.Count);
 

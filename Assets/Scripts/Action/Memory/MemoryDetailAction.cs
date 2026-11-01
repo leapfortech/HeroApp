@@ -230,6 +230,11 @@ public class MemoryDetailAction : MonoBehaviour
         SetToggle(tglReaction3, memoryFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, memoryFull.ReactionPhraseId == 4);
 
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+
         // Comments
         DisplayComments(memoryFull.CommentFulls.Count);
 

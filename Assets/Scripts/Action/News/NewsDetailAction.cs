@@ -237,6 +237,11 @@ public class NewsDetailAction : MonoBehaviour
         SetToggle(tglReaction3, newsFull.ReactionPhraseId == 3);
         SetToggle(tglReaction4, newsFull.ReactionPhraseId == 4);
 
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
+        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+
         // Comments
         DisplayComments(newsFull.CommentFulls.Count);
 
