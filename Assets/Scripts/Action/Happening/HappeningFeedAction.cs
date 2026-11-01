@@ -28,7 +28,11 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     LoopScroller loopFeed = null;
     [SerializeField]
-    GameObject txtEmpty;
+    GameObject gobEmptyFeed;
+    [SerializeField]
+    GameObject gobEmptySelected;
+    [SerializeField]
+    GameObject gobEmptyFavorite;
     [SerializeField]
     float smoothReload = 1f;
 
@@ -109,7 +113,11 @@ public class HappeningFeedAction : MonoBehaviour
 
         UpdateOverlay(0);
 
-        txtEmpty.SetActive(false);
+        gobEmptyFeed.SetActive(false);
+        if (gobEmptySelected != null)
+            gobEmptySelected.SetActive(false);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new HappeningUserData(-1, DateTime.UtcNow), 2);
@@ -165,7 +173,12 @@ public class HappeningFeedAction : MonoBehaviour
             for (int i = 0; i < valueDates.Length; i++)
                 valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
-        txtEmpty.SetActive(response.Total == 0);
+        gobEmptyFeed.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "0");
+
+        if (gobEmptySelected != null)
+            gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
