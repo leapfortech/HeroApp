@@ -29,7 +29,9 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     LoopScroller loopFeed = null;
     [SerializeField]
-    GameObject txtEmpty;
+    GameObject gobEmptyFeed;
+    [SerializeField]
+    GameObject gobEmptyFavorite;
     [SerializeField]
     float smoothReload = 1f;
 
@@ -128,7 +130,10 @@ public class ProductFeedAction : MonoBehaviour
 
         UpdateOverlay(0);
 
-        txtEmpty.SetActive(false);
+        gobEmptyFeed.SetActive(false);
+
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new ProductUserData(-1, DateTime.UtcNow), 2);
@@ -184,7 +189,10 @@ public class ProductFeedAction : MonoBehaviour
         //    for (int i = 0; i < valueDates.Length; i++)
         //        valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
-        txtEmpty.SetActive(response.Total == 0);
+        gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
+        
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 

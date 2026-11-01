@@ -101,7 +101,8 @@ public class RadioFeedAction : MonoBehaviour
         UpdateOverlay(0);
 
         gobEmptyFeed.SetActive(false);
-        gobEmptyFavorite.SetActive(false);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new RadioUserData(-1, DateTime.UtcNow), 2);
@@ -156,7 +157,8 @@ public class RadioFeedAction : MonoBehaviour
                 valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
-        gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
