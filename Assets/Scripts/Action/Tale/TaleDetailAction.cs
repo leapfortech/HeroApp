@@ -69,6 +69,13 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     Text txtComment3 = null;
 
+    [SerializeField]
+    Image imgThumbnailComment1 = null;
+    [SerializeField]
+    Image imgThumbnailComment2 = null;
+    [SerializeField]
+    Image imgThumbnailComment3 = null;
+
     [Title("ScrollView")]
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
@@ -226,6 +233,10 @@ public class TaleDetailAction : MonoBehaviour
         txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].Message : "";
+
+        imgThumbnailComment1.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null && taleFull.CommentFulls[0].ThumbnailSprite != null ? taleFull.CommentFulls[0].ThumbnailSprite : null;
+        imgThumbnailComment2.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null && taleFull.CommentFulls[1].ThumbnailSprite != null ? taleFull.CommentFulls[1].ThumbnailSprite : null;
+        imgThumbnailComment3.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null && taleFull.CommentFulls[2].ThumbnailSprite != null ? taleFull.CommentFulls[2].ThumbnailSprite : null;
 
         onImagesDisplay.Invoke(taleFull.ImageSprites);
 

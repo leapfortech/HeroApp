@@ -1,10 +1,22 @@
 ﻿using System;
+using UnityEngine;
+
+using Leap.Graphics.Tools;
+
+using hg.LitJson;
 
 public class CommentFull
 {
     public long Id { get; set; } = -1L;
     public long PostId { get; set; } = -1L;
     public long AppUserId { get; set; } = -1L;
+    public String Thumbnail
+    {
+        get => null;
+        set => ThumbnailSprite = value?.CreateSprite("Thumbnail");
+    }
+    [JsonIgnore]
+    public Sprite ThumbnailSprite { get; set; } = null;
     public String AppUserAlias { get; set; }
     public String Message { get; set; }
     public DateTime PublicationDateTime { get; set; } = new DateTime(1753, 1, 1);

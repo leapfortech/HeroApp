@@ -68,6 +68,13 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     Text txtComment3 = null;
 
+    [SerializeField]
+    Image imgThumbnailComment1 = null;
+    [SerializeField]
+    Image imgThumbnailComment2 = null;
+    [SerializeField]
+    Image imgThumbnailComment3 = null;
+
     [Title("ScrollView")]
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
@@ -222,6 +229,10 @@ public class NewsDetailAction : MonoBehaviour
         txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
         txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";
         txtComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].Message : "";
+
+        imgThumbnailComment1.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null && newsFull.CommentFulls[0].ThumbnailSprite != null ? newsFull.CommentFulls[0].ThumbnailSprite : null;
+        imgThumbnailComment2.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null && newsFull.CommentFulls[1].ThumbnailSprite != null ? newsFull.CommentFulls[1].ThumbnailSprite : null;
+        imgThumbnailComment3.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null && newsFull.CommentFulls[2].ThumbnailSprite != null ? newsFull.CommentFulls[2].ThumbnailSprite : null;
 
         onImagesDisplay.Invoke(newsFull.ImageSprites);
 

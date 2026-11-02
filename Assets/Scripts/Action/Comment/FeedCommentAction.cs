@@ -10,14 +10,17 @@ using Sirenix.OdinInspector;
 
 public class FeedCommentAction : MonoBehaviour
 {
-    [Space]
-    [Title("Config")]
+    [Title("Feed")]
+    [SerializeField]
+    Text txtCommentCount = null;
+
+    [Space, Title("Config")]
     [SerializeField]
     public int chunkCount = 10;
     [SerializeField]
     public int chunkStatus = 1;
 
-    [Title("Loop")]
+    [Space, Title("Loop")]
     [SerializeField]
     LoopScroller loopFeed = null;
 
@@ -108,6 +111,7 @@ public class FeedCommentAction : MonoBehaviour
 
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
+        txtCommentCount.TextValue = response.CommentCount.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("es-ES"));
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
@@ -180,14 +184,14 @@ public class FeedCommentAction : MonoBehaviour
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 430;
+        loopValue.ItemSize = empty ? 2000 : 316;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedCommentUserData(commentFull.PostId, commentFull.PublicationDateTime));
 
         if (empty)
             return;
 
         loopValue.GetSprite(0)?.Destroy();
-        //loopValue.SetSprite(0, commentFull.Thumbprint);
+        loopValue.SetSprite(0, commentFull.ThumbnailSprite);
 
         loopValue.SetText(1, commentFull.AppUserAlias);
         loopValue.SetText(2, commentFull.Message);

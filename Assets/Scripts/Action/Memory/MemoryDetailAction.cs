@@ -66,6 +66,14 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Text txtComment3 = null;
 
+    [SerializeField]
+    Image imgThumbnailComment1 = null;
+    [SerializeField]
+    Image imgThumbnailComment2 = null;
+    [SerializeField]
+    Image imgThumbnailComment3 = null;
+
+
     [Title("ScrollView")]
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
@@ -212,16 +220,19 @@ public class MemoryDetailAction : MonoBehaviour
         txtAliasComment1.TextValue = hasComments ? memoryFull.CommentFulls[0].AppUserAlias : "";
         txtDateComment1.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[0].PublicationDateTime) : "";
         txtComment1.TextValue = hasComments ? memoryFull.CommentFulls[0].Message : "";
+        imgThumbnailComment1.Sprite = hasComments ? memoryFull.CommentFulls[0].ThumbnailSprite : null;
 
         hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null;
         txtAliasComment2.TextValue = hasComments ? memoryFull.CommentFulls[1].AppUserAlias : "";
         txtDateComment2.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[1].PublicationDateTime) : "";
         txtComment2.TextValue = hasComments ? memoryFull.CommentFulls[1].Message : "";
+        imgThumbnailComment2.Sprite = hasComments ? memoryFull.CommentFulls[1].ThumbnailSprite : null;
 
         hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null;
         txtAliasComment3.TextValue = hasComments ? memoryFull.CommentFulls[2].AppUserAlias : "";
         txtDateComment3.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[2].PublicationDateTime) : "";
         txtComment3.TextValue = hasComments ? memoryFull.CommentFulls[2].Message : "";
+        imgThumbnailComment3.Sprite = hasComments ? memoryFull.CommentFulls[2].ThumbnailSprite : null;
 
         onImagesDisplay.Invoke(memoryFull.ImageSprites);
 

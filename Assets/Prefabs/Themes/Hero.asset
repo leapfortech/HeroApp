@@ -1407,8 +1407,8 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375715
         Name: 'I: Comment: Size'
-        Reference: 1
-        Value: 0
+        Reference: 0
+        Value: 84
         Property: 'Area: Small'
     - rid: 1502242502116900864
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -4182,6 +4182,24 @@ MonoBehaviour:
         Reference: 1
         Value: 0
         Property: 'Font: Mini'
+    - rid: 3712647311706292928
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Comment: Bkg: Default'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Subdominant: Default'
+    - rid: 3712647311706292929
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375715
+        Name: 'HM: Comment: Bkg: Pressed'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'Subdominant: Dark'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -10436,6 +10454,8 @@ MonoBehaviour:
         - rid: 3096978518982263851
         - rid: 3096978580239025414
         - rid: 3096978580239025415
+        - rid: 3712647311706292928
+        - rid: 3712647311706292929
         DictColors:
           keys:
           - 'BioLogin: Apple: Bkg : Default'
@@ -11108,6 +11128,8 @@ MonoBehaviour:
           - 'HM: Feed: Link: Title: Disabled'
           - 'HM: Translucent: Round: Bkg: Default'
           - 'HM: Translucent: Round: Border: Default'
+          - 'HM: Comment: Bkg: Default'
+          - 'HM: Comment: Bkg: Pressed'
           values:
           - rid: 7896456371522240836
           - rid: 7896456371522240837
@@ -11779,6 +11801,8 @@ MonoBehaviour:
           - rid: 3096978518982263851
           - rid: 3096978580239025414
           - rid: 3096978580239025415
+          - rid: 3712647311706292928
+          - rid: 3712647311706292929
         fonts:
         - rid: 7896456371522241478
         - rid: 7896456371522241479
