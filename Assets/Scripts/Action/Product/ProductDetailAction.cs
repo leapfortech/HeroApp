@@ -30,7 +30,7 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     Text txtPrice = null;
     [SerializeField]
-    GameObject gobDiscountPrice = null;
+    Text lblDiscountPrice = null;
     [SerializeField]
     Text txtDiscountPrice = null;
     [SerializeField]
@@ -51,7 +51,7 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     RectTransform rtfContact = null;
     [SerializeField]
-    GameObject gobContactDetails = null;
+    RectTransform rtfContactDetails = null;
 
     [SerializeField]
     Text txtContactName = null;
@@ -64,7 +64,7 @@ public class ProductDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Space, Title("Values")]
     [SerializeField]
@@ -115,6 +115,7 @@ public class ProductDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     ProductService productService;
+    RectTransform content;
 
     long postId = -1;
     String phone = "", whatsapp = "", email = "";
@@ -129,11 +130,9 @@ public class ProductDetailAction : MonoBehaviour
 
     private void Start()
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
+        content = txtTitle.transform.parent.GetComponent<RectTransform>();
         
         contactInitialHeight = rtfContact.sizeDelta.y;
-
         contentInitialHeight = content.sizeDelta.y
                                - txtDescription.TextHeight
                                - contactInitialHeight
@@ -189,7 +188,7 @@ public class ProductDetailAction : MonoBehaviour
 
         String currencySymbol = vllCurrency.FindRecordCellString(productFull.CurrencyId, "Symbol");
 
-        gobDiscountPrice.SetActive(productFull.DiscountPrice > 0d);
+        lblDiscountPrice.gameObject.SetActive(productFull.DiscountPrice > 0d);
         if (productFull.DiscountPrice > 0d)
         {
             txtPrice.TextValue = currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
@@ -222,7 +221,7 @@ public class ProductDetailAction : MonoBehaviour
         // Contact
         bool hasContact = productFull.ContactFull != null && !String.IsNullOrWhiteSpace(productFull.ContactFull.Name);
 
-        gobContactDetails.SetActive(hasContact);
+        rtfContactDetails.gameObject.SetActive(hasContact);
         txtContactName.TextValue = hasContact ? productFull.ContactFull.Name : "";
 
         phone = "";
@@ -301,10 +300,13 @@ public class ProductDetailAction : MonoBehaviour
         tglFavorite.Checked = productFull.Favorite != 0;
 
         // Admin
-        gobAdmin.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
-
         if (productFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        {
+            rtfAdmin.gameObject.SetActive(true);
+            deltaY += rtfAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        }
+        else
+            rtfAdmin.gameObject.SetActive(false);
 
         RefreshContents(deltaY);
 
@@ -358,8 +360,6 @@ public class ProductDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
         if (!isRefresh)

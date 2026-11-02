@@ -47,14 +47,14 @@ public class HappeningDetailAction : MonoBehaviour
     Text txtLocation = null;
 
     [SerializeField]
-    RectTransform rtfPaymentDetails = null;
+    RectTransform rtfPayment = null;
     [SerializeField]
-    GameObject gobPaymentDetails = null;
+    RectTransform rtfPaymentDetails = null;
 
     [SerializeField]
     RectTransform rtfContact = null;
     [SerializeField]
-    GameObject gobContactDetails = null;
+    RectTransform rtfContactDetails = null;
 
     [SerializeField]
     Text txtContactName = null;
@@ -97,7 +97,6 @@ public class HappeningDetailAction : MonoBehaviour
     [SerializeField]
     FeedDetailConfig[] configs = null;
 
-
     [Title("Page")]
     [SerializeField]
     Page pagDetail;
@@ -113,6 +112,7 @@ public class HappeningDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     HappeningService happeningService;
+    RectTransform content;
 
     long postId = -1;
     float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f, contactInitialHeight = 0.0f;
@@ -122,14 +122,13 @@ public class HappeningDetailAction : MonoBehaviour
 
     private void Awake()
     {
+        content = txtTitle.transform.parent.GetComponent<RectTransform>();
         happeningService = GetComponent<HappeningService>();
     }
 
     private void Start()
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
-        paymentDetailsInitialHeight = rtfPaymentDetails.sizeDelta.y;
+        paymentDetailsInitialHeight = rtfPayment.sizeDelta.y;
         paymentDetailsTextInitialHeight = txtPaymentDetails.TextHeight;
 
         contactInitialHeight = rtfContact.sizeDelta.y;
@@ -208,18 +207,18 @@ public class HappeningDetailAction : MonoBehaviour
             txtHasSignupPayment.TextValue = "<color=#D88510>Con registro y pago</color>";
 
         // Payment
-        gobPaymentDetails.SetActive(happeningFull.HasPayment == 1);
+        rtfPaymentDetails.gameObject.SetActive(happeningFull.HasPayment == 1);
         txtPaymentDetails.TextValue = happeningFull.HasPayment == 1 ? happeningFull.PaymentDetails ?? "" : "";
 
         if (happeningFull.HasPayment == 1 && !String.IsNullOrWhiteSpace(txtPaymentDetails.TextValue))
         {
             float height = paymentDetailsInitialHeight - paymentDetailsTextInitialHeight + txtPaymentDetails.TextHeight;
 
-            rtfPaymentDetails.sizeDelta = new Vector2(rtfPaymentDetails.sizeDelta.x, height);
+            rtfPayment.sizeDelta = new Vector2(rtfPayment.sizeDelta.x, height);
             deltaY += height;
         }
         else
-            rtfPaymentDetails.sizeDelta = new Vector2(rtfPaymentDetails.sizeDelta.x, 0);
+            rtfPayment.sizeDelta = new Vector2(rtfPayment.sizeDelta.x, 0);
 
         // Dates
         txtStartDate.TextValue = happeningFull.StartDateTime == null ? "-" : happeningFull.StartDateTime.Value.ToString("dd/MM/yyyy");
@@ -234,7 +233,7 @@ public class HappeningDetailAction : MonoBehaviour
         // Contact
         bool hasContact = happeningFull.ContactFull != null && !String.IsNullOrWhiteSpace(happeningFull.ContactFull.Name);
 
-        gobContactDetails.SetActive(hasContact);
+        rtfContactDetails.gameObject.SetActive(hasContact);
         txtContactName.TextValue = hasContact ? happeningFull.ContactFull.Name : "";
 
         phone = "";
@@ -316,10 +315,7 @@ public class HappeningDetailAction : MonoBehaviour
         tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia";
         ThemeManager.Instance.RefreshStylesInHierarchy(tglFavorite.gameObject);
 
-        if (happeningFull.Selected != 0)
-            tglSelected.Check();
-        else
-            tglSelected.Uncheck();
+        tglSelected.Checked = happeningFull.Selected != 0;
 
         // Admin
         rtfAdmin.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
@@ -400,8 +396,6 @@ public class HappeningDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
         if (!isRefresh)

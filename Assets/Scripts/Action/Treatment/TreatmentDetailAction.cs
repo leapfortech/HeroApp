@@ -141,10 +141,10 @@ public class TreatmentDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(treatmentFull.ImageSprites);
 
         // Actions
-        //SetToggle(tglFavorite, treatmentFull.Favorite != 0);
-        //SetToggle(tglLike, treatmentFull.Like == 5);
-        //SetToggle(tglDislike, treatmentFull.Like == 1);
-        SetToggle(tglReaction, treatmentFull.ReactionPhraseId != -1);
+        //tglFavorite.Checked = treatmentFull.Favorite != 0;
+        //tglLike.Checked = treatmentFull.Like == 5;
+        //tglDislike.Checked = treatmentFull.Like == 1;
+        tglReaction.Checked = treatmentFull.ReactionPhraseId != -1;
 
         RefreshContents();
 
@@ -221,14 +221,6 @@ public class TreatmentDetailAction : MonoBehaviour
     }
 
     //
-
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
 
     private void RefreshContents()
     {

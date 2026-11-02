@@ -47,7 +47,7 @@ public class RadioDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Title("Values")]
     [SerializeField]
@@ -102,7 +102,6 @@ public class RadioDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
@@ -210,16 +209,16 @@ public class RadioDetailAction : MonoBehaviour
         imgCover.Sprite = radioFull.ImageSprites[0];
 
         // Actions
-        if (radioFull.Favorite != 0)
-            tglFavorite.Check();
-        else
-            tglFavorite.Uncheck();
+        tglFavorite.Checked = radioFull.Favorite != 0;
 
         // Admin
-        gobAdmin.SetActive(radioFull.AppUserId == StateManager.Instance.AppUser.Id);
-
         if (radioFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        {
+            rtfAdmin.gameObject.SetActive(true);
+            deltaY += rtfAdmin.sizeDelta.y;
+        }
+        else
+            rtfAdmin.gameObject.SetActive(false);
 
         RefreshContents(deltaY);
 

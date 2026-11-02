@@ -19814,7 +19814,7 @@ GameObject:
   - component: {fileID: 70857823}
   - component: {fileID: 70857822}
   m_Layer: 0
-  m_Name: DetailTreatment
+  m_Name: TreatmentDetail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50764,7 +50764,7 @@ GameObject:
   - component: {fileID: 167106650}
   - component: {fileID: 167106651}
   m_Layer: 0
-  m_Name: FeedHappening
+  m_Name: HappeningFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53213,11 +53213,6 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 82dab54e5336f1d4ca787b8742acccd9, type: 3}
   m_PrefabInstance: {fileID: 174936936}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &175241117 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1094026821316255047, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
-  m_PrefabInstance: {fileID: 705087148}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &175308068
 PrefabInstance:
@@ -67172,7 +67167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225563757}
   m_Layer: 5
-  m_Name: GobPaymentDetails
+  m_Name: RtfPaymentDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72719,10 +72714,10 @@ MonoBehaviour:
   txtEndDate: {fileID: 326537481}
   txtEndTime: {fileID: 1131334944}
   txtLocation: {fileID: 757865112}
-  rtfPaymentDetails: {fileID: 295940185}
-  gobPaymentDetails: {fileID: 225563756}
+  rtfPayment: {fileID: 295940185}
+  rtfPaymentDetails: {fileID: 225563757}
   rtfContact: {fileID: 2000755394}
-  gobContactDetails: {fileID: 798148585}
+  rtfContactDetails: {fileID: 798148586}
   txtContactName: {fileID: 1543029515}
   scrollRect: {fileID: 246056489}
   contentPadding: 0
@@ -90868,7 +90863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295940185}
   m_Layer: 5
-  m_Name: RtfPaymentDetails
+  m_Name: RtfPayment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178321,7 +178316,7 @@ GameObject:
   - component: {fileID: 570888413}
   - component: {fileID: 570888412}
   m_Layer: 0
-  m_Name: FeedMemory
+  m_Name: MemoryFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217122,6 +217117,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1094026821316255048, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
   m_PrefabInstance: {fileID: 705087148}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &705087150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2495643745549166091, guid: 664c1bd1574bec34e84216bce78a636c, type: 3}
+  m_PrefabInstance: {fileID: 705087148}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0641dc34c0d9d82449419771c28f118f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &705401169
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247936,7 +247942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 798148586}
   m_Layer: 5
-  m_Name: GobContactDetails
+  m_Name: RtfContactDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -252323,7 +252329,7 @@ MonoBehaviour:
   txtRadioLanguages: {fileID: 601917826}
   scrollRect: {fileID: 1493230626}
   contentPadding: 0
-  gobAdmin: {fileID: 1521818262}
+  rtfAdmin: {fileID: 1521818263}
   vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
   vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   vllRadioType: {fileID: 11400000, guid: fa5a0aa8c822a7f4ba08f80e07f27bb8, type: 2}
@@ -260616,7 +260622,7 @@ GameObject:
   - component: {fileID: 830934783}
   - component: {fileID: 830934784}
   m_Layer: 0
-  m_Name: FeedProduct
+  m_Name: ProductFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329671,7 +329677,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1052653988}
   m_Layer: 5
-  m_Name: GobContactDetails
+  m_Name: RtfContactDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -386718,7 +386724,7 @@ GameObject:
   - component: {fileID: 1202922405}
   - component: {fileID: 1202922406}
   m_Layer: 0
-  m_Name: FeedNews
+  m_Name: NewsFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494220,7 +494226,7 @@ GameObject:
   - component: {fileID: 1515162085}
   - component: {fileID: 1515162084}
   m_Layer: 0
-  m_Name: FeedTale
+  m_Name: TaleFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633099,7 +633105,7 @@ GameObject:
   - component: {fileID: 1945712446}
   - component: {fileID: 1945712448}
   m_Layer: 0
-  m_Name: FeedTreatment
+  m_Name: TreatmentFeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -646967,7 +646973,7 @@ MonoBehaviour:
   txtDescription: {fileID: 1287867017}
   txtProductSubtype: {fileID: 397081539}
   txtPrice: {fileID: 1325247349}
-  gobDiscountPrice: {fileID: 175241117}
+  lblDiscountPrice: {fileID: 705087150}
   txtDiscountPrice: {fileID: 1380522655}
   txtDate: {fileID: 1454075492}
   txtLocation: {fileID: 1633746151}
@@ -646976,11 +646982,11 @@ MonoBehaviour:
   txtCurrentLocation: {fileID: 1992291909}
   txtInterestLocation: {fileID: 720255212}
   rtfContact: {fileID: 1277973208}
-  gobContactDetails: {fileID: 1052653987}
+  rtfContactDetails: {fileID: 1052653988}
   txtContactName: {fileID: 401460870}
   scrollRect: {fileID: 236921457}
   contentPadding: 0
-  gobAdmin: {fileID: 857188641}
+  rtfAdmin: {fileID: 857188642}
   vllProductSubtype: {fileID: 11400000, guid: f1d504bdbcc41be4eb4ff8420c8ab4d8, type: 2}
   vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
   vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
