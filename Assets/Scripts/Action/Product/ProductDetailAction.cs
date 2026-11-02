@@ -115,7 +115,6 @@ public class ProductDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     ProductService productService;
-    PostService postService;
 
     long postId = -1;
     String phone = "", whatsapp = "", email = "";
@@ -126,7 +125,6 @@ public class ProductDetailAction : MonoBehaviour
     private void Awake()
     {
         productService = GetComponent<ProductService>();
-        postService = GetComponent<PostService>();
     }
 
     private void Start()
@@ -300,10 +298,7 @@ public class ProductDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(productFull.ImageSprites);
 
         // Actions
-        if (productFull.Favorite != 0)
-            tglFavorite.Check();
-        else
-            tglFavorite.Uncheck();
+        tglFavorite.Checked = productFull.Favorite != 0;
 
         // Admin
         gobAdmin.SetActive(productFull.AppUserId == StateManager.Instance.AppUser.Id);
@@ -327,9 +322,9 @@ public class ProductDetailAction : MonoBehaviour
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
         if (check)
-            postService.RegisterFavorite(favorite);
+            productService.RegisterFavorite(favorite);
         else
-            postService.DeleteFavorite(favorite);
+            productService.DeleteFavorite(favorite);
     }
 
     public void ApplyDetailFavorite()
@@ -351,7 +346,7 @@ public class ProductDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        productService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()

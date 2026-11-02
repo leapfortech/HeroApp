@@ -37,15 +37,16 @@ public class RadioService : MonoBehaviour
     private UnityBoolEvent onFavoriteChanged = null;
 
     [SerializeField]
-    private UnityBoolEvent onUpdated = null;
+    private UnityLongEvent onPlaintRegistered = null;
 
+    [SerializeField]
+    private UnityBoolEvent onUpdated = null;
 
     [Title("Errors")]
     [SerializeField]
     private UnityStringEvent onSendError = null;
     [SerializeField]
     private UnityStringEvent onResponseError = null;
-
     [SerializeField]
     private UnityStringEvent onTimeoutError = null;
 
@@ -215,6 +216,27 @@ public class RadioService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterPostPlaint(PostPlaint postPlaint)
+    {
+        PostPlaintRegisterOperation postPlaintRegisterOp = new PostPlaintRegisterOperation();
+        try
+        {
+            postPlaintRegisterOp.postPlaint = postPlaint;
+            postPlaintRegisterOp["on-complete"] = (Action<PostPlaintRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPlaintRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            postPlaintRegisterOp.Send();
         }
         catch (Exception ex)
         {

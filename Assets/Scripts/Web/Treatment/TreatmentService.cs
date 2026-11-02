@@ -28,13 +28,23 @@ public class TreatmentService : MonoBehaviour
     private UnityLongEvent onRegistered = null;
 
     [SerializeField]
+    private UnityBoolEvent onFavoriteChanged = null;
+
+    [SerializeField]
+    private UnityBoolEvent onReactionChanged = null;
+
+    [SerializeField]
+    private UnityLongEvent onPlaintRegistered = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
     [Title("Errors")]
     [SerializeField]
+    private UnityStringEvent onSendError = null;
+    [SerializeField]
     private UnityStringEvent onResponseError = null;
-
     [SerializeField]
     private UnityStringEvent onTimeoutError = null;
 
@@ -58,7 +68,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -80,7 +90,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -101,7 +111,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -123,7 +133,112 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
+    public void RegisterFavorite(Favorite favorite)
+    {
+        FavoriteRegisterOperation favoriteRegisterOp = new FavoriteRegisterOperation();
+        try
+        {
+            favoriteRegisterOp.favorite = favorite;
+            favoriteRegisterOp["on-complete"] = (Action<FavoriteRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToInt64(op.favoriteId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
+    public void DeleteFavorite(Favorite favorite)
+    {
+        FavoriteDeleteOperation favoriteDeleteOp = new FavoriteDeleteOperation();
+        try
+        {
+            favoriteDeleteOp.favorite = favorite;
+            favoriteDeleteOp["on-complete"] = (Action<FavoriteDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onFavoriteChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            favoriteDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
+    public void RegisterReaction(Reaction reaction)
+    {
+        ReactionRegisterOperation reactionRegisterOp = new ReactionRegisterOperation();
+        try
+        {
+            reactionRegisterOp.reaction = reaction;
+            reactionRegisterOp["on-complete"] = (Action<ReactionRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToInt64(op.reactionId) != -1);
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
+    public void DeleteReaction(Reaction reaction)
+    {
+        ReactionDeleteOperation reactionDeleteOp = new ReactionDeleteOperation();
+        try
+        {
+            reactionDeleteOp.reaction = reaction;
+            reactionDeleteOp["on-complete"] = (Action<ReactionDeleteOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onReactionChanged.Invoke(Convert.ToBoolean(op.done));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            reactionDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
+        }
+    }
+
+    public void RegisterPostPlaint(PostPlaint postPlaint)
+    {
+        PostPlaintRegisterOperation postPlaintRegisterOp = new PostPlaintRegisterOperation();
+        try
+        {
+            postPlaintRegisterOp.postPlaint = postPlaint;
+            postPlaintRegisterOp["on-complete"] = (Action<PostPlaintRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPlaintRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            postPlaintRegisterOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -145,7 +260,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -166,7 +281,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -187,7 +302,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 
@@ -208,7 +323,7 @@ public class TreatmentService : MonoBehaviour
         }
         catch (Exception ex)
         {
-            WebManager.Instance.OnSendError(ex.Message);
+            WebManager.Instance.OnSendError(ex.Message, onSendError);
         }
     }
 }

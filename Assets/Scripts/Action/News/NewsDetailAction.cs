@@ -35,13 +35,16 @@ public class NewsDetailAction : MonoBehaviour
     Text txtAlias = null;
     [SerializeField]
     Text txtLocation = null;
+
+    [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
 
     [Space, SerializeField]
-    Toggle[] tglReactionCounts = null;
+    Toggle[] tglReactions = null;
 
-    [Space, SerializeField]
+    [Title("Comments")]
+    [SerializeField]
     SectionTitle sttCommentsCount = null;
 
     [SerializeField]
@@ -77,19 +80,11 @@ public class NewsDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Title("Actions")]
     [SerializeField]
     Button btnDelete = null;
-    [SerializeField]
-    Toggle tglReaction1 = null;
-    [SerializeField]
-    Toggle tglReaction2 = null;
-    [SerializeField]
-    Toggle tglReaction3 = null;
-    [SerializeField]
-    Toggle tglReaction4 = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
@@ -140,7 +135,6 @@ public class NewsDetailAction : MonoBehaviour
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
@@ -232,24 +226,23 @@ public class NewsDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(newsFull.ImageSprites);
 
         // Actions
-        SetToggle(tglReaction1, newsFull.ReactionPhraseId == 1);
-        SetToggle(tglReaction2, newsFull.ReactionPhraseId == 2);
-        SetToggle(tglReaction3, newsFull.ReactionPhraseId == 3);
-        SetToggle(tglReaction4, newsFull.ReactionPhraseId == 4);
-
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+        for (int i = 0; i < tglReactions.Length; i++)
+        {
+            SetToggle(tglReactions[i], newsFull.ReactionPhraseId == (i + 1));
+            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
+        }
 
         // Comments
         DisplayComments(newsFull.CommentFulls.Count);
 
         // Admin
-        gobAdmin.SetActive(newsFull.AppUserId == StateManager.Instance.AppUser.Id);
-
         if (newsFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        {
+            rtfAdmin.gameObject.SetActive(true);
+            deltaY += rtfAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        }
+        else
+            rtfAdmin.gameObject.SetActive(false);
 
         RefreshContents(deltaY);
 
@@ -268,7 +261,7 @@ public class NewsDetailAction : MonoBehaviour
         for (int i = 0; i < reactionCounts.Length; i++)
         {
             totalReactions += reactionCounts[i];
-            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+            tglReactions[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
         }
 
         txtReactionsCount.TextValue = $"{totalReactions} reacciones";
@@ -319,7 +312,7 @@ public class NewsDetailAction : MonoBehaviour
             currentReactionPhraseId = -1;
 
             ignoreReactionEvent = true;
-            SetReactionToggle(previousReactionPhraseId, false);
+            tglReactions[previousReactionPhraseId - 1].Checked = false;
             ignoreReactionEvent = false;
         }
 
@@ -335,32 +328,6 @@ public class NewsDetailAction : MonoBehaviour
         currentReactionPhraseId = reactionPhraseId;
 
         configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
-    }
-
-    private void SetReactionToggle(long reactionPhraseId, bool value)
-    {
-        if (reactionPhraseId == 1)
-        {
-            SetToggle(tglReaction1, value);
-            return;
-        }
-
-        if (reactionPhraseId == 2)
-        {
-            SetToggle(tglReaction2, value);
-            return;
-        }
-
-        if (reactionPhraseId == 3)
-        {
-            SetToggle(tglReaction3, value);
-            return;
-        }
-
-        if (reactionPhraseId == 4)
-        {
-            SetToggle(tglReaction4, value);
-        }
     }
 
     private void ChangeReactionCount(long reactionPhraseId, int amount)

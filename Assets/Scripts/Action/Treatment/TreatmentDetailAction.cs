@@ -88,14 +88,12 @@ public class TreatmentDetailAction : MonoBehaviour
     UnityBoolEvent onReactionChanged = null;
 
     TreatmentService treatmentService;
-    PostService postService;
 
     long postId = -1;
 
     private void Awake()
     {
         treatmentService = GetComponent<TreatmentService>();
-        postService = GetComponent<PostService>();
     }
 
     public void Display(long postId)
@@ -161,9 +159,9 @@ public class TreatmentDetailAction : MonoBehaviour
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
         if (check)
-            postService.RegisterFavorite(favorite);
+            treatmentService.RegisterFavorite(favorite);
         else
-            postService.DeleteFavorite(favorite);
+            treatmentService.DeleteFavorite(favorite);
     }
 
     public void ApplyDetailFavorite()
@@ -179,7 +177,7 @@ public class TreatmentDetailAction : MonoBehaviour
 
         if (!check)
         {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+            treatmentService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
             return;
         }
 
@@ -191,7 +189,7 @@ public class TreatmentDetailAction : MonoBehaviour
         long reactionPhraseId = cmbReaction.GetSelectedId();
 
         Reaction reaction = new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterReaction(reaction);
+        treatmentService.RegisterReaction(reaction);
         tglReaction.Check();
     }
 
@@ -214,7 +212,7 @@ public class TreatmentDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        treatmentService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()

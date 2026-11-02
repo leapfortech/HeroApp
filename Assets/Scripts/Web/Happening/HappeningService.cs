@@ -40,6 +40,9 @@ public class HappeningService : MonoBehaviour
     private UnityBoolEvent onSelectedChanged = null;
 
     [SerializeField]
+    private UnityLongEvent onPlaintRegistered = null;
+
+    [SerializeField]
     private UnityBoolEvent onUpdated = null;
 
 
@@ -240,6 +243,27 @@ public class HappeningService : MonoBehaviour
                     WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
             });
             selectedDeleteOp.Send();
+        }
+        catch (Exception ex)
+        {
+            WebManager.Instance.OnSendError(ex.Message);
+        }
+    }
+
+    public void RegisterPostPlaint(PostPlaint postPlaint)
+    {
+        PostPlaintRegisterOperation postPlaintRegisterOp = new PostPlaintRegisterOperation();
+        try
+        {
+            postPlaintRegisterOp.postPlaint = postPlaint;
+            postPlaintRegisterOp["on-complete"] = (Action<PostPlaintRegisterOperation, HttpResponse>)((op, response) =>
+            {
+                if (response != null && !response.HasError)
+                    onPlaintRegistered.Invoke(Convert.ToInt64(op.postPlaintId));
+                else
+                    WebManager.Instance.OnResponseError(response, onResponseError, onTimeoutError);
+            });
+            postPlaintRegisterOp.Send();
         }
         catch (Exception ex)
         {

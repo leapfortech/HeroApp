@@ -37,13 +37,15 @@ public class TaleDetailAction : MonoBehaviour
     Text txtDate = null;
     [SerializeField]
     Text txtLocation = null;
+
+    [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
+    [Space,  SerializeField]
+    Toggle[] tglReactions = null;
 
-    [Space, SerializeField]
-    Toggle[] tglReactionCounts = null;
-
-    [Space, SerializeField]
+    [Title("Comments")]
+    [SerializeField]
     SectionTitle sttCommentsCount = null;
 
     [SerializeField]
@@ -79,7 +81,7 @@ public class TaleDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Title("Values")]
     [SerializeField]
@@ -92,14 +94,6 @@ public class TaleDetailAction : MonoBehaviour
     [Title("Actions")]
     [SerializeField]
     Button btnDelete = null;
-    [SerializeField]
-    Toggle tglReaction1 = null;
-    [SerializeField]
-    Toggle tglReaction2 = null;
-    [SerializeField]
-    Toggle tglReaction3 = null;
-    [SerializeField]
-    Toggle tglReaction4 = null;
     [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
@@ -128,19 +122,16 @@ public class TaleDetailAction : MonoBehaviour
     TaleFull taleFull = null;
 
     TaleService taleService;
-    PostService postService;
     float commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
 
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
-        postService = GetComponent<PostService>();
     }
 
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight 
                                - txtDescription.TextHeight
@@ -239,24 +230,23 @@ public class TaleDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(taleFull.ImageSprites);
 
         // Actions
-        SetToggle(tglReaction1, taleFull.ReactionPhraseId == 1);
-        SetToggle(tglReaction2, taleFull.ReactionPhraseId == 2);
-        SetToggle(tglReaction3, taleFull.ReactionPhraseId == 3);
-        SetToggle(tglReaction4, taleFull.ReactionPhraseId == 4);
-
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+        for (int i = 0; i < tglReactions.Length; i++)
+        {
+           tglReactions[i].Checked = taleFull.ReactionPhraseId == (i + 1);
+            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
+        }
 
         // Comments
         DisplayComments(taleFull.CommentFulls.Count);
 
         // Admin
-        gobAdmin.SetActive(taleFull.AppUserId == StateManager.Instance.AppUser.Id);
-
         if (taleFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        {
+            rtfAdmin.gameObject.SetActive(true);
+            deltaY += rtfAdmin.sizeDelta.y;
+        }
+        else
+            rtfAdmin.gameObject.SetActive(false);
 
         RefreshContents(deltaY);
 
@@ -276,7 +266,7 @@ public class TaleDetailAction : MonoBehaviour
         for (int i = 0; i < reactionCounts.Length; i++)
         {
             totalReactions += reactionCounts[i];
-            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+            tglReactions[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
         }
 
         txtReactionsCount.TextValue = $"{totalReactions} reacciones";
@@ -321,13 +311,13 @@ public class TaleDetailAction : MonoBehaviour
 
         if (previousReactionPhraseId != -1)
         {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+            taleService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
 
             ChangeReactionCount(previousReactionPhraseId, -1);
             currentReactionPhraseId = -1;
 
             ignoreReactionEvent = true;
-            SetReactionToggle(previousReactionPhraseId, false);
+            tglReactions[previousReactionPhraseId - 1].Checked = false;
             ignoreReactionEvent = false;
         }
 
@@ -337,7 +327,7 @@ public class TaleDetailAction : MonoBehaviour
             return;
         }
 
-        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+        taleService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
 
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
@@ -345,35 +335,9 @@ public class TaleDetailAction : MonoBehaviour
         configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
     }
 
-    private void SetReactionToggle(long reactionPhraseId, bool value)
-    {
-        if (reactionPhraseId == 1)
-        {
-            SetToggle(tglReaction1, value);
-            return;
-        }
-
-        if (reactionPhraseId == 2)
-        {
-            SetToggle(tglReaction2, value);
-            return;
-        }
-
-        if (reactionPhraseId == 3)
-        {
-            SetToggle(tglReaction3, value);
-            return;
-        }
-
-        if (reactionPhraseId == 4)
-        {
-            SetToggle(tglReaction4, value);
-        }
-    }
-
     private void ChangeReactionCount(long reactionPhraseId, int amount)
     {
-        int index = (int)reactionPhraseId - 1;
+        long index = reactionPhraseId - 1;
 
         reactionCounts[index] += amount;
 
@@ -397,7 +361,7 @@ public class TaleDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        taleService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()
@@ -406,14 +370,6 @@ public class TaleDetailAction : MonoBehaviour
     }
 
     //
-
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
 
     private void DisplayComments(int commentCount)
     {

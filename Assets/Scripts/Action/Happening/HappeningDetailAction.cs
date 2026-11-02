@@ -67,7 +67,7 @@ public class HappeningDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Title("Values")]
     [SerializeField]
@@ -113,7 +113,6 @@ public class HappeningDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     HappeningService happeningService;
-    PostService postService;
 
     long postId = -1;
     float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f, contactInitialHeight = 0.0f;
@@ -124,13 +123,11 @@ public class HappeningDetailAction : MonoBehaviour
     private void Awake()
     {
         happeningService = GetComponent<HappeningService>();
-        postService = GetComponent<PostService>();
     }
 
     private void Start()
     {
         RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
 
         paymentDetailsInitialHeight = rtfPaymentDetails.sizeDelta.y;
         paymentDetailsTextInitialHeight = txtPaymentDetails.TextHeight;
@@ -314,10 +311,7 @@ public class HappeningDetailAction : MonoBehaviour
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
         // Actions
-        if (happeningFull.Favorite != 0)
-            tglFavorite.Check();
-        else
-            tglFavorite.Uncheck();
+        tglFavorite.Checked = happeningFull.Favorite != 0;
 
         tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia";
         ThemeManager.Instance.RefreshStylesInHierarchy(tglFavorite.gameObject);
@@ -328,10 +322,10 @@ public class HappeningDetailAction : MonoBehaviour
             tglSelected.Uncheck();
 
         // Admin
-        gobAdmin.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
+        rtfAdmin.gameObject.SetActive(happeningFull.AppUserId == StateManager.Instance.AppUser.Id);
 
         if (happeningFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+            deltaY += rtfAdmin.sizeDelta.y;
 
         RefreshContents(deltaY);
 
@@ -348,9 +342,9 @@ public class HappeningDetailAction : MonoBehaviour
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
         if (check)
-            postService.RegisterFavorite(favorite);
+            happeningService.RegisterFavorite(favorite);
         else
-            postService.DeleteFavorite(favorite);
+            happeningService.DeleteFavorite(favorite);
 
         happeningFull.FavoriteCount += check ? 1 : -1;
 
@@ -370,9 +364,9 @@ public class HappeningDetailAction : MonoBehaviour
     {
         Selected selected = new Selected(postId, StateManager.Instance.AppUser.Id);
         if (check)
-            postService.RegisterSelected(selected);
+            happeningService.RegisterSelected(selected);
         else
-            postService.DeleteSelected(selected);
+            happeningService.DeleteSelected(selected);
     }
 
     public void ApplyDetailSelected()
@@ -394,7 +388,7 @@ public class HappeningDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        happeningService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()
