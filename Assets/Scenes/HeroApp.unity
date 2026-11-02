@@ -169808,6 +169808,9 @@ MonoBehaviour:
   onReactionChanged:
     m_PersistentCalls:
       m_Calls: []
+  onPlaintRegistered:
+    m_PersistentCalls:
+      m_Calls: []
   onUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -178426,6 +178429,9 @@ MonoBehaviour:
   onReactionChanged:
     m_PersistentCalls:
       m_Calls: []
+  onPlaintRegistered:
+    m_PersistentCalls:
+      m_Calls: []
   onUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -186608,6 +186614,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onReactionChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlaintRegistered:
     m_PersistentCalls:
       m_Calls: []
   onUpdated:
@@ -363759,6 +363768,9 @@ MonoBehaviour:
   onReactionChanged:
     m_PersistentCalls:
       m_Calls: []
+  onPlaintRegistered:
+    m_PersistentCalls:
+      m_Calls: []
   onUpdated:
     m_PersistentCalls:
       m_Calls: []
@@ -457251,7 +457263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 5481935f17072f64ea7663fc0bfdd261, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -2.3885422
+      value: -2.3885498
       objectReference: {fileID: 0}
     - target: {fileID: 8436609822253491788, guid: 5481935f17072f64ea7663fc0bfdd261, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -476723,7 +476735,6 @@ GameObject:
   - component: {fileID: 1467982041}
   - component: {fileID: 1467982044}
   - component: {fileID: 1467982043}
-  - component: {fileID: 1467982042}
   m_Layer: 0
   m_Name: MemoryDetail
   m_TagString: Untagged
@@ -476750,63 +476761,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1467982042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1467982037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19944b8bc587db947b970fe32e7529ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PostService
-  onFeedRetreived:
-    m_PersistentCalls:
-      m_Calls: []
-  onCommentFeedRetreived:
-    m_PersistentCalls:
-      m_Calls: []
-  onImagesRetreived:
-    m_PersistentCalls:
-      m_Calls: []
-  onRegistered:
-    m_PersistentCalls:
-      m_Calls: []
-  onFavoriteChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onSelectedChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onReactionChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onPlaintRegistered:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1467982044}
-        m_TargetAssemblyTypeName: MemoryDetailAction, Assembly-CSharp
-        m_MethodName: PlaintRegistered
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onSendError:
-    m_PersistentCalls:
-      m_Calls: []
-  onResponseError:
-    m_PersistentCalls:
-      m_Calls: []
-  onTimeoutError:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1467982043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476846,6 +476800,21 @@ MonoBehaviour:
   onReactionChanged:
     m_PersistentCalls:
       m_Calls: []
+  onPlaintRegistered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1467982044}
+        m_TargetAssemblyTypeName: MemoryDetailAction, Assembly-CSharp
+        m_MethodName: PlaintRegistered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onUpdated:
     m_PersistentCalls:
       m_Calls:
@@ -476889,7 +476858,7 @@ MonoBehaviour:
   txtAlias: {fileID: 2110519458}
   txtLocation: {fileID: 849182410}
   txtReactionsCount: {fileID: 228698229}
-  tglReactionCounts:
+  tglReactions:
   - {fileID: 1693990328}
   - {fileID: 1124095827}
   - {fileID: 1684839001}
@@ -476907,15 +476876,11 @@ MonoBehaviour:
   scrollRect: {fileID: 2023882414}
   contentPadding: 0
   rtfComments: {fileID: 1891648074}
-  gobAdmin: {fileID: 1536813885}
+  rtfAdmin: {fileID: 1536813886}
   vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
   vllState: {fileID: 11400000, guid: a8593e9c316fb884587d8346fe5c9b28, type: 2}
   vllMemoryType: {fileID: 11400000, guid: 97d9d52f9c1e94540ab25c5dbc8cae33, type: 2}
   btnDelete: {fileID: 1911303605}
-  tglReaction1: {fileID: 1693990328}
-  tglReaction2: {fileID: 1124095827}
-  tglReaction3: {fileID: 1684839001}
-  tglReaction4: {fileID: 1423901665}
   cmbPlaintType: {fileID: 765506654}
   configs:
   - pagBack: {fileID: 500258170}

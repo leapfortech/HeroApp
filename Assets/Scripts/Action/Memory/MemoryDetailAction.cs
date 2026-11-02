@@ -34,13 +34,15 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Text txtLocation = null;
 
+    [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
 
     [Space, SerializeField]
-    Toggle[] tglReactionCounts = null;
+    Toggle[] tglReactions = null;
 
-    [Space, SerializeField]
+    [Title("Comments")]
+    [SerializeField]
     SectionTitle sttCommentsCount = null;
 
     [SerializeField]
@@ -76,7 +78,7 @@ public class MemoryDetailAction : MonoBehaviour
 
     [Title("Admin")]
     [SerializeField]
-    GameObject gobAdmin = null;
+    RectTransform rtfAdmin = null;
 
     [Title("Values")]
     [SerializeField]
@@ -92,20 +94,11 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     Button btnDelete = null;
     [SerializeField]
-    Toggle tglReaction1 = null;
-    [SerializeField]
-    Toggle tglReaction2 = null;
-    [SerializeField]
-    Toggle tglReaction3 = null;
-    [SerializeField]
-    Toggle tglReaction4 = null;
-    [SerializeField]
     ComboAdapter cmbPlaintType = null;
 
     [Title("Configs")]
     [SerializeField]
     FeedDetailConfig[] configs = null;
-
 
     [Title("Page")]
     [SerializeField]
@@ -121,36 +114,41 @@ public class MemoryDetailAction : MonoBehaviour
     MemoryFullEvent onApplyUpdate = null;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f, commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, commentTotalInitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
     bool isRefresh = false;
     int[] reactionCounts;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
 
     MemoryService memoryService;
-    PostService postService;
     MemoryFull memoryFull = null;
+
+    RectTransform content, rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
 
     private void Awake()
     {
         memoryService = GetComponent<MemoryService>();
-        postService = GetComponent<PostService>();
+
+        content = (RectTransform)txtTitle.transform.parent;
+
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
+
+        rtfComment1 = (RectTransform)txtComment1.transform.parent;
+        rtfComment2 = (RectTransform)txtComment2.transform.parent;
+        rtfComment3 = (RectTransform)txtComment3.transform.parent;
     }
 
     private void Start()
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfAdmin = gobAdmin.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
                                - rtfComments.sizeDelta.y
                                - rtfAdmin.sizeDelta.y;
         
-        
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentTextItemInitialHeight = txtComment1.TextHeight;
         commentItemInitialHeight = rtfComment1.sizeDelta.y;
-        commentTotalinitialHeight = rtfComments.sizeDelta.y;
+        commentTotalInitialHeight = rtfComments.sizeDelta.y;
 
         btnDelete?.AddAction(Delete);
     }
@@ -188,11 +186,11 @@ public class MemoryDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(memoryFull.Title) ? "Evento" : memoryFull.Title)}";
-        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(memoryFull.Description) ? "-" : memoryFull.Description;
-        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         // Memory
@@ -210,39 +208,41 @@ public class MemoryDetailAction : MonoBehaviour
 
         sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(memoryFull.CommentCount)})";
 
-        txtAliasComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].AppUserAlias : "";
-        txtAliasComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].AppUserAlias : "";
-        txtAliasComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? memoryFull.CommentFulls[2].AppUserAlias : "";
+        bool hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null;
+        txtAliasComment1.TextValue = hasComments ? memoryFull.CommentFulls[0].AppUserAlias : "";
+        txtDateComment1.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[0].PublicationDateTime) : "";
+        txtComment1.TextValue = hasComments ? memoryFull.CommentFulls[0].Message : "";
 
-        txtDateComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[1].PublicationDateTime) : "";
-        txtDateComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[2].PublicationDateTime) : "";
+        hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null;
+        txtAliasComment2.TextValue = hasComments ? memoryFull.CommentFulls[1].AppUserAlias : "";
+        txtDateComment2.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[1].PublicationDateTime) : "";
+        txtComment2.TextValue = hasComments ? memoryFull.CommentFulls[1].Message : "";
 
-        txtComment1.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null ? memoryFull.CommentFulls[0].Message : "";
-        txtComment2.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 1 && memoryFull.CommentFulls[1] != null ? memoryFull.CommentFulls[1].Message : "";
-        txtComment3.TextValue = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null ? memoryFull.CommentFulls[2].Message : "";
+        hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 2 && memoryFull.CommentFulls[2] != null;
+        txtAliasComment3.TextValue = hasComments ? memoryFull.CommentFulls[2].AppUserAlias : "";
+        txtDateComment3.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - memoryFull.CommentFulls[2].PublicationDateTime) : "";
+        txtComment3.TextValue = hasComments ? memoryFull.CommentFulls[2].Message : "";
 
         onImagesDisplay.Invoke(memoryFull.ImageSprites);
 
         // Actions
-        SetToggle(tglReaction1, memoryFull.ReactionPhraseId == 1);
-        SetToggle(tglReaction2, memoryFull.ReactionPhraseId == 2);
-        SetToggle(tglReaction3, memoryFull.ReactionPhraseId == 3);
-        SetToggle(tglReaction4, memoryFull.ReactionPhraseId == 4);
-
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction1.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction2.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction3.gameObject);
-        ThemeManager.Instance.RefreshStylesInHierarchy(tglReaction4.gameObject);
+        for (int i = 0; i < tglReactions.Length; i++)
+        {
+            tglReactions[i].Checked = memoryFull.ReactionPhraseId == (i + 1);
+            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
+        }
 
         // Comments
         DisplayComments(memoryFull.CommentFulls.Count);
 
         // Admin
-        gobAdmin.SetActive(memoryFull.AppUserId == StateManager.Instance.AppUser.Id);
-
         if (memoryFull.AppUserId == StateManager.Instance.AppUser.Id)
-            deltaY += gobAdmin.GetComponent<RectTransform>().sizeDelta.y;
+        {
+            rtfAdmin.gameObject.SetActive(true);
+            deltaY += rtfAdmin.sizeDelta.y;
+        }
+        else
+            rtfAdmin.gameObject.SetActive(false);
 
         // Contents
         RefreshContents(deltaY);
@@ -262,7 +262,7 @@ public class MemoryDetailAction : MonoBehaviour
         for (int i = 0; i < reactionCounts.Length; i++)
         {
             totalReactions += reactionCounts[i];
-            tglReactionCounts[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+            tglReactions[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
         }
 
         txtReactionsCount.TextValue = $"{totalReactions} reacciones";
@@ -307,13 +307,13 @@ public class MemoryDetailAction : MonoBehaviour
 
         if (previousReactionPhraseId != -1)
         {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+            memoryService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
 
             ChangeReactionCount(previousReactionPhraseId, -1);
             currentReactionPhraseId = -1;
 
             ignoreReactionEvent = true;
-            SetReactionToggle(previousReactionPhraseId, false);
+            tglReactions[previousReactionPhraseId - 1].Checked = false;
             ignoreReactionEvent = false;
         }
 
@@ -323,7 +323,7 @@ public class MemoryDetailAction : MonoBehaviour
             return;
         }
 
-        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+        memoryService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
 
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
@@ -331,35 +331,9 @@ public class MemoryDetailAction : MonoBehaviour
         configs[StateManager.Instance.FeedDetailType].onReactionChanged.Invoke(previousReactionPhraseId, reactionPhraseId, true);
     }
 
-    private void SetReactionToggle(long reactionPhraseId, bool value)
-    {
-        if (reactionPhraseId == 1)
-        {
-            SetToggle(tglReaction1, value);
-            return;
-        }
-
-        if (reactionPhraseId == 2)
-        {
-            SetToggle(tglReaction2, value);
-            return;
-        }
-
-        if (reactionPhraseId == 3)
-        {
-            SetToggle(tglReaction3, value);
-            return;
-        }
-
-        if (reactionPhraseId == 4)
-        {
-            SetToggle(tglReaction4, value);
-        }
-    }
-
     private void ChangeReactionCount(long reactionPhraseId, int amount)
     {
-        int index = (int)reactionPhraseId - 1;
+        long index = reactionPhraseId - 1;
 
         reactionCounts[index] += amount;
 
@@ -383,7 +357,7 @@ public class MemoryDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        memoryService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()
@@ -393,20 +367,8 @@ public class MemoryDetailAction : MonoBehaviour
 
     //
 
-    private void SetToggle(Toggle toggle, bool value)
-    {
-        if (value)
-            toggle.Check();
-        else
-            toggle.Uncheck();
-    }
-
     private void DisplayComments(int commentCount)
     {
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
-
         rtfComment1.gameObject.SetActive(commentCount > 0);
         rtfComment2.gameObject.SetActive(commentCount > 1);
         rtfComment3.gameObject.SetActive(commentCount > 2);
@@ -434,13 +396,11 @@ public class MemoryDetailAction : MonoBehaviour
             totalHeight += height;
         }
 
-        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, commentTotalinitialHeight + totalHeight);
+        rtfComments.sizeDelta = new Vector2(rtfComments.sizeDelta.x, commentTotalInitialHeight + totalHeight);
     }
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)
