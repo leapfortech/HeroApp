@@ -59,6 +59,8 @@ public class TaleFeedAction : MonoBehaviour
     [SerializeField]
     UnityLongEvent onValueSelected = null;
     [SerializeField]
+    UnityLongEvent onCommentSelected = null;
+    [SerializeField]
     UnityBoolEvent onLocalityRefreshed = null;
 
     TaleService taleService;
@@ -275,8 +277,7 @@ public class TaleFeedAction : MonoBehaviour
             loopValue.SetCheck(i, taleFeed.ReactionPhraseId == i + 1);
         }
 
-        
-        loopValue.SetText(11, taleFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} comentarios");
+        loopValue.SetText(11, taleFeed.CommentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(taleFeed.CommentCount)} {(taleFeed.CommentCount == 1 ? "comentario" : "comentarios")}");
 
         int reactionCount = taleFeed.ReactionCounts[0] + taleFeed.ReactionCounts[1] + taleFeed.ReactionCounts[2] + taleFeed.ReactionCounts[3];
         loopValue.SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
@@ -286,6 +287,12 @@ public class TaleFeedAction : MonoBehaviour
     {
         selectedIdx = idx % loopFeed.ValuesCount;
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
+    }
+
+    public void SelectComment(int idx)
+    {
+        selectedIdx = idx % loopFeed.ValuesCount;
+        onCommentSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
     public void ApplyDetailPost(TaleFeed taleFeed)
@@ -412,6 +419,13 @@ public class TaleFeedAction : MonoBehaviour
 
         int reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
         loopFeed[selectedIdx].SetText(12, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
+        loopFeed.RefreshVisibleValues();
+    }
+
+    public void ApplyCommentCount(int commentCount)
+    {
+        loopFeed[selectedIdx].SetText(11, commentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(commentCount)} {(commentCount == 1 ? "comentario" : "comentarios")}");
 
         loopFeed.RefreshVisibleValues();
     }

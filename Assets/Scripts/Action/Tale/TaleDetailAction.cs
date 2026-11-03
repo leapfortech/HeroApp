@@ -166,13 +166,11 @@ public class TaleDetailAction : MonoBehaviour
         taleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
-    public bool Refresh()
+    public void Refresh()
     {
         isRefresh = true;
         ScreenDialog.Instance.Display();
         taleService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
-
-        return false;
     }
 
     public void ApplyFull(TaleFull taleFull)

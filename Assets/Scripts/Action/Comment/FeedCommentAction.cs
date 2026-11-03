@@ -5,6 +5,7 @@ using UnityEngine;
 using Leap.Graphics.Tools;
 using Leap.UI.Elements;
 using Leap.UI.Dialog;
+using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
 
@@ -19,6 +20,9 @@ public class FeedCommentAction : MonoBehaviour
     public int chunkCount = 10;
     [SerializeField]
     public int chunkStatus = 1;
+
+    [SerializeField]
+    FeedCommentConfig[] configs = null;
 
     [Space, Title("Loop")]
     [SerializeField]
@@ -43,6 +47,13 @@ public class FeedCommentAction : MonoBehaviour
     private void Awake()
     {
         postService = GetComponent<PostService>();
+    }
+
+    public bool ChangePagBack()
+    {
+        configs[StateManager.Instance.FeedCommentType].onPagBackActivated.Invoke();
+
+        return false;
     }
 
     public void SelectValue(long postId)
@@ -112,6 +123,7 @@ public class FeedCommentAction : MonoBehaviour
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
         txtCommentCount.TextValue = response.CommentCount.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("es-ES"));
+        configs[StateManager.Instance.FeedCommentType].onCommentChanged.Invoke(response.CommentCount);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 

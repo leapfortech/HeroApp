@@ -50,6 +50,8 @@ public class StateManager : SingletonBehaviour<StateManager>
 
     public int FeedDetailType { get; set; } = 0;
 
+    public int FeedCommentType { get; set; } = 0;
+
     public Player Player { get; set; } = null;
 
     public List<PuzzleResultSummary> PuzzleResultSummarys { get; set; }
