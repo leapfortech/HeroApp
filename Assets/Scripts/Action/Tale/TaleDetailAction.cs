@@ -247,6 +247,7 @@ public class TaleDetailAction : MonoBehaviour
 
         // Comments
         DisplayComments(taleFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(taleFull.CommentCount);
 
         // Admin
         if (taleFull.AppUserId == StateManager.Instance.AppUser.Id)

@@ -25,4 +25,6 @@ public class FeedDetailConfig
     public UnityBoolEvent onFavoriteChanged = null;
     [SerializeField]
     public UnityBoolEvent onSelectedChanged = null;
+    [SerializeField]
+    public UnityIntEvent onCommentChanged = null;
 }

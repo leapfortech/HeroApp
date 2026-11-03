@@ -170,13 +170,11 @@ public class NewsDetailAction : MonoBehaviour
         newsService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
-    public bool Refresh()
+    public void Refresh()
     {
         isRefresh = true;
         ScreenDialog.Instance.Display();
         newsService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
-
-        return false;
     }
 
     public void ApplyFull(NewsFull newsFull)
@@ -245,6 +243,7 @@ public class NewsDetailAction : MonoBehaviour
 
         // Comments
         DisplayComments(newsFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(newsFull.CommentCount);
 
         // Admin
         if (newsFull.AppUserId == StateManager.Instance.AppUser.Id)

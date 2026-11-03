@@ -56,6 +56,8 @@ public class MemoryFeedAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     UnityLongEvent onValueSelected = null;
+    [SerializeField]
+    UnityLongEvent onCommentSelected = null;
 
     MemoryService memoryService;
     int selectedIdx = -1;
@@ -269,6 +271,12 @@ public class MemoryFeedAction : MonoBehaviour
         onValueSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
     }
 
+    public void SelectComment(int idx)
+    {
+        selectedIdx = idx % loopFeed.ValuesCount;
+        onCommentSelected.Invoke(((FeedUserData)loopFeed[selectedIdx].UserData).PostId);
+    }
+
     public void ApplyDetailPost(MemoryFeed memoryFeed)
     {
         UpdateValue(memoryFeed, loopFeed[selectedIdx]);
@@ -385,6 +393,13 @@ public class MemoryFeedAction : MonoBehaviour
 
         int reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
         loopFeed[selectedIdx].SetText(9, reactionCount == 0 ? "Sin reacciones" : $"{FeedHelper.Instance.FormatCount(reactionCount)} {(reactionCount == 1 ? "reacción" : "reacciones")}");
+
+        loopFeed.RefreshVisibleValues();
+    }
+
+    public void ApplyCommentCount(int commentCount)
+    {
+        loopFeed[selectedIdx].SetText(8, commentCount == 0 ? "Sin comentarios" : $"{FeedHelper.Instance.FormatCount(commentCount)} {(commentCount == 1 ? "comentario" : "comentarios")}");
 
         loopFeed.RefreshVisibleValues();
     }

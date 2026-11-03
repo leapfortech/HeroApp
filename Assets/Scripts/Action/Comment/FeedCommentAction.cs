@@ -21,7 +21,7 @@ public class FeedCommentAction : MonoBehaviour
     [SerializeField]
     public int chunkStatus = 1;
 
-    [SerializeField]
+    [Space, SerializeField]
     FeedCommentConfig[] configs = null;
 
     [Space, Title("Loop")]
@@ -123,6 +123,7 @@ public class FeedCommentAction : MonoBehaviour
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
         txtCommentCount.TextValue = response.CommentCount.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("es-ES"));
+        
         configs[StateManager.Instance.FeedCommentType].onCommentChanged.Invoke(response.CommentCount);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;

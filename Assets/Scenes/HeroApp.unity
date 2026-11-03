@@ -1036,7 +1036,85 @@ MonoBehaviour:
   txtCommentCount: {fileID: 1667795095}
   chunkCount: 10
   chunkStatus: 1
-  configs: []
+  configs:
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1202922405}
+          m_TargetAssemblyTypeName: NewsFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 925388389}
+          m_TargetAssemblyTypeName: Leap.UI.Page.PageManager, Leap.UI.Page
+          m_MethodName: ChangePage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1231507313}
+            m_ObjectArgumentAssemblyTypeName: Leap.UI.Page.Page, Leap.UI.Page
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 961153413}
+          m_TargetAssemblyTypeName: NewsFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 925388389}
+          m_TargetAssemblyTypeName: Leap.UI.Page.PageManager, Leap.UI.Page
+          m_MethodName: ChangePage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1138424817}
+            m_ObjectArgumentAssemblyTypeName: Leap.UI.Page.Page, Leap.UI.Page
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1041631330}
+          m_TargetAssemblyTypeName: NewsDetailAction, Assembly-CSharp
+          m_MethodName: Refresh
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   loopFeed: {fileID: 908832453}
   goEmptyComments: {fileID: 1101254670}
   txtDebug: {fileID: 1205546403}
@@ -42512,7 +42590,85 @@ MonoBehaviour:
   txtCommentCount: {fileID: 817261569}
   chunkCount: 10
   chunkStatus: 1
-  configs: []
+  configs:
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 570888413}
+          m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 925388389}
+          m_TargetAssemblyTypeName: Leap.UI.Page.PageManager, Leap.UI.Page
+          m_MethodName: ChangePage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 500258170}
+            m_ObjectArgumentAssemblyTypeName: Leap.UI.Page.Page, Leap.UI.Page
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1141449744}
+          m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 925388389}
+          m_TargetAssemblyTypeName: Leap.UI.Page.PageManager, Leap.UI.Page
+          m_MethodName: ChangePage
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 16397049}
+            m_ObjectArgumentAssemblyTypeName: Leap.UI.Page.Page, Leap.UI.Page
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - onCommentChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onPagBackActivated:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1467982044}
+          m_TargetAssemblyTypeName: MemoryDetailAction, Assembly-CSharp
+          m_MethodName: Refresh
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   loopFeed: {fileID: 1508662271}
   goEmptyComments: {fileID: 729430228}
   txtDebug: {fileID: 1416912027}
@@ -73491,6 +73647,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls: []
   - pagBack: {fileID: 208718004}
     onReactionChanged:
       m_PersistentCalls:
@@ -73525,6 +73684,9 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls: []
   pagDetail: {fileID: 1460243640}
   onImagesDisplay:
     m_PersistentCalls:
@@ -76241,10 +76403,10 @@ PrefabInstance:
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerButtonCheck._target
       value: 
-      objectReference: {fileID: 1467982044}
+      objectReference: {fileID: 141701708}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerButtonCheck._methodName
-      value: Refresh
+      value: ChangePagBack
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onPause.m_PersistentCalls.m_Calls.Array.size
@@ -146167,6 +146329,18 @@ MonoBehaviour:
   actions:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 555001833}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+        m_MethodName: set_FeedCommentType
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 466616342}
         m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
         m_MethodName: ChangePage
@@ -179931,6 +180105,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onCommentSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141701708}
+        m_TargetAssemblyTypeName: FeedCommentAction, Assembly-CSharp
+        m_MethodName: SelectValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &572019856 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1594617360122771297, guid: f8ecfef2a164d184587a9839784c524a, type: 3}
@@ -195480,7 +195669,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -195556,7 +195745,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -195609,7 +195806,15 @@ PrefabInstance:
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 555001833}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1141449744}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 925388389}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -195663,6 +195868,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -195712,7 +195925,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisplayMenu
+      value: set_FeedCommentType
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectComment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ChangePage
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -195784,7 +196005,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FeedAction, Assembly-CSharp
+      value: StateManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MemoryFeedAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Leap.UI.Page.PageManager, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -195831,12 +196060,28 @@ PrefabInstance:
       value: FeedAction, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2133108133}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Leap.UI.Page.Page, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -212826,7 +213071,31 @@ MonoBehaviour:
   nextPage: {fileID: 2133108133}
   actions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 555001833}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+        m_MethodName: set_FeedCommentType
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 683375264}
+        m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
+        m_MethodName: ChangePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &683836067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -305145,6 +305414,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onCommentSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4499006}
+        m_TargetAssemblyTypeName: FeedCommentAction, Assembly-CSharp
+        m_MethodName: SelectValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &961339099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327610,6 +327894,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1202922405}
+          m_TargetAssemblyTypeName: NewsFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - pagBack: {fileID: 1138424817}
     onReactionChanged:
       m_PersistentCalls:
@@ -327632,6 +327931,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 961153413}
+          m_TargetAssemblyTypeName: NewsFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   pagDetail: {fileID: 706322033}
   onImagesDisplay:
     m_PersistentCalls:
@@ -365851,6 +366165,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onCommentSelected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141701708}
+        m_TargetAssemblyTypeName: FeedCommentAction, Assembly-CSharp
+        m_MethodName: SelectValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1142573776
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -377794,6 +378123,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1515162085}
+          m_TargetAssemblyTypeName: TaleFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - pagBack: {fileID: 984669401}
     onReactionChanged:
       m_PersistentCalls:
@@ -377816,6 +378160,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1489091689}
+          m_TargetAssemblyTypeName: TaleFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   pagDetail: {fileID: 1831051404}
   onImagesDisplay:
     m_PersistentCalls:
@@ -389081,6 +389440,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4499006}
+        m_TargetAssemblyTypeName: FeedCommentAction, Assembly-CSharp
+        m_MethodName: SelectValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCommentSelected:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 4499006}
         m_TargetAssemblyTypeName: FeedCommentAction, Assembly-CSharp
         m_MethodName: SelectValue
@@ -448129,7 +448503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -448213,6 +448587,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
@@ -448273,6 +448655,14 @@ PrefabInstance:
       objectReference: {fileID: 925388389}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 555001833}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1202922405}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 925388389}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
@@ -448336,6 +448726,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -448393,6 +448791,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_FeedCommentType
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectComment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: ChangePage
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
@@ -448473,6 +448879,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StateManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NewsFeedAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: Leap.UI.Page.PageManager, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
@@ -448526,6 +448940,10 @@ PrefabInstance:
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
       objectReference: {fileID: 1622343899}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -448537,6 +448955,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: Leap.UI.Page.Page, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
@@ -460540,10 +460966,10 @@ PrefabInstance:
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerButtonCheck._target
       value: 
-      objectReference: {fileID: 1041631330}
+      objectReference: {fileID: 4499006}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: headerButtonCheck._methodName
-      value: Refresh
+      value: ChangePagBack
       objectReference: {fileID: 0}
     - target: {fileID: 7949567787677415651, guid: d863785378f154048ae9367e5f2af2d6, type: 3}
       propertyPath: onPause.m_PersistentCalls.m_Calls.Array.size
@@ -479173,6 +479599,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 570888413}
+          m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - pagBack: {fileID: 16397049}
     onReactionChanged:
       m_PersistentCalls:
@@ -479195,6 +479636,21 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1141449744}
+          m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+          m_MethodName: ApplyCommentCount
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   pagDetail: {fileID: 2028658180}
   onImagesDisplay:
     m_PersistentCalls:
@@ -533274,7 +533730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -533350,7 +533806,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -533403,7 +533867,15 @@ PrefabInstance:
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 555001833}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 961153413}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 925388389}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -533457,6 +533929,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -533506,7 +533986,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisplayMenu
+      value: set_FeedCommentType
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectComment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ChangePage
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -533578,7 +534066,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FeedAction, Assembly-CSharp
+      value: StateManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: NewsFeedAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Leap.UI.Page.PageManager, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -533621,12 +534117,28 @@ PrefabInstance:
       value: FeedAction, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1622343899}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Leap.UI.Page.Page, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -569070,7 +569582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -569146,7 +569658,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -569199,7 +569719,15 @@ PrefabInstance:
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 555001833}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 570888413}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 925388389}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -569253,6 +569781,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -569302,7 +569838,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisplayMenu
+      value: set_FeedCommentType
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SelectComment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: ChangePage
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -569374,7 +569918,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FeedAction, Assembly-CSharp
+      value: StateManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: MemoryFeedAction, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: Leap.UI.Page.PageManager, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -569421,12 +569973,24 @@ PrefabInstance:
       value: FeedAction, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 2133108133}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
+      propertyPath: loopItems.Array.data[1].buttonEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Leap.UI.Page.Page, Leap.UI.Page
       objectReference: {fileID: 0}
     - target: {fileID: 6160962701581658775, guid: 3d62d0db49ee1dc4a90f0463dff98193, type: 3}
       propertyPath: loopItems.Array.data[1].toggleEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -585841,7 +586405,31 @@ MonoBehaviour:
   nextPage: {fileID: 1622343899}
   actions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 555001833}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+        m_MethodName: set_FeedCommentType
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1783400075}
+        m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
+        m_MethodName: ChangePage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1783638074
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -649958,6 +650546,9 @@ MonoBehaviour:
     onSelectedChanged:
       m_PersistentCalls:
         m_Calls: []
+    onCommentChanged:
+      m_PersistentCalls:
+        m_Calls: []
   - pagBack: {fileID: 1281333764}
     onReactionChanged:
       m_PersistentCalls:
@@ -649978,6 +650569,9 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
     onSelectedChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onCommentChanged:
       m_PersistentCalls:
         m_Calls: []
   pagDetail: {fileID: 1819526621}
@@ -654334,6 +654928,18 @@ MonoBehaviour:
   actions:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 555001833}
+        m_TargetAssemblyTypeName: StateManager, Assembly-CSharp
+        m_MethodName: set_FeedCommentType
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1999874355}
         m_TargetAssemblyTypeName: Leap.UI.Page.PageAction, Leap.UI.Page
         m_MethodName: ChangePage

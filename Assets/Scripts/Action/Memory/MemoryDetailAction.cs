@@ -174,13 +174,11 @@ public class MemoryDetailAction : MonoBehaviour
         memoryService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
     }
 
-    public bool Refresh()
+    public void Refresh()
     {
         isRefresh = true;
         ScreenDialog.Instance.Display();
         memoryService.GetFullByPostId(postId, StateManager.Instance.AppUser.Id);
-
-        return false;
     }
 
     public void ApplyFull(MemoryFull memoryFull)
@@ -245,6 +243,7 @@ public class MemoryDetailAction : MonoBehaviour
 
         // Comments
         DisplayComments(memoryFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(memoryFull.CommentCount);
 
         // Admin
         if (memoryFull.AppUserId == StateManager.Instance.AppUser.Id)
