@@ -4200,6 +4200,15 @@ MonoBehaviour:
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
         Property: 'Subdominant: Dark'
+    - rid: 3712647327145525601
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375717
+        Name: 'HM: MenuSdw: On'
+        Reference: 1
+        Value: {r: 0, g: 0, b: 0, a: 0}
+        Property: 'WhiteScale: Default'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -6143,7 +6152,7 @@ MonoBehaviour:
         Name: 'HM: MenuSdw'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'GreyScale: E'
+        Property: 'GreyScale: D'
     - rid: 6444589557909815670
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -13327,6 +13336,7 @@ MonoBehaviour:
         - rid: 3096978589808853531
         - rid: 3096978589808853534
         - rid: 3712647285539602433
+        - rid: 3712647327145525601
         DictColors:
           keys:
           - Major
@@ -13596,6 +13606,7 @@ MonoBehaviour:
           - 'HM: Comming: Title'
           - 'HM: Crd: Info'
           - 'HM: Empty: Title'
+          - 'HM: MenuSdw: On'
           values:
           - rid: 7896456371522241839
           - rid: 7896456371522241840
@@ -13864,6 +13875,7 @@ MonoBehaviour:
           - rid: 3096978589808853531
           - rid: 3096978589808853534
           - rid: 3712647285539602433
+          - rid: 3712647327145525601
         fonts:
         - rid: 7896456371522242073
         - rid: 7896456371522242074
@@ -33383,7 +33395,7 @@ MonoBehaviour:
         Name: 'Menu: Sandwich: Icon: Default'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: Default'
+        Property: 'GreyScale: D'
     - rid: 7896456371522241361
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -33392,7 +33404,7 @@ MonoBehaviour:
         Name: 'Menu: Sandwich: Icon: Pressed'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'Subdominant: Default'
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522241362
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -47414,7 +47426,7 @@ MonoBehaviour:
         Name: 'Menu: Icon: Off: Default'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'WhiteScale: D'
+        Property: 'GreyScale: D'
     - rid: 7896456371522243067
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -47423,7 +47435,7 @@ MonoBehaviour:
         Name: 'Menu: Icon: Off: Pressed'
         Reference: 1
         Value: {r: 1, g: 0, b: 1, a: 1}
-        Property: 'Subdominant: Default'
+        Property: 'WhiteScale: Default'
     - rid: 7896456371522243068
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -48755,7 +48767,7 @@ MonoBehaviour:
         Name: 'C: Page: Menu: TopLeft'
         Reference: 1
         Value: 0
-        Property: 'Corner: Arched'
+        Property: Zero
     - rid: 7896456371522243235
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -48764,7 +48776,7 @@ MonoBehaviour:
         Name: 'C: Page: Menu: TopRight'
         Reference: 1
         Value: 0
-        Property: 'Corner: Arched'
+        Property: Zero
     - rid: 7896456371522243236
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
