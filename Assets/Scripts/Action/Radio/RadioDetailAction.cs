@@ -86,7 +86,6 @@ public class RadioDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     RadioService radioService;
-    PostService postService;
 
     long postId = -1;
     String url = null;
@@ -96,7 +95,6 @@ public class RadioDetailAction : MonoBehaviour
     private void Awake()
     {
         radioService = GetComponent<RadioService>();
-        postService = GetComponent<PostService>();
     }
 
     private void Start()
@@ -236,9 +234,9 @@ public class RadioDetailAction : MonoBehaviour
     {
         Favorite favorite = new Favorite(postId, StateManager.Instance.AppUser.Id);
         if (check)
-            postService.RegisterFavorite(favorite);
+            radioService.RegisterFavorite(favorite);
         else
-            postService.DeleteFavorite(favorite);
+            radioService.DeleteFavorite(favorite);
     }
 
     public void ApplyDetailFavorite()
@@ -260,7 +258,7 @@ public class RadioDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        radioService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()
