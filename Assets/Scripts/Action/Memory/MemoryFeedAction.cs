@@ -255,7 +255,7 @@ public class MemoryFeedAction : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            loopValue.SetText(4 + i, $"{memoryFeed.ReactionCounts[i]}");
+            loopValue.SetText(4 + i, $"{FeedHelper.Instance.FormatCount(memoryFeed.ReactionCounts[i])}");
             loopValue.SetCheck(i, memoryFeed.ReactionPhraseId == i + 1);
         }
 
@@ -342,7 +342,7 @@ public class MemoryFeedAction : MonoBehaviour
                 memoryService.DeleteReaction(new Reaction(-1, userData.PostId, StateManager.Instance.AppUser.Id));
 
                 userData.ReactionCounts[i]--;
-                loopValue.SetText(4 + i, $"{userData.ReactionCounts[i]}");
+                loopValue.SetText(4 + i, $"{FeedHelper.Instance.FormatCount(userData.ReactionCounts[i])}");
                 loopValue.SetCheck(i, false);
 
                 reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
@@ -359,7 +359,7 @@ public class MemoryFeedAction : MonoBehaviour
         memoryService.RegisterReaction(new Reaction(reactionPhraseId, userData.PostId, StateManager.Instance.AppUser.Id));
 
         userData.ReactionCounts[reactionPhraseId - 1]++;
-        loopValue.SetText(4 + reactionPhraseId - 1, $"{userData.ReactionCounts[reactionPhraseId - 1]}");
+        loopValue.SetText(4 + reactionPhraseId - 1, $"{FeedHelper.Instance.FormatCount(userData.ReactionCounts[reactionPhraseId - 1])}");
         loopValue.SetCheck(reactionPhraseId - 1, true);
 
         reactionCount = userData.ReactionCounts[0] + userData.ReactionCounts[1] + userData.ReactionCounts[2] + userData.ReactionCounts[3];
@@ -379,7 +379,7 @@ public class MemoryFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[previousIndex]--;
 
-            loopFeed[selectedIdx].SetText(4 + previousIndex, $"{userData.ReactionCounts[previousIndex]}");
+            loopFeed[selectedIdx].SetText(4 + previousIndex, $"{FeedHelper.Instance.FormatCount(userData.ReactionCounts[previousIndex])}");
             loopFeed[selectedIdx].SetCheck(previousIndex, false);
         }
 
@@ -387,7 +387,7 @@ public class MemoryFeedAction : MonoBehaviour
         {
             userData.ReactionCounts[newIndex]++;
 
-            loopFeed[selectedIdx].SetText(4 + newIndex, $"{userData.ReactionCounts[newIndex]}");
+            loopFeed[selectedIdx].SetText(4 + newIndex, $"{FeedHelper.Instance.FormatCount(userData.ReactionCounts[newIndex])}");
             loopFeed[selectedIdx].SetCheck(newIndex, true);
         }
 

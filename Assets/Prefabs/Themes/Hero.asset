@@ -489,7 +489,7 @@ MonoBehaviour:
         themeElement:
           rid: 7896456371487375720
         Name: 'HM: FeedMain: Bkg: On: Default'
-        Reference: 1
+        Reference: 0
         Value: {r: 0.8901961, g: 0.9647059, b: 0.99607843, a: 1}
         Property: 'Subdominant: Translucent'
     - rid: 749284659829932094
@@ -526,7 +526,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: I: FeedMain'
         Reference: 0
-        Value: 66
+        Value: 64
         Property: 
     - rid: 749284769141096759
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -2137,7 +2137,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'HM: M: Reaction: Detail'
         Reference: 0
-        Value: 30
+        Value: 20
         Property: 
     - rid: 3096978198599566255
       type: {class: ThemePropertyFont, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
@@ -2192,7 +2192,7 @@ MonoBehaviour:
         Name: 'HM: Reaction: Detail: Bkg: Disabled'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'GreyScale: E'
+        Property: 'WhiteScale: B'
     - rid: 3096978198599566261
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -2201,7 +2201,7 @@ MonoBehaviour:
         Name: 'HM: Reaction: Detail: Border: Disabled'
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
-        Property: 'GreyScale: Default'
+        Property: 'WhiteScale: C'
     - rid: 3096978198599566262
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -4209,6 +4209,24 @@ MonoBehaviour:
         Reference: 1
         Value: {r: 0, g: 0, b: 0, a: 0}
         Property: 'WhiteScale: Default'
+    - rid: 3712647348932837718
+      type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: M: Reaction: Detail Title: Y'
+        Reference: 0
+        Value: 30
+        Property: 
+    - rid: 3712647348932837719
+      type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
+      data:
+        themeElement:
+          rid: 7896456371487375720
+        Name: 'HM: Reaction: Detail: Title: Disabled'
+        Reference: 1
+        Value: {r: 1, g: 1, b: 1, a: 1}
+        Property: 'BlackScale: C'
     - rid: 3833715606836216365
       type: {class: ThemePropertyFloat, ns: Leap.UI.Elements, asm: Leap.UI.Elements}
       data:
@@ -15236,6 +15254,7 @@ MonoBehaviour:
         - rid: 3096978492090746118
         - rid: 3096978492090746119
         - rid: 3712647290025673719
+        - rid: 3712647348932837718
         DictFloats:
           keys:
           - 'W: Button'
@@ -15645,6 +15664,7 @@ MonoBehaviour:
           - 'HM: B: DetailMain: Off: Default'
           - 'HM: B: DetailMain: On: Pressed'
           - 'HM: F: FeedMain: On'
+          - 'HM: M: Reaction: Detail Title: Y'
           values:
           - rid: 7896456371522242341
           - rid: 7896456371522242342
@@ -16053,6 +16073,7 @@ MonoBehaviour:
           - rid: 3096978492090746118
           - rid: 3096978492090746119
           - rid: 3712647290025673719
+          - rid: 3712647348932837718
         colors:
         - rid: 7896456371522242661
         - rid: 7896456371522242662
@@ -16559,6 +16580,7 @@ MonoBehaviour:
         - rid: 3096978426901562281
         - rid: 3096978426901562282
         - rid: 1502242510509703735
+        - rid: 3712647348932837719
         DictColors:
           keys:
           - 'Main: Bkg: On: Default'
@@ -17066,6 +17088,7 @@ MonoBehaviour:
           - 'HM: FeedFav: Icon: On: Default'
           - 'HM: FeedFav: Bkg: On: Default'
           - 'Bkgd: Product'
+          - 'HM: Reaction: Detail: Title: Disabled'
           values:
           - rid: 7896456371522242661
           - rid: 7896456371522242662
@@ -17572,6 +17595,7 @@ MonoBehaviour:
           - rid: 3096978426901562281
           - rid: 3096978426901562282
           - rid: 1502242510509703735
+          - rid: 3712647348932837719
         fonts:
         - rid: 7896456371522243087
         - rid: 7896456371522243088
@@ -54634,7 +54658,7 @@ MonoBehaviour:
           rid: 7896456371487375720
         Name: 'M: FeedMain: Spacing'
         Reference: 0
-        Value: 27
+        Value: 20
         Property: 
     - rid: 9045246306593013966
       type: {class: ThemePropertyColor, ns: Leap.UI.Elements, asm: Leap.UI.Elements}

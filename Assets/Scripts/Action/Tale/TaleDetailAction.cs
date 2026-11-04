@@ -276,7 +276,7 @@ public class TaleDetailAction : MonoBehaviour
         for (int i = 0; i < reactionCounts.Length; i++)
         {
             totalReactions += reactionCounts[i];
-            tglReactions[i].Title = reactionCounts[i] > 9999 ? "+9999" : reactionCounts[i].ToString();
+            tglReactions[i].Title = FeedHelper.Instance.FormatCount(reactionCounts[i]);
         }
 
         txtReactionsCount.TextValue = $"{totalReactions} reacciones";
