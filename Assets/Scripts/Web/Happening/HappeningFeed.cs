@@ -62,8 +62,8 @@ public class HappeningFeed
         StartDateTime = happeningFull.StartDateTime;
         EndDateTime = happeningFull.EndDateTime;
         HappeningType = FeedHelper.Instance.GetHappeningType(happeningFull.HappeningTypeId);
-        Country = FeedHelper.Instance.GetCountry(happeningFull.CountryId);
-        State = FeedHelper.Instance.GetState(happeningFull.StateId);
+        Country = FeedHelper.Instance.GetCountry(happeningFull.PostCountryId);
+        State = FeedHelper.Instance.GetState(happeningFull.PostStateId);
         Location = happeningFull.Location;
         Favorite = happeningFull.Favorite;
         Selected = happeningFull.Selected;
