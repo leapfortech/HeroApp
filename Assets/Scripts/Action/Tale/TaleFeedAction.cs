@@ -255,7 +255,7 @@ public class TaleFeedAction : MonoBehaviour
     {
         bool empty = taleFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 1377;
+        loopValue.ItemSize = empty ? 2000 : taleFeed.TitleSprite == null ? 757 : 1377;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new TaleUserData(taleFeed.PostId, taleFeed.PublicationDateTime, taleFeed.ReactionCounts));
 
         if (empty)

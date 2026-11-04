@@ -271,6 +271,7 @@ public class HappeningFeedAction : MonoBehaviour
 
         loopValue.GetSprite(0)?.Destroy();
         loopValue.SetSprite(0, happeningFeed.TitleSprite);
+        loopValue.SetActive(10, happeningFeed.TitleSprite != null);
         loopValue.SetText(1, $"<line-height=70%>{happeningFeed.Title}");
         loopValue.SetText(2, $"{(happeningFeed.Description.Length > 28 ? happeningFeed.Description[0..27] + "..." : happeningFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
         loopValue.SetText(3, happeningFeed.StartDateTime?.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
@@ -279,7 +280,7 @@ public class HappeningFeedAction : MonoBehaviour
         loopValue.SetText(6, happeningFeed.EndDateTime?.ToString("HH:mm", CultureInfo.GetCultureInfo("es-GT")));
         loopValue.SetText(7, $"{happeningFeed.HappeningType}");
         loopValue.SetText(8, $"{happeningFeed.FavoriteCount}");
-        loopValue.SetText(9, happeningFeed.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia");
+        loopValue.SetText(9, happeningFeed.Favorite != 0 ? "Asistencia<color=#023958>.</color>confirmada" : "Confirmar<color=#02558226>.</color>asistencia");
 
         loopValue.SetCheck(0, happeningFeed.Favorite != 0);
         loopValue.SetCheck(1, happeningFeed.Selected != 0);

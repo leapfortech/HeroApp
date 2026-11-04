@@ -13,9 +13,15 @@ public class FeedCommentAction : MonoBehaviour
 {
     [Title("Feed")]
     [SerializeField]
+    LoopScroller loopFeed = null;
+    [SerializeField]
     Text txtCommentCount = null;
+    [SerializeField]
+    GameObject goEmptyComments = null;
+    [SerializeField]
+    Text txtMessageSizing = null;
 
-    [Space, Title("Config")]
+    [Title("Config")]
     [SerializeField]
     public int chunkCount = 10;
     [SerializeField]
@@ -24,19 +30,11 @@ public class FeedCommentAction : MonoBehaviour
     [Space, SerializeField]
     FeedCommentConfig[] configs = null;
 
-    [Space, Title("Loop")]
-    [SerializeField]
-    LoopScroller loopFeed = null;
-
-    [Space, Title("Elements")]
-    [SerializeField]
-    GameObject goEmptyComments = null;
-
-    [Title("Debug")]
-    [SerializeField]
-    Text txtDebug = null;
-    [SerializeField]
-    RectTransform trfOverlay = null;
+    //[Title("Debug")]
+    //[SerializeField]
+    //Text txtDebug = null;
+    //[SerializeField]
+    //RectTransform trfOverlay = null;
 
     PostService postService;
     long postId = -1;
@@ -65,7 +63,7 @@ public class FeedCommentAction : MonoBehaviour
     {
         int feedCount = chunkCount * 4;
 
-        valueDates = new String[feedCount];
+        //valueDates = new String[feedCount];
 
         loopFeed.ClearValues();
         DateTime utcNow = DateTime.UtcNow;
@@ -75,7 +73,7 @@ public class FeedCommentAction : MonoBehaviour
             UpdateValue(emptyCommentFull, loopValue, utcNow);
             loopFeed.AddValue(loopValue);
 
-            valueDates[k] = "--:--:--:---- : -1";
+            //valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
     }
@@ -84,7 +82,13 @@ public class FeedCommentAction : MonoBehaviour
     {
         ScreenDialog.Instance.Display();
 
-        UpdateOverlay(0);
+        //UpdateOverlay(0);
+
+        int feedCount = chunkCount * 4;
+        DateTime utcNow = DateTime.UtcNow;
+        for (int k = 0; k < feedCount; k++)
+            UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
+        loopFeed.RefreshVisibleValues();
 
         goEmptyComments.SetActive(false);
 
@@ -116,9 +120,9 @@ public class FeedCommentAction : MonoBehaviour
 
     public void ApplyComments(CommentFeedResponse response)
     {
-        if (txtDebug != null)
-            for (int i = 0; i < valueDates.Length; i++)
-                valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
+        //if (txtDebug != null)
+        //    for (int i = 0; i < valueDates.Length; i++)
+        //        valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
         // Comments
         goEmptyComments.SetActive(response.Total == 0);
@@ -135,7 +139,7 @@ public class FeedCommentAction : MonoBehaviour
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.CommentFulls[i]);
+                //UpdateDebug(k, response.CommentFulls[i]);
             }
 
             if (resetting)
@@ -144,7 +148,7 @@ public class FeedCommentAction : MonoBehaviour
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
-                    UpdateDebug(k, emptyCommentFull);
+                    //UpdateDebug(k, emptyCommentFull);
                 }
                 Invoke(nameof(ResetSelectedIndex), 1f);
                 resetting = false;
@@ -155,7 +159,7 @@ public class FeedCommentAction : MonoBehaviour
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
-                    UpdateDebug(k, emptyCommentFull);
+                    //UpdateDebug(k, emptyCommentFull);
                 }
             }
         }
@@ -166,20 +170,20 @@ public class FeedCommentAction : MonoBehaviour
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(emptyCommentFull, loopFeed[k], utcNow);
-                UpdateDebug(k, emptyCommentFull);
+                //UpdateDebug(k, emptyCommentFull);
             }
 
             for (int i = 0; i < response.CommentFulls.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
                 UpdateValue(response.CommentFulls[i], loopFeed[k], utcNow);
-                UpdateDebug(k, response.CommentFulls[i]);
+                //UpdateDebug(k, response.CommentFulls[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
 
-        if (txtDebug != null)
-            txtDebug.TextValue = String.Join('\n', valueDates);
+        //if (txtDebug != null)
+        //    txtDebug.TextValue = String.Join('\n', valueDates);
 
         if (response.Direction == 3 && response.CommentFulls.Count > 0)
             loopFeed.SelectedIndex = (startLoopIdx + chunkCount - response.CommentFulls.Count) % loopFeed.ValuesCount;
@@ -197,7 +201,9 @@ public class FeedCommentAction : MonoBehaviour
     {
         bool empty = commentFull.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 316;
+        if (txtMessageSizing != null)
+            txtMessageSizing.TextValue = commentFull.Message;
+        loopValue.ItemSize = empty ? 2000 : (207 + (txtMessageSizing != null ? (int)txtMessageSizing.TextHeight : 109));
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new FeedCommentUserData(commentFull.PostId, commentFull.PublicationDateTime));
 
         if (empty)
@@ -232,22 +238,21 @@ public class FeedCommentAction : MonoBehaviour
     }
 
     // Debug
-    String[] valueDates;
+    //String[] valueDates;
 
-    public void UpdateDebug(int k, CommentFull commentFull)
-    {
-        if (commentFull.PublicationDateTime.Year == 1753)
-            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
-        else
-            valueDates[k] = $"<color=red>{commentFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {(commentFull.Message.Length > 12 ? commentFull.Message[0..12] : commentFull.Message)}</color>";
-
-    }
+    //public void UpdateDebug(int k, CommentFull commentFull)
+    //{
+    //    if (commentFull.PublicationDateTime.Year == 1753)
+    //        valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
+    //    else
+    //        valueDates[k] = $"<color=red>{commentFull.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {(commentFull.Message.Length > 12 ? commentFull.Message[0..12] : commentFull.Message)}</color>";
+    //}
 
     public void UpdateOverlay(int idx)
     {
-        if (trfOverlay == null)
-            return;
+        //if (trfOverlay == null)
+        //    return;
 
-        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
+        //trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }

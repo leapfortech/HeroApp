@@ -312,7 +312,7 @@ public class HappeningDetailAction : MonoBehaviour
         // Actions
         tglFavorite.Checked = happeningFull.Favorite != 0;
 
-        tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia confirmada" : "Confirmar asistencia";
+        tglFavorite.Title = happeningFull.Favorite != 0 ? "Asistencia<color=#023958>.</color>confirmada" : "Confirmar<color=#02558226>.</color>asistencia";
         ThemeManager.Instance.RefreshStylesInHierarchy(tglFavorite.gameObject);
 
         tglSelected.Checked = happeningFull.Selected != 0;
