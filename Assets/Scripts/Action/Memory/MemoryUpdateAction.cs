@@ -99,6 +99,12 @@ public class MemoryUpdateAction : MonoBehaviour
                                                Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
         }
 
+        if (memoryFull.DateTime.Value > DateTime.Now)
+        {
+            ChoiceDialog.Instance.Error("Fecha inválida", "La fecha no puede ser mayor a la fecha actual.");
+            return;
+        }
+
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
             strImages[i] = vllImages[i].GetCellSprite(0).ToStrBase64(ImageType.JPG);

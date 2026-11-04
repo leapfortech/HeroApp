@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
+using Leap.UI.Extensions;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
@@ -22,6 +23,10 @@ public class MemoryRegisterAction : MonoBehaviour
 
     [SerializeField]
     DataMapper dtmImagesVLL = null;
+    [SerializeField]
+    ComboAdapter cmbCountry = null;
+    [SerializeField]
+    ComboAdapter cmbState = null;
 
     [Title("Action")]
     [SerializeField]
@@ -54,19 +59,20 @@ public class MemoryRegisterAction : MonoBehaviour
         dtmMemoryFull.ClearElements();
         dtmTime.ClearElements();
         dtmImagesVLL.ClearElements();
+        FillCombos();
     }
+
+    public void FillCombos()
+    {
+        cmbCountry.Select(StateManager.Instance.InterestLocality.CountryId);
+        cmbState.Select(StateManager.Instance.InterestLocality.StateId);
+    }
+
 
     private void Register()
     {
-        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, DoRegister, null, "De acuerdo", "Regresar");
-    }
-
-    private void DoRegister()
-    {
         if (!ElementHelper.Validate(elementValues))
             return;
-
-        ScreenDialog.Instance.Display();
 
         MemoryFull memoryFull = dtmMemoryFull.BuildClass<MemoryFull>();
         memoryFull.AppUserId = StateManager.Instance.AppUser.Id;
@@ -81,8 +87,21 @@ public class MemoryRegisterAction : MonoBehaviour
                                                Convert.ToInt32(time[0]), Convert.ToInt32(time[1]), 0);
         }
 
+        if (memoryFull.DateTime.Value > DateTime.Now)
+        {
+            ChoiceDialog.Instance.Error("Fecha inválida", "La fecha no puede ser mayor a la fecha actual.");
+            return;
+        }
+
+        // Images
         memoryFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
 
+        ChoiceDialog.Instance.Warning(disclaimerTitle, disclaimerMessage, () => DoRegister(memoryFull), null, "De acuerdo", "Regresar");
+    }
+
+    private void DoRegister(MemoryFull memoryFull)
+    {
+        ScreenDialog.Instance.Display();
         memoryService.Register(memoryFull);
     }
 
