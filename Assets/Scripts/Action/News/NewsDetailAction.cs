@@ -275,7 +275,7 @@ public class NewsDetailAction : MonoBehaviour
             tglReactions[i].Title = FeedHelper.Instance.FormatCount(reactionCounts[i]);
         }
 
-        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+        txtReactionsCount.TextValue = $"{totalReactions} {(totalReactions == 1 ? "reacción" : "reacciones")}";
     }
 
     public void ApplyReaction1(bool check)

@@ -37,9 +37,8 @@ public class MemoryDetailAction : MonoBehaviour
     [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
-
-    [Space, SerializeField]
-    Toggle[] tglReactions = null;
+    [SerializeField]
+    RectTransform rtfReactions = null;
 
     [Title("Comments")]
     [SerializeField]
@@ -121,13 +120,14 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     MemoryFullEvent onApplyUpdate = null;
 
+    MemoryService memoryService;
+
     long postId = -1;
     float contentInitialHeight = 0.0f, commentTotalInitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
+    long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     bool isRefresh = false;
     int[] reactionCounts;
-    long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
-
-    MemoryService memoryService;
+    Toggle[] tglReactions = null;
     MemoryFull memoryFull = null;
 
     RectTransform content, rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
@@ -135,6 +135,9 @@ public class MemoryDetailAction : MonoBehaviour
     private void Awake()
     {
         memoryService = GetComponent<MemoryService>();
+
+        tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
+                                      rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
 
         content = (RectTransform)txtTitle.transform.parent;
 
@@ -236,10 +239,9 @@ public class MemoryDetailAction : MonoBehaviour
 
         // Actions
         for (int i = 0; i < tglReactions.Length; i++)
-        {
-            tglReactions[i].Checked = memoryFull.ReactionPhraseId == (i + 1);
-            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
-        }
+            SetToggle(tglReactions[i], memoryFull.ReactionPhraseId == (i + 1));
+
+        ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
 
         // Comments
         DisplayComments(memoryFull.CommentFulls.Count);
@@ -275,7 +277,7 @@ public class MemoryDetailAction : MonoBehaviour
             tglReactions[i].Title = FeedHelper.Instance.FormatCount(reactionCounts[i]);
         }
 
-        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+        txtReactionsCount.TextValue = $"{totalReactions} {(totalReactions == 1 ? "reacción" : "reacciones")}";
     }
 
     public void ApplyReaction1(bool check)
@@ -373,6 +375,14 @@ public class MemoryDetailAction : MonoBehaviour
     public void PlaintRegistered()
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    }
+
+    private void SetToggle(Toggle toggle, bool value)
+    {
+        if (value)
+            toggle.Check();
+        else
+            toggle.Uncheck();
     }
 
     //

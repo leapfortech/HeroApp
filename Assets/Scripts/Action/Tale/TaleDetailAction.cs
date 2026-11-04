@@ -41,8 +41,8 @@ public class TaleDetailAction : MonoBehaviour
     [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
-    [Space,  SerializeField]
-    Toggle[] tglReactions = null;
+    [SerializeField]
+    RectTransform rtfReactions = null;
 
     [Title("Comments")]
     [SerializeField]
@@ -121,19 +121,23 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     UnityEvent onDeleted = null;
 
+    TaleService taleService;
+
     long postId = -1;
     float contentInitialHeight = 0.0f;
+    float commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
+    Toggle[] tglReactions = null;
     TaleFull taleFull = null;
-
-    TaleService taleService;
-    float commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
 
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
+
+        tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
+                                      rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
     }
 
     private void Start()
@@ -240,10 +244,9 @@ public class TaleDetailAction : MonoBehaviour
 
         // Actions
         for (int i = 0; i < tglReactions.Length; i++)
-        {
-           tglReactions[i].Checked = taleFull.ReactionPhraseId == (i + 1);
-            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
-        }
+            SetToggle(tglReactions[i], taleFull.ReactionPhraseId == (i + 1));
+
+        ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
 
         // Comments
         DisplayComments(taleFull.CommentFulls.Count);
@@ -279,7 +282,7 @@ public class TaleDetailAction : MonoBehaviour
             tglReactions[i].Title = FeedHelper.Instance.FormatCount(reactionCounts[i]);
         }
 
-        txtReactionsCount.TextValue = $"{totalReactions} reacciones";
+        txtReactionsCount.TextValue = $"{totalReactions} {(totalReactions == 1 ? "reacción" : "reacciones")}";
     }
 
     public void ApplyReaction1(bool check)
@@ -377,6 +380,14 @@ public class TaleDetailAction : MonoBehaviour
     public void PlaintRegistered()
     {
         ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
+    }
+
+    private void SetToggle(Toggle toggle, bool value)
+    {
+        if (value)
+            toggle.Check();
+        else
+            toggle.Uncheck();
     }
 
     //
