@@ -123,7 +123,6 @@ public class NewsDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     NewsService newsService;
-    PostService postService;
 
     long postId = -1;
     String url = null;
@@ -137,7 +136,6 @@ public class NewsDetailAction : MonoBehaviour
     private void Awake()
     {
         newsService = GetComponent<NewsService>();
-        postService = GetComponent<PostService>();
 
         tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
                                       rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
@@ -319,7 +317,7 @@ public class NewsDetailAction : MonoBehaviour
 
         if (previousReactionPhraseId != -1)
         {
-            postService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
+            newsService.DeleteReaction(new Reaction(-1, postId, StateManager.Instance.AppUser.Id));
 
             ChangeReactionCount(previousReactionPhraseId, -1);
             currentReactionPhraseId = -1;
@@ -335,7 +333,7 @@ public class NewsDetailAction : MonoBehaviour
             return;
         }
 
-        postService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
+        newsService.RegisterReaction(new Reaction(reactionPhraseId, postId, StateManager.Instance.AppUser.Id));
 
         ChangeReactionCount(reactionPhraseId, 1);
         currentReactionPhraseId = reactionPhraseId;
@@ -369,7 +367,7 @@ public class NewsDetailAction : MonoBehaviour
         long plaintTypeId = cmbPlaintType.GetSelectedId();
 
         PostPlaint postPlaint = new PostPlaint(plaintTypeId, postId, StateManager.Instance.AppUser.Id);
-        postService.RegisterPostPlaint(postPlaint);
+        newsService.RegisterPostPlaint(postPlaint);
     }
 
     public void PlaintRegistered()
