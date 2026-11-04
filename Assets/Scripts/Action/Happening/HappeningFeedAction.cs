@@ -273,7 +273,7 @@ public class HappeningFeedAction : MonoBehaviour
         loopValue.SetSprite(0, happeningFeed.TitleSprite);
         loopValue.SetActive(10, happeningFeed.TitleSprite != null);
         loopValue.SetText(1, $"<line-height=70%>{happeningFeed.Title}");
-        loopValue.SetText(2, $"{(happeningFeed.Description.Length > 28 ? happeningFeed.Description[0..27] + "..." : happeningFeed.Description).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
+        loopValue.SetText(2, $"{(happeningFeed.Location.Length > 28 ? happeningFeed.Location[0..27] + "..." : happeningFeed.Location).Replace("\r", "").Replace("\n\n", " ").Replace('\n', ' ')}");
         loopValue.SetText(3, happeningFeed.StartDateTime?.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
         loopValue.SetText(4, happeningFeed.StartDateTime?.ToString("HH:mm", CultureInfo.GetCultureInfo("es-GT")));
         loopValue.SetText(5, happeningFeed.EndDateTime?.ToString("dd/MM/yyyy", CultureInfo.GetCultureInfo("es-GT")));
