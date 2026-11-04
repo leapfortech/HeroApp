@@ -39,9 +39,9 @@ public class NewsDetailAction : MonoBehaviour
     [Title("Reactions")]
     [SerializeField]
     Text txtReactionsCount = null;
-
-    [Space, SerializeField]
-    Toggle[] tglReactions = null;
+    [SerializeField]
+    RectTransform rtfReactions = null;
+    
 
     [Title("Comments")]
     [SerializeField]
@@ -131,12 +131,16 @@ public class NewsDetailAction : MonoBehaviour
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
+    Toggle[] tglReactions = null;
     NewsFull newsFull = null;
 
     private void Awake()
     {
         newsService = GetComponent<NewsService>();
         postService = GetComponent<PostService>();
+
+        tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
+                                      rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
     }
 
     private void Start()
@@ -236,10 +240,9 @@ public class NewsDetailAction : MonoBehaviour
 
         // Actions
         for (int i = 0; i < tglReactions.Length; i++)
-        {
             SetToggle(tglReactions[i], newsFull.ReactionPhraseId == (i + 1));
-            ThemeManager.Instance.RefreshStylesInHierarchy(tglReactions[i].gameObject);
-        }
+
+        ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
 
         // Comments
         DisplayComments(newsFull.CommentFulls.Count);
