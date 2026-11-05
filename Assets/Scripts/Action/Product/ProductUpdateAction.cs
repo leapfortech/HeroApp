@@ -64,6 +64,8 @@ public class ProductUpdateAction : MonoBehaviour
     [SerializeField]
     ProductFeedEvent[] onProductChanged = null;
     [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
     [Space, SerializeField]
     UnityEvent onContactChanged = null;
@@ -71,6 +73,8 @@ public class ProductUpdateAction : MonoBehaviour
     ProductService productService = null;
 
     ProductFull productFull = null;
+
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -218,7 +222,12 @@ public class ProductUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long postCountryId = productFull.PostCountryId;
+        long postStateId = productFull.PostStateId;
+
         productFull.Update(dtmProductFull.BuildClass<ProductFull>());
+
+        localityChanged = productFull.PostCountryId != postCountryId || productFull.PostStateId != postStateId;
 
         // Contact
         ContactFull contactFull = dtmContact.BuildClass<ContactFull>();
@@ -260,7 +269,10 @@ public class ProductUpdateAction : MonoBehaviour
             return;
         }
 
-        onProductChanged[StateManager.Instance.FeedDetailType].Invoke(new ProductFeed(productFull));
+        if (localityChanged)
+            onLocatilyChanged.Invoke();
+        else
+            onProductChanged[StateManager.Instance.FeedDetailType].Invoke(new ProductFeed(productFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);

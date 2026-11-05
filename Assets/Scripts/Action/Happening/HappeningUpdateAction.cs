@@ -71,6 +71,8 @@ public class HappeningUpdateAction : MonoBehaviour
     [SerializeField]
     HappeningFeedEvent[] onHappeningChanged = null;
     [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
     [Space, SerializeField]
     UnityEvent onContactChanged = null;
@@ -78,6 +80,8 @@ public class HappeningUpdateAction : MonoBehaviour
     HappeningService happeningService = null;
 
     HappeningFull happeningFull = null;
+
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -225,7 +229,12 @@ public class HappeningUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long postCountryId = happeningFull.PostCountryId;
+        long postStateId = happeningFull.PostStateId;
+
         happeningFull.Update(dtmHappeningFull.BuildClass<HappeningFull>());
+
+        localityChanged = happeningFull.PostCountryId != postCountryId || happeningFull.PostStateId != postStateId;
 
         happeningFull.IsPublic = tglIsPublic.Checked ? 1 : 0;
         happeningFull.HasSignup = tglHasSignup.Checked ? 1 : 0;
@@ -286,7 +295,10 @@ public class HappeningUpdateAction : MonoBehaviour
             return;
         }
 
-        onHappeningChanged[StateManager.Instance.FeedDetailType].Invoke(new HappeningFeed(happeningFull));
+        if (localityChanged)
+            onLocatilyChanged.Invoke();
+        else
+            onHappeningChanged[StateManager.Instance.FeedDetailType].Invoke(new HappeningFeed(happeningFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);

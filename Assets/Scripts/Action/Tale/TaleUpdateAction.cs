@@ -38,10 +38,14 @@ public class TaleUpdateAction : MonoBehaviour
     [SerializeField]
     TaleFeedEvent[] onTaleChanged = null;
     [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     TaleService taleService = null;
     TaleFull taleFull = null;
+
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -82,7 +86,12 @@ public class TaleUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long postCountryId = taleFull.PostCountryId;
+        long postStateId = taleFull.PostStateId;
+
         taleFull.Update(dtmTaleFull.BuildClass<TaleFull>());
+
+        localityChanged = taleFull.PostCountryId != postCountryId || taleFull.PostStateId != postStateId;
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
@@ -103,7 +112,10 @@ public class TaleUpdateAction : MonoBehaviour
             return;
         }
 
-        onTaleChanged[StateManager.Instance.FeedDetailType].Invoke(new TaleFeed(taleFull));
+        if (localityChanged)
+            onLocatilyChanged.Invoke();
+        else
+            onTaleChanged[StateManager.Instance.FeedDetailType].Invoke(new TaleFeed(taleFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);

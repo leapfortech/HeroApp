@@ -47,6 +47,7 @@ public class MemoryUpdateAction : MonoBehaviour
     MemoryService memoryService = null;
     MemoryFull memoryFull = null;
 
+
     private void Awake()
     {
         memoryService = GetComponent<MemoryService>();
@@ -91,6 +92,7 @@ public class MemoryUpdateAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         memoryFull.Update(dtmMemoryFull.BuildClass<MemoryFull>());
+
 
         if (memoryFull.DateTime.HasValue)
         {

@@ -56,8 +56,10 @@ public class ProductFull : PostFull
         Description = productFull.Description;
 
         ProductSubtypeId = productFull.ProductSubtypeId;
+        
         PostCountryId = productFull.SaleCountryId;
         PostStateId = productFull.SaleStateId;
+        
         CurrencyId = productFull.CurrencyId;
         Price = productFull.Price;
         DiscountPrice = productFull.DiscountPrice;

@@ -49,8 +49,8 @@ public class RadioUpdateAction : MonoBehaviour
     UnityLongsEvent onRadioLanguagePopulated = null;
     [SerializeField]
     RadioFeedEvent onRadioChanged = null;
-    [SerializeField]
-    UnityEvent onLocationChanged = null;
+    [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
     [SerializeField]
     UnityEvent onPopulated = null;
 
@@ -115,12 +115,12 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        long countryId = radioFull.PostCountryId;
-        long stateId = radioFull.PostStateId;
+        long postCountryId = radioFull.PostCountryId;
+        long postStateId = radioFull.PostStateId;
 
         radioFull.Update(dtmRadioFull.BuildClass<RadioFull>());
 
-        localityChanged = radioFull.PostCountryId != countryId || radioFull.PostStateId != stateId;
+        localityChanged = radioFull.PostCountryId != postCountryId || radioFull.PostStateId != postStateId;
 
         LinkFull linkFull = dtmLinkFull.BuildClass<LinkFull>();
 
@@ -151,7 +151,7 @@ public class RadioUpdateAction : MonoBehaviour
 
 
         if (localityChanged)
-            onLocationChanged.Invoke();
+            onLocatilyChanged.Invoke();
         else
             onRadioChanged.Invoke(new RadioFeed(radioFull));
         

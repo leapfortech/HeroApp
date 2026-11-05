@@ -42,5 +42,8 @@ public class NewsFull : PostFull
         NewsTypeId = newsFull.NewsTypeId;
         DateTime = newsFull.DateTime;
         Source = newsFull.Source;
+
+        PostCountryId = newsFull.PostCountryId;
+        PostStateId = newsFull.PostStateId;
     }
 }

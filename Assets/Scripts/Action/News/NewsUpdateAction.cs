@@ -38,11 +38,15 @@ public class NewsUpdateAction : MonoBehaviour
     [SerializeField]
     NewsFeedEvent[] onNewsChanged = null;
     [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     NewsService newsService = null;
 
     NewsFull newsFull = null;
+
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -82,7 +86,12 @@ public class NewsUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long postCountryId = newsFull.PostCountryId;
+        long postStateId = newsFull.PostStateId;
+
         newsFull.Update(dtmNewsFull.BuildClass<NewsFull>());
+
+        localityChanged = newsFull.PostCountryId != postCountryId || newsFull.PostStateId != postStateId;
 
         String[] strImages = new String[vllImages.RecordCount];
         for (int i = 0; i < vllImages.RecordCount; i++)
@@ -102,7 +111,11 @@ public class NewsUpdateAction : MonoBehaviour
             return;
         }
 
-        onNewsChanged[StateManager.Instance.FeedDetailType].Invoke(new NewsFeed(newsFull));
+
+        if (localityChanged)
+            onLocatilyChanged.Invoke();
+        else
+            onNewsChanged[StateManager.Instance.FeedDetailType].Invoke(new NewsFeed(newsFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);
