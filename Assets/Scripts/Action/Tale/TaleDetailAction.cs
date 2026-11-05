@@ -80,6 +80,8 @@ public class TaleDetailAction : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
+    RectTransform content = null;
+    [SerializeField]
     float contentPadding = 160f;
 
     [Title("Comments")]
@@ -132,24 +134,30 @@ public class TaleDetailAction : MonoBehaviour
     Toggle[] tglReactions = null;
     TaleFull taleFull = null;
 
+    RectTransform rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
 
         tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
                                       rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
+
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
+
+        rtfComment1 = (RectTransform)txtComment1.transform.parent;
+        rtfComment2 = (RectTransform)txtComment2.transform.parent;
+        rtfComment3 = (RectTransform)txtComment3.transform.parent;
     }
 
     private void Start()
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight 
                                - txtDescription.TextHeight
                                - rtfComments.sizeDelta.y
                                - rtfAdmin.sizeDelta.y;
 
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentTextItemInitialHeight = txtComment1.TextHeight;
         commentItemInitialHeight = rtfComment1.sizeDelta.y;
         commentTotalinitialHeight = rtfComments.sizeDelta.y;
@@ -188,11 +196,11 @@ public class TaleDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(taleFull.Title) ? "Historia" : taleFull.Title)}";
-        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(taleFull.Description) ? "-" : taleFull.Description;
-        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         txtDate.TextValue = taleFull.PublicationDateTime.ToString("dd/MM/yyyy");
@@ -222,24 +230,32 @@ public class TaleDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
+
+        // Comments
         sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(taleFull.CommentCount)})";
 
-        txtAliasComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].AppUserAlias : "";
-        txtAliasComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].AppUserAlias : "";
-        txtAliasComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].AppUserAlias : "";
+        bool hasComments = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null;
+        txtAliasComment1.TextValue = hasComments ? taleFull.CommentFulls[0].AppUserAlias : "";
+        txtDateComment1.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[0].PublicationDateTime) : "";
+        txtComment1.TextValue = hasComments ? taleFull.CommentFulls[0].Message : "";
+        imgThumbnailComment1.Sprite = hasComments ? taleFull.CommentFulls[0].ThumbnailSprite : null;
 
-        txtDateComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[1].PublicationDateTime) : "";
-        txtDateComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[2].PublicationDateTime) : "";
+        hasComments = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null;
+        txtAliasComment2.TextValue = hasComments ? taleFull.CommentFulls[1].AppUserAlias : "";
+        txtDateComment2.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[1].PublicationDateTime) : "";
+        txtComment2.TextValue = hasComments ? taleFull.CommentFulls[1].Message : "";
+        imgThumbnailComment2.Sprite = hasComments ? taleFull.CommentFulls[1].ThumbnailSprite : null;
 
-        txtComment1.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null ? taleFull.CommentFulls[0].Message : "";
-        txtComment2.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null ? taleFull.CommentFulls[1].Message : "";
-        txtComment3.TextValue = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null ? taleFull.CommentFulls[2].Message : "";
+        hasComments = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null;
+        txtAliasComment3.TextValue = hasComments ? taleFull.CommentFulls[2].AppUserAlias : "";
+        txtDateComment3.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - taleFull.CommentFulls[2].PublicationDateTime) : "";
+        txtComment3.TextValue = hasComments ? taleFull.CommentFulls[2].Message : "";
+        imgThumbnailComment3.Sprite = hasComments ? taleFull.CommentFulls[2].ThumbnailSprite : null;
 
-        imgThumbnailComment1.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 0 && taleFull.CommentFulls[0] != null && taleFull.CommentFulls[0].ThumbnailSprite != null ? taleFull.CommentFulls[0].ThumbnailSprite : null;
-        imgThumbnailComment2.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 1 && taleFull.CommentFulls[1] != null && taleFull.CommentFulls[1].ThumbnailSprite != null ? taleFull.CommentFulls[1].ThumbnailSprite : null;
-        imgThumbnailComment3.Sprite = taleFull.CommentFulls != null && taleFull.CommentFulls.Count > 2 && taleFull.CommentFulls[2] != null && taleFull.CommentFulls[2].ThumbnailSprite != null ? taleFull.CommentFulls[2].ThumbnailSprite : null;
+        DisplayComments(taleFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(taleFull.CommentCount);
 
+        // Images
         onImagesDisplay.Invoke(taleFull.ImageSprites);
 
         // Actions
@@ -247,10 +263,6 @@ public class TaleDetailAction : MonoBehaviour
             SetToggle(tglReactions[i], taleFull.ReactionPhraseId == (i + 1));
 
         ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
-
-        // Comments
-        DisplayComments(taleFull.CommentFulls.Count);
-        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(taleFull.CommentCount);
 
         // Admin
         if (taleFull.AppUserId == StateManager.Instance.AppUser.Id)
@@ -394,10 +406,6 @@ public class TaleDetailAction : MonoBehaviour
 
     private void DisplayComments(int commentCount)
     {
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
-
         rtfComment1.gameObject.SetActive(commentCount > 0);
         rtfComment2.gameObject.SetActive(commentCount > 1);
         rtfComment3.gameObject.SetActive(commentCount > 2);
@@ -430,8 +438,6 @@ public class TaleDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)

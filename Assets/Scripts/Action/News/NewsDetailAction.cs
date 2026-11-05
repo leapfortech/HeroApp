@@ -79,6 +79,8 @@ public class NewsDetailAction : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
+    RectTransform content = null;
+    [SerializeField]
     float contentPadding = 160f;
 
     [Title("Comments")]
@@ -133,17 +135,26 @@ public class NewsDetailAction : MonoBehaviour
     Toggle[] tglReactions = null;
     NewsFull newsFull = null;
 
+    RectTransform rtfTitle, rtfDescription, rtfSource, rtfComment1, rtfComment2, rtfComment3;
+
     private void Awake()
     {
         newsService = GetComponent<NewsService>();
 
         tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
                                       rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
+
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
+        rtfSource = (RectTransform)txtSource.transform;
+
+        rtfComment1 = (RectTransform)txtComment1.transform.parent;
+        rtfComment2 = (RectTransform)txtComment2.transform.parent;
+        rtfComment3 = (RectTransform)txtComment3.transform.parent;
     }
 
     private void Start()
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
@@ -151,7 +162,6 @@ public class NewsDetailAction : MonoBehaviour
                                - rtfComments.sizeDelta.y
                                - rtfAdmin.sizeDelta.y;
 
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
         commentTextItemInitialHeight = txtComment1.TextHeight;
         commentItemInitialHeight = rtfComment1.sizeDelta.y;
         commentTotalinitialHeight = rtfComments.sizeDelta.y;
@@ -193,18 +203,18 @@ public class NewsDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(newsFull.Title) ? "Noticia" : newsFull.Title)}";
-        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         txtNewsDate.TextValue = newsFull.DateTime == null ? "-" : newsFull.DateTime.Value.ToString("dd/MM/yyyy");
         txtNewsType.TextValue = newsFull.NewsTypeId == -1 ? "-" : vllNewsType.FindRecordCellString(newsFull.NewsTypeId, "Name");
         
         txtDescription.TextValue = String.IsNullOrWhiteSpace(newsFull.Description) ? "-" : newsFull.Description;
-        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         txtSource.TextValue = String.IsNullOrWhiteSpace(newsFull.Source) ? "Sin fuente registrada" : newsFull.Source;
-        txtSource.GetComponent<RectTransform>().sizeDelta = new Vector2(txtSource.GetComponent<RectTransform>().sizeDelta.x, txtSource.TextHeight);
+        rtfSource.sizeDelta = new Vector2(rtfSource.sizeDelta.x, txtSource.TextHeight);
         deltaY += txtSource.TextHeight;
 
         txtAlias.TextValue = $"@{newsFull.AppUserAlias}";
@@ -216,24 +226,32 @@ public class NewsDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
+        // Comments
+
         sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(newsFull.CommentCount)})";
 
-        txtAliasComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].AppUserAlias : "";
-        txtAliasComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].AppUserAlias : "";
-        txtAliasComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].AppUserAlias : "";
+        bool hasComments = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null;
+        txtAliasComment1.TextValue = hasComments ? newsFull.CommentFulls[0].AppUserAlias : "";
+        txtDateComment1.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[0].PublicationDateTime) : "";
+        txtComment1.TextValue = hasComments ? newsFull.CommentFulls[0].Message : "";
+        imgThumbnailComment1.Sprite = hasComments ? newsFull.CommentFulls[0].ThumbnailSprite : null;
 
-        txtDateComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[0].PublicationDateTime) : "";
-        txtDateComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[1].PublicationDateTime) : "";
-        txtDateComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[2].PublicationDateTime) : "";
+        hasComments = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null;
+        txtAliasComment2.TextValue = hasComments ? newsFull.CommentFulls[1].AppUserAlias : "";
+        txtDateComment2.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[1].PublicationDateTime) : "";
+        txtComment2.TextValue = hasComments ? newsFull.CommentFulls[1].Message : "";
+        imgThumbnailComment2.Sprite = hasComments ? newsFull.CommentFulls[1].ThumbnailSprite : null;
 
-        txtComment1.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null ? newsFull.CommentFulls[0].Message : "";
-        txtComment2.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null ? newsFull.CommentFulls[1].Message : "";
-        txtComment3.TextValue = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null ? newsFull.CommentFulls[2].Message : "";
+        hasComments = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null;
+        txtAliasComment3.TextValue = hasComments ? newsFull.CommentFulls[2].AppUserAlias : "";
+        txtDateComment3.TextValue = hasComments ? FeedHelper.Instance.GetFeedDelay(DateTime.UtcNow - newsFull.CommentFulls[2].PublicationDateTime) : "";
+        txtComment3.TextValue = hasComments ? newsFull.CommentFulls[2].Message : "";
+        imgThumbnailComment3.Sprite = hasComments ? newsFull.CommentFulls[2].ThumbnailSprite : null;
 
-        imgThumbnailComment1.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 0 && newsFull.CommentFulls[0] != null && newsFull.CommentFulls[0].ThumbnailSprite != null ? newsFull.CommentFulls[0].ThumbnailSprite : null;
-        imgThumbnailComment2.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 1 && newsFull.CommentFulls[1] != null && newsFull.CommentFulls[1].ThumbnailSprite != null ? newsFull.CommentFulls[1].ThumbnailSprite : null;
-        imgThumbnailComment3.Sprite = newsFull.CommentFulls != null && newsFull.CommentFulls.Count > 2 && newsFull.CommentFulls[2] != null && newsFull.CommentFulls[2].ThumbnailSprite != null ? newsFull.CommentFulls[2].ThumbnailSprite : null;
+        DisplayComments(newsFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(newsFull.CommentCount);
 
+        // Images
         onImagesDisplay.Invoke(newsFull.ImageSprites);
 
         // Actions
@@ -242,15 +260,11 @@ public class NewsDetailAction : MonoBehaviour
 
         ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
 
-        // Comments
-        DisplayComments(newsFull.CommentFulls.Count);
-        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(newsFull.CommentCount);
-
         // Admin
         if (newsFull.AppUserId == StateManager.Instance.AppUser.Id)
         {
             rtfAdmin.gameObject.SetActive(true);
-            deltaY += rtfAdmin.GetComponent<RectTransform>().sizeDelta.y;
+            deltaY += rtfAdmin.sizeDelta.y;
         }
         else
             rtfAdmin.gameObject.SetActive(false);
@@ -385,10 +399,6 @@ public class NewsDetailAction : MonoBehaviour
 
     private void DisplayComments(int commentCount)
     {
-        RectTransform rtfComment1 = txtComment1.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment2 = txtComment2.transform.parent.GetComponent<RectTransform>();
-        RectTransform rtfComment3 = txtComment3.transform.parent.GetComponent<RectTransform>();
-
         rtfComment1.gameObject.SetActive(commentCount > 0);
         rtfComment2.gameObject.SetActive(commentCount > 1);
         rtfComment3.gameObject.SetActive(commentCount > 2);
@@ -421,8 +431,6 @@ public class NewsDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + rtfComments.sizeDelta.y + contentPadding);
 
         if (!isRefresh)

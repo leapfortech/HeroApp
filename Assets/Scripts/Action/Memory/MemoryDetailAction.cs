@@ -77,6 +77,8 @@ public class MemoryDetailAction : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
+    RectTransform content = null;
+    [SerializeField]
     float contentPadding = 160f;
 
     [Title("Comments")]
@@ -130,7 +132,7 @@ public class MemoryDetailAction : MonoBehaviour
     Toggle[] tglReactions = null;
     MemoryFull memoryFull = null;
 
-    RectTransform content, rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
+    RectTransform rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
 
     private void Awake()
     {
@@ -138,8 +140,6 @@ public class MemoryDetailAction : MonoBehaviour
 
         tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
                                       rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
-
-        content = (RectTransform)txtTitle.transform.parent;
 
         rtfTitle = (RectTransform)txtTitle.transform;
         rtfDescription = (RectTransform)txtDescription.transform;
@@ -215,6 +215,8 @@ public class MemoryDetailAction : MonoBehaviour
 
         DisplayReactionsCount();
 
+        // Comments
+
         sttCommentsCount.Title = $"Comentarios ({FeedHelper.Instance.FormatCount(memoryFull.CommentCount)})";
 
         bool hasComments = memoryFull.CommentFulls != null && memoryFull.CommentFulls.Count > 0 && memoryFull.CommentFulls[0] != null;
@@ -235,6 +237,10 @@ public class MemoryDetailAction : MonoBehaviour
         txtComment3.TextValue = hasComments ? memoryFull.CommentFulls[2].Message : "";
         imgThumbnailComment3.Sprite = hasComments ? memoryFull.CommentFulls[2].ThumbnailSprite : null;
 
+        DisplayComments(memoryFull.CommentFulls.Count);
+        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(memoryFull.CommentCount);
+
+        // Images
         onImagesDisplay.Invoke(memoryFull.ImageSprites);
 
         // Actions
@@ -242,10 +248,6 @@ public class MemoryDetailAction : MonoBehaviour
             SetToggle(tglReactions[i], memoryFull.ReactionPhraseId == (i + 1));
 
         ThemeManager.Instance.RefreshStylesInHierarchy(rtfReactions.gameObject);
-
-        // Comments
-        DisplayComments(memoryFull.CommentFulls.Count);
-        configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(memoryFull.CommentCount);
 
         // Admin
         if (memoryFull.AppUserId == StateManager.Instance.AppUser.Id)
