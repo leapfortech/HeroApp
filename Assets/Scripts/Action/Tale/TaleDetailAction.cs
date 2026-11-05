@@ -20,6 +20,10 @@ public class TaleDetailAction : MonoBehaviour
     [Serializable]
     public class ReactionEvent : UnityEvent<long, long, bool> { }
 
+    [Space, Title("Images")]
+    [SerializeField]
+    RectTransform rtfImages = null;
+
     [Space, Title("Details")]
     [SerializeField]
     Image imgThumbnail = null;
@@ -126,15 +130,14 @@ public class TaleDetailAction : MonoBehaviour
     TaleService taleService;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f;
-    float commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, imagesInitialHeight = 0.0f, commentTotalinitialHeight = 0.0f, commentItemInitialHeight = 0.0f, commentTextItemInitialHeight = 0.0f;
     long currentReactionPhraseId = -1, previousReactionPhraseId = -1;
     int[] reactionCounts;
     bool isRefresh = false;
     Toggle[] tglReactions = null;
     TaleFull taleFull = null;
 
-    RectTransform rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
+    RectTransform images, rtfTitle, rtfDescription, rtfComment1, rtfComment2, rtfComment3;
     private void Awake()
     {
         taleService = GetComponent<TaleService>();
@@ -142,6 +145,7 @@ public class TaleDetailAction : MonoBehaviour
         tglReactions = new Toggle[] { rtfReactions.GetChild(0).GetComponent<Toggle>(), rtfReactions.GetChild(3).GetComponent<Toggle>(),
                                       rtfReactions.GetChild(2).GetComponent<Toggle>(), rtfReactions.GetChild(1).GetComponent<Toggle>() };
 
+        images = rtfImages.GetChild(0).GetComponent<RectTransform>();
         rtfTitle = (RectTransform)txtTitle.transform;
         rtfDescription = (RectTransform)txtDescription.transform;
 
@@ -153,11 +157,13 @@ public class TaleDetailAction : MonoBehaviour
     private void Start()
     {
         contentInitialHeight = content.sizeDelta.y
+                               - rtfImages.sizeDelta.y
                                - txtTitle.TextHeight 
                                - txtDescription.TextHeight
                                - rtfComments.sizeDelta.y
                                - rtfAdmin.sizeDelta.y;
 
+        imagesInitialHeight = rtfImages.sizeDelta.y;
         commentTextItemInitialHeight = txtComment1.TextHeight;
         commentItemInitialHeight = rtfComment1.sizeDelta.y;
         commentTotalinitialHeight = rtfComments.sizeDelta.y;
@@ -256,6 +262,13 @@ public class TaleDetailAction : MonoBehaviour
         configs[StateManager.Instance.FeedDetailType].onCommentChanged.Invoke(taleFull.CommentCount);
 
         // Images
+        images.gameObject.SetActive(taleFull.ImageCount != 0);
+
+        rtfImages.sizeDelta = new Vector2(rtfImages.sizeDelta.x, taleFull.ImageCount != 0 ? imagesInitialHeight : 0f);
+
+        if (taleFull.ImageCount != 0)
+            deltaY += imagesInitialHeight;
+
         onImagesDisplay.Invoke(taleFull.ImageSprites);
 
         // Actions

@@ -18,6 +18,10 @@ public class HappeningDetailAction : MonoBehaviour
     [Serializable]
     public class HappeningFullEvent : UnityEvent<HappeningFull> { }
 
+    [Space, Title("Images")]
+    [SerializeField]
+    RectTransform rtfImages = null;
+
     [Space, Title("Details")]
     [SerializeField]
     Text txtFavoriteCount = null;
@@ -62,6 +66,8 @@ public class HappeningDetailAction : MonoBehaviour
     [Title("ScrollView")]
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
+    [SerializeField]
+    RectTransform content = null;
     [SerializeField]
     float contentPadding = 160f;
 
@@ -112,18 +118,20 @@ public class HappeningDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     HappeningService happeningService;
-    RectTransform content;
 
     long postId = -1;
-    float contentInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f, contactInitialHeight = 0.0f;
+    float contentInitialHeight = 0.0f, imagesInitialHeight = 0.0f, paymentDetailsInitialHeight = 0.0f, paymentDetailsTextInitialHeight = 0.0f, contactInitialHeight = 0.0f;
     String phone = "", whatsapp = "", email = "";
     bool isRefresh = false;
     HappeningFull happeningFull = null;
 
+    RectTransform images;
+
     private void Awake()
     {
-        content = txtTitle.transform.parent.GetComponent<RectTransform>();
         happeningService = GetComponent<HappeningService>();
+
+        images = rtfImages.GetChild(0).GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -134,6 +142,7 @@ public class HappeningDetailAction : MonoBehaviour
         contactInitialHeight = rtfContact.sizeDelta.y;
 
         contentInitialHeight = content.sizeDelta.y
+                               - rtfImages.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
                                - txtPlace.TextHeight
@@ -141,6 +150,8 @@ public class HappeningDetailAction : MonoBehaviour
                                - paymentDetailsInitialHeight
                                - contactInitialHeight
                                - rtfAdmin.sizeDelta.y;
+
+        imagesInitialHeight = rtfImages.sizeDelta.y;
 
         btnPhone?.AddAction(OpenPhone);
         btnWhatsApp?.AddAction(OpenWhatsApp);
@@ -306,6 +317,12 @@ public class HappeningDetailAction : MonoBehaviour
         btnEmail.gameObject.SetActive(email.Length != 0);
 
         // Images
+        images.gameObject.SetActive(happeningFull.ImageCount != 0);
+
+        rtfImages.sizeDelta = new Vector2(rtfImages.sizeDelta.x, happeningFull.ImageCount != 0 ? imagesInitialHeight : 0f);
+
+        if (happeningFull.ImageCount != 0)
+            deltaY += imagesInitialHeight;
 
         onImagesDisplay.Invoke(happeningFull.ImageSprites);
 
