@@ -125,13 +125,18 @@ public class HappeningDetailAction : MonoBehaviour
     bool isRefresh = false;
     HappeningFull happeningFull = null;
 
-    RectTransform images;
+    RectTransform images, rtfTitle, rtfDescription, rtfPlace, rtfLocation;
 
     private void Awake()
     {
         happeningService = GetComponent<HappeningService>();
 
         images = rtfImages.GetChild(0).GetComponent<RectTransform>();
+        
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
+        rtfPlace = (RectTransform)txtPlace.transform;
+        rtfLocation = (RectTransform)txtLocation.transform;
     }
 
     private void Start()
@@ -189,11 +194,11 @@ public class HappeningDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(happeningFull.Title) ? "Evento" : happeningFull.Title)}";
-        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(happeningFull.Description) ? "-" : happeningFull.Description;
-        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         txtFavoriteCount.TextValue = FeedHelper.Instance.FormatCount(happeningFull.FavoriteCount);
@@ -203,7 +208,7 @@ public class HappeningDetailAction : MonoBehaviour
         String country = happeningFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(happeningFull.PostCountryId, "Name");
         String state = happeningFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(happeningFull.PostStateId, "Name");
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
-        txtPlace.GetComponent<RectTransform>().sizeDelta = new Vector2(txtPlace.GetComponent<RectTransform>().sizeDelta.x, txtPlace.TextHeight);
+        rtfPlace.sizeDelta = new Vector2(rtfPlace.sizeDelta.x, txtPlace.TextHeight);
         deltaY += txtPlace.TextHeight;
 
         txtIsPublic.TextValue = happeningFull.IsPublic == -1 ? "-" : happeningFull.IsPublic == 0 ? "Evento privado" : "Evento público";
@@ -238,7 +243,7 @@ public class HappeningDetailAction : MonoBehaviour
         txtEndTime.TextValue = happeningFull.EndDateTime == null ? "-" : happeningFull.EndDateTime.Value.ToString("HH:mm");
         
         txtLocation.TextValue = String.IsNullOrWhiteSpace(happeningFull.Location) ? "-" : happeningFull.Location;
-        txtLocation.GetComponent<RectTransform>().sizeDelta = new Vector2(txtLocation.GetComponent<RectTransform>().sizeDelta.x, txtLocation.TextHeight);
+        rtfLocation.sizeDelta = new Vector2(rtfLocation.sizeDelta.x, txtLocation.TextHeight);
         deltaY += txtLocation.TextHeight;
 
         // Contact

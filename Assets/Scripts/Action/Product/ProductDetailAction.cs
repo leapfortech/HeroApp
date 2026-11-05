@@ -60,6 +60,8 @@ public class ProductDetailAction : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
+    RectTransform content = null;
+    [SerializeField]
     float contentPadding = 160f;
 
     [Title("Admin")]
@@ -115,7 +117,6 @@ public class ProductDetailAction : MonoBehaviour
     UnityEvent onDeleted = null;
 
     ProductService productService;
-    RectTransform content;
 
     long postId = -1;
     String phone = "", whatsapp = "", email = "";
@@ -123,17 +124,21 @@ public class ProductDetailAction : MonoBehaviour
     bool isRefresh = false;
     ProductFull productFull = null;
 
+    RectTransform rtfTitle, rtfDescription;
+
     private void Awake()
     {
         productService = GetComponent<ProductService>();
+
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
     }
 
     private void Start()
-    {
-        content = txtTitle.transform.parent.GetComponent<RectTransform>();
-        
+    {       
         contactInitialHeight = rtfContact.sizeDelta.y;
         contentInitialHeight = content.sizeDelta.y
+                               - txtTitle.TextHeight
                                - txtDescription.TextHeight
                                - contactInitialHeight
                                - rtfAdmin.sizeDelta.y;
@@ -175,9 +180,11 @@ public class ProductDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(productFull.Title) ? "Producto" : productFull.Title)}";
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(productFull.Description) ? "-" : productFull.Description;
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         // Product
@@ -303,7 +310,7 @@ public class ProductDetailAction : MonoBehaviour
         if (productFull.AppUserId == StateManager.Instance.AppUser.Id)
         {
             rtfAdmin.gameObject.SetActive(true);
-            deltaY += rtfAdmin.GetComponent<RectTransform>().sizeDelta.y;
+            deltaY += rtfAdmin.sizeDelta.y;
         }
         else
             rtfAdmin.gameObject.SetActive(false);

@@ -37,6 +37,8 @@ public class RadioDetailAction : MonoBehaviour
     [SerializeField]
     UnityEngine.UI.ScrollRect scrollRect;
     [SerializeField]
+    RectTransform content = null;
+    [SerializeField]
     float contentPadding = 160f;
 
     //[Title("List")]
@@ -92,14 +94,20 @@ public class RadioDetailAction : MonoBehaviour
     float contentInitialHeight = 0.0f;
     RadioFull radioFull = null;
 
+    RectTransform rtfTitle, rtfDescription, rtfRadioTypes, rtfRadioLanguages;
+
     private void Awake()
     {
         radioService = GetComponent<RadioService>();
+
+        rtfTitle = (RectTransform)txtTitle.transform;
+        rtfDescription = (RectTransform)txtDescription.transform;
+        rtfRadioTypes = (RectTransform)txtRadioTypes.transform;
+        rtfRadioLanguages = (RectTransform)txtRadioLanguages.transform;
     }
 
     private void Start()
-    {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
+    {       
         contentInitialHeight = content.sizeDelta.y
                                - txtTitle.TextHeight
                                - txtDescription.TextHeight
@@ -137,7 +145,7 @@ public class RadioDetailAction : MonoBehaviour
 
         // Post
         txtTitle.TextValue = $"<line-height=70%>{(String.IsNullOrWhiteSpace(radioFull.Title) ? "Radio" : radioFull.Title)}";
-        txtTitle.GetComponent<RectTransform>().sizeDelta = new Vector2(txtTitle.GetComponent<RectTransform>().sizeDelta.x, txtTitle.TextHeight);
+        rtfTitle.sizeDelta = new Vector2(rtfTitle.sizeDelta.x, txtTitle.TextHeight);
         float deltaY = txtTitle.TextHeight;
 
         String country = radioFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(radioFull.PostCountryId, "Name");
@@ -145,7 +153,7 @@ public class RadioDetailAction : MonoBehaviour
         txtPlace.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         txtDescription.TextValue = String.IsNullOrWhiteSpace(radioFull.Description) ? "-" : radioFull.Description;
-        txtDescription.GetComponent<RectTransform>().sizeDelta = new Vector2(txtDescription.GetComponent<RectTransform>().sizeDelta.x, txtDescription.TextHeight);
+        rtfDescription.sizeDelta = new Vector2(rtfDescription.sizeDelta.x, txtDescription.TextHeight);
         deltaY += txtDescription.TextHeight;
 
         txtRadioTypes.TextValue = String.Empty;
@@ -168,7 +176,9 @@ public class RadioDetailAction : MonoBehaviour
             txtRadioLanguages.TextValue += vllRadioLanguage.FindRecordCellString(radioFull.RadioLanguageFulls[i].LanguageId, "Name");
         }
 
+        rtfRadioTypes.sizeDelta = new Vector2(rtfRadioTypes.sizeDelta.x, txtRadioTypes.TextHeight);
         deltaY += txtRadioTypes.TextHeight;
+        rtfRadioLanguages.sizeDelta = new Vector2(rtfRadioLanguages.sizeDelta.x, txtRadioLanguages.TextHeight);
         deltaY += txtRadioLanguages.TextHeight;
 
         // Radio Type
@@ -270,8 +280,6 @@ public class RadioDetailAction : MonoBehaviour
 
     private void RefreshContents(float deltaY)
     {
-        RectTransform content = txtTitle.transform.parent.GetComponent<RectTransform>();
-
         content.sizeDelta = new Vector2(content.sizeDelta.x, contentInitialHeight + deltaY + contentPadding);
 
         scrollRect.verticalNormalizedPosition = 1f;

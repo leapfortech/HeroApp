@@ -389,6 +389,8 @@ public class HappeningFeedAction : MonoBehaviour
         loopFeed[selectedIdx].SetText(9, title);
 
         loopFeed.RefreshVisibleValues();
+
+        MustReset = true;
     }
 
     // Selected
