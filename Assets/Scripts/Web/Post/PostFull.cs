@@ -96,5 +96,7 @@ public class PostFull
     {
         Title = postFull.Title;
         Description = postFull.Description;
+        PostCountryId = postFull.PostCountryId;
+        PostStateId = postFull.PostStateId;
     }
 }

@@ -50,11 +50,15 @@ public class RadioUpdateAction : MonoBehaviour
     [SerializeField]
     RadioFeedEvent onRadioChanged = null;
     [SerializeField]
+    UnityEvent onLocationChanged = null;
+    [SerializeField]
     UnityEvent onPopulated = null;
 
     RadioService radioService = null;
 
     RadioFull radioFull = null;
+
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -111,10 +115,16 @@ public class RadioUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long countryId = radioFull.PostCountryId;
+        long stateId = radioFull.PostStateId;
+
         radioFull.Update(dtmRadioFull.BuildClass<RadioFull>());
 
+        localityChanged = radioFull.PostCountryId != countryId || radioFull.PostStateId != stateId;
+
         LinkFull linkFull = dtmLinkFull.BuildClass<LinkFull>();
-        linkFull.LinkTypeId = (long)LinkType.Url;
+
+        radioFull.LinkFulls[0].Url = linkFull.Url;
 
         List<RadioTypeFull> radioTypeFulls = dtmRadioTypeFullVLL.BuildClassList<RadioTypeFull>();
         List<RadioLanguageFull> radioLanguageFulls = dtmRadioLanguageFullVLL.BuildClassList<RadioLanguageFull>();
@@ -139,8 +149,12 @@ public class RadioUpdateAction : MonoBehaviour
             return;
         }
 
-        onRadioChanged.Invoke(new RadioFeed(radioFull));
 
+        if (localityChanged)
+            onLocationChanged.Invoke();
+        else
+            onRadioChanged.Invoke(new RadioFeed(radioFull));
+        
         Clear();
         PageManager.Instance.ChangePage(pagNext);
     }
