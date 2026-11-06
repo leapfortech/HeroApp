@@ -315,7 +315,7 @@ public class TaleFeedAction : MonoBehaviour
 
     // Locality
 
-    bool interestLocality = true;
+    bool interestLocality = false;
 
     public void ApplyLocality()
     {
