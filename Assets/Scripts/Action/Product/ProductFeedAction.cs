@@ -33,7 +33,7 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     GameObject gobEmptyFavorite;
     [SerializeField]
-    float smoothReload = 1f;
+    bool smoothReload = true;
 
     //[Title("Plaint")]
     //[SerializeField]
@@ -257,7 +257,7 @@ public class ProductFeedAction : MonoBehaviour
         {
             int dataIndex = (startLoopIdx + feedCount - response.ProductFeeds.Count) % loopFeed.ValuesCount;
 
-            if (smoothReload > 0f)
+            if (smoothReload)
             {
                 loopFeed.SelectedIndex = (startLoopIdx + feedCount) % loopFeed.ValuesCount;
                 loopFeed.SelectSmooth(dataIndex);
@@ -319,22 +319,22 @@ public class ProductFeedAction : MonoBehaviour
     public void SelectValue0(int idx)
     {
         //idx = idx % (loopFeed.ValuesCount / 2);
-        SelectValue(2 * idx);
+        SelectValue(idx, 0);
     }
 
     public void SelectValue1(int idx)
     {
         //idx = idx % (loopFeed.ValuesCount / 2);
-        SelectValue(2 * idx + 1);
+        SelectValue(idx, 1);
     }
 
-    private void SelectValue(int idx)
+    private void SelectValue(int idx, int side)
     {
-        selectedIdx = idx % loopFeed.ValuesCount;
-        if (idx % 2 == 0)
-            onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId0);
-        else if ((ProductUserData)loopFeed[selectedIdx].UserData != null)
-            onValueSelected.Invoke(((ProductUserData)loopFeed[selectedIdx].UserData).PostId1);
+        selectedIdx = (2 * idx + side) % loopFeed.ValuesCount;
+        if (side == 0)
+            onValueSelected.Invoke(((ProductUserData)loopFeed[idx].UserData).PostId0);
+        else
+            onValueSelected.Invoke(((ProductUserData)loopFeed[idx].UserData).PostId1);
     }
 
     public void ApplyDetailPost(ProductFeed productFeed)
@@ -393,12 +393,6 @@ public class ProductFeedAction : MonoBehaviour
 
         onLocalityRefreshed.Invoke(interestLocality == 1);
     }
-
-    //public void ChangeLocality(bool isInterest)
-    //{
-    //    if (isInterest == interestLocality)
-    //        MustReset = true;
-    //}
 
     // Open
 
@@ -499,64 +493,6 @@ public class ProductFeedAction : MonoBehaviour
 
         MustReset = true;
     }
-
-
-    // Reaction
-
-    //public void ApplyReaction(int dataIndex, bool check)
-    //{
-    //    selectedIdx = dataIndex % loopFeed.ValuesCount;
-
-    //    loopFeed[selectedIdx].SetCheck(3, false);
-    //    loopFeed.RefreshVisibleValues();
-
-    //    if (!check)
-    //    {
-    //        productService.DeleteReaction(new Reaction(-1, ((ProductUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
-    //        return;
-    //    }
-
-    //    cmbReaction.Combo.Click();
-    //}
-
-    //public void RegisterReaction()
-    //{
-    //    long reactionPhraseId = cmbReaction.GetSelectedId();
-
-    //    Reaction reaction = new Reaction(reactionPhraseId, ((ProductUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    productService.RegisterReaction(reaction);
-
-    //    loopFeed[selectedIdx].SetCheck(3, true);
-    //    loopFeed.RefreshVisibleValues();
-    //}
-
-    //public void ApplyDetailReaction(bool check)
-    //{
-    //    loopFeed[selectedIdx].SetCheck(3, check);
-    //    loopFeed.RefreshVisibleValues();
-    //}
-
-    // Plaint
-
-    //public void DisplayPlaintTypes()
-    //{
-    //    cmbPlaintType.Combo.Click();
-    //}
-
-    //public void ApplyPlaint()
-    //{
-    //    ScreenDialog.Instance.Display();
-
-    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
-
-    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((ProductUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    //productService.RegisterPostPlaint(postPlaint);
-    //}
-
-    //public void PlaintRegistered()
-    //{
-    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    //}
 
     // Errors
 
