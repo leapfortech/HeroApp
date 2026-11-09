@@ -88,7 +88,7 @@ public class ProductRegisterAction : MonoBehaviour
         
         if (!ValidatePrice())
         {
-            ChoiceDialog.Instance.Error("Precio de descuento", "El precio de descuento es mayor al precio regular.");
+            ChoiceDialog.Instance.Error("Precio de descuento", "El precio de descuento debe ser menor al precio regular.");
             return;
         }
 
@@ -97,8 +97,8 @@ public class ProductRegisterAction : MonoBehaviour
         ProductFull productFull = dtmProductFull.BuildClass<ProductFull>();
         productFull.AppUserId = StateManager.Instance.AppUser.Id;
 
-        productFull.SaleCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
-        productFull.SaleStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
+        //productFull.InterestCountryId = interestLocality ? StateManager.Instance.InterestLocality.CountryId : StateManager.Instance.CurrentLocality.CountryId;
+        //productFull.InterestStateId = interestLocality ? StateManager.Instance.InterestLocality.StateId : StateManager.Instance.CurrentLocality.StateId;
 
         // Contact
         productFull.ContactFull = dtmContact.BuildClass<ContactFull>();
@@ -159,21 +159,14 @@ public class ProductRegisterAction : MonoBehaviour
         PageManager.Instance.ChangePage(pagNext);
     }
 
-    // Locality
-
-    bool interestLocality = true;
-
-    public void ApplyLocality(bool interestLocality)
-    {
-        this.interestLocality = interestLocality;
-    }
+    // Price
 
     public bool ValidatePrice()
     {
         double.TryParse(ifdPrice.Text, out double price);
         double.TryParse(ifdDiscountPrice.Text, out double discountPrice);
 
-        if (discountPrice > 0 && discountPrice > price)
+        if (discountPrice > 0D && discountPrice >= price)
             return false;
 
         return true;

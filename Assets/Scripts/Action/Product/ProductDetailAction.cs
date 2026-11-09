@@ -205,7 +205,7 @@ public class ProductDetailAction : MonoBehaviour
             txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
 
         txtDate.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy");
-        txtLocation.TextValue = vllCountry.FindRecordCellString(productFull.SaleCountryId, "Name") + (productFull.SaleStateId != -1 ? ", " + vllState.FindRecordCellString(productFull.SaleStateId, "Name") : "");
+        txtLocation.TextValue = vllCountry.FindRecordCellString(productFull.PostCountryId, "Name") + (productFull.PostStateId != -1 ? ", " + vllState.FindRecordCellString(productFull.PostStateId, "Name") : "");
 
         // AppUserInfo
         txtAlias.TextValue = productFull.AppUserInfo.Alias;
@@ -222,8 +222,8 @@ public class ProductDetailAction : MonoBehaviour
         String currentLocation = !String.IsNullOrWhiteSpace(currCity) ? currCity : !String.IsNullOrWhiteSpace(currState) ? currState : currCountry;
         String interestLocation = !String.IsNullOrWhiteSpace(intCity) ? intCity : !String.IsNullOrWhiteSpace(intState) ? intState : intCountry;
 
-        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en: " + currentLocation;
-        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de: " + interestLocation;
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de " + interestLocation;
 
         // Contact
         bool hasContact = productFull.ContactFull != null && !String.IsNullOrWhiteSpace(productFull.ContactFull.Name);

@@ -5,8 +5,6 @@ public class ProductFull : PostFull
 {
     public long Id { get; set; }
     public long ProductSubtypeId { get; set; }
-    public long SaleCountryId { get; set; }
-    public long SaleStateId { get; set; }
     public long CurrencyId { get; set; }
     public double Price { get; set; }
     public double DiscountPrice { get; set; }
@@ -28,7 +26,7 @@ public class ProductFull : PostFull
                        int imageCount, int favoriteCount, int[] reactionCounts, long reactionPhraseId, int commentCount,
                        DateTime publicationDateTime, int postStatus,
                        AppUserInfo appUserInfo, ContactFull contactFull, List<LinkFull> linkFulls, List<CommentFull> commentFulls, String[] images,
-                       long productSubtypeId, long saleCountryId, long saleStateId, long currencyId, double price, double discountPrice,
+                       long productSubtypeId, long currencyId, double price, double discountPrice,
                        long deliveryTypeId, String annotation, int favorite, int status,
                        List<ProductReviewFull> productReviewFulls)
         : base(postId, appUserId, appUserAlias, postTypeId, postCountryId, postStateId, title, titleImage, description,
@@ -37,8 +35,6 @@ public class ProductFull : PostFull
     {
         Id = id;
         ProductSubtypeId = productSubtypeId;
-        SaleCountryId = saleCountryId;
-        SaleStateId = saleStateId;
         CurrencyId = currencyId;
         Price = price;
         DiscountPrice = discountPrice;
@@ -57,8 +53,8 @@ public class ProductFull : PostFull
 
         ProductSubtypeId = productFull.ProductSubtypeId;
         
-        PostCountryId = productFull.SaleCountryId;
-        PostStateId = productFull.SaleStateId;
+        PostCountryId = productFull.PostCountryId;
+        PostStateId = productFull.PostStateId;
         
         CurrencyId = productFull.CurrencyId;
         Price = productFull.Price;

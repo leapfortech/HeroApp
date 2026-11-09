@@ -63,8 +63,6 @@ public class ProductFeedAction : MonoBehaviour
     [Title("Event")]
     [SerializeField]
     UnityLongEvent onValueSelected = null;
-    [SerializeField]
-    UnityBoolEvent onLocalityRefreshed = null;
 
     ProductService productService;
     int selectedIdx = -1;
@@ -104,6 +102,9 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
+        if (tggLocalityFavorite.Value == null)
+            SetLocalityFavorite();
+
         if (txtLocality != null)
         {
             if (tggLocalityFavorite.Value == "0")
@@ -192,7 +193,7 @@ public class ProductFeedAction : MonoBehaviour
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
         
         if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
+            gobEmptyFavorite.SetActive(gobEmptyFeed.activeSelf);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
@@ -293,7 +294,7 @@ public class ProductFeedAction : MonoBehaviour
         {
             loopValue.GetSprite(pos + 0)?.Destroy();
             loopValue.SetSprite(pos + 0, productFeed.TitleSprite);
-            String saleLocation = !String.IsNullOrEmpty(productFeed.SaleState) ? productFeed.SaleState : productFeed.SaleCountry;
+            String saleLocation = !String.IsNullOrEmpty(productFeed.State) ? productFeed.State : productFeed.Country;
             loopValue.SetText(pos + 2, saleLocation);
             loopValue.SetText(pos + 4, productFeed.ProductSubtype);
             loopValue.SetText(pos + 6, $"<line-height=70%>{productFeed.Title}");
@@ -364,22 +365,16 @@ public class ProductFeedAction : MonoBehaviour
         ResetPosts(true);
     }
 
-
-    long favoriteAppUserId = -1;
-
-    //public void ApplyAppUserFavorite()
-    //{
-    //    favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
-
-    //    ResetPosts(true);
-    //}
-
-    // Locality
+    // Filters
 
     int interestLocality = -1;
+    long favoriteAppUserId = -1;
 
-    public void ApplyLocalityFavorite()
+    private void SetLocalityFavorite()
     {
+        if (tggLocalityFavorite.Value == null)
+            tggLocalityFavorite.Value = "0";
+
         favoriteAppUserId = tggLocalityFavorite.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
 
         if (tggLocalityFavorite.Value == "2")
@@ -388,10 +383,13 @@ public class ProductFeedAction : MonoBehaviour
             interestLocality = 1;
         else
             interestLocality = 0;
+    }
+
+    public void ApplyLocalityFavorite()
+    {
+        SetLocalityFavorite();
 
         ResetPosts(true);
-
-        onLocalityRefreshed.Invoke(interestLocality == 1);
     }
 
     // Open

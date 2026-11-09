@@ -15,8 +15,8 @@ public class ProductFeed
     public Sprite TitleSprite { get; set; } = null;
     public String Title { get; set; }
     public String ProductSubtype { get; set; }
-    public String SaleCountry { get; set; }
-    public String SaleState { get; set; }
+    public String Country { get; set; }
+    public String State { get; set; }
     public String Currency { get; set; }
     public double Price { get; set; }
     public double DiscountPrice { get; set; }
@@ -29,7 +29,7 @@ public class ProductFeed
     {
     }
 
-    public ProductFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string productSubtype, string saleCountry, string saleState,
+    public ProductFeed(long id, long postId, string titleImage, Sprite titleSprite, string title, string productSubtype, string country, string state,
                        string currency, double price, double discountPrice, string link, int favorite, DateTime publicationDateTime)
     {
         Id = id;
@@ -38,8 +38,8 @@ public class ProductFeed
         TitleSprite = titleSprite;
         Title = title;
         ProductSubtype = productSubtype;
-        SaleCountry = saleCountry;
-        SaleState = saleState;
+        Country = country;
+        State = state;
         Currency = currency;
         Price = price;
         DiscountPrice = discountPrice;
@@ -55,8 +55,8 @@ public class ProductFeed
         TitleSprite = productFull.TitleSprite;
         Title = productFull.Title;
         ProductSubtype = FeedHelper.Instance.GetProductSubtype(productFull.ProductSubtypeId);
-        SaleCountry = FeedHelper.Instance.GetCountry(productFull.SaleCountryId);
-        SaleState = FeedHelper.Instance.GetState(productFull.SaleStateId);
+        Country = FeedHelper.Instance.GetCountry(productFull.PostCountryId);
+        State = FeedHelper.Instance.GetState(productFull.PostStateId);
         Currency = FeedHelper.Instance.GetState(productFull.CurrencyId);
         Price = productFull.Price;
         DiscountPrice = productFull.DiscountPrice;
