@@ -192,9 +192,7 @@ public class ProductFeedAction : MonoBehaviour
         //        valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
 
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
-        
-        if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(gobEmptyFeed.activeSelf);
+        gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
@@ -405,10 +403,10 @@ public class ProductFeedAction : MonoBehaviour
         OpenURL(idx, 1);
     }
 
-    private void OpenURL(int idx, int linkId)
+    private void OpenURL(int idx, int side)
     {
-        String link = linkId == 0 ? ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link0
-                                  : ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link1;
+        String link = side == 0 ? ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link0
+                                : ((ProductUserData)loopFeed[idx % loopFeed.ValuesCount].UserData).Link1;
 
         String[] linkParts = link.Split('|');
 
