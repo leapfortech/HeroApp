@@ -87,16 +87,12 @@ public class ProductFeedAction : MonoBehaviour
     {
         int valueCount = feedCount * 4;
 
-        //valueDates = new String[valueCount];
-
         loopFeed.ClearValues();
         for (int k = 0; k < valueCount; k += 2)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
             UpdateValue(emptyProductFeed, emptyProductFeed, loopValue);
             loopFeed.AddValue(loopValue);
-
-            //valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
     }
@@ -129,8 +125,6 @@ public class ProductFeedAction : MonoBehaviour
 
         if (!MustReset && !force)
             return;
-
-        UpdateOverlay(0);
 
         gobEmptyFeed.SetActive(false);
 
@@ -187,10 +181,6 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyPosts(ProductFeedResponse response)
     {
-        //if (txtDebug != null)
-        //    for (int i = 0; i < valueDates.Length; i++)
-        //        valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
-
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
         gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
@@ -203,18 +193,16 @@ public class ProductFeedAction : MonoBehaviour
         {
             for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
                 UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
-                //UpdateDebug(k, response.ProductFeeds[i]);
             }
 
             if (resetting)
             {
                 for (int i = response.ProductFeeds.Count; i < loopFeed.ValuesCount; i += 2)
                 {
-                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
                     UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
-                    //UpdateDebug(k, emptyProductFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
                 resetting = false;
@@ -223,9 +211,8 @@ public class ProductFeedAction : MonoBehaviour
             {
                 for (int i = response.ProductFeeds.Count; i < feedCount; i += 2)
                 {
-                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                    int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
                     UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
-                    //UpdateDebug(k, emptyProductFeed);
                 }
             }
         }
@@ -234,22 +221,17 @@ public class ProductFeedAction : MonoBehaviour
             int n = feedCount - response.ProductFeeds.Count;
             for (int i = 0; i < n; i += 2)
             {
-                int k = (startLoopIdx + i) % loopFeed.ValuesCount;
+                int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
                 UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
-                //UpdateDebug(k, emptyProductFeed);
             }
 
             for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
-                int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
+                int k = ((startLoopIdx + n + i) / 2) % loopFeed.ValuesCount;
                 UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
-                //UpdateDebug(k, response.ProductFeeds[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
-
-        //if (txtDebug != null)
-        //    txtDebug.TextValue = String.Join('\n', valueDates);
 
         ScreenDialog.Instance.Hide();
 
@@ -318,13 +300,11 @@ public class ProductFeedAction : MonoBehaviour
 
     public void SelectValue0(int idx)
     {
-        //idx = idx % (loopFeed.ValuesCount / 2);
         SelectValue(idx, 0);
     }
 
     public void SelectValue1(int idx)
     {
-        //idx = idx % (loopFeed.ValuesCount / 2);
         SelectValue(idx, 1);
     }
 
@@ -511,29 +491,5 @@ public class ProductFeedAction : MonoBehaviour
     {
         MustReset = true;
         PageManager.Instance.ChangePage(pagMenu);
-    }
-
-    // Debug
-
-    //String[] valueDates;
-
-    //private void UpdateDebug(int k, ProductFeed productFeed)
-    //{
-    //    if (productFeed.PublicationDateTime.Year == 1753)
-    //        valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
-    //    else
-    //        valueDates[k] = $"<color=red>{productFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {productFeed.Title}</color>";
-
-    //}
-
-    public void UpdateOverlay(int idx)
-    {
-        //if (trfOverlay == null)
-        //    return;
-
-        //if (loopFeed.ValuesCount == 0)
-        //    return;
-
-        //trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
