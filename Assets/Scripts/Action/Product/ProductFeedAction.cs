@@ -457,22 +457,21 @@ public class ProductFeedAction : MonoBehaviour
     }
 
     // Favorite
-    public void ApplyFavorite0(int dataIndex, bool check)
+    public void ApplyFavorite0(int idx, bool check)
     {
-        ApplyFavorite(2 * dataIndex, check);
+        ApplyFavorite(idx, 0, check);
     }
 
-    public void ApplyFavorite1(int dataIndex, bool check)
+    public void ApplyFavorite1(int idx, bool check)
     {
-        ApplyFavorite(2 * dataIndex + 1, check);
+        ApplyFavorite(idx, 1, check);
     }
 
-    private void ApplyFavorite(int dataIndex, bool check)
+    private void ApplyFavorite(int idx, int side, bool check)
     {
-        int k = dataIndex % loopFeed.ValuesCount;
-        loopFeed[k].SetCheck(0, check);
+        loopFeed[idx].SetCheck(side, check);
 
-        Favorite favorite = new Favorite(((ProductUserData)loopFeed[k].UserData).PostId, StateManager.Instance.AppUser.Id);
+        Favorite favorite = new Favorite(side == 0 ? ((ProductUserData)loopFeed[idx].UserData).PostId0 : ((ProductUserData)loopFeed[idx].UserData).PostId1, StateManager.Instance.AppUser.Id);
         if (check)
             productService.RegisterFavorite(favorite);
         else
@@ -486,7 +485,7 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyDetailFavorite(bool check)
     {
-        loopFeed[selectedIdx].SetCheck(0, check);
+        loopFeed[selectedIdx / 2].SetCheck(selectedIdx % 2, check);
 
         loopFeed.RefreshVisibleValues();
 
