@@ -194,7 +194,7 @@ public class ProductFeedAction : MonoBehaviour
 
             if (resetting)
             {
-                for (int i = response.ProductFeeds.Count; i < loopFeed.ValuesCount; i += 2)
+                for (int i = ((response.ProductFeeds.Count + 1) / 2) * 2; i < loopFeed.ValuesCount; i += 2)
                 {
                     int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
                     UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
