@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -298,7 +299,7 @@ public class ProductFeedAction : MonoBehaviour
             loopValue.SetText(pos + 2, saleLocation);
             loopValue.SetText(pos + 4, productFeed.ProductSubtype);
             loopValue.SetText(pos + 6, $"<line-height=70%>{productFeed.Title}");
-            loopValue.SetText(pos + 8, $"{productFeed.Currency} {productFeed.Price:N2}");
+            loopValue.SetText(pos + 8, $"{productFeed.Currency} {productFeed.Price.ToString("N2", CultureInfo.InvariantCulture)}");
             loopValue.SetActive(pos + 10, false);
 
             loopValue.SetCheck(pos + 0, productFeed.Favorite != 0);
@@ -340,7 +341,7 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ApplyDetailPost(ProductFeed productFeed)
     {
-        UpdateValue(selectedIdx % 2, productFeed, loopFeed[selectedIdx]);
+        UpdateValue(selectedIdx % 2, productFeed, loopFeed[selectedIdx / 2]);
 
         loopFeed.RefreshVisibleValues();
     }

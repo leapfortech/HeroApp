@@ -57,7 +57,7 @@ public class ProductFeed
         ProductSubtype = FeedHelper.Instance.GetProductSubtype(productFull.ProductSubtypeId);
         Country = FeedHelper.Instance.GetCountry(productFull.PostCountryId);
         State = FeedHelper.Instance.GetState(productFull.PostStateId);
-        Currency = FeedHelper.Instance.GetState(productFull.CurrencyId);
+        Currency = FeedHelper.Instance.GetCurrency(productFull.CurrencyId);
         Price = productFull.Price;
         DiscountPrice = productFull.DiscountPrice;
         Link = productFull.LinkFulls[0].Url;
