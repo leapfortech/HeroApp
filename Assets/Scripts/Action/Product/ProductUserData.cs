@@ -12,6 +12,13 @@ public class ProductUserData : FeedUserData
 
     public ProductUserData(long postId, DateTime publicationDateTime) : base(postId, publicationDateTime)
     {
+        PostId0 = postId;
+        PublicationDateTime0 = publicationDateTime;
+        Link0 = null;
+
+        PostId1 = postId;
+        PublicationDateTime1 = publicationDateTime;
+        Link1 = null;
     }
 
     public ProductUserData(long postId0, DateTime publicationDateTime0, String link0, long postId1, DateTime publicationDateTime1, String link1) : base(postId1, publicationDateTime1)

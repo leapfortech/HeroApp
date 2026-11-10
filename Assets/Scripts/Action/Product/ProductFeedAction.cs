@@ -36,10 +36,6 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     bool smoothReload = true;
 
-    //[Title("Plaint")]
-    //[SerializeField]
-    //ComboAdapter cmbPlaintType = null;
-
     [Title("Data")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -52,14 +48,6 @@ public class ProductFeedAction : MonoBehaviour
     [SerializeField]
     [PropertySpace(4f, 0f), TextArea(2, 5)]
     String timeoutError = "La petición excedió el tiempo de espera.\nRevisa tu conexión a Internet.\n¿Deseas intentar cargar de nuevo?";
-
-#pragma warning disable 414
-    [Title("Debug")]
-    [SerializeField]
-    Text txtDebug = null;
-    [SerializeField]
-    RectTransform trfOverlay = null;
-#pragma warning restore 414
 
     [Title("Event")]
     [SerializeField]
@@ -132,7 +120,7 @@ public class ProductFeedAction : MonoBehaviour
             gobEmptyFavorite.SetActive(false);
 
         resetting = true;
-        GetPosts(0, new ProductUserData(-1, DateTime.UtcNow), 2);
+        GetPosts(0, new ProductUserData(-1L, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
@@ -142,18 +130,18 @@ public class ProductFeedAction : MonoBehaviour
         if (userData == null)
             return;
 
-        ProductUserData feedUserData = (ProductUserData)userData;
+        ProductUserData productUserData = (ProductUserData)userData;
 
-        if (feedUserData.PostId == -1L || direction == 3)
+        if (productUserData.PostId == -1L || direction == 3)
             ScreenDialog.Instance.Display();
 
         ProductFeedRequest request = new ProductFeedRequest
         {
-            Chunk = startLoopIdx,
+            Chunk = startLoopIdx * 2,
 
-            StartDateTime = feedUserData.PublicationDateTime,
+            StartDateTime = direction == 2 ? productUserData.PublicationDateTime1 : productUserData.PublicationDateTime0,
             Direction = direction,
-            Count = feedUserData.PostId == -1L ? feedCount + feedCount : feedCount,
+            Count = productUserData.PostId == -1L ? feedCount + feedCount : feedCount,
 
             ReactionAppUserId = StateManager.Instance.AppUser.Id,
 
@@ -169,8 +157,6 @@ public class ProductFeedAction : MonoBehaviour
             SelectedAppUserId = -1L
         };
 
-        //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
-
         productService.GetFeed(request);
     }
 
@@ -179,24 +165,21 @@ public class ProductFeedAction : MonoBehaviour
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
         gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
-        int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
-
-        //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
-        //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
+        int startLoopIdx = (response.Chunk / 2) % loopFeed.ValuesCount;
 
         if (response.Direction < 3)
         {
             for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
-                int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
+                int k = (startLoopIdx + i / 2) % loopFeed.ValuesCount;
                 UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
             }
 
             if (resetting)
             {
-                for (int i = ((response.ProductFeeds.Count + 1) / 2) * 2; i < loopFeed.ValuesCount; i += 2)
+                for (int i = (response.ProductFeeds.Count + 1) / 2; i < loopFeed.ValuesCount; i++)
                 {
-                    int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
+                    int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
@@ -206,7 +189,7 @@ public class ProductFeedAction : MonoBehaviour
             {
                 for (int i = response.ProductFeeds.Count; i < feedCount; i += 2)
                 {
-                    int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
+                    int k = (startLoopIdx + i / 2) % loopFeed.ValuesCount;
                     UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
                 }
             }
@@ -216,13 +199,13 @@ public class ProductFeedAction : MonoBehaviour
             int n = feedCount - response.ProductFeeds.Count;
             for (int i = 0; i < n; i += 2)
             {
-                int k = ((startLoopIdx + i) / 2) % loopFeed.ValuesCount;
+                int k = (startLoopIdx + i / 2) % loopFeed.ValuesCount;
                 UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
             }
 
             for (int i = 0; i < response.ProductFeeds.Count; i += 2)
             {
-                int k = ((startLoopIdx + n + i) / 2) % loopFeed.ValuesCount;
+                int k = (startLoopIdx + (n + i) / 2) % loopFeed.ValuesCount;
                 UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
             }
         }
@@ -232,13 +215,12 @@ public class ProductFeedAction : MonoBehaviour
 
         if (response.Direction == 3 && response.ProductFeeds.Count > 0)
         {
-            int dataIndex = (startLoopIdx + feedCount - response.ProductFeeds.Count) % loopFeed.ValuesCount;
+            int dataIndex = (startLoopIdx + (feedCount - response.ProductFeeds.Count) / 2) % loopFeed.ValuesCount;
 
             if (smoothReload)
             {
-                loopFeed.SelectedIndex = (startLoopIdx + feedCount) % loopFeed.ValuesCount;
+                loopFeed.SelectedIndex = (startLoopIdx + feedCount / 2) % loopFeed.ValuesCount;
                 loopFeed.SelectSmooth(dataIndex);
-                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedCount} | {response.PostFulls.Count} | {dataIndex}");
             }
             else
                 loopFeed.SelectedIndex = dataIndex;

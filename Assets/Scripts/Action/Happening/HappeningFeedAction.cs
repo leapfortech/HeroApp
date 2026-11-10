@@ -36,10 +36,6 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     float smoothReload = 1f;
 
-    //[Title("Plaint")]
-    //[SerializeField]
-    //ComboAdapter cmbPlaintType = null;
-
     [Title("Data")]
     [SerializeField]
     ValueList vllCountry = null;
@@ -52,12 +48,6 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     [PropertySpace(4f, 0f), TextArea(2, 5)]
     String timeoutError = "La petición excedió el tiempo de espera.\nRevisa tu conexión a Internet.\n¿Deseas intentar cargar de nuevo?";
-
-    [Title("Debug")]
-    [SerializeField]
-    Text txtDebug = null;
-    [SerializeField]
-    RectTransform trfOverlay = null;
 
     [Title("Event")]
     [SerializeField]
@@ -85,16 +75,12 @@ public class HappeningFeedAction : MonoBehaviour
     {
         int valueCount = feedCount * 4;
 
-        valueDates = new String[valueCount];
-
         loopFeed.ClearValues();
         for (int k = 0; k < valueCount; k++)
         {
             LoopScrollerValue loopValue = new LoopScrollerValue(loopFeed.LoopItems[0].LoopItem, null);
             UpdateValue(emptyHappeningFeed, loopValue);
             loopFeed.AddValue(loopValue);
-
-            valueDates[k] = "--:--:--:---- : -1";
         }
         loopFeed.ApplyValues();
     }
@@ -111,24 +97,15 @@ public class HappeningFeedAction : MonoBehaviour
         if (!MustReset && !force)
             return;
 
-        UpdateOverlay(0);
-
         gobEmptyFeed.SetActive(false);
-        if (gobEmptySelected != null)
-            gobEmptySelected.SetActive(false);
-        if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(false);
+        gobEmptySelected.SetActive(false);
+        gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new HappeningUserData(-1, DateTime.UtcNow), 2);
 
         MustReset = false;
     }
-
-    //public void ReloadPosts(bool force)
-    //{
-    //    GetPosts(firstPostIdx, new NewsUserData(firstPostId, DateTime.UtcNow), 3);
-    //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {
@@ -162,28 +139,16 @@ public class HappeningFeedAction : MonoBehaviour
             SelectedAppUserId = appUserId != -1 ? -1 : selectedAppUserId
         };
 
-        //Debug.Log($"Request : {request.StartDateTime:yyyy/MM/dd HH:mm:ss.fff} [{request.Direction}:{request.Count}]");
-
         happeningService.GetFeed(request);
     }
 
     public void ApplyPosts(HappeningFeedResponse response)
     {
-        if (txtDebug != null)
-            for (int i = 0; i < valueDates.Length; i++)
-                valueDates[i] = valueDates[i].Replace("<color=red>", "").Replace("</color>", "");
-
         gobEmptyFeed.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "0");
-
-        if (gobEmptySelected != null)
-            gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
-        if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
+        gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
+        gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
-
-        //int endLoopIdx = startLoopIdx + loopFeed.PreloadCount;
-        //Debug.Log($"ApplyPosts : {startLoopIdx.ToString()} > {endLoopIdx.ToString()}, {response.PostFulls[0].PublicationDateTime.ToString("dd/MM/yyyy")} > {response.PostFulls[^1].PublicationDateTime.ToString("dd/MM/yyyy")}");
 
         if (response.Direction < 3)
         {
@@ -191,7 +156,6 @@ public class HappeningFeedAction : MonoBehaviour
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(response.HappeningFeeds[i], loopFeed[k]);
-                UpdateDebug(k, response.HappeningFeeds[i]);
             }
 
             if (resetting)
@@ -200,7 +164,6 @@ public class HappeningFeedAction : MonoBehaviour
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyHappeningFeed, loopFeed[k]);
-                    UpdateDebug(k, emptyHappeningFeed);
                 }
                 Invoke(nameof(ResetSelectedIndex), 0.2f);
                 resetting = false;
@@ -211,7 +174,6 @@ public class HappeningFeedAction : MonoBehaviour
                 {
                     int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                     UpdateValue(emptyHappeningFeed, loopFeed[k]);
-                    UpdateDebug(k, emptyHappeningFeed);
                 }
             }
         }
@@ -222,20 +184,15 @@ public class HappeningFeedAction : MonoBehaviour
             {
                 int k = (startLoopIdx + i) % loopFeed.ValuesCount;
                 UpdateValue(emptyHappeningFeed, loopFeed[k]);
-                UpdateDebug(k, emptyHappeningFeed);
             }
 
             for (int i = 0; i < response.HappeningFeeds.Count; i++)
             {
                 int k = (startLoopIdx + n + i) % loopFeed.ValuesCount;
                 UpdateValue(response.HappeningFeeds[i], loopFeed[k]);
-                UpdateDebug(k, response.HappeningFeeds[i]);
             }
         }
         loopFeed.RefreshVisibleValues();
-
-        if (txtDebug != null)
-            txtDebug.TextValue = String.Join('\n', valueDates);
 
         ScreenDialog.Instance.Hide();
 
@@ -247,7 +204,6 @@ public class HappeningFeedAction : MonoBehaviour
             {
                 loopFeed.SelectedIndex = (startLoopIdx + feedCount) % loopFeed.ValuesCount;
                 loopFeed.SelectSmooth(dataIndex);
-                //Debug.Log($"{loopFeed.SelectedIndex} | {startLoopIdx} | {feedCount} | {response.PostFulls.Count} | {dataIndex}");
             }
             else
                 loopFeed.SelectedIndex = dataIndex;
@@ -421,63 +377,6 @@ public class HappeningFeedAction : MonoBehaviour
         MustReset = true;
     }
 
-    // Reaction
-
-    //public void ApplyReaction(int dataIndex, bool check)
-    //{
-    //    selectedIdx = dataIndex % loopFeed.ValuesCount;
-
-    //    loopFeed[selectedIdx].SetCheck(3, false);
-    //    loopFeed.RefreshVisibleValues();
-
-    //    if (!check)
-    //    {
-    //        happeningService.DeleteReaction(new Reaction(-1, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id));
-    //        return;
-    //    }
-
-    //    cmbReaction.Combo.Click();
-    //}
-
-    //public void RegisterReaction()
-    //{
-    //    long reactionPhraseId = cmbReaction.GetSelectedId();
-
-    //    Reaction reaction = new Reaction(reactionPhraseId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    happeningService.RegisterReaction(reaction);
-
-    //    loopFeed[selectedIdx].SetCheck(3, true);
-    //    loopFeed.RefreshVisibleValues();
-    //}
-
-    //public void ApplyDetailReaction(bool check)
-    //{
-    //    loopFeed[selectedIdx].SetCheck(3, check);
-    //    loopFeed.RefreshVisibleValues();
-    //}
-
-    // Plaint
-
-    //public void DisplayPlaintTypes()
-    //{
-    //    cmbPlaintType.Combo.Click();
-    //}
-
-    //public void ApplyPlaint()
-    //{
-    //    ScreenDialog.Instance.Display();
-
-    //    long plaintTypeId = cmbPlaintType.GetSelectedId();
-
-    //    PostPlaint postPlaint = new PostPlaint(plaintTypeId, ((HappeningUserData)loopFeed[selectedIdx].UserData).PostId, StateManager.Instance.AppUser.Id);
-    //    //happeningService.RegisterPostPlaint(postPlaint);
-    //}
-
-    //public void PlaintRegistered()
-    //{
-    //    ChoiceDialog.Instance.Info("Reporte", "Reporte registrado exitosamente.");
-    //}
-
     // Errors
 
     public void OnSendError(String error)
@@ -499,29 +398,5 @@ public class HappeningFeedAction : MonoBehaviour
     {
         MustReset = true;
         PageManager.Instance.ChangePage(pagMenu);
-    }
-
-    // Debug
-
-    String[] valueDates;
-
-    public void UpdateDebug(int k, HappeningFeed happeningFeed)
-    {
-        if (happeningFeed.PublicationDateTime.Year == 1753)
-            valueDates[k] = "<color=red>--:--:--:---- : -1</color>";
-        else
-            valueDates[k] = $"<color=red>{happeningFeed.PublicationDateTime.ToString("HH:mm:ss:ffff")} : {happeningFeed.Title}</color>";
-
-    }
-
-    public void UpdateOverlay(int idx)
-    {
-        if (trfOverlay == null)
-            return;
-
-        if (loopFeed.ValuesCount == 0)
-            return;
-
-        trfOverlay.anchoredPosition = new Vector2(trfOverlay.anchoredPosition.x, -.5f - 22.2f * (idx % loopFeed.ValuesCount));
     }
 }
