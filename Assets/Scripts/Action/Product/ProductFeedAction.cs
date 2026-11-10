@@ -106,13 +106,13 @@ public class ProductFeedAction : MonoBehaviour
         {
             if (tggLocalityFavorite.Value == "0")
             {
-                lblLocality.TextValue = "Productos cerca de ti en:";
+                lblLocality.TextValue = "Productos cerca de ti en";
                 txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, "Name")
                                                                                             : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, "Name");
             }
             else if (tggLocalityFavorite.Value == "1")
             {
-                lblLocality.TextValue = "Productos de tu tierra en:";
+                lblLocality.TextValue = "Productos de tu tierra en";
                 txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, "Name")
                                                                                              : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, "Name");
             }
@@ -136,11 +136,6 @@ public class ProductFeedAction : MonoBehaviour
 
         MustReset = false;
     }
-
-    //public void ReloadPosts(bool force)
-    //{
-    //    GetPosts(firstPostIdx, new NewsUserData(firstPostId, DateTime.UtcNow), 3);
-    //}
 
     public void GetPosts(int startLoopIdx, object userData, int direction)
     {

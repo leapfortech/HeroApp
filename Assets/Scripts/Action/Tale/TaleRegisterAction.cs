@@ -83,13 +83,4 @@ public class TaleRegisterAction : MonoBehaviour
         Clear();
         PageManager.Instance.ChangePage(pagNext);
     }
-
-    // Locality
-
-    bool interestLocality = true;
-
-    public void ApplyLocality(bool interestLocality)
-    {
-        this.interestLocality = interestLocality;
-    }
 }

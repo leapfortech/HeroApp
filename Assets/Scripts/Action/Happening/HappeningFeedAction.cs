@@ -105,7 +105,7 @@ public class HappeningFeedAction : MonoBehaviour
         {
             String localityName = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, 0)
                                                                                       : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, 1);
-            txtLocality.TextValue = $"Eventos en: {localityName}";
+            txtLocality.TextValue = $"Eventos en {localityName}";
         }
 
         if (!MustReset && !force)

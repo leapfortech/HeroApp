@@ -231,8 +231,8 @@ public class TaleDetailAction : MonoBehaviour
         String currentLocation = !String.IsNullOrWhiteSpace(currCity) ? currCity : !String.IsNullOrWhiteSpace(currState) ? currState : currCountry;
         String interestLocation = !String.IsNullOrWhiteSpace(intCity) ? intCity : !String.IsNullOrWhiteSpace(intState) ? intState : intCountry;
 
-        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en: " + currentLocation;
-        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de: " + interestLocation;
+        txtCurrentLocation.TextValue = String.IsNullOrWhiteSpace(currentLocation) ? "" : "Vive en " + currentLocation;
+        txtInterestLocation.TextValue = String.IsNullOrWhiteSpace(interestLocation) ? "" : "Originario de " + interestLocation;
 
         DisplayReactionsCount();
 

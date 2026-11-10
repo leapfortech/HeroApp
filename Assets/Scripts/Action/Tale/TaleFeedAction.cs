@@ -60,8 +60,6 @@ public class TaleFeedAction : MonoBehaviour
     UnityLongEvent onValueSelected = null;
     [SerializeField]
     UnityLongEvent onCommentSelected = null;
-    [SerializeField]
-    UnityBoolEvent onLocalityRefreshed = null;
 
     TaleService taleService;
     int selectedIdx = -1;
@@ -101,17 +99,20 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
+        if (tggLocality.Value == null)
+            SetLocality();
+
         if (txtLocality != null)
         {
             if (tggLocality.Value == "0")
             {
-                lblLocality.TextValue = "Historias cerca de ti en:";
+                lblLocality.TextValue = "Historias cerca de ti en";
                 txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, "Name")
                                                                                             : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, "Name");
             }
             else
             {
-                lblLocality.TextValue = "Historias de tu tierra en:";
+                lblLocality.TextValue = "Historias de tu tierra en";
                 txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, "Name")
                                                                                              : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, "Name");
             }
@@ -317,13 +318,19 @@ public class TaleFeedAction : MonoBehaviour
 
     bool interestLocality = false;
 
+    public void SetLocality()
+    {
+        if (tggLocality.Value == null)
+            tggLocality.Value = "0";
+
+        interestLocality = tggLocality.Value == "1";
+    }
+
     public void ApplyLocality()
     {
-        interestLocality = tggLocality.Value == "1";
+        SetLocality();
 
         ResetPosts(true);
-
-        onLocalityRefreshed.Invoke(interestLocality);
     }
 
     public void ChangeLocality(bool isInterest)
