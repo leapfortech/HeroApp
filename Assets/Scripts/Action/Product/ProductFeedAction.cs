@@ -203,12 +203,27 @@ public class ProductFeedAction : MonoBehaviour
                 UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
             }
 
-            for (int i = 0; i < response.ProductFeeds.Count; i += 2)
+            if (response.ProductFeeds.Count % 2 == 0)
             {
-                int k = (startLoopIdx + (n + i) / 2) % loopFeed.ValuesCount;
-                UpdateValue(response.ProductFeeds[i], i + 1 < response.ProductFeeds.Count ? response.ProductFeeds[i + 1] : emptyProductFeed, loopFeed[k]);
+                for (int i = 0; i < response.ProductFeeds.Count; i += 2)
+                {
+                    int k = (startLoopIdx + (n + i) / 2) % loopFeed.ValuesCount;
+                    UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
+                }
+            }
+            else
+            {
+                int k = (startLoopIdx + (n + 0) / 2) % loopFeed.ValuesCount;
+                UpdateValue(emptyProductFeed, response.ProductFeeds[0], loopFeed[k]);
+
+                for (int i = 1; i < response.ProductFeeds.Count; i += 2)
+                {
+                    k = (startLoopIdx + (n + i + 1) / 2) % loopFeed.ValuesCount;
+                    UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
+                }
             }
         }
+
         loopFeed.RefreshVisibleValues();
 
         ScreenDialog.Instance.Hide();
