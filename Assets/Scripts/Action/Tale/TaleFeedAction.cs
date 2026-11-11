@@ -99,22 +99,25 @@ public class TaleFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        if (tggLocality.Value == null)
-            SetLocality();
+        if (tggLocality != null)
+        { 
+            if (tggLocality.Value == null)
+                SetLocality();
 
-        if (txtLocality != null)
-        {
-            if (tggLocality.Value == "0")
+            if (txtLocality != null)
             {
-                lblLocality.TextValue = "Historias cerca de ti en";
-                txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, "Name")
-                                                                                            : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, "Name");
-            }
-            else
-            {
-                lblLocality.TextValue = "Historias de tu tierra en";
-                txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, "Name")
-                                                                                             : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, "Name");
+                if (tggLocality.Value == "0")
+                {
+                    lblLocality.TextValue = "Historias cerca de ti en";
+                    txtLocality.TextValue = StateManager.Instance.CurrentLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.CurrentLocality.CountryId, "Name")
+                                                                                                : vllState.FindRecordCellString(StateManager.Instance.CurrentLocality.StateId, "Name");
+                }
+                else
+                {
+                    lblLocality.TextValue = "Historias de tu tierra en";
+                    txtLocality.TextValue = StateManager.Instance.InterestLocality.StateId == -1 ? vllCountry.FindRecordCellString(StateManager.Instance.InterestLocality.CountryId, "Name")
+                                                                                                 : vllState.FindRecordCellString(StateManager.Instance.InterestLocality.StateId, "Name");
+                }
             }
         }
 
