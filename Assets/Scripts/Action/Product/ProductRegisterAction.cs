@@ -105,7 +105,7 @@ public class ProductRegisterAction : MonoBehaviour
 
         productFull.LinkFulls = new();
 
-        bool hasContact = tglHasContact.Checked;
+        bool hasContact = true;
 
         bool hasPhone = tglHasPhone.Checked;
         if (hasPhone)
@@ -135,17 +135,17 @@ public class ProductRegisterAction : MonoBehaviour
             }
         }
 
-        //if (hasContact && productFull.LinkFulls.Count == 0)
-        //{
-        //    ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
-        //    return;
-        //}
+        if (hasContact && productFull.LinkFulls.Count == 0)
+        {
+            ChoiceDialog.Instance.Error("Información de contacto", "Debes ingresar al menos un teléfono, WhatsApp o correo electrónico.");
+            return;
+        }
 
-        //if (!hasContact)
-        //{
-        //    productFull.ContactFull = null;
-        //    productFull.LinkFulls = null;
-        //}
+        if (!hasContact)
+        {
+            productFull.ContactFull = null;
+            productFull.LinkFulls = null;
+        }
 
         // Images
         productFull.ImageSprites = dtmImagesVLL.BuildBuiltInList<Sprite>();
