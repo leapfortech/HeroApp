@@ -21,6 +21,8 @@ public class HappeningUpdateAction : MonoBehaviour
     [Title("Elements")]
     [SerializeField]
     ElementValue[] elementValues = null;
+    [Space, SerializeField]
+    InputField ifdPaymentDetails = null;
 
     [Title("Data")]
     [SerializeField]
@@ -111,11 +113,11 @@ public class HappeningUpdateAction : MonoBehaviour
 
         this.happeningFull = happeningFull;
 
-        dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
+        tglHasPayment.Checked = happeningFull.HasPayment == 1;
+        tglIsPublic.Checked = happeningFull.IsPublic == 1;
+        tglHasSignup.Checked = happeningFull.HasSignup == 1;
 
-        tglIsPublic.Checked = this.happeningFull.IsPublic == 1;
-        tglHasSignup.Checked = this.happeningFull.HasSignup == 1;
-        tglHasPayment.Checked = this.happeningFull.HasPayment == 1;
+        dtmHappeningFull.PopulateClass<HappeningFull>(happeningFull);
 
         String startTimeStr = this.happeningFull.StartDateTime.Value.ToString("HH|mm", CultureInfo.InvariantCulture);
         dtmStartTime.PopulateBuiltIn<String>(startTimeStr);
@@ -187,6 +189,8 @@ public class HappeningUpdateAction : MonoBehaviour
             vllImages.AddRecord(happeningFull.ImageSprites[i].Clone($"Edt_{PostType.Names[PostType.Happening]}_{i}"));
 
         onPopulated.Invoke();
+
+        ifdPaymentDetails.Text = this.happeningFull.PaymentDetails;
     }
 
     private void DoUpdate()
