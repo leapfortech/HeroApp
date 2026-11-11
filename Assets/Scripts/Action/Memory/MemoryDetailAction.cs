@@ -207,8 +207,8 @@ public class MemoryDetailAction : MonoBehaviour
 
         txtAlias.TextValue = $"@{memoryFull.AppUserAlias}";
 
-        String country = memoryFull.PostCountryId == -1 ? "" : vllCountry.FindRecordCellString(memoryFull.PostCountryId, "Name");
-        String state = memoryFull.PostStateId == -1 ? "" : vllState.FindRecordCellString(memoryFull.PostStateId, "Name");
+        String country = memoryFull.CountryId == -1 ? "" : vllCountry.FindRecordCellString(memoryFull.CountryId, "Name");
+        String state = memoryFull.StateId == -1 ? "" : vllState.FindRecordCellString(memoryFull.StateId, "Name");
         txtLocation.TextValue = country + (!String.IsNullOrWhiteSpace(country) && !String.IsNullOrWhiteSpace(state) ? ", " : "") + state;
 
         txtDateTime.TextValue = memoryFull.DateTime == null ? "-" : memoryFull.DateTime.Value.ToString("dd/MM/yyyy 'a las' HH:mm");
