@@ -98,8 +98,10 @@ public class HappeningFeedAction : MonoBehaviour
             return;
 
         gobEmptyFeed.SetActive(false);
-        gobEmptySelected.SetActive(false);
-        gobEmptyFavorite.SetActive(false);
+        if (gobEmptySelected != null)
+            gobEmptySelected.SetActive(false);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new HappeningUserData(-1, DateTime.UtcNow), 2);
@@ -145,8 +147,10 @@ public class HappeningFeedAction : MonoBehaviour
     public void ApplyPosts(HappeningFeedResponse response)
     {
         gobEmptyFeed.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "0");
-        gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
-        gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
+        if (gobEmptySelected != null)
+            gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 

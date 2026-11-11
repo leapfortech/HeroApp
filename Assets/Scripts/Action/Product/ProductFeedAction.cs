@@ -87,11 +87,11 @@ public class ProductFeedAction : MonoBehaviour
 
     public void ResetPosts(bool force)
     {
-        if (tggLocalityFavorite.Value == null)
-            SetLocalityFavorite();
-
-        if (txtLocality != null)
+        if (tggLocalityFavorite != null)
         {
+            if (tggLocalityFavorite.Value == null)
+                SetLocalityFavorite();
+
             if (tggLocalityFavorite.Value == "0")
             {
                 lblLocality.TextValue = "Productos cerca de ti en";
@@ -115,7 +115,8 @@ public class ProductFeedAction : MonoBehaviour
             return;
 
         gobEmptyFeed.SetActive(false);
-        gobEmptyFavorite.SetActive(false);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new ProductUserData(-1L, DateTime.UtcNow), 2);
@@ -161,7 +162,8 @@ public class ProductFeedAction : MonoBehaviour
     public void ApplyPosts(ProductFeedResponse response)
     {
         gobEmptyFeed.SetActive(response.Total == 0 && favoriteAppUserId == -1L);
-        gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
+        if (gobEmptyFavorite != null)
+            gobEmptyFavorite.SetActive(response.Total == 0 && favoriteAppUserId != -1L);
 
         int startLoopIdx = (response.Chunk / 2) % loopFeed.ValuesCount;
 
