@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -198,11 +199,11 @@ public class ProductDetailAction : MonoBehaviour
         lblDiscountPrice.gameObject.SetActive(productFull.DiscountPrice > 0d);
         if (productFull.DiscountPrice > 0d)
         {
-            txtPrice.TextValue = currencySymbol + " " + productFull.DiscountPrice.ToString("N2");
-            txtDiscountPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
+            txtPrice.TextValue = currencySymbol + " " + productFull.DiscountPrice.ToString("N2", CultureInfo.InvariantCulture);
+            txtDiscountPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2", CultureInfo.InvariantCulture);
         }
         else
-            txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2");
+            txtPrice.TextValue = currencySymbol + " " + productFull.Price.ToString("N2", CultureInfo.InvariantCulture);
 
         txtDate.TextValue = productFull.PublicationDateTime.ToLocalTime().ToString("dd/MM/yyyy");
         txtLocation.TextValue = vllCountry.FindRecordCellString(productFull.PostCountryId, "Name") + (productFull.PostStateId != -1 ? ", " + vllState.FindRecordCellString(productFull.PostStateId, "Name") : "");

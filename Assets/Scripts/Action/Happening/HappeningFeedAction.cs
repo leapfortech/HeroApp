@@ -219,7 +219,7 @@ public class HappeningFeedAction : MonoBehaviour
     {
         bool empty = happeningFeed.PublicationDateTime.Year == 1753;
         loopValue.ItemIdx = empty ? 0 : 1;
-        loopValue.ItemSize = empty ? 2000 : 788;
+        loopValue.ItemSize = empty ? 2000 : 708;
         loopValue.Reset(loopFeed.LoopItems[loopValue.ItemIdx].LoopItem, empty ? null : new HappeningUserData(happeningFeed.PostId, happeningFeed.PublicationDateTime, happeningFeed.FavoriteCount));
 
         if (empty)

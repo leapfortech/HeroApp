@@ -33,8 +33,8 @@ public class ProductFeedAction : MonoBehaviour
     GameObject gobEmptyFeed;
     [SerializeField]
     GameObject gobEmptyFavorite;
-    [SerializeField]
-    bool smoothReload = true;
+    //[SerializeField]
+    //bool smoothReload = true;
 
     [Title("Data")]
     [SerializeField]
@@ -115,9 +115,7 @@ public class ProductFeedAction : MonoBehaviour
             return;
 
         gobEmptyFeed.SetActive(false);
-
-        if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(false);
+        gobEmptyFavorite.SetActive(false);
 
         resetting = true;
         GetPosts(0, new ProductUserData(-1L, DateTime.UtcNow), 2);
@@ -196,31 +194,38 @@ public class ProductFeedAction : MonoBehaviour
         }
         else
         {
-            int n = feedCount - response.ProductFeeds.Count;
-            for (int i = 0; i < n; i += 2)
-            {
-                int k = (startLoopIdx + i / 2) % loopFeed.ValuesCount;
-                UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
-            }
+            //int n = feedCount - response.ProductFeeds.Count;
+            //for (int i = 0; i < n; i += 2)
+            //{
+            //    int k = (startLoopIdx + i / 2) % loopFeed.ValuesCount;
+            //    UpdateValue(emptyProductFeed, emptyProductFeed, loopFeed[k]);
+            //}
 
-            if (response.ProductFeeds.Count % 2 == 0)
-            {
-                for (int i = 0; i < response.ProductFeeds.Count; i += 2)
-                {
-                    int k = (startLoopIdx + (n + i) / 2) % loopFeed.ValuesCount;
-                    UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
-                }
-            }
-            else
-            {
-                int k = (startLoopIdx + (n + 0) / 2) % loopFeed.ValuesCount;
-                UpdateValue(emptyProductFeed, response.ProductFeeds[0], loopFeed[k]);
+            //if (response.ProductFeeds.Count % 2 == 0)
+            //{
+            //    for (int i = 0; i < response.ProductFeeds.Count; i += 2)
+            //    {
+            //        int k = (startLoopIdx + (n + i) / 2) % loopFeed.ValuesCount;
+            //        UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
+            //    }
+            //}
+            //else
+            //{
+            //    int k = (startLoopIdx + (n + 0) / 2) % loopFeed.ValuesCount;
+            //    UpdateValue(emptyProductFeed, response.ProductFeeds[0], loopFeed[k]);
 
-                for (int i = 1; i < response.ProductFeeds.Count; i += 2)
-                {
-                    k = (startLoopIdx + (n + i + 1) / 2) % loopFeed.ValuesCount;
-                    UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
-                }
+            //    for (int i = 1; i < response.ProductFeeds.Count; i += 2)
+            //    {
+            //        k = (startLoopIdx + (n + i + 1) / 2) % loopFeed.ValuesCount;
+            //        UpdateValue(response.ProductFeeds[i], response.ProductFeeds[i + 1], loopFeed[k]);
+            //    }
+            //}
+
+            if (response.ProductFeeds.Count > 0)
+            {
+                resetting = true;
+                GetPosts(0, new ProductUserData(-1L, DateTime.UtcNow), 2);
+                return;
             }
         }
 
@@ -228,18 +233,18 @@ public class ProductFeedAction : MonoBehaviour
 
         ScreenDialog.Instance.Hide();
 
-        if (response.Direction == 3 && response.ProductFeeds.Count > 0)
-        {
-            int dataIndex = (startLoopIdx + (feedCount - response.ProductFeeds.Count) / 2) % loopFeed.ValuesCount;
+        //if (response.Direction == 3 && response.ProductFeeds.Count > 0)
+        //{
+        //    int dataIndex = (startLoopIdx + (feedCount - response.ProductFeeds.Count) / 2) % loopFeed.ValuesCount;
 
-            if (smoothReload)
-            {
-                loopFeed.SelectedIndex = (startLoopIdx + feedCount / 2) % loopFeed.ValuesCount;
-                loopFeed.SelectSmooth(dataIndex);
-            }
-            else
-                loopFeed.SelectedIndex = dataIndex;
-        }
+        //    if (smoothReload)
+        //    {
+        //        loopFeed.SelectedIndex = (startLoopIdx + feedCount / 2) % loopFeed.ValuesCount;
+        //        loopFeed.SelectSmooth(dataIndex);
+        //    }
+        //    else
+        //        loopFeed.SelectedIndex = dataIndex;
+        //}
     }
 
     private void ResetSelectedIndex()
@@ -269,7 +274,7 @@ public class ProductFeedAction : MonoBehaviour
             loopValue.SetSprite(pos + 0, productFeed.TitleSprite);
             String saleLocation = !String.IsNullOrEmpty(productFeed.State) ? productFeed.State : productFeed.Country;
             loopValue.SetText(pos + 2, saleLocation);
-            loopValue.SetText(pos + 4, productFeed.ProductSubtype);
+            loopValue.SetText(pos + 4, $"<line-height=70%>{productFeed.ProductSubtype}");
             loopValue.SetText(pos + 6, $"<line-height=70%>{productFeed.Title}");
             loopValue.SetText(pos + 8, $"{productFeed.Currency} {productFeed.Price.ToString("N2", CultureInfo.InvariantCulture)}");
             loopValue.SetActive(pos + 10, false);
