@@ -20,7 +20,7 @@ public class ServiceWishRegisterAction : MonoBehaviour
     [SerializeField]
     ToggleGroup tggServiceWishOption = null;
     [SerializeField]
-    InputField ifdServiceWish = null;
+    InputMultiline imlServiceWish = null;
     [SerializeField]
     Text txtDone = null;
 
@@ -60,27 +60,24 @@ public class ServiceWishRegisterAction : MonoBehaviour
     public void Clear()
     {
         tggServiceWishOption.Clear();
-        ifdServiceWish.Clear();
+        imlServiceWish.Clear();
         scrollRect.verticalNormalizedPosition = 1f;
     }
 
     public void Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, ChangePageMenu, null, "Si, deseo salir", "Continuar con solicitud");
+        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, ChangePageMenu, null, "Sí, deseo salir", "Continuar con solicitud");
     }
 
     private void Register()
     {
-        if (!ElementHelper.Validate(ifdServiceWish))
+        if (!ElementHelper.Validate(imlServiceWish))
             return;
 
         ScreenDialog.Instance.Display();
 
-        serviceWishService.Register(new ServiceWish(-1,
-                                                    StateManager.Instance.AppUser.Id,
-                                                    serviceWishTypeId,
-                                                    Convert.ToInt64(tggServiceWishOption.Value),
-                                                    ifdServiceWish.Text, -1));
+        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId,
+                                                    Convert.ToInt64(tggServiceWishOption.Value), imlServiceWish.TextValue, -1));
     }
 
     public void ApplyServiceWish(long serviceWishId)
