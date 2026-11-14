@@ -66,7 +66,7 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
     public void Exit()
     {
-        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, ChangePageMenu, null, "Sí, deseo salir", "Continuar con solicitud");
+        ChoiceDialog.Instance.Warning("¿Seguro deseas salir?", exitMessage, ChangePageMenu, null, "Sí, deseo salir", "Continuar");
     }
 
     private void Register()
