@@ -77,7 +77,7 @@ public class ServiceWishRegisterAction : MonoBehaviour
         ScreenDialog.Instance.Display();
 
         serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId,
-                                                    Convert.ToInt64(tggServiceWishOption.Value), imlServiceWish.TextValue, -1));
+                                                    Convert.ToInt64(tggServiceWishOption.Value), -1, imlServiceWish.TextValue, -1));
     }
 
     public void ApplyServiceWish(long serviceWishId)
