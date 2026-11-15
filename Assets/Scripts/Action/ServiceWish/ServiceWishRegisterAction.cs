@@ -83,7 +83,13 @@ public class ServiceWishRegisterAction : MonoBehaviour
             if (tglOptions[i].Checked)
                 options |= (1 << i);
 
-        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId, options, -1, imlServiceWish.TextValue, -1));
+        if (options == 0)
+        {
+            ChoiceDialog.Instance.Error("Ingreso de atos", "Debes seleccionar al menos una opción.");
+            return;
+        }
+
+        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId, -1, options, imlServiceWish.TextValue, -1));
     }
 
     public void ApplyServiceWish(long serviceWishId)
