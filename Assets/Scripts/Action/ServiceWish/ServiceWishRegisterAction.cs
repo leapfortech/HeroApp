@@ -17,9 +17,9 @@ public class ServiceWishRegisterAction : MonoBehaviour
     [Title("Data")]
     [SerializeField]
     int serviceWishTypeId = -1;
-    [SerializeField]
-    ToggleGroup tggServiceWishOption = null;
-    [SerializeField]
+    [Space, SerializeField]
+    Toggle[] tglOptions = null;
+    [Space, SerializeField]
     InputMultiline imlServiceWish = null;
     [SerializeField]
     Text txtDone = null;
@@ -59,7 +59,9 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
     public void Clear()
     {
-        tggServiceWishOption.Clear();
+        for (int i = 0; i < tglOptions.Length; i++)
+            tglOptions[i].Checked = false;
+        
         imlServiceWish.Clear();
         scrollRect.verticalNormalizedPosition = 1f;
     }
@@ -76,8 +78,12 @@ public class ServiceWishRegisterAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
-        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId,
-                                                    Convert.ToInt64(tggServiceWishOption.Value), -1, imlServiceWish.TextValue, -1));
+        int options = 0;
+        for (int i = 0; i < tglOptions.Length; i++)
+            if (tglOptions[i].Checked)
+                options |= (1 << i);
+
+        serviceWishService.Register(new ServiceWish(-1, StateManager.Instance.AppUser.Id, serviceWishTypeId, options, -1, imlServiceWish.TextValue, -1));
     }
 
     public void ApplyServiceWish(long serviceWishId)
