@@ -146,7 +146,7 @@ public class HappeningFeedAction : MonoBehaviour
 
     public void ApplyPosts(HappeningFeedResponse response)
     {
-        gobEmptyFeed.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "0");
+        gobEmptyFeed.SetActive(response.Total == 0 && (tggFavoriteSelected == null || tggFavoriteSelected.Value == "0"));
         if (gobEmptySelected != null)
             gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
         if (gobEmptyFavorite != null)
