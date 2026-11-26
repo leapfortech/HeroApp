@@ -1,10 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
-using Leap.Data.Collections;
-using Leap.UI.Elements;
+using Leap.UI.Page;
 
 using Sirenix.OdinInspector;
 
@@ -17,16 +13,9 @@ public class HomeAction : MonoBehaviour
     [SerializeField]
     GameObject carouselInactive = null;
 
-    //[Title("Elements")]
-    //[SerializeField]
-    //Text txtPuzzleTitle1 = null;
-    //[SerializeField]
-    //Text txtPuzzleTitle2 = null;
-
-    //[Title("Values")]
-    //[SerializeField]
-    //ValueList vllCountry = null;
-
+    [Title("Page")]
+    [SerializeField]
+    Page pagHome = null;
 
     public void RefreshHome()
     {
@@ -34,13 +23,17 @@ public class HomeAction : MonoBehaviour
 
         carouselActive.SetActive(!localityStatus);
         carouselInactive.SetActive(localityStatus);
+    }
 
-        //if (!localityStatus)
-        //{
-        //    String demonym = vllCountry.FindRecordCellString(Convert.ToInt32(StateManager.Instance.InterestLocality.CountryId), "Demonym");
+    public bool FromSandwich { get; set; } = false;
 
-        //    txtPuzzleTitle1.TextValue = !String.IsNullOrWhiteSpace(demonym) ? "Fiesta " : "Diversión y";
-        //    txtPuzzleTitle2.TextValue = !String.IsNullOrWhiteSpace(demonym) ? demonym : " recreación";
-        //}
+    public bool ChangeBackPage()
+    {
+        PageManager.Instance.ChangePage(pagHome);
+
+        if (FromSandwich)
+            SandwichMenu.Instance.Open();
+
+        return false;
     }
 }
