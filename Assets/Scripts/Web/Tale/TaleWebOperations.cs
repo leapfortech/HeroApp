@@ -59,6 +59,7 @@ public class TaleGetFullsOperation : HttpOperation
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/tale/Feed")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpTimeout(60)]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
