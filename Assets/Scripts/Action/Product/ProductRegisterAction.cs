@@ -3,10 +3,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+using Leap.UI.Extensions;
 using Leap.UI.Elements;
 using Leap.UI.Page;
 using Leap.UI.Dialog;
 using Leap.Data.Mapper;
+using Leap.Data.Collections;
 
 using Sirenix.OdinInspector;
 
@@ -21,6 +23,12 @@ public class ProductRegisterAction : MonoBehaviour
     Toggle tglDiscountPrice = null;
     [SerializeField]
     InputField ifdDiscountPrice = null;
+    [SerializeField]
+    ComboAdapter cmbCurrency = null;
+    [SerializeField]
+    ComboAdapter cmbSaleCountry = null;
+    [SerializeField]
+    ComboAdapter cmbSaleState = null;
 
     [Title("Data")]
     [SerializeField]
@@ -78,7 +86,22 @@ public class ProductRegisterAction : MonoBehaviour
         tglDiscountPrice.Checked = false;
         tglHasContact.Checked = true;
 
+        FillCombos();
+
         onCleared.Invoke();
+    }
+
+    public void FillCombos()
+    {
+        long countryId = StateManager.Instance.CurrentLocality.CountryId;
+
+        if (countryId == 67)
+            cmbCurrency.Select(47);
+        else if (countryId == 84)
+            cmbCurrency.Select(125);
+
+        cmbSaleCountry.Select(StateManager.Instance.CurrentLocality.CountryId);
+        cmbSaleState.Select(StateManager.Instance.CurrentLocality.StateId);
     }
 
     private void Register()
