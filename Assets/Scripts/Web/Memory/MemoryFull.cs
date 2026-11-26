@@ -43,8 +43,9 @@ public class MemoryFull : PostFull
 
         MemoryTypeId = memoryFull.MemoryTypeId;
         DateTime = memoryFull.DateTime;
-        CountryId = memoryFull.CountryId;
-        StateId = memoryFull.StateId;
+        
+        PostCountryId = memoryFull.PostCountryId;
+        PostStateId = memoryFull.PostStateId;
     }
 }
 

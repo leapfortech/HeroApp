@@ -42,11 +42,14 @@ public class MemoryUpdateAction : MonoBehaviour
     [SerializeField]
     MemoryFeedEvent[] onMemoryChanged = null;
     [Space, SerializeField]
+    UnityEvent onLocatilyChanged = null;
+    [Space, SerializeField]
     UnityEvent onPopulated = null;
 
     MemoryService memoryService = null;
     MemoryFull memoryFull = null;
 
+    bool localityChanged = false;
 
     private void Awake()
     {
@@ -91,8 +94,12 @@ public class MemoryUpdateAction : MonoBehaviour
 
         ScreenDialog.Instance.Display();
 
+        long postCountryId = memoryFull.PostCountryId;
+        long postStateId = memoryFull.PostStateId;
+
         memoryFull.Update(dtmMemoryFull.BuildClass<MemoryFull>());
 
+        localityChanged = memoryFull.PostCountryId != postCountryId || memoryFull.PostStateId != postStateId;
 
         if (memoryFull.DateTime.HasValue)
         {
@@ -125,7 +132,10 @@ public class MemoryUpdateAction : MonoBehaviour
             return;
         }
 
-        onMemoryChanged[StateManager.Instance.FeedDetailType].Invoke(new MemoryFeed(memoryFull));
+        if (localityChanged)
+            onLocatilyChanged.Invoke();
+        else
+            onMemoryChanged[StateManager.Instance.FeedDetailType].Invoke(new MemoryFeed(memoryFull));
 
         Clear();
         PageManager.Instance.ChangePage(pagNexts[StateManager.Instance.FeedDetailType]);

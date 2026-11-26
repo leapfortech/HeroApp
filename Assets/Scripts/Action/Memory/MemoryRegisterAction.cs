@@ -76,8 +76,9 @@ public class MemoryRegisterAction : MonoBehaviour
 
         MemoryFull memoryFull = dtmMemoryFull.BuildClass<MemoryFull>();
         memoryFull.AppUserId = StateManager.Instance.AppUser.Id;
-        memoryFull.PostCountryId = StateManager.Instance.InterestLocality.CountryId;
-        memoryFull.PostStateId = StateManager.Instance.InterestLocality.StateId;
+        
+        memoryFull.CountryId = StateManager.Instance.InterestLocality.CountryId;
+        memoryFull.StateId = StateManager.Instance.InterestLocality.StateId;
 
         if (memoryFull.DateTime.HasValue)
         {

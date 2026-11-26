@@ -187266,6 +187266,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onLocatilyChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 570888413}
+        m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+        m_MethodName: set_MustReset
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1141449744}
+        m_TargetAssemblyTypeName: MemoryFeedAction, Assembly-CSharp
+        m_MethodName: set_MustReset
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onPopulated:
     m_PersistentCalls:
       m_Calls:
@@ -318493,15 +318520,15 @@ MonoBehaviour:
           ItemIdx: -1
         - FieldName: CountryId
           FieldTypeName: System.Int64
-          dataSourceType: 1
+          dataSourceType: 0
           dataFieldSource:
-            rid: 1502241907614679146
+            rid: -2
           ItemIdx: -1
         - FieldName: StateId
           FieldTypeName: System.Int64
-          dataSourceType: 1
+          dataSourceType: 0
           dataFieldSource:
-            rid: 1502241907614679147
+            rid: -2
           ItemIdx: -1
         - FieldName: DateTime
           FieldTypeName: 'System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0,
@@ -318548,15 +318575,15 @@ MonoBehaviour:
           ItemIdx: -1
         - FieldName: PostCountryId
           FieldTypeName: System.Int64
-          dataSourceType: 0
+          dataSourceType: 1
           dataFieldSource:
-            rid: -2
+            rid: 3712647848203649739
           ItemIdx: -1
         - FieldName: PostStateId
           FieldTypeName: System.Int64
-          dataSourceType: 0
+          dataSourceType: 1
           dataFieldSource:
-            rid: -2
+            rid: 3712647848203649740
           ItemIdx: -1
         - FieldName: Title
           FieldTypeName: System.String
@@ -318687,30 +318714,6 @@ MonoBehaviour:
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1063626626}
-    - rid: 1502241907614679146
-      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: CountryId
-          FieldTypeName: System.Int64
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 1502241907614679146
-          ItemIdx: -1
-        NeedsItem: 0
-        elementValue: {fileID: 174461882}
-    - rid: 1502241907614679147
-      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
-      data:
-        dataFieldValue:
-          FieldName: StateId
-          FieldTypeName: System.Int64
-          dataSourceType: 1
-          dataFieldSource:
-            rid: 1502241907614679147
-          ItemIdx: -1
-        NeedsItem: 0
-        elementValue: {fileID: 147407395}
     - rid: 1502241907614679148
       type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
       data:
@@ -318724,6 +318727,30 @@ MonoBehaviour:
           ItemIdx: -1
         NeedsItem: 0
         elementValue: {fileID: 1974969519}
+    - rid: 3712647848203649739
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: PostCountryId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 3712647848203649739
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 174461882}
+    - rid: 3712647848203649740
+      type: {class: DataFieldElement, ns: Leap.Data.Mapper, asm: Leap.Data.Mapper}
+      data:
+        dataFieldValue:
+          FieldName: PostStateId
+          FieldTypeName: System.Int64
+          dataSourceType: 1
+          dataFieldSource:
+            rid: 3712647848203649740
+          ItemIdx: -1
+        NeedsItem: 0
+        elementValue: {fileID: 147407395}
 --- !u!1001 &1015553671
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -508202,8 +508229,6 @@ MonoBehaviour:
   dtmWhatsApp: {fileID: 1459188955}
   dtmEmail: {fileID: 1507860496}
   dtmImagesVLL: {fileID: 1775780704}
-  vllCurrency: {fileID: 11400000, guid: dbb1e08ee144ce6488ac96fa487fde69, type: 2}
-  vllCountry: {fileID: 11400000, guid: a390f8e6d897ce940a78fc1a332944dd, type: 2}
   btnRegister: {fileID: 1617854964}
   onCleared:
     m_PersistentCalls:
