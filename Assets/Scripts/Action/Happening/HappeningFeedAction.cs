@@ -30,8 +30,6 @@ public class HappeningFeedAction : MonoBehaviour
     [SerializeField]
     GameObject gobEmptyFeed;
     [SerializeField]
-    GameObject gobEmptySelected;
-    [SerializeField]
     GameObject gobEmptyFavorite;
     [SerializeField]
     float smoothReload = 1f;
@@ -98,8 +96,6 @@ public class HappeningFeedAction : MonoBehaviour
             return;
 
         gobEmptyFeed.SetActive(false);
-        if (gobEmptySelected != null)
-            gobEmptySelected.SetActive(false);
         if (gobEmptyFavorite != null)
             gobEmptyFavorite.SetActive(false);
 
@@ -138,7 +134,7 @@ public class HappeningFeedAction : MonoBehaviour
             HappeningTypeIds = typeIds,
 
             FavoriteAppUserId = appUserId != -1 ? -1 : favoriteAppUserId,
-            SelectedAppUserId = appUserId != -1 ? -1 : selectedAppUserId
+            SelectedAppUserId = appUserId != -1 ? -1 : favoriteAppUserId
         };
 
         happeningService.GetFeed(request);
@@ -147,10 +143,8 @@ public class HappeningFeedAction : MonoBehaviour
     public void ApplyPosts(HappeningFeedResponse response)
     {
         gobEmptyFeed.SetActive(response.Total == 0 && (tggFavoriteSelected == null || tggFavoriteSelected.Value == "0"));
-        if (gobEmptySelected != null)
-            gobEmptySelected.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
         if (gobEmptyFavorite != null)
-            gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "2");
+            gobEmptyFavorite.SetActive(response.Total == 0 && tggFavoriteSelected.Value == "1");
 
         int startLoopIdx = response.Chunk % loopFeed.ValuesCount;
 
@@ -280,16 +274,13 @@ public class HappeningFeedAction : MonoBehaviour
     }
 
     long favoriteAppUserId = -1;
-    long selectedAppUserId = -1;
 
     public void ApplyAppUserFavoriteSelected()
     {
-        selectedAppUserId = tggFavoriteSelected.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
-        favoriteAppUserId = tggFavoriteSelected.Value == "2" ? StateManager.Instance.AppUser.Id : -1;
+        favoriteAppUserId = tggFavoriteSelected.Value == "1" ? StateManager.Instance.AppUser.Id : -1;
 
         ResetPosts(true);
     }
-
 
     // Favorite
 
@@ -367,7 +358,7 @@ public class HappeningFeedAction : MonoBehaviour
         {
             happeningService.DeleteSelected(selected);
 
-            if (selectedAppUserId != -1)
+            if (favoriteAppUserId != -1)  // JAD
                 ResetPosts(true);
         }
     }

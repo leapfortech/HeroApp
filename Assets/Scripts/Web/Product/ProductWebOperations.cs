@@ -59,6 +59,7 @@ public class ProductGetFullsOperation : HttpOperation
 [HttpPOST]
 [HttpPathExt(WebServiceType.Main, "/product/Feed")]
 [HttpProvider(typeof(HttpUnityWebAzureClient))]
+[HttpTimeout(60)]
 [HttpContentType("application/json")]
 [HttpAccept("application/json")]
 [HttpFirebaseAuthorization]
