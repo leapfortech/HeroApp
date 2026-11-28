@@ -1,8 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using Leap.UI.Elements;
 using Leap.UI.Page;
+
+using MPUIKIT;
 
 using Sirenix.OdinInspector;
 
@@ -11,14 +13,21 @@ public class TwoWorldsAction : MonoBehaviour
     [Space, SerializeField]
     ListScroller lstTwoWorlds = null;
 
+    [Title("Indicators")]
+    [SerializeField]
+    RectTransform indicatorPrefab;
+    [SerializeField]
+    RectTransform indicatorsParent;
+    [SerializeField]
+    Color indicatorOnColor = Color.white;
+    [SerializeField]
+    Color indicatorOffColor = Color.gray;
+
     [Space, SerializeField]
     TwoWorldsOption[] options = null;
 
     public void CreateTwoWorlds()
     {
-        //if (lstTwoWorlds.ValuesCount > 0)
-        //    return;
-
         lstTwoWorlds.ClearValues();
         for (int i = 0; i < options.Length; i++)
         {
@@ -32,10 +41,42 @@ public class TwoWorldsAction : MonoBehaviour
             lstTwoWorlds.AddValue(listValue);
         }
         lstTwoWorlds.ApplyValues();
+
+        CreateIndicator();
     }
 
     public void GoToPage(int idx)
     {
         PageManager.Instance.ChangePage(options[idx].Page);
+    }
+
+    // Indicators
+
+    List<MPImageBasic> indicators = new List<MPImageBasic>();
+    int curOption = 0;
+
+    void CreateIndicator()
+    {
+        indicators.Clear();
+
+        foreach (Transform child in indicatorsParent)
+            Destroy(child.gameObject);
+
+        for (int i = 0; i < options.Length; i++)
+        {
+            MPImageBasic imgIndicator = Instantiate(indicatorPrefab, indicatorsParent).GetComponent<MPImageBasic>();
+            imgIndicator.color = indicatorOffColor;
+
+            indicators.Add(imgIndicator);
+        }
+
+        indicators[0].color = indicatorOnColor;
+    }
+
+    public void UpdateIndicators(int newOption)
+    {
+        indicators[curOption].color = indicatorOffColor;
+        indicators[newOption].color = indicatorOnColor;
+        curOption = newOption;
     }
 }
